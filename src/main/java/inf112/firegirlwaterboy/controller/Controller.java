@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import inf112.firegirlwaterboy.model.GameState;
-import inf112.firegirlwaterboy.model.Entity.Player;
+import inf112.firegirlwaterboy.model.Entity.PlayerType;
 
 public class Controller implements KeyListener{
 

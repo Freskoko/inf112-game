@@ -1,7 +1,7 @@
 package inf112.firegirlwaterboy.controller;
 
 import inf112.firegirlwaterboy.model.GameState;
-import inf112.firegirlwaterboy.model.Entity.Player;
+import inf112.firegirlwaterboy.model.Entity.PlayerType;
 
 public interface IControllableModel {
 
@@ -25,7 +25,7 @@ public interface IControllableModel {
      * @param deltaCol
      * @return return true if move was done, if not false
      */
-    boolean move(Player player, int deltaRow, int deltaCol);
+    boolean move(PlayerType player, int deltaRow, int deltaCol);
 
 
      /**
