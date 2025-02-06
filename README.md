@@ -6,7 +6,7 @@
 
 ## Om spillet
 
-# TODO
+Spillet handler om firegirl and waterboy som må jobbe sammen for å komme seg ut av templet de er fanget i. På veien møter de på hindringer og feinder som prøver å stoppe de.
 
 ## Kjøring
 * Kompileres med `mvn package`.
