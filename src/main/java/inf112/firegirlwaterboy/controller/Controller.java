@@ -1,34 +1,30 @@
 package inf112.firegirlwaterboy.controller;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Entity.Player;
 
-public class Controller implements IControllableModel{
+public class Controller implements KeyListener{
 
   @Override
-  public GameState getGameState() {
+  public void keyTyped(KeyEvent e) {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getGameState'");
+    throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
   }
 
   @Override
-  public void setGameState(GameState gameState) {
+  public void keyPressed(KeyEvent e) {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setGameState'");
+    throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
   }
 
   @Override
-  public boolean move(Player player, int deltaRow, int deltaCol) {
+  public void keyReleased(KeyEvent e) {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'move'");
+    throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
   }
 
-  @Override
-  public int getTimerDelay() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getTimerDelay'");
-  }
 
-  
-  
 }
