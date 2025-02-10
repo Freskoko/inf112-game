@@ -9,3 +9,7 @@
 * `Guro Flatås`: INFO132, INF101, INFO135, INF140, INF161
 * `Gedvyde Petkeviciute`:  INF100, INF101, INF102, INF140, INF161, Gruppeleder: INF100
 
+## A1
+
+Repo er opprettet alt er fikset.
+
