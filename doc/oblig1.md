@@ -13,3 +13,16 @@
 
 Repo er opprettet alt er fikset.
 
+## A2:
+
+To spillfigurer som kan styres, gå til høyre/venstre, hoppe oppover.
+
+Todimensjonal verden:
+
+  * Bakke / platform spillerne kan stå på.
+  * Vegg som spilleren ikke kan gå gjennom
+  * Spilleren må komme seg til slutten av spillebrettet *mål*
+  * Spillerne kan få "poeng" ved å plukke opp ting (ex: diamanter)
+  * Utfordringen i spillet er å holde seg borte fra skadelige hindringer,
+  * Spillerne må også å "løse" levelet ved samarbeid.
+
