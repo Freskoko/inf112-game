@@ -61,3 +61,6 @@ Som programmør trenger jeg å skille platformer, vegger og hinder fra hverandre
 
 Som programmør trenger jeg å kunne lage en eller flere "spillere" for å teste programvaren i både simple og kompliserte situvasjoner.
 
+## A4: Kode
+
+wip på branch `henbro/box2d` og branch `CreatePlayer`, og noe på `main`
