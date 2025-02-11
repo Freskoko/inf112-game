@@ -16,6 +16,9 @@ public class EntityList<T extends IEntity> implements Iterable<T> {
   }
 
   public void addPlayer(PlayerType playerType, T player) {
+    if (players.containsKey(playerType)) {
+      throw new IllegalArgumentException("Player of type:" + playerType +  "already exists");
+    }
     players.put(playerType, player);
   }
 
@@ -27,6 +30,7 @@ public class EntityList<T extends IEntity> implements Iterable<T> {
   public void update(float deltaTime) {
     for (T player : players.values()) {
       player.update(deltaTime);
+     
     }
   }
 
