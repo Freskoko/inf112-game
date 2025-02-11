@@ -4,18 +4,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+
+import inf112.firegirlwaterboy.model.Entity.Player;
+import inf112.firegirlwaterboy.model.Entity.EntityList;
+import inf112.firegirlwaterboy.model.Entity.PlayerType;
 
 // Tilemap example : https://github.com/libgdx/libgdx/blob/master/tests/gdx-tests/src/com/badlogic/gdx/tests/superkoalio/SuperKoalio.java
 
 public class GameScreen implements Screen {
     private OrthographicCamera camera;
+    private OrthogonalTiledMapRenderer renderer;
     private TiledMap map;
-    private TiledMapRenderer renderer;
-    //private PlayerList playerList;
+    private EntityList<Player> playerList;
 
    
     @Override
@@ -36,7 +43,12 @@ public class GameScreen implements Screen {
 
         // Set up the camera
         camera = new OrthographicCamera();
-        camera.update();  
+        // camera.update(); resize() blir kalt etter show()
+
+
+        // Spilleren dette bør kanskje gjøres i modelen.
+        playerList = new EntityList<Player>();
+        playerList.addPlayer(PlayerType.FIREGIRL, new Player(new Sprite(new Texture("src/main/resources/tileset.png"))));
     }
 
     @Override
@@ -50,16 +62,16 @@ public class GameScreen implements Screen {
         renderer.setView(camera);
         renderer.render();  
 
-        ////////////////////7
-        // Til senere:
-        /////////////////////
-        // Oppdater spiller pos her
-        // get the delta time
-		// float deltaTime = Gdx.graphics.getDeltaTime();
-        // PlayerList.updatePlayers(deltatime);
+        // Oppdater spiller pos
+		float deltaTime = Gdx.graphics.getDeltaTime();
+        playerList.update(deltaTime);
 
         // Om vi senere vil at kamera skal flytte seg etter spilleren:
         // camera.position = PlayerList.getPlayerPositions();
+        
+        renderer.getBatch().begin();
+        playerList.draw(renderer.getBatch());
+        renderer.getBatch().end();
     
         
     }
@@ -84,7 +96,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'dispose'");
+        map.dispose();
+        renderer.dispose();
+        playerList.dispose();
     }
 }
