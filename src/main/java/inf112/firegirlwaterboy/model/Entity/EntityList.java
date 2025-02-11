@@ -3,10 +3,10 @@ package inf112.firegirlwaterboy.model.Entity;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class  EntityList<T extends Sprite> implements Iterable<T> {
+public class EntityList<T extends IEntity> implements Iterable<T> {
 
   // Kan kun ha en spiller av hver type, hashmap fikser dette
   private HashMap<PlayerType, T> players;
@@ -24,6 +24,23 @@ public class  EntityList<T extends Sprite> implements Iterable<T> {
     return players.get(playerType);
   }
 
+  public void update(float deltaTime) {
+    for (T player : players.values()) {
+      player.update(deltaTime);
+    }
+  }
+
+  public void draw(Batch batch) {
+    for (T player : players.values()) {
+      player.draw(batch);
+    }
+  }
+
+  public void dispose() {
+    for (T player : players.values()) {
+      player.getTexture().dispose();
+    }
+  }
 
   @Override
   public Iterator<T> iterator() {
