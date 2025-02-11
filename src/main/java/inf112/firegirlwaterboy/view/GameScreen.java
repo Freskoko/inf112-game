@@ -1,6 +1,8 @@
 package inf112.firegirlwaterboy.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -29,7 +31,7 @@ public class GameScreen implements Screen {
         // Load map
         map = new TmxMapLoader().load("src/main/resources/map.tmx");
 
-        // Use OrthogonalTiledMapRenderer for 2D orthogonal maps. 
+        // Use OrthogonalTiledMapRenderer for 2D orthogonal maps. // mulig å legge til unit scale her senere
         renderer = new OrthogonalTiledMapRenderer(map);
 
         // Set up the camera
@@ -39,6 +41,18 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        // Added background color (unsure if this is necessary)
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        ////////////////////////////////////////
+
+        // Render the map
+        renderer.setView(camera);
+        renderer.render();  
+
+        ////////////////////7
+        // Til senere:
+        /////////////////////
         // Oppdater spiller pos her
         // get the delta time
 		// float deltaTime = Gdx.graphics.getDeltaTime();
@@ -47,9 +61,7 @@ public class GameScreen implements Screen {
         // Om vi senere vil at kamera skal flytte seg etter spilleren:
         // camera.position = PlayerList.getPlayerPositions();
     
-        // Render the map
-        renderer.setView(camera);
-        renderer.render();  
+        
     }
 
     @Override
