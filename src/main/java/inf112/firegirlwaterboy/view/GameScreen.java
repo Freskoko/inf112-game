@@ -8,11 +8,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import inf112.firegirlwaterboy.model.Entity.Player;
+import inf112.firegirlwaterboy.model.Model;
 import inf112.firegirlwaterboy.model.Entity.EntityList;
 import inf112.firegirlwaterboy.model.Entity.PlayerType;
 
@@ -23,7 +25,7 @@ public class GameScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private TiledMap map;
     private EntityList<Player> playerList;
-
+    private Model model; //usikker på hvordan vi skal løse dette.
    
     @Override
     public void resize(int width, int height) {
@@ -46,9 +48,10 @@ public class GameScreen implements Screen {
         // camera.update(); resize() blir kalt etter show()
 
 
-        // Spilleren dette bør kanskje gjøres i modelen.
+        // dette bør kanskje gjøres i modelen?
         playerList = new EntityList<Player>();
-        playerList.addPlayer(PlayerType.FIREGIRL, new Player(new Sprite(new Texture("src/main/resources/tileset.png"))));
+        TiledMapTileLayer collisionLayer =  (TiledMapTileLayer) map.getLayers().get("Border");
+        playerList.addPlayer(PlayerType.FIREGIRL, new Player(new Sprite(new Texture("src/main/resources/figur.png")), collisionLayer));
     }
 
     @Override
