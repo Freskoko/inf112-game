@@ -4,18 +4,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class EntityList<T extends IEntity> implements Iterable<T> {
+public class EntityList<T, E extends IEntity> implements Iterable<E> {
 
   // Kan kun ha en spiller av hver type, hashmap fikser dette
-  private HashMap<PlayerType, T> players;
+  private HashMap<T, E> players;
 
   public EntityList() {
-    players = new HashMap<PlayerType, T>();
+    players = new HashMap<T, E>();
   }
 
-  public void addPlayer(PlayerType playerType, T player) {
+  public void addPlayer(T playerType, E player) {
     if (players.containsKey(playerType)) {
       throw new IllegalArgumentException("Player of type:" + playerType +  "already exists");
     }
@@ -23,31 +22,24 @@ public class EntityList<T extends IEntity> implements Iterable<T> {
   }
 
   
-  public T getPlayer(PlayerType playerType) {
+  public E getPlayer(T playerType) {
     return players.get(playerType);
   }
 
-  public void update(float deltaTime) {
-    for (T player : players.values()) {
-      player.update(deltaTime);
-     
-    }
-  }
-
   public void draw(Batch batch) {
-    for (T player : players.values()) {
+    for (E player : players.values()) {
       player.draw(batch);
     }
   }
 
   public void dispose() {
-    for (T player : players.values()) {
+    for (E player : players.values()) {
       player.getTexture().dispose();
     }
   }
 
   @Override
-  public Iterator<T> iterator() {
+  public Iterator<E> iterator() {
     return players.values().iterator();
     // Kan hende vi må løse dette ulikt slik vi får med player Type?
     // Evt legge til Type i player klassen. 
