@@ -64,3 +64,24 @@ Som programmør trenger jeg å kunne lage en eller flere "spillere" for å teste
 ## A4: Kode
 
 wip på branch `henbro/box2d` og branch `CreatePlayer`, og noe på `main`
+
+## A5:
+
+### Kode:
+
+* Kult å få implementert Tiled rammeverket, gjør brett designet veldig fleksiblet og enkelt.
+
+* Gikk vekk fra å extende `ApplicationAdapter' til å implementere Screen interfacet da dette skal gi mer fleksibilietet.
+* Laget et MVC struktur i repoet, som vi ønsker å bygge videre på.
+
+* I MVC har vi blant annet laget skjelett for PlayerList, hvor ideen er at vi er fleksible på hvor mange spillere som kan være med i spillet. (Og evt kun starte med en spiller i første fasen)
+
+* Total vurdering, synes vi ligger godt an i arbeidet. Gruppen er aktiv med kommunikasjon på discord, men bør ta mer i bruk trello etterhvert. Definere og fordele roller bedre. Dette har vært utfordrende i startfasen da alt er litt uklart enda.
+
+### Gruppearbeid:
+
+* Trello var litt stress, var bare en til nettside å gå til hele tiden. Men kanskje vi burde prøve å bruke det mer. - Prøve gitlab issues?
+
+* Discord var veldig bra, god kommunikasjons-kanal.
+
+* Mandag og torsdag møte-tidspunkt funket greit.
