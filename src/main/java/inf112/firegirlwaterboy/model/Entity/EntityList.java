@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class EntityList<T, E extends IEntity> implements Iterable<E> {
 
-  // Kan kun ha en spiller av hver type, hashmap fikser dette
+  // Dette bør være en arrayList
   private HashMap<T, E> players;
 
   public EntityList() {

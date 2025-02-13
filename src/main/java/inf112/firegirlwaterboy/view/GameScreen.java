@@ -16,7 +16,7 @@ public class GameScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private TiledMap map;
     private IViewModel model;
-    private Controller controller;
+    private Controller controller; // Må være her
 
     public GameScreen(IViewModel model, Controller controller) {
         this.model = model;

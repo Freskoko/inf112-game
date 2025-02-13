@@ -18,6 +18,8 @@ public class Controller implements InputProcessor{
     switch ( keycode) {
       case Keys.UP:
         // Må oppdatere logikk slik at den ikke hopper mens figur er i "luften"
+
+        // model.changeVelocity(player 1, 0, -1);
         model.changeVelocity(PlayerType.FIREGIRL, 0, -1);
         break;
       case Keys.LEFT:

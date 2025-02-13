@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
 // Må denne være public?
@@ -50,15 +49,23 @@ public class Player extends Sprite implements IEntity {
 
   public void setVelosity(int deltaX, int deltaY) {
     velocity.set(deltaX *speed, deltaY*speed);
-
   }  
+  public void setVelosity(Vector2 velocity) {
+    this.velocity = velocity;
+  }
 
   public Vector2 getVelocity() {
     return velocity;
   }
 
-  public void setVelosity(Vector2 velocity) {
-    this.velocity = velocity;
+  
+
+
+  // Utforske for kollisjon (Get upsi)
+  @Override
+  public void setBounds(float x, float y, float width, float height) {
+    // TODO Auto-generated method stub
+    super.setBounds(x, y, width, height);
   }
 
   

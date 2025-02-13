@@ -18,26 +18,29 @@ public class Model implements IControllableModel, IViewModel {
   private GameState gameState;
   private Maps maps;
 
-
   @Override
   public boolean changeVelocity(PlayerType playerType, int deltaX, int deltaY) {
+
+    //henter spiller fra player på pos 1 i array
     Player player =  players.getPlayer(playerType);
     player.setVelosity(deltaX, deltaY);
     updatePlayer(player, deltaY);
     return true;
   }
 
-
   @Override
 	public void update(float deltaTime) {
     for (Player player : players) {
       updatePlayer(player, deltaTime);
+      
+    
     }
 	}
 
   private void updatePlayer(Player player, float deltaTime) {
     player.update(deltaTime);
     TiledMapTileLayer collisionLayer = maps.getLayer("map", "Border");
+    
 
     float oldX = player.getX(), oldY= player.getY();
 
