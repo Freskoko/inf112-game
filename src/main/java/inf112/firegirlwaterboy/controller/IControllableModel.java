@@ -21,11 +21,11 @@ public interface IControllableModel {
 
      /**
      * @param player to move
-     * @param deltaRow
-     * @param deltaCol
+     * @param dirX
+     * @param dirY
      * @return return true if move was done, if not false
      */
-    boolean move(PlayerType player, int deltaRow, int deltaCol);
+    boolean changeVelocity(PlayerType player, int dirX, int dirY);
 
 
      /**
