@@ -4,6 +4,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
 import inf112.firegirlwaterboy.model.GameState;
+
+/**
+ * Interface that represents the view model of the game.
+ */
 public interface IViewModel {
 
     /**
