@@ -22,6 +22,7 @@ public class Model implements IControllableModel, IViewModel {
   private EntityList<PlayerType, Player> players;
   private GameState gameState;
   private Maps maps;
+  private String currentMapName  = "map";
 
   @Override
   public boolean changeVelocity(PlayerType playerType, int deltaX, int deltaY) {
@@ -37,8 +38,6 @@ public class Model implements IControllableModel, IViewModel {
 	public void update(float deltaTime) {
     for (Player player : players) {
       updatePlayer(player, deltaTime);
-      
-    
     }
 	}
 
@@ -49,8 +48,8 @@ public class Model implements IControllableModel, IViewModel {
    */
   private void updatePlayer(Player player, float deltaTime) {
     player.update(deltaTime);
-    TiledMapTileLayer collisionLayer = maps.getLayer("map", "Border");
-    
+    TiledMapTileLayer collisionLayer = maps.getLayer(this.currentMapName, "Border");
+
 
     float oldX = player.getX(), oldY= player.getY();
 
@@ -148,13 +147,26 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public TiledMap getMap() {
-    return maps.getMap("map");
+    return maps.getMap(this.currentMapName);
   }
 
   @Override
   public void init() {
     maps = new Maps();
+    this.setMap(this.currentMapName);
     players = new EntityList<PlayerType, Player>();
     players.addPlayer(PlayerType.FIREGIRL, new Player());
-  }  
+  }
+
+  // for tests
+  public Model (String mapName) {
+    this.setMap(mapName);
+  }
+
+  // default
+  public Model(){};
+
+  private void setMap(String mapName) {
+    this.currentMapName = mapName;
+  }
 }

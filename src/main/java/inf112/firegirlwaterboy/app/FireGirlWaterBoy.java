@@ -28,7 +28,7 @@ public class FireGirlWaterBoy extends Game{
 
   @Override
   public void create() { 
-
+    this.model.init();
     setScreen(new GameScreen(model, controller)); 
     Gdx.input.setInputProcessor(controller); 
   }

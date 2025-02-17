@@ -60,6 +60,12 @@ public class GameScreen implements Screen {
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ////////////////////////////////////////
 
+        // make the screen check if it is using the same map as the model
+        if (!map.equals(model.getMap())) {
+            map = model.getMap();
+            renderer.setMap(map);
+        }
+
         // Render the map
         renderer.setView(camera);
         renderer.render();  
