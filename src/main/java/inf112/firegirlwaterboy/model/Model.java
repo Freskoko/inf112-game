@@ -12,6 +12,11 @@ import inf112.firegirlwaterboy.model.Entity.PlayerType;
 import inf112.firegirlwaterboy.view.IViewModel;
 
 // skal kanskje denne her extende Game fra gdx?
+
+/**
+ * Model class represents the game model.
+ * The model contains the game state, the players and the maps.
+ */
 public class Model implements IControllableModel, IViewModel { 
 
   private EntityList<PlayerType, Player> players;
@@ -36,6 +41,11 @@ public class Model implements IControllableModel, IViewModel {
     }
 	}
 
+  /** 
+   * 
+   * @param player The player to update
+   * @param deltaTime The time elapsed since the last update
+   */
   private void updatePlayer(Player player, float deltaTime) {
     player.update(deltaTime);
     TiledMapTileLayer collisionLayer = maps.getLayer(this.currentMapName, "Border");
@@ -94,6 +104,14 @@ public class Model implements IControllableModel, IViewModel {
     
   }
 
+
+  /**
+   * Checks if the cell at the given position is blocked.
+   * @param collisionLayer The collision layer
+   * @param x The x position
+   * @param y The y position
+   * @return True if the cell is blocked, false otherwise
+   */
   private boolean isCellBlocked(TiledMapTileLayer collisionLayer, float x, float y) {
     float tileWidth = collisionLayer.getTileWidth();
     float tileHeight = collisionLayer.getTileHeight();
@@ -122,7 +140,7 @@ public class Model implements IControllableModel, IViewModel {
     players.draw(batch);
   }
 
-
+  /** Cleans up allocated resources */
 	public void dispose() {
 		players.dispose();
 	}

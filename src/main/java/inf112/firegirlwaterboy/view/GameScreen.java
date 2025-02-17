@@ -11,6 +11,10 @@ import inf112.firegirlwaterboy.controller.Controller;
 
 // Tilemap example : https://github.com/libgdx/libgdx/blob/master/tests/gdx-tests/src/com/badlogic/gdx/tests/superkoalio/SuperKoalio.java
 
+/**
+ * GameScreen class represents the game screen.
+ * The game screen is responsible for rendering the game and updating the game state.
+ */
 public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer renderer;
@@ -18,6 +22,11 @@ public class GameScreen implements Screen {
     private IViewModel model;
     private Controller controller; // Må være her
 
+    /**
+     * Constructs a GameScreen with a given view model and controller.
+     * @param model The view model of the game
+     * @param controller The controller of the game
+     */
     public GameScreen(IViewModel model, Controller controller) {
         this.model = model;
         this.controller = controller;

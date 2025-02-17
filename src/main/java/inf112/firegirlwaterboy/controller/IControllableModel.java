@@ -3,6 +3,10 @@ package inf112.firegirlwaterboy.controller;
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Entity.PlayerType;
 
+/**
+ * Interface for the controllable model.
+ * This interface defines the methods that the controller can use to interact with the model.
+ */
 public interface IControllableModel {
 
    /**
