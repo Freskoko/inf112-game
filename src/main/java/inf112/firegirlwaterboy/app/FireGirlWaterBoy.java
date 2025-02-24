@@ -9,6 +9,8 @@ import inf112.firegirlwaterboy.model.Model;
 import inf112.firegirlwaterboy.view.GameScreen;
 import inf112.firegirlwaterboy.view.WelcomeScreen;
 
+
+
 public class FireGirlWaterBoy extends Game {
 
     private Model model;
@@ -25,13 +27,13 @@ public class FireGirlWaterBoy extends Game {
         setScreen(new WelcomeScreen(model, controller));
     }
 
+ 
     @Override
     public void render() {
         super.render();
 
         // Check for state change to switch screen
         if (model.getGameState() == GameState.ACTIVE_GAME && !(getScreen() instanceof GameScreen)) {
-            System.out.println("Switching to GameScreen");
             setScreen(new GameScreen(model, controller));
         }
     }
