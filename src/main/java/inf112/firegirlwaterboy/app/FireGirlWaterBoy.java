@@ -9,20 +9,30 @@ import inf112.firegirlwaterboy.model.Model;
 import inf112.firegirlwaterboy.view.GameScreen;
 import inf112.firegirlwaterboy.view.WelcomeScreen;
 
-public class FireGirlWaterBoy extends Game{
+public class FireGirlWaterBoy extends Game {
 
-  private Model model;
-  private Controller controller;
+    private Model model;
+    private Controller controller;
 
-  public FireGirlWaterBoy(){
-    this.model = new Model(); 
-    this.controller = new Controller(model);
-  }
+    public FireGirlWaterBoy() {
+        this.model = new Model(); 
+        this.controller = new Controller(model);
+    }
 
-  @Override
-  public void create() { 
-    model.setGameState(GameState.WELCOME);
-    setScreen(new WelcomeScreen(model, controller)); 
-    Gdx.input.setInputProcessor(controller); 
-  }
+    @Override
+    public void create() {
+        model.setGameState(GameState.WELCOME);
+        setScreen(new WelcomeScreen(model, controller));
+    }
+
+    @Override
+    public void render() {
+        super.render();
+
+        // Check for state change to switch screen
+        if (model.getGameState() == GameState.ACTIVE_GAME && !(getScreen() instanceof GameScreen)) {
+            System.out.println("Switching to GameScreen");
+            setScreen(new GameScreen(model, controller));
+        }
+    }
 }
