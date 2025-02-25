@@ -3,9 +3,19 @@ package inf112.firegirlwaterboy.model;
 import java.io.File;
 import java.util.HashMap;
 
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Class that represents the maps in the game.
@@ -69,4 +79,31 @@ public class Maps {
   public TiledMapTileLayer getLayer(String mapName, String layerName) {
     return (TiledMapTileLayer) getMap(mapName).getLayers().get(layerName);
   }
+
+  public Vector2 getPlayerSpawn() {
+    MapLayer objectLayer = getLayer("map", "PlayerLayer");
+    if (objectLayer != null) {
+      for (MapObject object : objectLayer.getObjects()) {
+        if (object.getName().equals("playerSpawn") && object instanceof RectangleMapObject) {
+          Rectangle rect = ((RectangleMapObject) object).getRectangle();
+          return new Vector2(rect.x, rect.y);
+        }
+      }
+    }
+    return new Vector2(100, 100);
+  }
+  
+  public void createObjectsInWorld(World world, String mapName) {
+    for (MapObject object : getLayer(mapName, "InteractiveObjects").getObjects()) {
+      BodyDef bdef = new BodyDef();
+      FixtureDef fdef = new FixtureDef();
+
+      Body body = world.createBody(bdef);
+      Fixture fixture = body.createFixture(fdef);
+      // alt blir satt til wall, burde ha egne layers til hver type 
+      fixture.setUserData("WALL");
+    }
+  }
+    
+
 }
