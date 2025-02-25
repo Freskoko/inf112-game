@@ -34,7 +34,6 @@ public class WelcomeScreen implements Screen {
         font.getData().setScale(2f);
 
         model.setGameState(GameState.WELCOME);
-        Gdx.input.setInputProcessor(controller);
     }
 
     @Override
