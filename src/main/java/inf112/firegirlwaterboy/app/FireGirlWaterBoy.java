@@ -22,16 +22,18 @@ public class FireGirlWaterBoy extends Game {
   // Holder styr på current game state
   private GameState currentGameState;
 
+
   public FireGirlWaterBoy() {
     this.model = new Model();
     this.controller = new Controller(model);
+    this.currentGameState = GameState.WELCOME;
+
   }
 
   @Override
   public void create() {
     // Setter Welcome som start screen
-    currentGameState = GameState.WELCOME;
-    model.setGameState(GameState.WELCOME);
+    
     setScreen(getScreenByGameState(currentGameState));
     Gdx.input.setInputProcessor(controller);
   }
@@ -52,6 +54,7 @@ public class FireGirlWaterBoy extends Game {
   }
 
   //Legger til flere cases ettersom vi får flere screens
+  //Endrer screen basert på state
   private Screen getScreenByGameState(GameState gameState) {
     switch (gameState) {
       case WELCOME:
@@ -68,7 +71,7 @@ public class FireGirlWaterBoy extends Game {
 
       default:
       System.out.println("Ukjent GameState: " + gameState);
-      return welcomeScreen; //default å returnere til welcomeScreen hvis ukjent 
+      return welcomeScreen; //default å returnere til welcomeScreen hvis ukjent? Vet ikke hva som er nødvendig. 
 
     }
 

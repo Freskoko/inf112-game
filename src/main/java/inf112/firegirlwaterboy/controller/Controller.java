@@ -17,7 +17,6 @@ public class Controller implements InputProcessor{
 
   @Override
   public boolean keyDown(int keycode) {
-
     // Sjekk om spillet er i WELCOME-modus først. Usikker på om dette er den beste måten å gjøre det på?. 
     // Evt en hjelpemetode?
     if (model.getGameState() == GameState.WELCOME) {
