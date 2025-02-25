@@ -1,9 +1,14 @@
 package inf112.firegirlwaterboy.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.IControllableModel;
 import inf112.firegirlwaterboy.model.Entity.EntityList;
@@ -22,31 +27,90 @@ public class Model implements IControllableModel, IViewModel {
   private EntityList<PlayerType, Player> players;
   private GameState gameState;
   private Maps maps;
-  private String currentMapName  = "map";
+  private String currentMapName = "map";
+  private World world;
+  
+  public static final float PPM = 100;
 
+  public Model() {
+    world = new World(new Vector2(0, -9.8f), true); // Gravity
+    world.setContactListener(new MyContactListener(players));
+    //debugRenderer = new Box2DDebugRenderer();
+
+  }
+  
   @Override
   public boolean changeVelocity(PlayerType playerType, int deltaX, int deltaY) {
 
     //henter spiller fra player på pos 1 i array
     Player player =  players.getPlayer(playerType);
     player.setVelosity(deltaX, deltaY);
-    updatePlayer(player, deltaY);
+    //updatePlayer(player, deltaY);
     return true;
   }
 
   @Override
-	public void update(float deltaTime) {
+  public void update(float deltaTime) {
     for (Player player : players) {
-      updatePlayer(player, deltaTime);
+      //updatePlayer(player, deltaTime);
+      player.update(deltaTime);
+      //checkCollisions(player);
     }
-	}
+  }
+  
+  /*public void checkCollisions(Player player) {
+    //System.out.println("CheckCollisions kjører");
+    Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
+
+    for (InteractiveObject obj : interactiveObjects) {
+      //System.out.println("Objekt posisjon og størrelse: " + obj.getBounds());
+
+      if (playerRect.overlaps(obj.getBounds())) {
+        System.out.println("Overlap: " + obj.getValue());
+        handleCollision(player, obj);
+      }
+    }
+  }
+  
+  private void handleCollision(Player player, InteractiveObject obj) {
+    String value = obj.getValue();
+    System.out.println("Kolliderer med: " + value);
+    
+    if (value == null) {
+      System.out.println("Object with no value encountered.");
+      return;
+    }
+    
+    switch (value) {
+      case "wall":
+        System.out.println("Player hit wall");
+        player.setVelosity(0, 0);
+        break;
+      case "lava":
+        System.out.println("Player hit lava");
+        break;
+      case "water":
+        System.out.println("Player hit water");
+        break;
+      case "border":
+        System.out.println("Player hit border");
+        player.setVelosity(0, 0);
+      default:
+        System.out.println("Foreign object: " + value);
+    }
+    if (obj.isBlocked()) {
+      System.out.println("obj is blocked");
+      player.setVelosity(0, 0);
+    }
+  }*/
+
 
   /** 
    * 
    * @param player The player to update
    * @param deltaTime The time elapsed since the last update
    */
-  private void updatePlayer(Player player, float deltaTime) {
+  /*private void updatePlayer(Player player, float deltaTime) {
     player.update(deltaTime);
     TiledMapTileLayer collisionLayer = maps.getLayer(this.currentMapName, "Border");
 
@@ -102,7 +166,7 @@ public class Model implements IControllableModel, IViewModel {
     } 
 
     
-  }
+  }*/
 
 
   /**
@@ -154,17 +218,17 @@ public class Model implements IControllableModel, IViewModel {
   public void init() {
     maps = new Maps();
     this.setMap(this.currentMapName);
+    Texture texture = new Texture(Gdx.files.internal("src/main/resources/figur.png"));
+    TextureRegion textureRegion = new TextureRegion(texture);
     players = new EntityList<PlayerType, Player>();
-    players.addPlayer(PlayerType.FIREGIRL, new Player());
+    players.addPlayer(PlayerType.FIREGIRL, new Player(world, maps.getPlayerSpawn(), PlayerType.FIREGIRL));
+    
   }
 
   // for tests
   public Model (String mapName) {
     this.setMap(mapName);
   }
-
-  // default
-  public Model(){};
 
   private void setMap(String mapName) {
     this.currentMapName = mapName;
