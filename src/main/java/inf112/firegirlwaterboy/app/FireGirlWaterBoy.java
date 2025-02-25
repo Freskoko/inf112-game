@@ -10,7 +10,12 @@ import inf112.firegirlwaterboy.model.Model;
 import inf112.firegirlwaterboy.view.GameScreen;
 import inf112.firegirlwaterboy.view.WelcomeScreen;
 
-public class FireGirlWaterBoy extends Game {
+/**
+ * FireGirlWaterBoy is a game where the player controls two characters, FireGirl and WaterBoy, to solve puzzles and complete levels.
+ * This class is the main class of the game, it initializes the model and controller, and sets the screen to the GameScreen.
+ * this class extends the Game class from libGDX.
+ */
+public class FireGirlWaterBoy extends Game{
 
   private Model model;
   private Controller controller;
@@ -29,6 +34,7 @@ public class FireGirlWaterBoy extends Game {
     this.currentGameState = GameState.WELCOME;
 
   }
+
 
   @Override
   public void create() {

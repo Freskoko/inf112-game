@@ -7,10 +7,18 @@ import com.badlogic.gdx.InputProcessor;
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Entity.PlayerType;
 
+/**
+ * Controller class for the game FireGirl & WaterBoy.
+ * This class is responsible for handling input from the player and updating the model accordingly.
+ */
 public class Controller implements InputProcessor{
 
   private IControllableModel model;
 
+  /**
+   * Constructor for the Controller class.
+   * @param model the model to be controlled.
+   */
   public Controller(IControllableModel model) {
     this.model = model;
   }
