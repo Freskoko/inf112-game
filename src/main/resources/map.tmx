@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="223">
  <tileset firstgid="1" source="tileset.xml"/>
- <layer id="1" name="Border" width="30" height="30">
+ <tileset firstgid="49" source="FIREGIRL.tsx"/>
+ <layer id="1" name="Border" width="30" height="30" locked="1">
   <data encoding="csv">
 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
 9,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,11,
@@ -69,4 +70,1310 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="3" name="InteractiveObjects" locked="1">
+  <object id="1" gid="17" x="0" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="2" gid="18" x="32" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="3" gid="18" x="64" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="4" gid="18" x="96" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="5" gid="18" x="128" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="6" gid="18" x="160" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="7" gid="18" x="192" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="8" gid="18" x="224" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="9" gid="18" x="256" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="10" gid="18" x="288" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="11" gid="18" x="320" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="12" gid="18" x="352" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="13" gid="18" x="384" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="14" gid="18" x="416" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="15" gid="18" x="448" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="16" gid="18" x="480" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="17" gid="18" x="512" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="18" gid="18" x="544" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="19" gid="18" x="576" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="20" gid="18" x="608" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="21" gid="18" x="640" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="22" gid="18" x="672" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="23" gid="18" x="704" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="24" gid="18" x="736" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="25" gid="18" x="768" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="26" gid="18" x="800" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="27" gid="18" x="832" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="28" gid="18" x="864" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="29" gid="18" x="896" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="30" gid="19" x="928" y="960" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="31" gid="11" x="928" y="928" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="32" gid="11" x="928" y="896" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="33" gid="11" x="928" y="864" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="34" gid="11" x="928" y="832" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="35" gid="11" x="928" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="36" gid="11" x="928" y="768" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="37" gid="11" x="928" y="736" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="38" gid="11" x="928" y="704" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="39" gid="11" x="928" y="672" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="40" gid="11" x="928" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="41" gid="11" x="928" y="608" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="42" gid="11" x="928" y="576" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="43" gid="11" x="928" y="544" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="44" gid="11" x="928" y="512" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="45" gid="11" x="928" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="46" gid="11" x="928" y="448" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="47" gid="11" x="928" y="416" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="48" gid="11" x="928" y="384" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="49" gid="11" x="928" y="352" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="50" gid="11" x="928" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="51" gid="11" x="928" y="288" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="52" gid="11" x="928" y="256" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="53" gid="11" x="928" y="224" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="54" gid="11" x="928" y="192" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="55" gid="11" x="928" y="160" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="56" gid="11" x="928" y="128" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="57" gid="11" x="928" y="96" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="58" gid="11" x="928" y="64" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="59" gid="3" x="928" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="60" gid="2" x="896" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="61" gid="2" x="864" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="62" gid="2" x="832" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="63" gid="2" x="800" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="64" gid="2" x="768" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="65" gid="2" x="736" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="66" gid="2" x="704" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="67" gid="2" x="672" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="68" gid="2" x="640" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="69" gid="2" x="608" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="70" gid="2" x="576" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="71" gid="2" x="544" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="72" gid="2" x="512" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="73" gid="2" x="480" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="74" gid="2" x="448" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="75" gid="2" x="416" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="76" gid="2" x="384" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="77" gid="2" x="352" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="78" gid="2" x="320" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="79" gid="2" x="288" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="80" gid="2" x="256" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="81" gid="2" x="224" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="82" gid="2" x="192" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="83" gid="2" x="160" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="84" gid="2" x="128" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="85" gid="2" x="96" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="86" gid="2" x="64" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="87" gid="2" x="32" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="88" gid="1" x="0" y="32" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="89" gid="9" x="0" y="64" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="90" gid="9" x="0" y="96" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="91" gid="9" x="0" y="128" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="92" gid="9" x="0" y="160" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="93" gid="9" x="0" y="192" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="94" gid="9" x="0" y="224" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="95" gid="9" x="0" y="256" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="96" gid="9" x="0" y="288" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="97" gid="9" x="0" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="98" gid="9" x="0" y="352" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="99" gid="9" x="0" y="384" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="100" gid="9" x="0" y="416" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="101" gid="9" x="0" y="448" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="102" gid="9" x="0" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="103" gid="9" x="0" y="512" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="104" gid="9" x="0" y="544" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="105" gid="9" x="0" y="576" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="106" gid="9" x="0" y="608" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="107" gid="9" x="0" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="108" gid="9" x="0" y="672" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="109" gid="9" x="0" y="704" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="110" gid="9" x="0" y="736" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="111" gid="9" x="0" y="768" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="112" gid="9" x="0" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="113" gid="9" x="0" y="832" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="114" gid="9" x="0" y="864" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="115" gid="9" x="0" y="896" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="116" gid="9" x="0" y="928" width="32" height="32">
+   <properties>
+    <property name="blocked " type="bool" value="true"/>
+    <property name="border" value="border"/>
+   </properties>
+  </object>
+  <object id="117" gid="10" x="160" y="928" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="118" gid="10" x="288" y="928" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="119" gid="10" x="160" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="120" gid="10" x="192" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="121" gid="10" x="224" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="122" gid="10" x="256" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="123" gid="10" x="288" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="124" gid="10" x="448" y="928" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="125" gid="10" x="576" y="928" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="126" gid="10" x="448" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="127" gid="10" x="480" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="128" gid="10" x="512" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="129" gid="10" x="544" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="130" gid="10" x="576" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="131" gid="10" x="800" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="132" gid="10" x="832" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="133" gid="10" x="864" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="134" gid="10" x="896" y="800" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="135" gid="10" x="768" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="136" gid="10" x="736" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="137" gid="10" x="704" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="138" gid="10" x="672" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="139" gid="10" x="640" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="140" gid="10" x="608" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="141" gid="10" x="576" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="142" gid="10" x="544" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="143" gid="10" x="512" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="144" gid="10" x="480" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="145" gid="10" x="448" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="146" gid="10" x="416" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="147" gid="10" x="384" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="148" gid="10" x="352" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="149" gid="10" x="320" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="150" gid="10" x="288" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="151" gid="10" x="256" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="152" gid="10" x="224" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="153" gid="10" x="192" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="154" gid="10" x="160" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="155" gid="10" x="128" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="156" gid="10" x="96" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="157" gid="10" x="64" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="158" gid="10" x="32" y="640" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="159" gid="10" x="32" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="160" gid="10" x="64" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="161" gid="10" x="96" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="162" gid="10" x="128" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="163" gid="10" x="320" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="164" gid="10" x="352" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="165" gid="10" x="384" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="166" gid="10" x="416" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="167" gid="10" x="448" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="168" gid="10" x="480" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="169" gid="10" x="512" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="170" gid="10" x="544" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="171" gid="10" x="576" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="172" gid="10" x="608" y="480" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="173" gid="10" x="160" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="174" gid="10" x="192" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="175" gid="10" x="224" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="176" gid="10" x="256" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="177" gid="10" x="288" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="178" gid="10" x="320" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="179" gid="10" x="352" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="180" gid="10" x="384" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="181" gid="10" x="416" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="182" gid="10" x="448" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="183" gid="10" x="480" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="184" gid="10" x="512" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="185" gid="10" x="544" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="186" gid="10" x="576" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="187" gid="10" x="608" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="188" gid="10" x="640" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="189" gid="10" x="672" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="190" gid="10" x="704" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="191" gid="10" x="736" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="192" gid="10" x="768" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="193" gid="10" x="800" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="194" gid="10" x="832" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="195" gid="10" x="864" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="196" gid="10" x="896" y="320" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="197" gid="10" x="896" y="192" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="198" gid="10" x="864" y="192" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="199" gid="10" x="832" y="192" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="200" gid="10" x="800" y="192" width="32" height="32">
+   <properties>
+    <property name="blocked" type="bool" value="true"/>
+    <property name="wall" value="wall"/>
+   </properties>
+  </object>
+  <object id="201" gid="31" x="192" y="928" width="32" height="32">
+   <properties>
+    <property name="lava" value="lava"/>
+   </properties>
+  </object>
+  <object id="202" gid="31" x="224" y="928" width="32" height="32">
+   <properties>
+    <property name="lava" value="lava"/>
+   </properties>
+  </object>
+  <object id="203" gid="31" x="256" y="928" width="32" height="32">
+   <properties>
+    <property name="lava" value="lava"/>
+   </properties>
+  </object>
+  <object id="204" gid="31" x="480" y="768" width="32" height="32">
+   <properties>
+    <property name="lava" value="lava"/>
+   </properties>
+  </object>
+  <object id="205" gid="31" x="512" y="768" width="32" height="32">
+   <properties>
+    <property name="lava" value="lava"/>
+   </properties>
+  </object>
+  <object id="206" gid="31" x="544" y="768" width="32" height="32">
+   <properties>
+    <property name="lava" value="lava"/>
+   </properties>
+  </object>
+  <object id="207" gid="31" x="480" y="512" width="32" height="32">
+   <properties>
+    <property name="lava" value="lava"/>
+   </properties>
+  </object>
+  <object id="208" gid="31" x="480" y="544" width="32" height="32">
+   <properties>
+    <property name="lava" value="lava"/>
+   </properties>
+  </object>
+  <object id="209" gid="31" x="480" y="576" width="32" height="32">
+   <properties>
+    <property name="lava" value="lava"/>
+   </properties>
+  </object>
+  <object id="210" gid="31" x="480" y="608" width="32" height="32">
+   <properties>
+    <property name="lava" value="lava"/>
+   </properties>
+  </object>
+  <object id="211" gid="39" x="192" y="768" width="32" height="32">
+   <properties>
+    <property name="water" value="water"/>
+   </properties>
+  </object>
+  <object id="212" gid="39" x="224" y="768" width="32" height="32">
+   <properties>
+    <property name="water" value="water"/>
+   </properties>
+  </object>
+  <object id="213" gid="39" x="256" y="768" width="32" height="32">
+   <properties>
+    <property name="water" value="water"/>
+   </properties>
+  </object>
+  <object id="214" gid="39" x="480" y="928" width="32" height="32">
+   <properties>
+    <property name="water" value="water"/>
+   </properties>
+  </object>
+  <object id="215" gid="39" x="512" y="928" width="32" height="32">
+   <properties>
+    <property name="water" value="water"/>
+   </properties>
+  </object>
+  <object id="216" gid="39" x="544" y="928" width="32" height="32">
+   <properties>
+    <property name="water" value="water"/>
+   </properties>
+  </object>
+  <object id="217" gid="39" x="480" y="352" width="32" height="32">
+   <properties>
+    <property name="water" value="water"/>
+   </properties>
+  </object>
+  <object id="218" gid="39" x="480" y="384" width="32" height="32">
+   <properties>
+    <property name="water" value="water"/>
+   </properties>
+  </object>
+  <object id="219" gid="39" x="480" y="416" width="32" height="32">
+   <properties>
+    <property name="water" value="water"/>
+   </properties>
+  </object>
+  <object id="220" gid="39" x="480" y="448" width="32" height="32">
+   <properties>
+    <property name="water" value="water"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="PlayerLayer" locked="1">
+  <object id="221" name="playerSpawn" gid="49" x="64" y="896" width="32" height="32"/>
+  <object id="222" name="playerSpawn" gid="50" x="64" y="928" width="32" height="32"/>
+ </objectgroup>
 </map>

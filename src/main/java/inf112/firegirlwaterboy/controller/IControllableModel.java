@@ -26,17 +26,7 @@ public interface IControllableModel {
      /**
      * @param player to move
      * @param dirX
-     * @param dirY
      * @return return true if move was done, if not false
      */
-    boolean changeVelocity(PlayerType player, int dirX, int dirY);
-
-
-     /**
-     * @return time between each tick
-     */
-    int getTimerDelay();
-
-    
-  
+    boolean changeDir(PlayerType player, String dir);
 }

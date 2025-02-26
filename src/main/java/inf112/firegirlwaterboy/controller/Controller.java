@@ -36,16 +36,14 @@ public class Controller implements InputProcessor{
 
     switch ( keycode) {
       case Keys.UP:
-        // Må oppdatere logikk slik at den ikke hopper mens figur er i "luften"
-
-        // model.changeVelocity(player 1, 0, -1);
-        model.changeVelocity(PlayerType.FIREGIRL, 0, -1);
+        
+        model.changeDir(PlayerType.FIREGIRL, "jump");
         break;
       case Keys.LEFT:
-        model.changeVelocity(PlayerType.FIREGIRL, -1, 0);
+        model.changeDir(PlayerType.FIREGIRL, "left");
         break;
       case Keys.RIGHT:
-        model.changeVelocity(PlayerType.FIREGIRL, 1, 0);
+        model.changeDir(PlayerType.FIREGIRL, "right");
         break;
     }
     return true;
@@ -55,10 +53,10 @@ public class Controller implements InputProcessor{
   public boolean keyUp(int keycode) {
     switch ( keycode) {
       case Keys.LEFT:
-        model.changeVelocity(PlayerType.FIREGIRL, 0, 0);
+        model.changeDir(PlayerType.FIREGIRL,"stop");
         break;
       case Keys.RIGHT:
-        model.changeVelocity(PlayerType.FIREGIRL, 0, 0);
+        model.changeDir(PlayerType.FIREGIRL, "stop");
         break;
     }
     return true;
