@@ -73,4 +73,8 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
     // Kan hende vi må løse dette ulikt slik vi får med player Type?
     // Evt legge til Type i player klassen. 
   }
+
+  public boolean isEmpty() {
+    return players.isEmpty();
+  }
 }
