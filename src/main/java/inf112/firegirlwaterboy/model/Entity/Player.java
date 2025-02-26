@@ -24,7 +24,7 @@ import inf112.firegirlwaterboy.model.Model;
  */
 public class Player extends Sprite implements IEntity {
 
-  private float speed = 60 * 2, gravity = 60 * 1.8f;
+  private float speed = Maps.PPM, gravity = 60 * 1.8f;
   private World world;
   private Body body;
   private boolean onGround;
@@ -109,9 +109,14 @@ public class Player extends Sprite implements IEntity {
 
   @Override
   public void update(float deltaTime) {
+    this.setPosition(body.getPosition().x * Maps.PPM - getWidth() / 2,
+                     body.getPosition().y * Maps.PPM - getHeight() / 2);
+
+    // Prevent falling through ground if onGround
     if (onGround && body.getLinearVelocity().y < 0) {
-      body.setLinearVelocity(body.getLinearVelocity().x, 0);
-  }
+        body.setLinearVelocity(body.getLinearVelocity().x, 0);
+    }
+    
   }
 
   /**
@@ -127,6 +132,9 @@ public class Player extends Sprite implements IEntity {
       if (dir.equals("right")) {
         body.setLinearVelocity(speed, body.getLinearVelocity().y);
       }
+      if (dir.equals("stop")) {
+        body.setLinearVelocity(0, body.getLinearVelocity().y);
+      }
     } else {
       body.setLinearVelocity(0, body.getLinearVelocity().y); // Stop movement into wall
     }
@@ -135,7 +143,7 @@ public class Player extends Sprite implements IEntity {
 
   public void jump() {
     if (onGround) {
-      body.applyLinearImpulse(new Vector2(0, 5f), body.getWorldCenter(), true);
+      body.applyLinearImpulse(new Vector2(0, Maps.PPM), body.getWorldCenter(), true);
       onGround = false;
     }
   }
