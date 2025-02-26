@@ -1,8 +1,10 @@
 package inf112.firegirlwaterboy.controller;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
+import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Entity.PlayerType;
 
 /**
@@ -25,7 +27,16 @@ public class Controller implements InputProcessor {
 
   @Override
   public boolean keyDown(int keycode) {
-    switch (keycode) {
+    // Sjekk om spillet er i WELCOME-modus først. Usikker på om dette er den beste måten å gjøre det på?. 
+    // Evt en hjelpemetode?
+    if (model.getGameState() == GameState.WELCOME) {
+        if (keycode == Input.Keys.P) {
+            model.setGameState(GameState.ACTIVE_GAME); // Start spillet
+            return true;
+        }
+    }
+
+    switch ( keycode) {
       case Keys.UP:
         model.changeDir(PlayerType.FIREGIRL, "jump");
         break;
