@@ -13,7 +13,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.Maps;
-import inf112.firegirlwaterboy.model.Model;
 
 // Må denne være public?
 
@@ -24,7 +23,7 @@ import inf112.firegirlwaterboy.model.Model;
  */
 public class Player extends Sprite implements IEntity {
 
-  private float speed = Maps.PPM, gravity = 60 * 1.8f;
+  private float speed = Maps.PPM;// , gravity = 60 * 1.8f;
   private World world;
   private Body body;
   private boolean onGround;
@@ -81,7 +80,6 @@ public class Player extends Sprite implements IEntity {
 
     this.body = world.createBody(bdef);
 
-
     // Main player body (rectangle shape)
     PolygonShape bodyShape = new PolygonShape();
     bodyShape.setAsBox(16 / Maps.PPM, 32 / Maps.PPM); // Adjust width & height based on player sprite
@@ -110,13 +108,13 @@ public class Player extends Sprite implements IEntity {
   @Override
   public void update(float deltaTime) {
     this.setPosition(body.getPosition().x * Maps.PPM - getWidth() / 2,
-                     body.getPosition().y * Maps.PPM - getHeight() / 2);
+        body.getPosition().y * Maps.PPM - getHeight() / 2);
 
     // Prevent falling through ground if onGround
     if (onGround && body.getLinearVelocity().y < 0) {
-        body.setLinearVelocity(body.getLinearVelocity().x, 0);
+      body.setLinearVelocity(body.getLinearVelocity().x, 0);
     }
-    
+
   }
 
   /**
@@ -126,7 +124,7 @@ public class Player extends Sprite implements IEntity {
    */
   public void move(String dir) {
     if (!touchingWall) {
-      if (dir.equals("left")){
+      if (dir.equals("left")) {
         body.setLinearVelocity(-speed, body.getLinearVelocity().y);
       }
       if (dir.equals("right")) {
@@ -138,7 +136,7 @@ public class Player extends Sprite implements IEntity {
     } else {
       body.setLinearVelocity(0, body.getLinearVelocity().y); // Stop movement into wall
     }
-  
+
   }
 
   public void jump() {
@@ -151,7 +149,8 @@ public class Player extends Sprite implements IEntity {
   public void setOnGround(boolean onGround) {
     this.onGround = onGround;
     // if (onGround) {
-    //   body.setLinearVelocity(body.getLinearVelocity().x, 0); // Stop downward movement
+    // body.setLinearVelocity(body.getLinearVelocity().x, 0); // Stop downward
+    // movement
     // }
     System.out.println("Player on ground: " + onGround);
   }

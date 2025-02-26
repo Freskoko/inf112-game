@@ -6,8 +6,8 @@ import java.util.Iterator;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
- * EntityList is a class that holds a list of entities. 
- * It is used to draw and dispose of entities. 
+ * EntityList is a class that holds a list of entities.
+ * It is used to draw and dispose of entities.
  * 
  * @param <T> Type of entity
  * @param <E> Entity
@@ -28,12 +28,12 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
    * Add player to the list
    * 
    * @param playerType The key representing the entity
-   * @param player The entity to be added
+   * @param player     The entity to be added
    * @throws IllegalArgumentException if player already exists
    */
   public void addPlayer(T playerType, E player) {
     if (players.containsKey(playerType)) {
-      throw new IllegalArgumentException("Player of type:" + playerType +  "already exists");
+      throw new IllegalArgumentException("Player of type:" + playerType + "already exists");
     }
     players.put(playerType, player);
   }
@@ -50,6 +50,7 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
 
   /**
    * Draws all players contained in the list using the given batch
+   * 
    * @param batch The batch used for rendering
    */
   public void draw(Batch batch) {
@@ -71,7 +72,7 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
   public Iterator<E> iterator() {
     return players.values().iterator();
     // Kan hende vi må løse dette ulikt slik vi får med player Type?
-    // Evt legge til Type i player klassen. 
+    // Evt legge til Type i player klassen.
   }
 
   public boolean isEmpty() {
