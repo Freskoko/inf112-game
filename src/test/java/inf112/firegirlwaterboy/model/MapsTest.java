@@ -34,7 +34,7 @@ public class MapsTest {
      */
     @Test
     void testMapLoadsAsExpected() {
-        Model model = new Model("default_map");
-        model.init();
+        Maps maps = new Maps();
+        maps.init();;
     }
 }

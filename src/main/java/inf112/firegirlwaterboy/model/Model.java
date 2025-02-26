@@ -27,18 +27,19 @@ public class Model implements IControllableModel, IViewModel {
   private EntityList<PlayerType, Player> players;
   private GameState gameState;
   private Maps maps;
-  private String currentMapName = "map";
+  private String currentMapName;
   private World world;
 
   public Model() {
     this.world = new World(new Vector2(0, -9.8f), true); // Gravity
-    this.maps = new Maps();  // Only initialize once
     this.players = new EntityList<>();
     world.setContactListener(new MyContactListener(players));
+    this.currentMapName = "map";
   }
 
   @Override
   public void init() {
+      this.maps = new Maps();  // Only initialize once
       maps.init(); // Load maps
       this.setMap(this.currentMapName);
       maps.createObjectsInWorld(world, currentMapName);
@@ -96,16 +97,7 @@ public class Model implements IControllableModel, IViewModel {
     return maps.getMap(this.currentMapName);
   }
 
- 
-
   private void setMap(String mapName) {
     this.currentMapName = mapName;
   }
-
-   // for tests
-   public Model(String mapName) {
-    this.currentMapName = mapName;
-  }
-
-
 }
