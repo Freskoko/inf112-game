@@ -13,7 +13,8 @@ import inf112.firegirlwaterboy.controller.Controller;
 
 /**
  * GameScreen class represents the game screen.
- * The game screen is responsible for rendering the game and updating the game state.
+ * The game screen is responsible for rendering the game and updating the game
+ * state.
  */
 public class GameScreen implements Screen {
     private OrthographicCamera camera;
@@ -24,14 +25,15 @@ public class GameScreen implements Screen {
 
     /**
      * Constructs a GameScreen with a given view model and controller.
-     * @param model The view model of the game
+     * 
+     * @param model      The view model of the game
      * @param controller The controller of the game
      */
     public GameScreen(IViewModel model, Controller controller) {
         this.model = model;
         this.controller = controller;
     }
-   
+
     @Override
     public void resize(int width, int height) {
         camera.viewportWidth = width;
@@ -45,7 +47,8 @@ public class GameScreen implements Screen {
         // Load map
         model.init();
         map = model.getMap();
-        // Use OrthogonalTiledMapRenderer for 2D orthogonal maps. // mulig å legge til unit scale her senere
+        // Use OrthogonalTiledMapRenderer for 2D orthogonal maps. // mulig å legge til
+        // unit scale her senere
         renderer = new OrthogonalTiledMapRenderer(map);
         // Set up the camera
         camera = new OrthographicCamera();
@@ -56,8 +59,8 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         // Added background color (usikker på om dette er nødvendig)
-        //Gdx.gl.glClearColor(0, 0, 0, 1);
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        // Gdx.gl.glClearColor(0, 0, 0, 1);
+        // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ////////////////////////////////////////
 
         // make the screen check if it is using the same map as the model
@@ -68,10 +71,10 @@ public class GameScreen implements Screen {
 
         // Render the map
         renderer.setView(camera);
-        renderer.render();  
+        renderer.render();
 
         // Oppdater spiller pos
-		float deltaTime = Gdx.graphics.getDeltaTime();
+        float deltaTime = Gdx.graphics.getDeltaTime();
         model.update(deltaTime);
 
         renderer.getBatch().begin();
@@ -91,16 +94,16 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-    
+
     }
 
     @Override
     public void resume() {
-       
+
     }
-    
+
     @Override
     public void hide() {
-        
+
     }
 }

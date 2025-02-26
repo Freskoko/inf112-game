@@ -28,7 +28,6 @@ public class Maps {
   HashMap<String, TiledMap> maps;
   public static final float PPM = 32f;
 
-
   /**
    * Constructs a new Maps object and initializes the map storage.
    */
@@ -48,19 +47,18 @@ public class Maps {
     File[] tmxFiles = dir.listFiles((dir1, name) -> name.toLowerCase().endsWith(".tmx"));
 
     if (tmxFiles != null) {
-        for (File file : tmxFiles) {
-            try {
-                String mapName = file.getName().replace(".tmx", "");
-                maps.put(mapName, new TmxMapLoader().load("src/main/resources/" + file.getName()));
-            } catch (Exception e) {
-                System.err.println("Error loading map: " + file.getName());
-                e.printStackTrace();
-            }
+      for (File file : tmxFiles) {
+        try {
+          String mapName = file.getName().replace(".tmx", "");
+          maps.put(mapName, new TmxMapLoader().load("src/main/resources/" + file.getName()));
+        } catch (Exception e) {
+          System.err.println("Error loading map: " + file.getName());
+          e.printStackTrace();
         }
+      }
     }
     return maps;
-}
-
+  }
 
   /**
    * Retrieves a map from the map storage.
@@ -95,39 +93,37 @@ public class Maps {
     }
     return new Vector2(100, 100);
   }
-  
+
+  // Dele opp og lage hjelpe metoder, slik at den lagrer alle object i mappet i
+  // forskjellige kategorier.
   public void createObjectsInWorld(World world, String mapName) {
     for (MapObject object : getLayer(mapName, "InteractiveObjects").getObjects()) {
-        BodyDef bdef = new BodyDef();
-        bdef.type = BodyDef.BodyType.StaticBody; // Walls are static
-       
-        // Get position from Tiled map
-        float x = object.getProperties().get("x", Float.class);
-        float y = object.getProperties().get("y", Float.class);
-        bdef.position.set(x / PPM, y / PPM); // Convert to Box2D units
+      BodyDef bdef = new BodyDef();
+      bdef.type = BodyDef.BodyType.StaticBody; // Walls are static
 
-        Body body = world.createBody(bdef);
+      // Get position from Tiled map
+      float x = object.getProperties().get("x", Float.class);
+      float y = object.getProperties().get("y", Float.class);
+      bdef.position.set(x / PPM, y / PPM); // Convert to Box2D units
 
-        // Define shape (assuming rectangular objects)
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(
-            object.getProperties().get("width", Float.class) / 2 / PPM, 
-            object.getProperties().get("height", Float.class) / 2 / PPM
-        );
+      Body body = world.createBody(bdef);
 
-        FixtureDef fdef = new FixtureDef();
-        fdef.shape = shape;
-        fdef.friction = 0.5f; // Optional: Adds friction
-        fdef.restitution = 0f; // Optional: No bouncing
+      // Define shape (assuming rectangular objects)
+      PolygonShape shape = new PolygonShape();
+      shape.setAsBox(
+          object.getProperties().get("width", Float.class) / 2 / PPM,
+          object.getProperties().get("height", Float.class) / 2 / PPM);
 
-        Fixture fixture = body.createFixture(fdef);
-        fixture.setUserData("GROUND");
-        System.out.println("Added GROUND");
+      FixtureDef fdef = new FixtureDef();
+      fdef.shape = shape;
+      fdef.friction = 0.5f; // Optional: Adds friction
+      fdef.restitution = 0f; // Optional: No bouncing
 
-        shape.dispose(); // Clean up memory
+      Fixture fixture = body.createFixture(fdef);
+      fixture.setUserData("GROUND");
+
+      shape.dispose();
     }
-}
-
-    
+  }
 
 }

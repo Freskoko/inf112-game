@@ -9,14 +9,16 @@ import inf112.firegirlwaterboy.model.Entity.PlayerType;
 
 /**
  * Controller class for the game FireGirl & WaterBoy.
- * This class is responsible for handling input from the player and updating the model accordingly.
+ * This class is responsible for handling input from the player and updating the
+ * model accordingly.
  */
-public class Controller implements InputProcessor{
+public class Controller implements InputProcessor {
 
   private IControllableModel model;
 
   /**
    * Constructor for the Controller class.
+   * 
    * @param model the model to be controlled.
    */
   public Controller(IControllableModel model) {
@@ -36,7 +38,6 @@ public class Controller implements InputProcessor{
 
     switch ( keycode) {
       case Keys.UP:
-        
         model.changeDir(PlayerType.FIREGIRL, "jump");
         break;
       case Keys.LEFT:
@@ -51,9 +52,9 @@ public class Controller implements InputProcessor{
 
   @Override
   public boolean keyUp(int keycode) {
-    switch ( keycode) {
+    switch (keycode) {
       case Keys.LEFT:
-        model.changeDir(PlayerType.FIREGIRL,"stop");
+        model.changeDir(PlayerType.FIREGIRL, "stop");
         break;
       case Keys.RIGHT:
         model.changeDir(PlayerType.FIREGIRL, "stop");
@@ -63,23 +64,37 @@ public class Controller implements InputProcessor{
   }
 
   @Override
-  public boolean keyTyped(char character) {return false;}
+  public boolean keyTyped(char character) {
+    return false;
+  }
 
   @Override
-  public boolean touchDown(int screenX, int screenY, int pointer, int button) {return false;}
+  public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    return false;
+  }
 
   @Override
-  public boolean touchUp(int screenX, int screenY, int pointer, int button) {return false;}
+  public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+    return false;
+  }
 
   @Override
-  public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {return false;}
+  public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+    return false;
+  }
 
   @Override
-  public boolean touchDragged(int screenX, int screenY, int pointer) {return false;}
+  public boolean touchDragged(int screenX, int screenY, int pointer) {
+    return false;
+  }
 
   @Override
-  public boolean mouseMoved(int screenX, int screenY) {return false;}
+  public boolean mouseMoved(int screenX, int screenY) {
+    return false;
+  }
 
   @Override
-  public boolean scrolled(float amountX, float amountY) {return false;}
+  public boolean scrolled(float amountX, float amountY) {
+    return false;
+  }
 }
