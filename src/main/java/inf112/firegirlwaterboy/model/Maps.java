@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+// import com.badlogic.gdx.maps.tiled.TiledMapTileLayer; Endrer til MapLayer da vi bruker objects til kollisjons deteksjon
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
@@ -25,12 +26,13 @@ public class Maps {
 
   /** HashMap that stores the maps. */
   HashMap<String, TiledMap> maps;
+  public static final float PPM = 32f;
+
 
   /**
    * Constructs a new Maps object and initializes the map storage.
    */
   public Maps() {
-    init();
   }
 
   /**
@@ -39,6 +41,7 @@ public class Maps {
   public void init() {
     maps = loadAllMaps();
   }
+
   private HashMap<String, TiledMap> loadAllMaps() {
     HashMap<String, TiledMap> maps = new HashMap<>();
     File dir = new File("src/main/resources/");
@@ -76,8 +79,8 @@ public class Maps {
    * @param layerName The name of the layer to retrieve
    * @return The layer associated with the given name
    */
-  public TiledMapTileLayer getLayer(String mapName, String layerName) {
-    return (TiledMapTileLayer) getMap(mapName).getLayers().get(layerName);
+  public MapLayer getLayer(String mapName, String layerName) {
+    return getMap(mapName).getLayers().get(layerName);
   }
 
   public Vector2 getPlayerSpawn() {
@@ -95,15 +98,36 @@ public class Maps {
   
   public void createObjectsInWorld(World world, String mapName) {
     for (MapObject object : getLayer(mapName, "InteractiveObjects").getObjects()) {
-      BodyDef bdef = new BodyDef();
-      FixtureDef fdef = new FixtureDef();
+        BodyDef bdef = new BodyDef();
+        bdef.type = BodyDef.BodyType.StaticBody; // Walls are static
+       
+        // Get position from Tiled map
+        float x = object.getProperties().get("x", Float.class);
+        float y = object.getProperties().get("y", Float.class);
+        bdef.position.set(x / PPM, y / PPM); // Convert to Box2D units
 
-      Body body = world.createBody(bdef);
-      Fixture fixture = body.createFixture(fdef);
-      // alt blir satt til wall, burde ha egne layers til hver type 
-      fixture.setUserData("WALL");
+        Body body = world.createBody(bdef);
+
+        // Define shape (assuming rectangular objects)
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(
+            object.getProperties().get("width", Float.class) / 2 / PPM, 
+            object.getProperties().get("height", Float.class) / 2 / PPM
+        );
+
+        FixtureDef fdef = new FixtureDef();
+        fdef.shape = shape;
+        fdef.friction = 0.5f; // Optional: Adds friction
+        fdef.restitution = 0f; // Optional: No bouncing
+
+        Fixture fixture = body.createFixture(fdef);
+        fixture.setUserData("GROUND");
+        System.out.println("Added GROUND");
+
+        shape.dispose(); // Clean up memory
     }
-  }
+}
+
     
 
 }
