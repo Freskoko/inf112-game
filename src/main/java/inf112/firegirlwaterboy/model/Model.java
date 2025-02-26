@@ -29,176 +29,58 @@ public class Model implements IControllableModel, IViewModel {
   private Maps maps;
   private String currentMapName = "map";
   private World world;
-  
-  public static final float PPM = 100;
 
   public Model() {
-    world = new World(new Vector2(0, -9.8f), true); // Gravity
+    this.world = new World(new Vector2(0, -9.8f), true); // Gravity
+    this.maps = new Maps();  // Only initialize once
+    this.players = new EntityList<>();
     world.setContactListener(new MyContactListener(players));
-    //debugRenderer = new Box2DDebugRenderer();
+  }
 
+  @Override
+  public void init() {
+      maps.init(); // Load maps
+      this.setMap(this.currentMapName);
+      maps.createObjectsInWorld(world, currentMapName);
+
+      // Ensure we only create the player when needed
+      if (players.isEmpty()) {
+          Player player =  new Player(world, maps.getPlayerSpawn(), PlayerType.FIREGIRL);
+          players.addPlayer(PlayerType.FIREGIRL,player);
+      }
   }
   
   @Override
-  public boolean changeVelocity(PlayerType playerType, int deltaX, int deltaY) {
-
-    //henter spiller fra player på pos 1 i array
+  public boolean changeDir(PlayerType playerType, String dir) {
     Player player =  players.getPlayer(playerType);
-    player.setVelosity(deltaX, deltaY);
-    //updatePlayer(player, deltaY);
+    if (dir.equals("jump")) {
+      player.jump();
+    } else {
+      player.move(dir);
+    }
     return true;
   }
 
   @Override
   public void update(float deltaTime) {
+    world.step(1 / 60f, 3, 2); //?
+
     for (Player player : players) {
-      //updatePlayer(player, deltaTime);
       player.update(deltaTime);
-      //checkCollisions(player);
     }
   }
   
-  /*public void checkCollisions(Player player) {
-    //System.out.println("CheckCollisions kjører");
-    Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
-
-    for (InteractiveObject obj : interactiveObjects) {
-      //System.out.println("Objekt posisjon og størrelse: " + obj.getBounds());
-
-      if (playerRect.overlaps(obj.getBounds())) {
-        System.out.println("Overlap: " + obj.getValue());
-        handleCollision(player, obj);
-      }
-    }
-  }
-  
-  private void handleCollision(Player player, InteractiveObject obj) {
-    String value = obj.getValue();
-    System.out.println("Kolliderer med: " + value);
-    
-    if (value == null) {
-      System.out.println("Object with no value encountered.");
-      return;
-    }
-    
-    switch (value) {
-      case "wall":
-        System.out.println("Player hit wall");
-        player.setVelosity(0, 0);
-        break;
-      case "lava":
-        System.out.println("Player hit lava");
-        break;
-      case "water":
-        System.out.println("Player hit water");
-        break;
-      case "border":
-        System.out.println("Player hit border");
-        player.setVelosity(0, 0);
-      default:
-        System.out.println("Foreign object: " + value);
-    }
-    if (obj.isBlocked()) {
-      System.out.println("obj is blocked");
-      player.setVelosity(0, 0);
-    }
-  }*/
-
-
-  /** 
-   * 
-   * @param player The player to update
-   * @param deltaTime The time elapsed since the last update
-   */
-  /*private void updatePlayer(Player player, float deltaTime) {
-    player.update(deltaTime);
-    TiledMapTileLayer collisionLayer = maps.getLayer(this.currentMapName, "Border");
-
-
-    float oldX = player.getX(), oldY= player.getY();
-
-    Vector2 velocity = player.getVelocity();
-    float x = player.getX(), y= player.getY();
-    float width = player.getWidth(), height = player.getHeight();
-
-    player.setX(player.getX() + velocity.x * deltaTime);
-    player.setY(player.getY() + velocity.y * deltaTime);
-  
-    boolean collisionX = false, collisionY = false;
-    float[] xOffsets = {0, width / 2, width}; // Left, Middle, Right
-    float[] yOffsets = {0, height / 3, height * 2/3, height}; // Bottom, Body, Head, Top
-
-
-    // Check X-axis collision
-    if (velocity.x != 0) {
-        float checkX = (velocity.x < 0) ? x : x + width;
-        for (float offsetY : yOffsets) {
-            if (isCellBlocked(collisionLayer, checkX, y + offsetY)) {
-                collisionX = true;
-                break;
-            }
-        }
-    }
-
-    if (collisionX) {
-      velocity.x = 0;
-      player.setX(oldX);
-      player.setVelosity(velocity);
-    } 
-
-  
-    // Check Y-axis collision
-    if (velocity.y != 0) {
-        float checkY = (velocity.y < 0) ? y : y + height;
-        for (float offsetX : xOffsets) {
-            if (isCellBlocked(collisionLayer, x + offsetX, checkY)) {
-                collisionY = true;
-                break;
-            }
-        }
-    }
-
-    
-   
-    if (collisionY) {
-      velocity.y = 0;
-      player.setY(oldY);
-    } 
-
-    
-  }*/
-
-
-  /**
-   * Checks if the cell at the given position is blocked.
-   * @param collisionLayer The collision layer
-   * @param x The x position
-   * @param y The y position
-   * @return True if the cell is blocked, false otherwise
-   */
-  private boolean isCellBlocked(TiledMapTileLayer collisionLayer, float x, float y) {
-    float tileWidth = collisionLayer.getTileWidth();
-    float tileHeight = collisionLayer.getTileHeight();
-    return collisionLayer.getCell((int) (x / tileWidth), (int) (y / tileHeight)).getTile().getProperties().containsKey("blocked");
-  }
-
-  // Kanskje vi ikke trenger gameState enum hvis vi bruker Game gdx klassen (?)
   @Override
   public GameState getGameState() {
     return gameState;
   }
 
-  @Override // Usikker om denne er nødvendig
+  @Override 
   public void setGameState(GameState gameState) {
     this.gameState = gameState;
   }
 
-  @Override
-  public int getTimerDelay() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getTimerDelay'");
-  }
-
+ 
   @Override
   public void draw(Batch batch) {
     players.draw(batch);
@@ -214,23 +96,16 @@ public class Model implements IControllableModel, IViewModel {
     return maps.getMap(this.currentMapName);
   }
 
-  @Override
-  public void init() {
-    maps = new Maps();
-    this.setMap(this.currentMapName);
-    Texture texture = new Texture(Gdx.files.internal("src/main/resources/figur.png"));
-    TextureRegion textureRegion = new TextureRegion(texture);
-    players = new EntityList<PlayerType, Player>();
-    players.addPlayer(PlayerType.FIREGIRL, new Player(world, maps.getPlayerSpawn(), PlayerType.FIREGIRL));
-    
-  }
-
-  // for tests
-  public Model (String mapName) {
-    this.setMap(mapName);
-  }
+ 
 
   private void setMap(String mapName) {
     this.currentMapName = mapName;
   }
+
+   // for tests
+   public Model(String mapName) {
+    this.currentMapName = mapName;
+  }
+
+
 }
