@@ -1,7 +1,5 @@
 package inf112.firegirlwaterboy.model;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -22,79 +20,48 @@ public class MyContactListener implements ContactListener {
 
   @Override
   public void beginContact(Contact contact) {
-   
-    Fixture a = contact.getFixtureA();
-    Fixture b = contact.getFixtureB();
-
-    for (Player player : players) {
-      if (isPlayerFootSensor(a, b, player)) {
-        if (isGround(a, b)) {
-          player.setOnGround(true);
-          System.out.println("Player is touching ground");
-        }
-      }
-      if (isWall(a, b)) {
-        player.setTouchingWall(true);
-      }
-    }
-
-    // // Check if Player collided with a Wall
-    // if ((dataA instanceof Player && "WALL".equals(dataB)) || (dataB instanceof
-    // Player && "WALL".equals(dataA))) {
-    // Player player = dataA instanceof Player ? (Player) dataA : (Player) dataB;
-    // System.out.println(player.getPlayerType() + " hit a wall!");
-    // //player.stopMoving(); // Custom method to stop movement
-    // }
-
-    // // Check if two Players collided
-    // if (dataA instanceof Player && dataB instanceof Player) {
-    // Player player1 = (Player) dataA;
-    // Player player2 = (Player) dataB;
-    // System.out.println(player1.getPlayerType() + " collided with " +
-    // player2.getPlayerType());
-    // }
+    playerCollision(contact, true);
   }
 
   @Override
-    public void endContact(Contact contact) {
-      Fixture a = contact.getFixtureA();
-      Fixture b = contact.getFixtureB();
+  public void endContact(Contact contact) {
+    playerCollision(contact, false);
+  }
 
-      for (Player player : players) {
-        if (isPlayerFootSensor(a, b, player)) {
-          if (isGround(a, b)) {
-            player.setOnGround(false);
-          }
-        }
-        if (isWall(a, b)) {
-          player.setTouchingWall(false);
+  private void playerCollision(Contact contact, Boolean contactStatus) {
+    Fixture a = contact.getFixtureA();
+    Fixture b = contact.getFixtureB();
+    for (Player player : players) {
+      if (isPlayerFootSensor(a, b, player)) {
+        if (isGround(a, b)) {
+          player.setOnGround(contactStatus);
         }
       }
+      if (isWall(a, b)) {
+        player.setTouchingWall(contactStatus);
+      }
     }
+  }
 
-    private boolean isPlayerFootSensor(Fixture a, Fixture b, Player player) {
-      return ("FOOT_SENSOR".equals(a.getUserData()) && a.getBody() == player.getBody()) ||
-             ("FOOT_SENSOR".equals(b.getUserData()) && b.getBody() == player.getBody());
+  private boolean isPlayerFootSensor(Fixture a, Fixture b, Player player) {
+    return ("FOOT_SENSOR".equals(a.getUserData()) && a.getBody() == player.getBody()) ||
+        ("FOOT_SENSOR".equals(b.getUserData()) && b.getBody() == player.getBody());
   }
-  
+
   private boolean isWall(Fixture a, Fixture b) {
-      return "WALL".equals(a.getUserData()) || "WALL".equals(b.getUserData());
+    return "WALL".equals(a.getUserData()) || "WALL".equals(b.getUserData());
   }
-  
+
   private boolean isGround(Fixture a, Fixture b) {
-      return "GROUND".equals(a.getUserData()) || "GROUND".equals(b.getUserData());
+    return "GROUND".equals(a.getUserData()) || "GROUND".equals(b.getUserData());
   }
 
   @Override
   public void postSolve(Contact arg0, ContactImpulse arg1) {
-    // TODO Auto-generated method stub
-    //throw new UnsupportedOperationException("Unimplemented method 'postSolve'");
   }
 
   @Override
   public void preSolve(Contact arg0, Manifold arg1) {
-    // TODO Auto-generated method stub
-    //throw new UnsupportedOperationException("Unimplemented method 'preSolve'");
   }
 
 }
