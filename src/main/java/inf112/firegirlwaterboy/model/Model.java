@@ -11,43 +11,41 @@ import inf112.firegirlwaterboy.model.Entity.Player;
 import inf112.firegirlwaterboy.model.Entity.PlayerType;
 import inf112.firegirlwaterboy.view.IViewModel;
 
-// skal kanskje denne her extende Game fra gdx?
-
 /**
  * Model class represents the game model.
  * The model contains the game state, the players and the maps.
  */
-public class Model implements IControllableModel, IViewModel { 
+public class Model implements IControllableModel, IViewModel {
 
   private EntityList<PlayerType, Player> players;
   private GameState gameState;
   private Maps maps;
-  private String currentMapName = "map";
+  private String currentMapName;
   private World world;
 
   public Model() {
     this.world = new World(new Vector2(0, -9.8f), true); // Gravity
-    this.maps = new Maps();  // Only initialize once
     this.players = new EntityList<>();
     world.setContactListener(new MyContactListener(players));
+    this.currentMapName = "map";
   }
 
   @Override
   public void init() {
-      maps.init(); // Load maps
-      this.setMap(this.currentMapName);
-      maps.createObjectsInWorld(world, currentMapName);
+    this.maps = new Maps();
+    maps.init();
+    maps.createObjectsInWorld(world, currentMapName);
 
-      // Ensure we only create the player when needed
-      if (players.isEmpty()) {
-          Player player =  new Player(world, maps.getPlayerSpawn(), PlayerType.FIREGIRL);
-          players.addPlayer(PlayerType.FIREGIRL,player);
-      }
+    // This need to be replaced by choose player logic.
+    if (players.isEmpty()) {
+      Player player = new Player(world, maps.getPlayerSpawn(), PlayerType.FIREGIRL);
+      players.addPlayer(PlayerType.FIREGIRL, player);
+    }
   }
-  
+
   @Override
   public boolean changeDir(PlayerType playerType, String dir) {
-    Player player =  players.getPlayer(playerType);
+    Player player = players.getPlayer(playerType);
     if (dir.equals("jump")) {
       player.jump();
     } else {
@@ -58,49 +56,35 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public void update(float deltaTime) {
-    world.step(1 / 60f, 3, 2); //?
-
+    world.step(1 / 60f, 3, 2); // Usikker hva parameter gjør?
     for (Player player : players) {
       player.update(deltaTime);
     }
   }
-  
+
   @Override
   public GameState getGameState() {
     return gameState;
   }
 
-  @Override 
+  @Override
   public void setGameState(GameState gameState) {
     this.gameState = gameState;
   }
 
- 
   @Override
   public void draw(Batch batch) {
     players.draw(batch);
   }
 
   /** Cleans up allocated resources */
-	public void dispose() {
-		players.dispose();
-	}
+  public void dispose() {
+    players.dispose();
+  }
 
   @Override
   public TiledMap getMap() {
     return maps.getMap(this.currentMapName);
   }
-
- 
-
-  private void setMap(String mapName) {
-    this.currentMapName = mapName;
-  }
-
-   // for tests
-   public Model(String mapName) {
-    this.currentMapName = mapName;
-  }
-
 
 }

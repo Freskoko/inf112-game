@@ -27,7 +27,6 @@ public class Maps {
   private HashMap<String, TiledMap> maps;
   public static final float PPM = 32f;
 
-
   /**
    * Constructs a new Maps object and initializes the map storage.
    */

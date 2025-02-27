@@ -19,7 +19,7 @@ public class Main {
 		Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
 		cfg.setTitle("FireGirl & WaterBoy");
 		cfg.setWindowedMode(960, 960);
-		
+
 		new Lwjgl3Application(new FireGirlWaterBoy(), cfg);
 	}
 }
