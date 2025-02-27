@@ -6,6 +6,11 @@
 Hvordan fungerer rollene i teamet? Trenger dere å oppdatere hvem som er teamlead eller kundekontakt?
 
 Trenger dere andre roller? Skriv ned noen linjer om hva de ulike rollene faktisk innebærer for dere.
+- Rollene fungerer bra, vi har fordelt ansvarsområder, men samarbeider fint om de ulike rollene.  
+- Team leder: Gedvyde. Hun tar ansvar for å få ting til og skje, tar et overordnet ansvar over prosjektet.  
+- Git ansvar: Henrik. Han tar overordnet ansvar for git.  
+- Test ansvar: Henrik tar overordnet ansvar for testing.  
+- Animasjonsansvarlig: Ingvild tar overordnet ansvar for animasjon
 
 Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?
 
