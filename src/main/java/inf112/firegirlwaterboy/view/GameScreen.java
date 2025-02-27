@@ -23,59 +23,59 @@ public class GameScreen implements Screen {
   private IViewModel model;
   private Controller controller; // Må være her
 
-    /**
-     * Constructs a GameScreen with a given view model and controller.
-     * 
-     * @param model      The view model of the game
-     * @param controller The controller of the game
-     */
-    public GameScreen(IViewModel model, Controller controller) {
-        this.model = model;
-        this.controller = controller;
-    }
+  /**
+   * Constructs a GameScreen with a given view model and controller.
+   * 
+   * @param model      The view model of the game
+   * @param controller The controller of the game
+   */
+  public GameScreen(IViewModel model, Controller controller) {
+    this.model = model;
+    this.controller = controller;
+  }
 
-    @Override
-    public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-        camera.update();
-    }
+  @Override
+  public void resize(int width, int height) {
+    camera.viewportWidth = width;
+    camera.viewportHeight = height;
+    camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+    camera.update();
+  }
 
-    @Override
-    public void show() {
-        // Load map
-        model.init();
-        map = model.getMap();
-        // Use OrthogonalTiledMapRenderer for 2D orthogonal maps. // mulig å legge til
-        // unit scale her senere
-        renderer = new OrthogonalTiledMapRenderer(map);
-        // Set up the camera
-        camera = new OrthographicCamera();
-        // camera.update(); resize() blir kalt etter show()
+  @Override
+  public void show() {
+    // Load map
+    model.init();
+    map = model.getMap();
+    // Use OrthogonalTiledMapRenderer for 2D orthogonal maps. // mulig å legge til
+    // unit scale her senere
+    renderer = new OrthogonalTiledMapRenderer(map);
+    // Set up the camera
+    camera = new OrthographicCamera();
+    // camera.update(); resize() blir kalt etter show()
 
     // Oppdater spiller pos
     float deltaTime = Gdx.graphics.getDeltaTime();
     model.update(deltaTime);
+  }
 
-    @Override
-    public void render(float delta) {
-        // Added background color (usikker på om dette er nødvendig)
-        // Gdx.gl.glClearColor(0, 0, 0, 1);
-        // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        ////////////////////////////////////////
+  @Override
+  public void render(float delta) {
+    // Added background color (usikker på om dette er nødvendig)
+    // Gdx.gl.glClearColor(0, 0, 0, 1);
+    // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    ////////////////////////////////////////
 
     // Om vi senere vil at kamera skal flytte seg etter spilleren:
     // camera.position = model.getPlayerPositions();
-  }
 
-        // Render the map
-        renderer.setView(camera);
-        renderer.render();
+    // Render the map
+    renderer.setView(camera);
+    renderer.render();
 
-        // Oppdater spiller pos
-        float deltaTime = Gdx.graphics.getDeltaTime();
-        model.update(deltaTime);
+    // Oppdater spiller pos
+    float deltaTime = Gdx.graphics.getDeltaTime();
+    model.update(deltaTime);
 
   }
 
@@ -84,18 +84,20 @@ public class GameScreen implements Screen {
 
   }
 
-    @Override
-    public void pause() {
+  @Override
+  public void pause() {
 
-    }
+  }
 
-    @Override
-    public void resume() {
+  @Override
+  public void hide() {
 
-    }
+  }
 
-    @Override
-    public void hide() {
-
-    }
+  @Override
+  public void dispose() {
+    map.dispose();
+    renderer.dispose();
+    model.dispose();
+  }
 }
