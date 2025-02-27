@@ -16,91 +16,91 @@ import inf112.firegirlwaterboy.controller.Controller;
  * The game screen is responsible for rendering the game and updating the game state.
  */
 public class GameScreen implements Screen {
-    private OrthographicCamera camera;
-    private OrthogonalTiledMapRenderer renderer;
-    private TiledMap map;
-    private IViewModel model;
-    private Controller controller; // Må være her
+  private OrthographicCamera camera;
+  private OrthogonalTiledMapRenderer renderer;
+  private TiledMap map;
+  private IViewModel model;
+  private Controller controller; // Må være her
 
-    /**
-     * Constructs a GameScreen with a given view model and controller.
-     * @param model The view model of the game
-     * @param controller The controller of the game
-     */
-    public GameScreen(IViewModel model, Controller controller) {
-        this.model = model;
-        this.controller = controller;
-    }
-   
-    @Override
-    public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-        camera.update();
-    }
+  /**
+   * Constructs a GameScreen with a given view model and controller.
+   * @param model The view model of the game
+   * @param controller The controller of the game
+   */
+  public GameScreen(IViewModel model, Controller controller) {
+    this.model = model;
+    this.controller = controller;
+  }
 
-    @Override
-    public void show() {
-        // Load map
-        model.init();
-        map = model.getMap();
-        // Use OrthogonalTiledMapRenderer for 2D orthogonal maps. // mulig å legge til unit scale her senere
-        renderer = new OrthogonalTiledMapRenderer(map);
-        // Set up the camera
-        camera = new OrthographicCamera();
-        // camera.update(); resize() blir kalt etter show()
+  @Override
+  public void resize(int width, int height) {
+    camera.viewportWidth = width;
+    camera.viewportHeight = height;
+    camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+    camera.update();
+  }
 
-    }
+  @Override
+  public void show() {
+    // Load map
+    //model.init();
+    map = model.getMap();
+    // Use OrthogonalTiledMapRenderer for 2D orthogonal maps. // mulig å legge til unit scale her senere
+    renderer = new OrthogonalTiledMapRenderer(map);
+    // Set up the camera
+    camera = new OrthographicCamera();
+    // camera.update(); resize() blir kalt etter show()
 
-    @Override
-    public void render(float delta) {
-        // Added background color (usikker på om dette er nødvendig)
-        //Gdx.gl.glClearColor(0, 0, 0, 1);
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        ////////////////////////////////////////
+  }
 
-        // make the screen check if it is using the same map as the model
-        if (!map.equals(model.getMap())) {
-            map = model.getMap();
-            renderer.setMap(map);
-        }
+  @Override
+  public void render(float delta) {
+    // Added background color (usikker på om dette er nødvendig)
+    //Gdx.gl.glClearColor(0, 0, 0, 1);
+    //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    ////////////////////////////////////////
 
-        // Render the map
-        renderer.setView(camera);
-        renderer.render();  
-
-        // Oppdater spiller pos
-		float deltaTime = Gdx.graphics.getDeltaTime();
-        model.update(deltaTime);
-
-        renderer.getBatch().begin();
-        model.draw(renderer.getBatch());
-        renderer.getBatch().end();
-
-        // Om vi senere vil at kamera skal flytte seg etter spilleren:
-        // camera.position = model.getPlayerPositions();
+    // make the screen check if it is using the same map as the model
+    if (!map.equals(model.getMap())) {
+      map = model.getMap();
+      renderer.setMap(map);
     }
 
-    @Override
-    public void dispose() {
-        map.dispose();
-        renderer.dispose();
-        model.dispose();
-    }
+    // Render the map
+    renderer.setView(camera);
+    renderer.render();
 
-    @Override
-    public void pause() {
-    
-    }
+    // Oppdater spiller pos
+    float deltaTime = Gdx.graphics.getDeltaTime();
+    model.update(deltaTime);
 
-    @Override
-    public void resume() {
-       
-    }
-    
-    @Override
-    public void hide() {
-        
-    }
+    renderer.getBatch().begin();
+    model.draw(renderer.getBatch());
+    renderer.getBatch().end();
+
+    // Om vi senere vil at kamera skal flytte seg etter spilleren:
+    // camera.position = model.getPlayerPositions();
+  }
+
+  @Override
+  public void dispose() {
+    map.dispose();
+    renderer.dispose();
+    model.dispose();
+  }
+
+  @Override
+  public void pause() {
+
+  }
+
+  @Override
+  public void resume() {
+
+  }
+
+  @Override
+  public void hide() {
+
+  }
 }
