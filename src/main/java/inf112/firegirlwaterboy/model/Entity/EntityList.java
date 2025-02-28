@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.model.Entity;
+package inf112.firegirlwaterboy.model.entity;
 
 import java.util.HashMap;
 import java.util.Iterator;

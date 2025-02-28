@@ -6,9 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.IControllableModel;
-import inf112.firegirlwaterboy.model.Entity.EntityList;
-import inf112.firegirlwaterboy.model.Entity.Player;
-import inf112.firegirlwaterboy.model.Entity.PlayerType;
+import inf112.firegirlwaterboy.model.entity.EntityList;
+import inf112.firegirlwaterboy.model.entity.Player;
+import inf112.firegirlwaterboy.model.entity.PlayerType;
+import inf112.firegirlwaterboy.model.maps.Maps;
 import inf112.firegirlwaterboy.view.IViewModel;
 
 /**

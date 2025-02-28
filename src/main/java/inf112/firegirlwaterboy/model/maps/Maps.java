@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.model;
+package inf112.firegirlwaterboy.model.maps;
 
 import java.io.File;
 import java.util.HashMap;
@@ -19,29 +19,23 @@ import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Class that represents the maps in the game.
- * This class handles loading, storing and retrieving tile-based maps.
+ * This class handles loading, storing and retrieving maps.
  */
-public class Maps {
+public class Maps implements IMaps{
 
-  /** HashMap that stores the maps. */
   private HashMap<String, TiledMap> maps;
+  private String currentMapName;
+
   public static final float PPM = 32f;
-
-  /**
-   * Constructs a new Maps object and initializes the map storage.
-   */
-  public Maps() {
-  }
-
-  /**
-   * Initializes the map storage and loads the deafult map.
-   */
+  
+  @Override
   public void init() {
-    maps = loadAllMaps();
+    this.maps = loadAllMaps();
+    this.currentMapName = "map";
   }
 
   /**
-   * Loads all maps from resources 
+   * Loads all maps from resources folder
    * 
    * @return A HashMap of all maps 
    */
