@@ -2,9 +2,6 @@ package inf112.firegirlwaterboy.model;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.MissingResourceException;
-
-import javax.print.DocFlavor.STRING;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
