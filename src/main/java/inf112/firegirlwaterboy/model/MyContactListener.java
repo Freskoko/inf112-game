@@ -33,11 +33,11 @@ public class MyContactListener implements ContactListener {
     Fixture b = contact.getFixtureB();
     for (Player player : players) {
       if (isPlayerFootSensor(a, b, player)) {
-        if (isGround(a, b)) {
+        if (isHorizontal(a, b)) {
           player.setOnGround(contactStatus);
         }
       }
-      if (isWall(a, b)) {
+      if (isVertical(a, b)) {
         player.setTouchingWall(contactStatus);
       }
     }
@@ -48,12 +48,12 @@ public class MyContactListener implements ContactListener {
         ("FOOT_SENSOR".equals(b.getUserData()) && b.getBody() == player.getBody());
   }
 
-  private boolean isWall(Fixture a, Fixture b) {
-    return "WALL".equals(a.getUserData()) || "WALL".equals(b.getUserData());
+  private boolean isVertical(Fixture a, Fixture b) {
+    return "Vertical".equals(a.getUserData()) || "Vertical".equals(b.getUserData());
   }
 
-  private boolean isGround(Fixture a, Fixture b) {
-    return "GROUND".equals(a.getUserData()) || "GROUND".equals(b.getUserData());
+  private boolean isHorizontal(Fixture a, Fixture b) {
+    return "Horizontal".equals(a.getUserData()) || "Horizontal".equals(b.getUserData());
   }
 
   @Override

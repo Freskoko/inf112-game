@@ -2,13 +2,11 @@ package inf112.firegirlwaterboy.model.maps;
 
 import java.io.File;
 import java.util.HashMap;
+
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -25,7 +23,6 @@ public class Maps implements IMaps {
 
   private HashMap<String, TiledMap> maps;
   private String currentMapName;
-
   public static final float PPM = 32f;
   private final Vector2 DEFAULT_SPAWN_POS = new Vector2(100, 100);
 
