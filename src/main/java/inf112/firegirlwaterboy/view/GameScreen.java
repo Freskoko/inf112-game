@@ -45,7 +45,6 @@ public class GameScreen implements Screen {
   @Override
   public void show() {
     // Load map
-    model.init();
     map = model.getMap();
     // Use OrthogonalTiledMapRenderer for 2D orthogonal maps. // mulig å legge til
     // unit scale her senere

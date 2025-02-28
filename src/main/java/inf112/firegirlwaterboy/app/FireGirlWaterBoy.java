@@ -73,6 +73,7 @@ public class FireGirlWaterBoy extends Game {
       case ACTIVE_GAME:
         if (gameScreen == null) {
           gameScreen = new GameScreen(model, controller);
+          model.init();
         }
         return gameScreen;
 
