@@ -6,9 +6,9 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
-import inf112.firegirlwaterboy.model.Entity.EntityList;
-import inf112.firegirlwaterboy.model.Entity.Player;
-import inf112.firegirlwaterboy.model.Entity.PlayerType;
+import inf112.firegirlwaterboy.model.entity.EntityList;
+import inf112.firegirlwaterboy.model.entity.Player;
+import inf112.firegirlwaterboy.model.entity.PlayerType;
 
 public class MyContactListener implements ContactListener {
 

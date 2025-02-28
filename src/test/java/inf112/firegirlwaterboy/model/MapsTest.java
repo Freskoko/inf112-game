@@ -10,6 +10,7 @@ import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
+import inf112.firegirlwaterboy.model.maps.Maps;
 
 public class MapsTest {
 
