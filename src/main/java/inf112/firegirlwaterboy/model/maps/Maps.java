@@ -18,16 +18,17 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * Class that represents the maps in the game.
- * This class handles loading, storing and retrieving maps.
+ * Manages loading and interacting with tiled maps in the game.
+ * Handles map retrieval, layer access, and object creation in a Box2D world.
  */
-public class Maps implements IMaps{
+public class Maps implements IMaps {
 
   private HashMap<String, TiledMap> maps;
   private String currentMapName;
 
   public static final float PPM = 32f;
-  
+  private final Vector2 DEFAULT_SPAWN_POS = new Vector2(100, 100);
+
   @Override
   public void init() {
     this.maps = loadAllMaps();
@@ -35,9 +36,10 @@ public class Maps implements IMaps{
   }
 
   /**
-   * Loads all maps from resources folder
-   * 
-   * @return A HashMap of all maps 
+   * Loads all Tiled maps (*.tmx) from the resources folder into a HashMap.
+   *
+   * @return A {@link HashMap} mapping map names (file names without ".tmx") to
+   *         {@link TiledMap} objects.
    */
   private HashMap<String, TiledMap> loadAllMaps() {
     HashMap<String, TiledMap> maps = new HashMap<>();
@@ -58,81 +60,72 @@ public class Maps implements IMaps{
     return maps;
   }
 
-
-
-  /**
-   * Retrieves a map from the map storage.
-   * 
-   * @param mapName The name of the map to retrieve
-   * @return The map associated with the given name
-   */
+  @Override
   public TiledMap getMap(String mapName) {
+    if (!maps.containsKey(mapName)) {
+      throw new IllegalArgumentException("Map not found: " + mapName);
+    }
     return maps.get(mapName);
   }
 
-  /**
-   * Retrieves a layer from a map.
-   * 
-   * @param mapName   The name of the map which contains the layer
-   * @param layerName The name of the layer to retrieve
-   * @return The layer associated with the given name
-   */
+  @Override
   public MapLayer getLayer(String mapName, String layerName) {
-    return getMap(mapName).getLayers().get(layerName);
+    MapLayer layer = getMap(mapName).getLayers().get(layerName);
+    if (layer == null) {
+      throw new IllegalArgumentException("Layer not found: " + layerName + " in map:" + mapName);
+    }
+    return layer;
   }
 
-  /**
-   * Retrieves the position of players spawn
-   * 
-   * @return The position of players spawn
-   */
+  @Override
   public Vector2 getPlayerSpawn() {
-    MapLayer objectLayer = getLayer("map", "PlayerLayer");
-    if (objectLayer != null) {
-      for (MapObject object : objectLayer.getObjects()) {
-        if (object.getName().equals("Spawn") && object instanceof RectangleMapObject) {
-          Rectangle rect = ((RectangleMapObject) object).getRectangle();
-          return new Vector2(rect.x, rect.y);
-        }
-      }
+    MapLayer objectLayer = getLayer(currentMapName, "Spawn");
+
+    if (objectLayer == null) {
+      System.out.println("Warning: 'Spawn' layer missing in map " + currentMapName);
+      return DEFAULT_SPAWN_POS;
     }
-    return new Vector2(100, 100);
+    if (objectLayer.getObjects().getCount() == 0) {
+      System.err.println("Warning: 'Spawn' layer exists but contains no objects in map " + currentMapName);
+      return DEFAULT_SPAWN_POS;
+    }
+
+    MapObject object = objectLayer.getObjects().get(0);
+    Float x = (Float) object.getProperties().get("x");
+    Float y = (Float) object.getProperties().get("y");
+
+    if (x != null && y != null) {
+      return new Vector2(x, y); // Mulig de må deles på PPM
+    }
+    throw new NullPointerException("Unknown error with 'Spawn' layer");
   }
-  
-  /**
-   * Creates objects from all layers in map in given world
-   * 
-   * @param world The world to create objects in
-   * @param mapName The name of the map with layers
-   */
+
+  @Override
   public void createObjectsInWorld(World world, String mapName) {
     for (MapLayer layer : getMap(mapName).getLayers()) {
-      if (!(layer instanceof TiledMapTileLayer)) {
-        System.out.println(layer.getName() + ": " + layer.getClass());
-        createObjectsFromLayer(world, layer);
+      if (layer.getObjects().getCount() > 0 && !layer.getName().equals("Spawn")) {
+        createObjectsInWorldFromLayer(world, layer);
       }
     }
   }
-    
+
   /**
-   * Create objects from given layer in given world
-   * 
-   * @param world The world to create objects in
-   * @param layer The layer objects are loaded from
+   * Creates physics objects in the world from a given map layer.
+   *
+   * @param world The Box2D world where objects should be created.
+   * @param layer The map layer containing objects.
    */
-  private void createObjectsFromLayer(World world , MapLayer layer) {
+  private void createObjectsInWorldFromLayer(World world, MapLayer layer) {
     for (MapObject object : layer.getObjects()) {
       BodyDef bdef = new BodyDef();
-      bdef.type = BodyDef.BodyType.StaticBody; // Walls are static
+      bdef.type = BodyDef.BodyType.StaticBody;
 
-      // Get position from Tiled map
       float x = object.getProperties().get("x", Float.class);
       float y = object.getProperties().get("y", Float.class);
-      bdef.position.set(x / PPM, y / PPM); // Convert to Box2D units
+      bdef.position.set(x / PPM, y / PPM);
 
       Body body = world.createBody(bdef);
 
-      // Define shape (assuming rectangular objects)
       PolygonShape shape = new PolygonShape();
       shape.setAsBox(
           object.getProperties().get("width", Float.class) / 2 / PPM,
@@ -145,10 +138,7 @@ public class Maps implements IMaps{
 
       Fixture fixture = body.createFixture(fdef);
       fixture.setUserData(layer.getName());
-      System.out.println("Added " + layer.getName());
-
-      shape.dispose(); // Clean up memory
-
+      shape.dispose();
     }
   }
 }
