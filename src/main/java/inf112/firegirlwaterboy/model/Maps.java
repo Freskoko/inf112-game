@@ -2,6 +2,7 @@ package inf112.firegirlwaterboy.model;
 
 import java.io.File;
 import java.util.HashMap;
+
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -25,6 +26,7 @@ public class Maps {
 
   /** HashMap that stores the maps. */
   private HashMap<String, TiledMap> maps;
+  private String currentMapName;
   public static final float PPM = 32f;
 
   /**
@@ -38,6 +40,7 @@ public class Maps {
    */
   public void init() {
     maps = loadAllMaps();
+    this.currentMapName = "map";
   }
 
   /**
@@ -93,16 +96,15 @@ public class Maps {
    * @return The position of players spawn
    */
   public Vector2 getPlayerSpawn() {
-    MapLayer objectLayer = getLayer("map", "PlayerLayer");
+    MapLayer objectLayer = getLayer(currentMapName, "Spawn");
+    
     if (objectLayer != null) {
-      for (MapObject object : objectLayer.getObjects()) {
-        if (object.getName().equals("Spawn") && object instanceof RectangleMapObject) {
-          Rectangle rect = ((RectangleMapObject) object).getRectangle();
-          return new Vector2(rect.x, rect.y);
-        }
-      }
+      MapObject obj = objectLayer.getObjects().get(0);
+      Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+      return new Vector2(rect.x, rect.y);
+    } else {
+      throw new NullPointerException("Missing spawn-layer in map " + currentMapName);
     }
-    return new Vector2(100, 100);
   }
   
   /**
