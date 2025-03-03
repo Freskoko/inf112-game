@@ -27,7 +27,8 @@ public class Controller implements InputProcessor {
 
   @Override
   public boolean keyDown(int keycode) {
-    // Sjekk om spillet er i WELCOME-modus først. Usikker på om dette er den beste måten å gjøre det på?. 
+    // Sjekk om spillet er i WELCOME-modus først. Usikker på om dette er den beste
+    // måten å gjøre det på?.
     // Evt en hjelpemetode?
     if (model.getGameState() == GameState.WELCOME) {
         if (keycode == Input.Keys.P) {
@@ -36,7 +37,7 @@ public class Controller implements InputProcessor {
         }
     }
 
-    switch ( keycode) {
+    switch (keycode) {
       case Keys.UP:
         model.changeDir(PlayerType.FIREGIRL, "jump");
         break;
