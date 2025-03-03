@@ -5,41 +5,73 @@
 
 
 Hvordan fungerer rollene i teamet? Trenger dere å oppdatere hvem som er teamlead eller kundekontakt?
-
 Trenger dere andre roller? Skriv ned noen linjer om hva de ulike rollene faktisk innebærer for dere.
-Rollene fungerer bra, vi har fordelt ansvarsområder, men samarbeider fint om de ulike rollene. Per nå ser vi ikke behov for å endre rollene, da de fungerer fint. 
-- Team Lead: Gedvyde. Tar ansvar for å få ting til og skje, holder oversikt over fremdrift i prosjektet, avtale møter og tar et overordnet ansvar over prosjektet. 
+- Rollene fungerer bra, vi har fordelt ansvarsområder, men samarbeider fint om de ulike rollene. Per nå ser vi ikke behov for å endre rollene, da de fungerer fint som de er. 
+- Team Lead: Gedvyde. Tar ansvar for å få ting til og skje, holder oversikt over fremdrift i prosjektet, avtaler møter og tar et overordnet ansvar over prosjektet. 
 - Tech Lead: Henrik. Ansvarlig for backend-utvikling. Tar et overordnet ansvat for spillogikk, kollisjon og testing. 
 - Front End Lead: Ingvild. Ansvar for animasjon og brukergrensesnitt. 
 - Project Admin: Guro. Tar ansvar for møtereferater, passe på innleveringsfrister, sørger for dokumentasjon etc. 
 
+
 Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?
+- I starten så var vi litt dårligere på å oppdatere issues. Startet med trello, men syntes det var litt stress å bruke enda en plattform for planlegging. Bruken ble derfor reduert som følge av det. 
+- For å fikse dette endte vi opp med å bruke git issues, slik at vi har samlet alt sammen i Git. 
+- Er en tilvenningssak å bli vant til å oppdatere issues. Siden vi møtes 2 ganger i uken så føler vi at vi har oversikt, men vi ser viktigheten av å ha en samlet oversikt på Git. 
+- Merker at det er viktig nå som det er mange småoppgaver som må løses. Derfor er det viktig at alle på teamet har oversikt over hvilke oppgaver som må utføres, og hvem som jobber med hva. 
+- Synes at dette er et litt nytt type prosjekt. Kodelogikk osv er ikke så viktig, det handler mer om å gjøre research osv. siden det er mye innebgget kode. Annen måte å jobbe med programmering. 
+- Nytt at alle jobber på et prosjekt samtidig, så dette er også en tilvenningssak, men som vi føler at vi begynner å bli vant til nå. 
+
 
 Hvordan er gruppedynamikken? Er det uenigheter som bør løses?
+- Den er fin! Alle møter opp til avtalt tid og kommuniserer godt. 
+- Har møter 2 ganger i uken. 
+- Eneste uenigheter vi har hatt er små ting angående kodestil og spillogikk, men de har blitt demokratisk løst på møter. 
+- Vi føler det er takhøyde til å ta opp det man tenker på, noe som gjør at dynamikken i gruppen er veldig fin.
+
 
 Hvordan fungerer kommunikasjonen for dere?
+- Veldig bra. Vi bruker Discord veldig aktivt.
 
 Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva som kan forbedres. Dette skal handle om prosjektstruktur, ikke kode. Dere kan selvsagt diskutere kode, men dette handler ikke om feilretting, men om hvordan man jobber og kommuniserer.
+- Har klart MVC split. En utfordring å opprettholde. 
+- Vi har klart å opprettholde 1-2 møter i uken. 
+- Vi har klart å holde god kommunikasjon på Discord mellom møtene. 
+- Vi kan bli bedre på å dokumentere og oppdatere git issue board, slik at alle teammedlemmer er oppdatert på hva som jobbes med og av hvem.
 
 Under vurdering vil det vektlegges at alle bidrar til kodebasen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også designfiler)
+- Har parprogrammert litt siden sist, noe som fører til litt skeivfordeling i commits. 
 
 Referat fra møter siden forrige leveranse skal legges ved (mange av punktene over er typisk ting som havner i referat).
+- Referat fra møter ligger i egne .md filer
 
 Bli enige om maks tre forbedringspunkter fra retrospektivet, som skal følges opp under neste sprint.
+ - Bli flinkere til å oppdatere git Issue board. 
+ - Skrive bedre brukerhistorier.
+
 
 # Krav og spesifikasjon
 
 Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang. Er dere kommet forbi MVP? Forklar hvordan dere prioriterer ny funksjonalitet.
+- Vi har fått til å vise et spillebrett, der spilleren beveger seg vha tastatur og interagerer med terrenget. Vi har en foreløpig startskjerm. 
+- Vi har prioritert å få på plass kollisjonsdeteksjon, slik at vi kan jobbe videre med å utvikle fiender (statiske fiender, lava og vann). 
+- Vi mangler: powerups (diamanter), hvordan en spiller dør, fiender, et mål for spillebrettet, et nytt spillebrett når det er ferdig og gameover screen. 
 
 For hvert krav dere jobber med, må dere lage 1) ordentlige brukerhistorier, 2) akseptansekriterier og 3) arbeidsoppgaver. Husk at akseptansekriterier ofte skrives mer eller mindre som tester
 
 Dersom dere har oppgaver som dere skal til å starte med, hvor dere har oversikt over både brukerhistorie, akseptansekriterier og arbeidsoppgaver, kan dere ta med disse i innleveringen også.
 
-Forklar kort hvordan dere har prioritert oppgavene fremover
+Forklar kort hvordan dere har prioritert oppgavene fremover.
+- Etter MVP. Fokuserer på å få til det mest nødvendige først. 
+- Jobber etter logikk, ting er avhengige av hverandre. Feks trenger fungerende kollisjonsdeteksjon for å kunne lage fiender. 
+- Testing er satt litt på vent, på grunn av at prosjektet er i stadig utvikling og endres ofte.
 
 Har dere gjort justeringer på kravene som er med i MVP? Forklar i så fall hvorfor. Hvis det er gjort endringer i rekkefølge utfra hva som er gitt fra kunde, hvorfor er dette gjort?
+- Vi har ikke direkte fiender, har heller statiske fiender som kan drepe spiller, feks lava og vann. 
 
 Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang.
+- Startet med MVP 
+- Har en spiller som kan bevege seg rundt på brettet, og kollisjonsdeteksjon fungerer.
+- Har laget slik at det nå er to spillere på brettet. 
 
 Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs).
 
@@ -48,6 +80,10 @@ Kravlista er lang, men det er ikke nødvendig å levere på alle kravene hvis de
 # Produkt og kode
 
 Utbedring av feil: hvis dere har rettet / forbedret noe som er påpekt tidligere, lag en liste med «Dette har vi fikset siden sist», så det er lett for gruppelederne å få oversikt.
+- Dette har vi fikset siden sist:
+- kollisjonsdeteksjon
+- fikset at spilleren kan bevege seg rundt på brettet. 
+- kan nå plassere to spillere på brettet
 
 I README.md: Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelederne å bygge, teste og kjøre koden deres. Under vurdering kommer koden også til å brukertestes.
 
