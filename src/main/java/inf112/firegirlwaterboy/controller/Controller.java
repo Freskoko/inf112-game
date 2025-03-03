@@ -31,23 +31,26 @@ public class Controller implements InputProcessor {
     // måten å gjøre det på?.
     // Evt en hjelpemetode?
     if (model.getGameState() == GameState.WELCOME) {
-        if (keycode == Input.Keys.P) {
-            model.setGameState(GameState.ACTIVE_GAME); // Start spillet
-            return true;
-        }
+      switch (keycode) {
+        case (Input.Keys.P):
+          model.setGameState(GameState.ACTIVE_GAME); // Start spillet
+      }
     }
 
-    switch (keycode) {
-      case Keys.UP:
-        model.changeDir(PlayerType.FIREGIRL, "jump");
-        break;
-      case Keys.LEFT:
-        model.changeDir(PlayerType.FIREGIRL, "left");
-        break;
-      case Keys.RIGHT:
-        model.changeDir(PlayerType.FIREGIRL, "right");
-        break;
+    if (model.getGameState() == GameState.ACTIVE_GAME) {
+      switch (keycode) {
+        case Keys.UP:
+          model.changeDir(PlayerType.FIREGIRL, "jump");
+          break;
+        case Keys.LEFT:
+          model.changeDir(PlayerType.FIREGIRL, "left");
+          break;
+        case Keys.RIGHT:
+          model.changeDir(PlayerType.FIREGIRL, "right");
+          break;
+      }
     }
+
     return true;
   }
 
