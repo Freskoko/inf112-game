@@ -104,4 +104,9 @@ public class Model implements IControllableModel, IViewModel {
   public boolean containsPlayer(PlayerType playerType) {
     return this.players.containsKey(playerType);
   }
+
+  @Override
+  public String getPlayersAsString() {
+    return this.players.toString();
+  }
 }

@@ -25,15 +25,28 @@ public class Controller implements InputProcessor {
     this.model = model;
   }
 
+  private void swapEnabledDisabled(PlayerType playerType) {
+    if (this.model.containsPlayer(playerType)) {
+      model.removePlayer(playerType);
+    }
+    else {
+      model.addPlayer(playerType);
+    }
+  }
+
   @Override
   public boolean keyDown(int keycode) {
-    // Sjekk om spillet er i WELCOME-modus først. Usikker på om dette er den beste
-    // måten å gjøre det på?.
-    // Evt en hjelpemetode?
     if (model.getGameState() == GameState.WELCOME) {
       switch (keycode) {
         case (Input.Keys.P):
           model.setGameState(GameState.ACTIVE_GAME); // Start spillet
+          break;
+        case (Keys.W): // WATERBOY
+          swapEnabledDisabled(PlayerType.WATERBOY);
+          break;
+        case (Keys.F): // FIREGIRL
+          swapEnabledDisabled(PlayerType.FIREGIRL);
+          break;
       }
     }
 

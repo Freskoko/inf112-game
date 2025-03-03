@@ -35,4 +35,6 @@ public interface IControllableModel {
     void addPlayer(PlayerType player);
 
     boolean containsPlayer(PlayerType playerType);
+
+    String getPlayersAsString();
 }

@@ -40,7 +40,6 @@ public class WelcomeScreen implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(Color.BLACK);
 
-        
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
 
@@ -52,7 +51,7 @@ public class WelcomeScreen implements Screen {
         float titleWidth = layout.width;
         float titleHeight = layout.height;
         float titleX = (screenWidth - titleWidth) / 2;
-        float titleY = (screenHeight + titleHeight) / 2 + 50; 
+        float titleY = (screenHeight + titleHeight) / 2 + 50;
 
         // Center the start instruction
         layout.setText(font, "Press 'P' to Start");
@@ -61,9 +60,28 @@ public class WelcomeScreen implements Screen {
         float instructionX = (screenWidth - instructionWidth) / 2;
         float instructionY = (screenHeight - instructionHeight) / 2;
 
+        // player text
+        layout.setText(font, "These players are active: ");
+        float playerWidth = layout.width;
+        float playerHeight = layout.height;
+        float playerX = ((screenWidth - playerWidth) / 8) - 50;
+        float playerY = (screenHeight - playerHeight) / 7;
+
+        layout.setText(font, "Use keys these keys to select characters: (W, F)"); // add new players here
+        float arrowWidth = layout.width;
+        float arrowHeight = layout.height;
+        float arrowX = (screenWidth - arrowWidth) / 10;
+        float arrowY = (screenHeight - arrowHeight) / 10;
+
+        // batching
+
         batch.begin();
         font.draw(batch, "WELCOME TO FIREGIRL AND WATERBOY", titleX, titleY);
         font.draw(batch, "Press 'P' to start", instructionX, instructionY);
+
+        font.draw(batch, "These players are active: " + model.getPlayersAsString(), playerX, playerY);
+        font.draw(batch, "Use keys these keys to select characters: (W, F)",
+                arrowX, arrowY);
         batch.end();
     }
 

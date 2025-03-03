@@ -104,7 +104,8 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
     return this.players.containsKey(playerType);
   }
 
-  public String getPlayersAsString() {
+  @Override
+  public String toString() {
     StringBuilder sb = new StringBuilder();
 
     for (T playerType : players.keySet()) {
