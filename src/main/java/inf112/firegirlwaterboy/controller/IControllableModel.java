@@ -29,4 +29,10 @@ public interface IControllableModel {
      * @return return true if move was done, if not false
      */
     boolean changeDir(PlayerType player, String dir);
+
+    void removePlayer(PlayerType player);
+
+    void addPlayer(PlayerType player);
+
+    boolean containsPlayer(PlayerType playerType);
 }

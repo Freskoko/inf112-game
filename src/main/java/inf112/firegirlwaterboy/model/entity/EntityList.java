@@ -47,6 +47,16 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
 
     players.put(playerType, player);
   }
+
+  public void removePlayer(T playerType) {
+    if (players.size() <= 0) {
+      System.out.println("Cannot remove player, there are no players to remove!");
+      return;
+    }
+    if (!players.containsKey(playerType)) {
+      throw new IllegalArgumentException("Player of type:" + playerType + "does not exist, they cannot be removed!");
+    }
+    players.remove(playerType);
   }
 
   /**
@@ -88,5 +98,24 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
 
   public boolean isEmpty() {
     return players.isEmpty();
+  }
+
+  public boolean containsKey(PlayerType playerType) {
+    return this.players.containsKey(playerType);
+  }
+
+  public String getPlayersAsString() {
+    StringBuilder sb = new StringBuilder();
+
+    for (T playerType : players.keySet()) {
+        sb.append(playerType.toString()).append(", ");
+    }
+
+    // Remove trailing comma if there are any players
+    if (sb.length() > 0) {
+        sb.setLength(sb.length() - 2);
+    }
+
+    return sb.toString();
   }
 }
