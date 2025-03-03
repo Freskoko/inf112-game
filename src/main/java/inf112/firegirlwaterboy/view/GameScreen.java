@@ -68,14 +68,20 @@ public class GameScreen implements Screen {
     // Om vi senere vil at kamera skal flytte seg etter spilleren:
     // camera.position = model.getPlayerPositions();
 
+    
+    
     // Render the map
     renderer.setView(camera);
     renderer.render();
 
+    renderer.getBatch().begin();
+    model.draw(renderer.getBatch());
+    renderer.getBatch().end();
+
     // Oppdater spiller pos
     float deltaTime = Gdx.graphics.getDeltaTime();
     model.update(deltaTime);
-
+    
   }
 
   @Override
