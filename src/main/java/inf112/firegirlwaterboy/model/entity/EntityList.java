@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  */
 public class EntityList<T, E extends IEntity> implements Iterable<E> {
 
+  public static final int maxPlayers = 2;
+
   // Dette bør være en arrayList
   private HashMap<T, E> players;
 
@@ -32,10 +34,19 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
    * @throws IllegalArgumentException if player already exists
    */
   public void addPlayer(T playerType, E player) {
-    if (players.containsKey(playerType)) {
-      throw new IllegalArgumentException("Player of type:" + playerType + "already exists");
+
+    if (players.size() >= EntityList.maxPlayers) {
+      System.out.println("Max players reached!");
+      return;
     }
+    else {
+      if (players.containsKey(playerType)) {
+        throw new IllegalArgumentException("Player of type:" + playerType + "already exists");
+      }
+    }
+
     players.put(playerType, player);
+  }
   }
 
   /**
