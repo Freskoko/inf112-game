@@ -33,17 +33,24 @@ public class Player extends Sprite implements IEntity {
   private PlayerType playerType;
 
   /**
-   * Constructs a player with a given sprite and initial position.
-   * 
+    * Initalizes a player, giving them a type and texture
+   */
+  public Player(PlayerType playerType) {
+    super(getTextureForType(playerType));
+    this.playerType = playerType;
+  }
+
+  /**
+   * Spawns a player with a given sprite and initial position.
+   *
    * @param world The world representing the player
    * @param pos   The initial position of the player
    */
-  public Player(World world, Vector2 pos, PlayerType playerType) {
-    super(getTextureForType(playerType));
+  public void spawn(World world, Vector2 pos) {
+
     setSize(getTexture().getWidth() / Maps.PPM, getTexture().getHeight() / Maps.PPM);
     this.world = world;
-    this.playerType = playerType;
-    this.onGround = true;
+    this.onGround = false;
     this.touchingWall = false;
     createBody(pos);
     setPosition(pos.x, pos.y);

@@ -38,10 +38,8 @@ public class Model implements IControllableModel, IViewModel {
     maps.init();
     maps.createObjectsInWorld(world, currentMapName);
 
-    // This need to be replaced by choose player logic.
-    if (players.isEmpty()) {
-      Player player = new Player(world, maps.getPlayerSpawn(), PlayerType.FIREGIRL);
-      players.addPlayer(PlayerType.FIREGIRL, player);
+    for (Player player : players) {
+        player.spawn(world, maps.getPlayerSpawn());
     }
   }
 
