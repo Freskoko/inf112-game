@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.firegirlwaterboy.model.MyContactListener;
 import inf112.firegirlwaterboy.model.maps.Maps;
 
 // Må denne være public?
@@ -40,7 +41,7 @@ public class Player extends Sprite implements IEntity {
     super(getTextureForType(playerType));
     this.world = world;
     this.playerType = playerType;
-    this.onGround = false;
+    this.onGround = true;
     this.touchingWall = false;
     createBody(pos);
     setPosition(pos.x, pos.y);
@@ -84,36 +85,37 @@ public class Player extends Sprite implements IEntity {
     PolygonShape bodyShape = new PolygonShape();
     bodyShape.setAsBox(16 / Maps.PPM, 32 / Maps.PPM); // Adjust width & height based on player sprite
 
+
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
-    fdef.density = 1.0f;
-    fdef.friction = 0.5f;
-    fdef.restitution = 0.0f;
+    //fdef.density = 1.0f;
+    //fdef.friction = 0.5f;
+    //fdef.restitution = 0.0f;
     this.body.createFixture(fdef).setUserData("PLAYER");
     body.setLinearDamping(0f);
     bodyShape.dispose();
 
     // Foot sensor (used for detecting ground contact)
     PolygonShape footShape = new PolygonShape();
-    footShape.setAsBox(12 / Maps.PPM, 4 / Maps.PPM, new Vector2(0, -34 / Maps.PPM), 0); // Positioned at the bottom
+    footShape.setAsBox(12 / Maps.PPM, 2 / Maps.PPM, new Vector2(0, -16 / Maps.PPM), 0);     // Positioned at the bottom
 
     FixtureDef footFdef = new FixtureDef();
     footFdef.shape = footShape;
     footFdef.isSensor = true; // Sensor means it detects but does not physically collide
     this.body.createFixture(footFdef).setUserData("FOOT_SENSOR");
 
-    footShape.dispose();
+    //footShape.dispose();
   }
 
   @Override
   public void update(float deltaTime) {
-    this.setPosition(body.getPosition().x * Maps.PPM - getWidth() / 2,
+    this.setPosition(body.getPosition().x * Maps.PPM - getWidth() / 2, // velocity.x * deltatime
         body.getPosition().y * Maps.PPM - getHeight() / 2);
 
     // Prevent falling through ground if onGround
-    if (onGround && body.getLinearVelocity().y < 0) {
+    /*if (onGround && body.getLinearVelocity().y < 0) {
       body.setLinearVelocity(body.getLinearVelocity().x, 0);
-    }
+    }*/
 
   }
 
@@ -123,27 +125,44 @@ public class Player extends Sprite implements IEntity {
    * @param dir The velocity in x direction
    */
   public void move(String dir) {
-    if (!touchingWall) {
+    /*if (!touchingWall) {
+      System.out.println("running");
       if (dir.equals("left")) {
-        body.setLinearVelocity(-speed, body.getLinearVelocity().y);
+        System.out.println("left");
+        //body.setLinearVelocity(-speed, body.getLinearVelocity().y);
+        body.applyLinearImpulse(new Vector2(-3f, 0), body.getWorldCenter(), true);
       }
       if (dir.equals("right")) {
-        body.setLinearVelocity(speed, body.getLinearVelocity().y);
+        System.out.println("right");
+        //body.setLinearVelocity(speed, body.getLinearVelocity().y);
+        body.applyLinearImpulse(new Vector2(3f, 0), body.getWorldCenter(), true);
       }
       if (dir.equals("stop")) {
         body.setLinearVelocity(0, body.getLinearVelocity().y);
       }
     } else {
       body.setLinearVelocity(0, body.getLinearVelocity().y); // Stop movement into wall
+      System.out.println("hit wall");
+    }*/
+    if (dir.equals("left")) {
+      //body.setLinearVelocity(-speed, body.getLinearVelocity().y);
+      body.applyLinearImpulse(new Vector2(-3f, 0), body.getWorldCenter(), true);
+    }
+    if (dir.equals("right")) {
+      //body.setLinearVelocity(speed, body.getLinearVelocity().y);
+      body.applyLinearImpulse(new Vector2(3f, 0), body.getWorldCenter(), true);
     }
 
   }
+  
 
   public void jump() {
     if (onGround) {
-      body.applyLinearImpulse(new Vector2(0, Maps.PPM), body.getWorldCenter(), true);
-      onGround = false;
+    
+      body.applyLinearImpulse(new Vector2(0, 10.5f), body.getWorldCenter(), true);
+      //setOnGround(false);
     }
+    //body.applyLinearImpulse(new Vector2(0, 4f), body.getWorldCenter(), true);
   }
 
   public void setOnGround(boolean onGround) {
