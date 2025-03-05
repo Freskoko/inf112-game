@@ -48,16 +48,27 @@ public class Player extends Sprite implements IEntity {
   }
 
   private static TextureRegion getTextureForType(PlayerType type) {
-    switch (type) {
-      case FIREGIRL:
-        return new TextureRegion(new Texture(Gdx.files.internal("figur.png")));
-      case WATERBOY:
-        return new TextureRegion(new Texture(Gdx.files.internal("textures/waterboy.png")));
-      default:
-        return new TextureRegion(new Texture(Gdx.files.internal("textures/default.png")));
-
+    Texture texture;
+    try {
+      switch (type) {
+        case FIREGIRL:
+          texture = new Texture(Gdx.files.internal("figur.png"));
+          System.out.println("firegirl chosen");
+          break;
+        case WATERBOY:
+          texture = new Texture(Gdx.files.internal("textures/waterboy.png"));
+          break;
+        default:
+          texture = new Texture(Gdx.files.internal("textures/default.png"));
+          break;
+      }
+      return new TextureRegion(texture);
+    } catch (Exception e) {
+      Gdx.app.log("Texture Loading Error", "Could not load texture: " + e.getMessage());
+      return null;
     }
   }
+  
 
   @Override
   public Texture getTexture() {
@@ -109,8 +120,8 @@ public class Player extends Sprite implements IEntity {
 
   @Override
   public void update(float deltaTime) {
-    this.setPosition(body.getPosition().x * Maps.PPM - getWidth() / 2, // velocity.x * deltatime
-        body.getPosition().y * Maps.PPM - getHeight() / 2);
+    this.setPosition((body.getPosition().x * Maps.PPM) - getWidth() / 2, // velocity.x * deltatime
+        (body.getPosition().y * Maps.PPM) - getHeight() / 2);
 
     // Prevent falling through ground if onGround
     /*if (onGround && body.getLinearVelocity().y < 0) {
