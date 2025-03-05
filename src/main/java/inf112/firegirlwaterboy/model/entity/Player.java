@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -24,6 +25,7 @@ import inf112.firegirlwaterboy.model.maps.Maps;
  */
 public class Player extends Sprite implements IEntity {
 
+  // Add state enum?? 
   private float speed = 7;// , gravity = 60 * 1.8f;
   private World world;
   private Body body;
@@ -92,6 +94,7 @@ public class Player extends Sprite implements IEntity {
     bdef.type = BodyDef.BodyType.DynamicBody;
     bdef.fixedRotation = true;
 
+    bdef.linearDamping = 0;
     this.body = world.createBody(bdef);
 
     // Main player body (rectangle shape)
@@ -102,10 +105,9 @@ public class Player extends Sprite implements IEntity {
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
     fdef.density = 0.5f;
-    fdef.friction = 0.6f;
-    fdef.restitution = 0.1f;
+    fdef.friction = 0;
+    fdef.restitution = 0;
     this.body.createFixture(fdef).setUserData("PLAYER");
-    body.setLinearDamping(0f);
     bodyShape.dispose();
 
     // Foot sensor (used for detecting ground contact)
@@ -115,7 +117,9 @@ public class Player extends Sprite implements IEntity {
     FixtureDef footFdef = new FixtureDef();
     footFdef.shape = footShape;
     footFdef.isSensor = true; // Sensor means it detects but does not physically collide
-    this.body.createFixture(footFdef).setUserData("FOOT_SENSOR");
+    //this.body.createFixture(footFdef).setUserData("FOOT_SENSOR");
+    Fixture footSensor = body.createFixture(footFdef);
+    footSensor.setUserData("FOOT_SENSOR");
 
     //footShape.dispose();
   }
@@ -162,10 +166,10 @@ public class Player extends Sprite implements IEntity {
     if (dir.equals("left")) {
       body.setLinearVelocity(-speed, body.getLinearVelocity().y);
     }
-    if (dir.equals("right")) {
+    else if (dir.equals("right")) {
       body.setLinearVelocity(speed, body.getLinearVelocity().y);
     }
-    if (dir.equals("stop")) {
+    else if (dir.equals("stop")) {
       body.setLinearVelocity(0, body.getLinearVelocity().y);
     }
 
@@ -183,13 +187,16 @@ public class Player extends Sprite implements IEntity {
   }
 
   public void setOnGround(boolean onGround) {
-    this.onGround = onGround;
+
     // if (onGround) {
     // body.setLinearVelocity(body.getLinearVelocity().x, 0); // Stop downward
     // movement
     // }
     System.out.println("Player on ground: " + onGround);
+
+    this.onGround = onGround;
   }
+  
 
   public void setTouchingWall(boolean touchingWall) {
     this.touchingWall = touchingWall;
