@@ -24,7 +24,7 @@ import inf112.firegirlwaterboy.model.maps.Maps;
  */
 public class Player extends Sprite implements IEntity {
 
-  private float speed = Maps.PPM;// , gravity = 60 * 1.8f;
+  private float speed = 7;// , gravity = 60 * 1.8f;
   private World world;
   private Body body;
   private boolean onGround;
@@ -39,6 +39,7 @@ public class Player extends Sprite implements IEntity {
    */
   public Player(World world, Vector2 pos, PlayerType playerType) {
     super(getTextureForType(playerType));
+    setSize(getTexture().getWidth() / Maps.PPM, getTexture().getHeight() / Maps.PPM);
     this.world = world;
     this.playerType = playerType;
     this.onGround = true;
@@ -89,6 +90,7 @@ public class Player extends Sprite implements IEntity {
     BodyDef bdef = new BodyDef();
     bdef.position.set(position.x / Maps.PPM, position.y / Maps.PPM);
     bdef.type = BodyDef.BodyType.DynamicBody;
+    bdef.fixedRotation = true;
 
     this.body = world.createBody(bdef);
 
@@ -99,9 +101,9 @@ public class Player extends Sprite implements IEntity {
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
-    //fdef.density = 1.0f;
-    //fdef.friction = 0.5f;
-    //fdef.restitution = 0.0f;
+    fdef.density = 0.5f;
+    fdef.friction = 0.6f;
+    fdef.restitution = 0.1f;
     this.body.createFixture(fdef).setUserData("PLAYER");
     body.setLinearDamping(0f);
     bodyShape.dispose();
@@ -120,8 +122,10 @@ public class Player extends Sprite implements IEntity {
 
   @Override
   public void update(float deltaTime) {
-    this.setPosition((body.getPosition().x * Maps.PPM) - getWidth() / 2, // velocity.x * deltatime
-        (body.getPosition().y * Maps.PPM) - getHeight() / 2);
+    Vector2 position = body.getPosition();
+    this.setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2);
+    // velocity.x * deltatime
+        
 
     // Prevent falling through ground if onGround
     /*if (onGround && body.getLinearVelocity().y < 0) {
@@ -156,13 +160,15 @@ public class Player extends Sprite implements IEntity {
       System.out.println("hit wall");
     }*/
     if (dir.equals("left")) {
-      //body.setLinearVelocity(-speed, body.getLinearVelocity().y);
-      body.applyLinearImpulse(new Vector2(-3f, 0), body.getWorldCenter(), true);
+      body.setLinearVelocity(-speed, body.getLinearVelocity().y);
     }
     if (dir.equals("right")) {
-      //body.setLinearVelocity(speed, body.getLinearVelocity().y);
-      body.applyLinearImpulse(new Vector2(3f, 0), body.getWorldCenter(), true);
+      body.setLinearVelocity(speed, body.getLinearVelocity().y);
     }
+    if (dir.equals("stop")) {
+      body.setLinearVelocity(0, body.getLinearVelocity().y);
+    }
+
 
   }
   
