@@ -23,7 +23,7 @@ public class Maps implements IMaps {
 
   private HashMap<String, TiledMap> maps;
   private String currentMapName;
-  public static final float PPM = 32f;
+  public static final float PPM = 32;
   private final Vector2 DEFAULT_SPAWN_POS = new Vector2(100, 100);
 
   @Override
