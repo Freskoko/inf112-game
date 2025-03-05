@@ -3,13 +3,10 @@ package inf112.firegirlwaterboy.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-//import com.badlogic.gdx.graphics.GL20; se kommentar i render()
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.maps.Maps;
@@ -60,16 +57,8 @@ public class GameScreen implements Screen {
 
     // Load map
     map = model.getMap();
-    // Use OrthogonalTiledMapRenderer for 2D orthogonal maps. // mulig å legge til
-    // unit scale her senere
     renderer = new OrthogonalTiledMapRenderer(map, 1 / Maps.PPM);
     debugRenderer = new Box2DDebugRenderer();
-    
-    // camera.update(); resize() blir kalt etter show()
-
-    // Oppdater spiller pos
-    float deltaTime = Gdx.graphics.getDeltaTime();
-    model.update(deltaTime);
   }
 
   @Override
@@ -91,6 +80,7 @@ public class GameScreen implements Screen {
 
     debugRenderer.render(model.getWorld(), camera.combined);
 
+    renderer.getBatch().setProjectionMatrix(camera.combined);
     renderer.getBatch().begin();
     model.draw(renderer.getBatch());
     renderer.getBatch().end();
@@ -120,7 +110,7 @@ public class GameScreen implements Screen {
   public void dispose() {
     map.dispose();
     renderer.dispose();
-    //debugRenderer.dispose();
+    debugRenderer.dispose();
     model.dispose();
   }
 }
