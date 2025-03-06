@@ -86,10 +86,10 @@ public class Controller implements InputProcessor {
         model.changeDir(PlayerType.FIREGIRL, "stop");
         break;
       case Keys.A:
-        model.changeDir(PlayerType.FIREGIRL, "stop");
+        model.changeDir(PlayerType.WATERBOY, "stop");
         break;
       case Keys.D:
-        model.changeDir(PlayerType.FIREGIRL, "stop");
+        model.changeDir(PlayerType.WATERBOY, "stop");
         break;
     }
     return true;
