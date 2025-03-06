@@ -47,7 +47,6 @@ public class Player extends Sprite implements IEntity {
    * @param pos   The initial position of the player
    */
   public void spawn(World world, Vector2 pos) {
-
     setSize(getTexture().getWidth() / Maps.PPM, getTexture().getHeight() / Maps.PPM);
     this.world = world;
     this.onGround = false;
@@ -65,7 +64,7 @@ public class Player extends Sprite implements IEntity {
           //System.out.println("firegirl chosen");
           break;
         case WATERBOY:
-          texture = new Texture(Gdx.files.internal("textures/waterboy.png"));
+          texture = new Texture(Gdx.files.internal("figur.png"));
           break;
         default:
           texture = new Texture(Gdx.files.internal("textures/default.png"));
