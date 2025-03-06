@@ -60,11 +60,11 @@ public class Player extends Sprite implements IEntity {
     try {
       switch (type) {
         case FIREGIRL:
-          texture = new Texture(Gdx.files.internal("figur.png"));
+          texture = new Texture(Gdx.files.internal("FIREGIRL.png"));
           //System.out.println("firegirl chosen");
           break;
         case WATERBOY:
-          texture = new Texture(Gdx.files.internal("figur.png"));
+          texture = new Texture(Gdx.files.internal("WATERBOY.png"));
           break;
         default:
           texture = new Texture(Gdx.files.internal("textures/default.png"));
