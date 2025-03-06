@@ -95,6 +95,7 @@ Utbedring av feil: hvis dere har rettet / forbedret noe som er påpekt tidligere
 - kollisjonsdeteksjon
 - fikset at spilleren kan bevege seg rundt på brettet. 
 - kan nå plassere to spillere på brettet
+- kan styre begge spillerne, piltaster for firegirl og WASD for waterboy
 
 I README.md: Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelederne å bygge, teste og kjøre koden deres. Under vurdering kommer koden også til å brukertestes.
 
