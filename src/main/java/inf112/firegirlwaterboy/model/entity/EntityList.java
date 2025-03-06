@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  */
 public class EntityList<T, E extends IEntity> implements Iterable<E> {
 
+  public static final int maxPlayers = 2;
+
   // Dette bør være en arrayList
   private HashMap<T, E> players;
 
@@ -32,10 +34,29 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
    * @throws IllegalArgumentException if player already exists
    */
   public void addPlayer(T playerType, E player) {
-    if (players.containsKey(playerType)) {
-      throw new IllegalArgumentException("Player of type:" + playerType + "already exists");
+
+    if (players.size() >= EntityList.maxPlayers) {
+      System.out.println("Max players reached!");
+      return;
     }
+    else {
+      if (players.containsKey(playerType)) {
+        throw new IllegalArgumentException("Player of type:" + playerType + "already exists");
+      }
+    }
+
     players.put(playerType, player);
+  }
+
+  public void removePlayer(T playerType) {
+    if (players.size() <= 0) {
+      System.out.println("Cannot remove player, there are no players to remove!");
+      return;
+    }
+    if (!players.containsKey(playerType)) {
+      throw new IllegalArgumentException("Player of type:" + playerType + "does not exist, they cannot be removed!");
+    }
+    players.remove(playerType);
   }
 
   /**
@@ -77,5 +98,25 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
 
   public boolean isEmpty() {
     return players.isEmpty();
+  }
+
+  public boolean containsKey(PlayerType playerType) {
+    return this.players.containsKey(playerType);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+
+    for (T playerType : players.keySet()) {
+        sb.append(playerType.toString()).append(", ");
+    }
+
+    // Remove trailing comma if there are any players
+    if (sb.length() > 0) {
+        sb.setLength(sb.length() - 2);
+    }
+
+    return sb.toString();
   }
 }

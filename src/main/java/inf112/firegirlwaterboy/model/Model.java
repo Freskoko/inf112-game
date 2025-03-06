@@ -38,10 +38,8 @@ public class Model implements IControllableModel, IViewModel {
     maps.init();
     maps.createObjectsInWorld(world, currentMapName);
 
-    // This need to be replaced by choose player logic.
-    if (players.isEmpty()) {
-      Player player = new Player(world, maps.getPlayerSpawn(), PlayerType.FIREGIRL);
-      players.addPlayer(PlayerType.FIREGIRL, player);
+    for (Player player : players) {
+        player.spawn(world, maps.getPlayerSpawn());
     }
   }
 
@@ -88,10 +86,27 @@ public class Model implements IControllableModel, IViewModel {
   public TiledMap getMap() {
     return maps.getMap(this.currentMapName);
   }
+  public void addPlayer(PlayerType playerType) {
+    Player player1 = new Player(playerType);
+    players.addPlayer(playerType, player1);
+  }
 
   @Override
   public World getWorld() {
     return this.world;
   }
 
+  public void removePlayer(PlayerType player) {
+    players.removePlayer(player);
+  }
+
+  @Override
+  public boolean containsPlayer(PlayerType playerType) {
+    return this.players.containsKey(playerType);
+  }
+
+  @Override
+  public String getPlayersAsString() {
+    return this.players.toString();
+  }
 }
