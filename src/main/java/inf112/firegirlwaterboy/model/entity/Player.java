@@ -59,6 +59,12 @@ public class Player extends Sprite implements IEntity {
     setPosition(pos.x, pos.y);
   }
 
+  /**
+   * Returns the player's texture.
+   * 
+   * @param type the player's type
+   * @return the player's texture
+   */
   private static TextureRegion getTextureForType(PlayerType type) {
     Texture texture;
     try {
@@ -86,6 +92,11 @@ public class Player extends Sprite implements IEntity {
     return super.getTexture();
   }
 
+  /**
+   * Returns the player's body.
+   * 
+   * @return the player's body
+   */
   public Body getBody() {
     return body;
   }
@@ -96,6 +107,11 @@ public class Player extends Sprite implements IEntity {
     super.draw(batch);
   }
 
+  /**
+   * Creates the player's body in the world. 
+   * 
+   * @param position the position of the player
+   */
   public void createBody(Vector2 position) {
     BodyDef bdef = new BodyDef();
     bdef.position.set(position.x / Maps.PPM, position.y / Maps.PPM);
@@ -156,6 +172,9 @@ public class Player extends Sprite implements IEntity {
     }
   }
 
+  /**
+   * Makes the player jump.
+   */
   public void jump() {
     if (onGround) {
       body.applyLinearImpulse(new Vector2(0, 10.5f), body.getWorldCenter(), true);
@@ -163,15 +182,30 @@ public class Player extends Sprite implements IEntity {
     }
   }
 
+  /**
+   * Sets the player's onGround status.
+   * 
+   * @param onGround true if the player is on the ground
+   */
   public void setOnGround(boolean onGround) {
     //System.out.println("Player on ground: " + onGround);
     this.onGround = onGround;
   }
 
+  /**
+   * Sets the player's touchingWall status.
+   * 
+   * @param touchingWall true if the player is touching a wall
+   */
   public void setTouchingWall(boolean touchingWall) {
     this.touchingWall = touchingWall;
   }
 
+  /**
+   * Sets up immunities for the player based on the PlayerType.
+   * 
+   * @param playerType the type of player
+   */
   private void setUpImmunities(PlayerType playerType) {
     HashSet<String> immunitiesSet = new HashSet<>();
     switch (playerType) {
@@ -185,6 +219,12 @@ public class Player extends Sprite implements IEntity {
     this.immunities = new ImmunityComponent(immunitiesSet);
   }
 
+  /**
+   * Checks if the player is immune to a hazard.
+   * 
+   * @param hazard to check
+   * @return true if the player is immune to the hazard
+   */
   public boolean isImmuneTo(String hazard) {
     return immunities.isImmuneTo(hazard);
   }
