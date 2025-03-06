@@ -13,7 +13,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import inf112.firegirlwaterboy.model.MyContactListener;
 import inf112.firegirlwaterboy.model.maps.Maps;
 
 // Må denne være public?
@@ -56,7 +55,7 @@ public class Player extends Sprite implements IEntity {
       switch (type) {
         case FIREGIRL:
           texture = new Texture(Gdx.files.internal("figur.png"));
-          System.out.println("firegirl chosen");
+          //System.out.println("firegirl chosen");
           break;
         case WATERBOY:
           texture = new Texture(Gdx.files.internal("textures/waterboy.png"));
@@ -72,7 +71,6 @@ public class Player extends Sprite implements IEntity {
     }
   }
   
-
   @Override
   public Texture getTexture() {
     return super.getTexture();
@@ -129,13 +127,6 @@ public class Player extends Sprite implements IEntity {
     Vector2 position = body.getPosition();
     this.setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2);
     // velocity.x * deltatime
-        
-
-    // Prevent falling through ground if onGround
-    /*if (onGround && body.getLinearVelocity().y < 0) {
-      body.setLinearVelocity(body.getLinearVelocity().x, 0);
-    }*/
-
   }
 
   /**
@@ -144,25 +135,6 @@ public class Player extends Sprite implements IEntity {
    * @param dir The velocity in x direction
    */
   public void move(String dir) {
-    /*if (!touchingWall) {
-      System.out.println("running");
-      if (dir.equals("left")) {
-        System.out.println("left");
-        //body.setLinearVelocity(-speed, body.getLinearVelocity().y);
-        body.applyLinearImpulse(new Vector2(-3f, 0), body.getWorldCenter(), true);
-      }
-      if (dir.equals("right")) {
-        System.out.println("right");
-        //body.setLinearVelocity(speed, body.getLinearVelocity().y);
-        body.applyLinearImpulse(new Vector2(3f, 0), body.getWorldCenter(), true);
-      }
-      if (dir.equals("stop")) {
-        body.setLinearVelocity(0, body.getLinearVelocity().y);
-      }
-    } else {
-      body.setLinearVelocity(0, body.getLinearVelocity().y); // Stop movement into wall
-      System.out.println("hit wall");
-    }*/
     if (dir.equals("left")) {
       body.setLinearVelocity(-speed, body.getLinearVelocity().y);
     }
@@ -172,34 +144,21 @@ public class Player extends Sprite implements IEntity {
     else if (dir.equals("stop")) {
       body.setLinearVelocity(0, body.getLinearVelocity().y);
     }
-
-
   }
-  
 
   public void jump() {
     if (onGround) {
-    
       body.applyLinearImpulse(new Vector2(0, 10.5f), body.getWorldCenter(), true);
       //setOnGround(false);
     }
-    //body.applyLinearImpulse(new Vector2(0, 4f), body.getWorldCenter(), true);
   }
 
   public void setOnGround(boolean onGround) {
-
-    // if (onGround) {
-    // body.setLinearVelocity(body.getLinearVelocity().x, 0); // Stop downward
-    // movement
-    // }
-    System.out.println("Player on ground: " + onGround);
-
+    //System.out.println("Player on ground: " + onGround);
     this.onGround = onGround;
   }
-  
 
   public void setTouchingWall(boolean touchingWall) {
     this.touchingWall = touchingWall;
   }
-
 }

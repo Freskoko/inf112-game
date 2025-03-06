@@ -32,6 +32,7 @@ public class MyContactListener implements ContactListener {
     Fixture a = contact.getFixtureA();
     Fixture b = contact.getFixtureB();
     for (Player player : players) {
+      // isPlayerFootSensor does not work as intended, might not need it anyway
       /*if (isPlayerFootSensor(a, b, player)) {
         System.out.println("it is foot");
         if (isHorizontal(a, b)) {
@@ -48,11 +49,11 @@ public class MyContactListener implements ContactListener {
     }
   }
 
-  private boolean isPlayerFootSensor(Fixture a, Fixture b, Player player) {
+  /*private boolean isPlayerFootSensor(Fixture a, Fixture b, Player player) {
     boolean footA = "FOOT_SENSOR".equals(a.getUserData()) && a.getBody() == player.getBody();
     boolean footB = "FOOT_SENSOR".equals(b.getUserData()) && b.getBody() == player.getBody();
     return (footA || footB) && (isHorizontal(b, a) || isHorizontal(a, b));
-  }
+  }*/
 
   private boolean isVertical(Fixture a, Fixture b) {
     return "Vertical".equals(a.getUserData()) || "Vertical".equals(b.getUserData());

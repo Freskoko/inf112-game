@@ -131,9 +131,7 @@ public class Maps implements IMaps {
 
       PolygonShape shape = new PolygonShape();
       shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
-      //System.out.println("layer" + layer.getName());
-      //System.out.println("width: " + object.getProperties().get("width", Float.class));
-
+      
       FixtureDef fdef = new FixtureDef();
       fdef.shape = shape;
       //fdef.friction = 2f; // Optional: Adds friction
