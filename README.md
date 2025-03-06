@@ -2,7 +2,7 @@
 
 * Team: *Stein* – Ingvild Hope, Henrik Brøgger, Guro Flatås, Gedvyde Petkeviciute
 
-* [Trello board](https://trello.com/b/Oh9O9aAT/stein-workflow)
+* Git issues 
 
 ## Om spillet
 

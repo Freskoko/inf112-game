@@ -20,6 +20,7 @@ Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt
 - Merker at det er viktig nå som det er mange småoppgaver som må løses. Derfor er det viktig at alle på teamet har oversikt over hvilke oppgaver som må utføres, og hvem som jobber med hva. 
 - Synes at dette er et litt nytt type prosjekt. Kodelogikk osv er ikke så viktig, det handler mer om å gjøre research osv. siden det er mye innebgget kode. Annen måte å jobbe med programmering. 
 - Nytt at alle jobber på et prosjekt samtidig, så dette er også en tilvenningssak, men som vi føler at vi begynner å bli vant til nå. 
+- Uvant å jobbe med kode som er implementert av andre, og skal komme inn og ta over og utvikle videre, kan være vanskelig. Kan være lurt med mer dokumentasjon for å unngå dette. Hvis man skal jobbe videre med andre sin kode, så er det viktig at vi hjelper hverandre med å sette igang. 
 
 
 Hvordan er gruppedynamikken? Er det uenigheter som bør løses?
@@ -40,13 +41,14 @@ Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva
 
 Under vurdering vil det vektlegges at alle bidrar til kodebasen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også designfiler)
 - Har parprogrammert litt siden sist, noe som fører til litt skeivfordeling i commits. 
+- Har vært en del store ting som må på plass i starten, men med flere småoppgaver etetrhvert vil det nok jevne seg ut. 
 
 Referat fra møter siden forrige leveranse skal legges ved (mange av punktene over er typisk ting som havner i referat).
 - Referat fra møter ligger i egne .md filer
 
 Bli enige om maks tre forbedringspunkter fra retrospektivet, som skal følges opp under neste sprint.
  - Bli flinkere til å oppdatere git Issue board. 
- - Skrive bedre brukerhistorier.
+ - Skrive bedre brukerhistorier, med akseptansekriterier og arbeidsoppgaver. 
 
 
 # Krav og spesifikasjon
@@ -57,6 +59,7 @@ Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere
 - Vi mangler: powerups (diamanter), hvordan en spiller dør, fiender, et mål for spillebrettet, et nytt spillebrett når det er ferdig og gameover screen. 
 
 For hvert krav dere jobber med, må dere lage 1) ordentlige brukerhistorier, 2) akseptansekriterier og 3) arbeidsoppgaver. Husk at akseptansekriterier ofte skrives mer eller mindre som tester
+- Brukerhistorier er lagt til i git issues. 
 
 Dersom dere har oppgaver som dere skal til å starte med, hvor dere har oversikt over både brukerhistorie, akseptansekriterier og arbeidsoppgaver, kan dere ta med disse i innleveringen også.
 
