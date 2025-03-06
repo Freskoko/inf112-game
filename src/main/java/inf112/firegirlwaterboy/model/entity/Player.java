@@ -1,5 +1,7 @@
 package inf112.firegirlwaterboy.model.entity;
 
+import java.util.HashSet;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -31,6 +33,7 @@ public class Player extends Sprite implements IEntity {
   private boolean onGround;
   private boolean touchingWall;
   private PlayerType playerType;
+  private ImmunityComponent immunities; 
 
   /**
     * Initalizes a player, giving them a type and texture
@@ -38,6 +41,7 @@ public class Player extends Sprite implements IEntity {
   public Player(PlayerType playerType) {
     super(getTextureForType(playerType));
     this.playerType = playerType;
+    setUpImmunities(playerType);
   }
 
   /**
@@ -166,5 +170,22 @@ public class Player extends Sprite implements IEntity {
 
   public void setTouchingWall(boolean touchingWall) {
     this.touchingWall = touchingWall;
+  }
+
+  private void setUpImmunities(PlayerType playerType) {
+    HashSet<String> immunitiesSet = new HashSet<>();
+    switch (playerType) {
+      case FIREGIRL:
+        immunitiesSet.add("lava");
+        break;
+      case WATERBOY:
+        immunitiesSet.add("water");
+        break;
+    }
+    this.immunities = new ImmunityComponent(immunitiesSet);
+  }
+
+  public boolean isImmuneTo(String hazard) {
+    return immunities.isImmuneTo(hazard);
   }
 }

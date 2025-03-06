@@ -31,6 +31,7 @@ public class MyContactListener implements ContactListener {
   private void playerCollision(Contact contact, Boolean contactStatus) {
     Fixture a = contact.getFixtureA();
     Fixture b = contact.getFixtureB();
+    
     for (Player player : players) {
       // isPlayerFootSensor does not work as intended, might not need it anyway
       /*if (isPlayerFootSensor(a, b, player)) {
