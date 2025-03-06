@@ -23,7 +23,7 @@ public class Maps implements IMaps {
 
   private HashMap<String, TiledMap> maps;
   private String currentMapName;
-  public static final float PPM = 32f;
+  public static final float PPM = 32;
   private final Vector2 DEFAULT_SPAWN_POS = new Vector2(100, 100);
 
   @Override
@@ -117,21 +117,25 @@ public class Maps implements IMaps {
       BodyDef bdef = new BodyDef();
       bdef.type = BodyDef.BodyType.StaticBody;
 
-      float x = object.getProperties().get("x", Float.class);
-      float y = object.getProperties().get("y", Float.class);
-      bdef.position.set(x / PPM, y / PPM);
+      float px = object.getProperties().get("x", Float.class);
+      float py = object.getProperties().get("y", Float.class);
+      float width = object.getProperties().get("width", Float.class);
+      float height = object.getProperties().get("height", Float.class);
+
+      float x = (px + width / 2) / PPM;
+      float y = (py + height / 2) / PPM;
+
+      bdef.position.set(x, y);
 
       Body body = world.createBody(bdef);
 
       PolygonShape shape = new PolygonShape();
-      shape.setAsBox(
-          object.getProperties().get("width", Float.class) / 2 / PPM,
-          object.getProperties().get("height", Float.class) / 2 / PPM);
-
+      shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
+      
       FixtureDef fdef = new FixtureDef();
       fdef.shape = shape;
-      fdef.friction = 2f; // Optional: Adds friction
-      fdef.restitution = 0f; // Optional: No bouncing
+      //fdef.friction = 2f; // Optional: Adds friction
+      //fdef.restitution = 0f; // Optional: No bouncing
 
       Fixture fixture = body.createFixture(fdef);
       fixture.setUserData(layer.getName());

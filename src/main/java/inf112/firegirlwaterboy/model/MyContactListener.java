@@ -32,21 +32,28 @@ public class MyContactListener implements ContactListener {
     Fixture a = contact.getFixtureA();
     Fixture b = contact.getFixtureB();
     for (Player player : players) {
-      if (isPlayerFootSensor(a, b, player)) {
+      // isPlayerFootSensor does not work as intended, might not need it anyway
+      /*if (isPlayerFootSensor(a, b, player)) {
+        System.out.println("it is foot");
         if (isHorizontal(a, b)) {
+          System.out.println("cs: " + contactStatus);
           player.setOnGround(contactStatus);
         }
-      }
-      if (isVertical(a, b)) {
+      }*/
+      if (isHorizontal(a, b)) {
+        player.setOnGround(contactStatus);
+      } 
+      else if (isVertical(a, b)) {
         player.setTouchingWall(contactStatus);
       }
     }
   }
 
-  private boolean isPlayerFootSensor(Fixture a, Fixture b, Player player) {
-    return ("FOOT_SENSOR".equals(a.getUserData()) && a.getBody() == player.getBody()) ||
-        ("FOOT_SENSOR".equals(b.getUserData()) && b.getBody() == player.getBody());
-  }
+  /*private boolean isPlayerFootSensor(Fixture a, Fixture b, Player player) {
+    boolean footA = "FOOT_SENSOR".equals(a.getUserData()) && a.getBody() == player.getBody();
+    boolean footB = "FOOT_SENSOR".equals(b.getUserData()) && b.getBody() == player.getBody();
+    return (footA || footB) && (isHorizontal(b, a) || isHorizontal(a, b));
+  }*/
 
   private boolean isVertical(Fixture a, Fixture b) {
     return "Vertical".equals(a.getUserData()) || "Vertical".equals(b.getUserData());

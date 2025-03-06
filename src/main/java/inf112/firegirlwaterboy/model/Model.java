@@ -58,7 +58,7 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public void update(float deltaTime) {
-    world.step(1 / 60f, 3, 2); // Usikker hva parameter gjør?
+    world.step(1 / 60f, 6, 2); // Usikker hva parameter gjør?
     for (Player player : players) {
       player.update(deltaTime);
     }
@@ -87,6 +87,11 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public TiledMap getMap() {
     return maps.getMap(this.currentMapName);
+  }
+
+  @Override
+  public World getWorld() {
+    return this.world;
   }
 
 }

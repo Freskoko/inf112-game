@@ -2,6 +2,7 @@ package inf112.firegirlwaterboy.view;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.GameState;
 
@@ -49,5 +50,12 @@ public interface IViewModel {
    * Initializes the game state, maps, and entities.
    */
   void init();
+
+  /**
+   * Returns the current physics world associated with this game.
+   * 
+   * @return the physics world used by this game instance
+   */
+  World getWorld();
 
 }
