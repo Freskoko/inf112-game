@@ -2,7 +2,8 @@
 
 * Team: *Stein* – Ingvild Hope, Henrik Brøgger, Guro Flatås, Gedvyde Petkeviciute
 
-* [Trello board](https://trello.com/b/Oh9O9aAT/stein-workflow)
+* Git issues: https://git.app.uib.no/inf112/25v/proj/stein/-/issues
+
 
 ## Om spillet
 
@@ -19,3 +20,4 @@ Spillet handler om firegirl and waterboy som må jobbe sammen for å komme seg u
 
 ## Credits
 Tatt utgangspunkt ifra https://en.wikipedia.org/wiki/Fireboy_and_Watergirl
+Credit: Oslo Albet
