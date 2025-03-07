@@ -44,7 +44,11 @@ public class Model implements IControllableModel, IViewModel {
   }
 
   @Override
-  public boolean changeDir(PlayerType playerType, String dir) {
+  public boolean changeDir(PlayerType playerType, MovementType dir) {
+    if (!players.containsKey(playerType)) {
+      // stops crashes by not trying to move non-existant player
+      return false;
+    }
     Player player = players.getPlayer(playerType);
     if (dir.equals("jump")) {
       player.jump();
