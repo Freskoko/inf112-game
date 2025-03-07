@@ -1,7 +1,7 @@
 package inf112.firegirlwaterboy.controller;
 
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 
 import inf112.firegirlwaterboy.model.GameState;
@@ -61,6 +61,15 @@ public class Controller implements InputProcessor {
         case Keys.RIGHT:
           model.changeDir(PlayerType.FIREGIRL, "right");
           break;
+        case Keys.W:
+          model.changeDir(PlayerType.WATERBOY, "jump");
+          break;
+        case Keys.A:
+          model.changeDir(PlayerType.WATERBOY, "left");
+          break;
+        case Keys.D:
+          model.changeDir(PlayerType.WATERBOY, "right");
+          break;
       }
     }
 
@@ -75,6 +84,12 @@ public class Controller implements InputProcessor {
         break;
       case Keys.RIGHT:
         model.changeDir(PlayerType.FIREGIRL, "stop");
+        break;
+      case Keys.A:
+        model.changeDir(PlayerType.WATERBOY, "stop");
+        break;
+      case Keys.D:
+        model.changeDir(PlayerType.WATERBOY, "stop");
         break;
     }
     return true;
