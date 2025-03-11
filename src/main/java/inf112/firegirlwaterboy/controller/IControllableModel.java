@@ -28,7 +28,7 @@ public interface IControllableModel {
      * @param dirX
      * @return return true if move was done, if not false
      */
-    boolean changeDir(PlayerType player, String dir);
+    boolean changeDir(PlayerType player, MovementType dir);
 
     void removePlayer(PlayerType player);
 

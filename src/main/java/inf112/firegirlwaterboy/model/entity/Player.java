@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.firegirlwaterboy.controller.MovementType;
 import inf112.firegirlwaterboy.model.maps.Maps;
 
 // Må denne være public?
@@ -160,15 +161,23 @@ public class Player extends Sprite implements IEntity {
    * 
    * @param dir The velocity in x direction
    */
-  public void move(String dir) {
-    if (dir.equals("left")) {
-      body.setLinearVelocity(-speed, body.getLinearVelocity().y);
-    }
-    else if (dir.equals("right")) {
-      body.setLinearVelocity(speed, body.getLinearVelocity().y);
-    }
-    else if (dir.equals("stop")) {
-      body.setLinearVelocity(0, body.getLinearVelocity().y);
+  public void move(MovementType dir) {
+    switch (dir) {
+      case JUMP:
+        this.jump();
+        break;
+
+      case LEFT:
+        body.setLinearVelocity(-speed, body.getLinearVelocity().y);
+        break;
+
+      case RIGHT:
+        body.setLinearVelocity(speed, body.getLinearVelocity().y);
+        break;
+
+      case STOP:
+        body.setLinearVelocity(0, body.getLinearVelocity().y);
+        break;
     }
   }
 
