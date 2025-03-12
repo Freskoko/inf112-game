@@ -14,8 +14,10 @@ import inf112.firegirlwaterboy.model.entity.PlayerType;
 public class Controller implements InputProcessor {
 
   private IControllableModel model;
-  private PlayerType playerOne; // Controlled by WASD keys
-  private PlayerType playerTwo; // Controlled by Arrow keys
+  
+  // Måtte endre til public for å få tilgang fra WelcomeScreen??
+  public PlayerType playerOne; // Controlled by WASD keys
+  public PlayerType playerTwo; // Controlled by Arrow keys
 
   /**
    * Constructor for the Controller class.
@@ -103,6 +105,7 @@ public class Controller implements InputProcessor {
    */
   private void handleActiveGameState(int keycode) {
     PlayerType player = getPlayer(keycode);
+
     switch (keycode) {
       case Keys.UP, Keys.W -> model.changeDir(player, MovementType.JUMP);
       case Keys.LEFT, Keys.A -> model.changeDir(player, MovementType.LEFT);
@@ -110,17 +113,19 @@ public class Controller implements InputProcessor {
     }
   }
 
+  // Måtte endre til public for å få tilgang fra WelcomeScreen
+
   /**
    * Assigns a player type to Player 1 (WASD) or Player 2 (Arrows).
    * Ensures Player 2 is different from Player 1.
    *
    * @param playerType the selected player type
    */
-  private void selectPlayer(PlayerType playerType) {
+  public void selectPlayer(PlayerType playerType) {
     if (playerOne == null) {
       playerOne = playerType;
-    } else if (playerType != playerOne && playerTwo == null) {
-      playerTwo = playerType;
+      // Setter playerTwo automatisk til motsatt spiller
+      playerTwo = (playerOne == PlayerType.FIREGIRL) ? PlayerType.WATERBOY : PlayerType.FIREGIRL;
     }
   }
 
@@ -133,16 +138,18 @@ public class Controller implements InputProcessor {
    */
   private PlayerType getPlayer(int keycode) {
     return switch (keycode) {
-      case Keys.W, Keys.A, Keys.D -> playerOne;
-      case Keys.UP, Keys.LEFT, Keys.RIGHT -> playerTwo;
+      case Keys.W, Keys.A, Keys.D -> playerTwo;
+      case Keys.UP, Keys.LEFT, Keys.RIGHT -> playerOne;
       default -> null;
     };
   }
 
+  // endret for welcomescreen
+
   /**
    * Starts the game if both players are selected, otherwise prompts selection.
    */
-  private void startGameIfPlayersSelected() {
+  public void startGameIfPlayersSelected() {
     if (playerOne != null || playerTwo != null) {
       model.setGameState(GameState.ACTIVE_GAME);
       model.addPlayer(playerOne);
@@ -150,5 +157,18 @@ public class Controller implements InputProcessor {
     } else {
       System.out.println("Please select playerType for both players.");
     }
+
   }
+
+  // endret  til public for welcomescreen
+
+  /**
+   * Returns the player type for Player 1.
+   *
+   * @return the player type for Player 1
+   */
+  public PlayerType getPlayerOne() {
+    return playerOne;
+  }
+
 }
