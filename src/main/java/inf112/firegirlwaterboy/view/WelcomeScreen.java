@@ -4,40 +4,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.firegirlwaterboy.controller.Controller;
-import inf112.firegirlwaterboy.model.GameState;
-import inf112.firegirlwaterboy.model.entity.PlayerType;
-import inf112.firegirlwaterboy.controller.IControllableModel;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 public class WelcomeScreen implements Screen {
 
-    private IControllableModel model;
-    private Controller controller;
-    private Stage stage;
-    private Viewport viewport;
-    private BitmapFont font;
-    private Button startButton;
-    private TextButton fireGirlButton, waterBoyButton;
-    private SpriteBatch batch;
+    private final IViewModel model;
+    private final Controller controller;
+    private final Stage stage;
+    private final Viewport viewport;
+    private final BitmapFont font;
+    private final SpriteBatch batch;
 
-    public WelcomeScreen(IControllableModel model, Controller controller) {
+    public WelcomeScreen(IViewModel model, Controller controller) {
         this.model = model;
         this.controller = controller;
 
-        // denne må fikses, er for bred for gamescreen
         this.viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.stage = new Stage(viewport);
 
@@ -47,58 +33,7 @@ public class WelcomeScreen implements Screen {
 
         batch = new SpriteBatch();
 
-        setupUi();
-    }
-
-    /**
-     * Sets up the UI elements of the welcome screen.
-     * The UI elements include buttons for selecting players and starting the game.
-     * When Player 1 (using arrows) selects a playertype (firegirl or waterboy),
-     * player 2 (using WASD) gets the other playertype.
-     */
-    private void setupUi() {
-        startButton = new Button(new TextureRegionDrawable(new Texture("start.png")));
-        fireGirlButton = new TextButton("Select FireGirl", createButtonStyle());
-        waterBoyButton = new TextButton("Select WaterBoy", createButtonStyle());
-
-        fireGirlButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                controller.selectPlayer(PlayerType.FIREGIRL);
-                updateButtonStyles();
-            }
-        });
-
-        waterBoyButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                controller.selectPlayer(PlayerType.WATERBOY);
-                updateButtonStyles();
-            }
-        });
-
-        startButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                controller.startGameIfPlayersSelected();
-            }
-        });
-
-        Table table = new Table();
-        table.setFillParent(true);
-        table.center();
-        
-        table.add(fireGirlButton).size(200, 80).padBottom(20).row();
-        table.add(waterBoyButton).size(200, 80).row();
-        table.add(startButton).size(200, 80).padBottom(20).row();
-
-        stage.addActor(table);
-    }
-
-    private TextButtonStyle createButtonStyle() {
-        TextButtonStyle style = new TextButtonStyle();
-        style.font = font;
-        return style;
+        controller.setUWelcomeScreenUI(stage);
     }
 
     @Override
@@ -142,21 +77,8 @@ public class WelcomeScreen implements Screen {
     }
 
     @Override
-    public void pause() {
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-    }
-
-    /**
-     * Updates the styles of the button. If player one chooses firegirl, waterboy
-     * buttons turns grey and vica verca.
-     */
-    private void updateButtonStyles() {
-        PlayerType selectedPlayer = controller.getPlayerOne();
-
-        fireGirlButton.getStyle().fontColor = (selectedPlayer == PlayerType.FIREGIRL) ? Color.RED : Color.GRAY;
-        waterBoyButton.getStyle().fontColor = (selectedPlayer == PlayerType.WATERBOY) ? Color.BLUE : Color.GRAY;
-    }
+    public void resume() {}
 }

@@ -2,6 +2,15 @@ package inf112.firegirlwaterboy.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.entity.PlayerType;
@@ -16,6 +25,9 @@ public class Controller implements InputProcessor {
   private IControllableModel model;
   private PlayerType playerOne; // Controlled by Arrow keys
   private PlayerType playerTwo; // Controlled by WASD keys
+  Button startButton;
+  TextButton fireGirlButton, waterBoyButton, playButton;
+  
 
   /**
    * Constructor for the Controller class.
@@ -111,7 +123,7 @@ public class Controller implements InputProcessor {
     }
   }
 
-  // Måtte endre til public for å få tilgang fra WelcomeScreen
+
 
   /**
    * Assigns a player type to Player 1 (WASD) or Player 2 (Arrows).
@@ -119,7 +131,7 @@ public class Controller implements InputProcessor {
    *
    * @param playerType the selected player type
    */
-  public void selectPlayer(PlayerType playerType) {
+  private void selectPlayer(PlayerType playerType) {
     if (playerOne == null) {
       playerOne = playerType;
       // Setter playerTwo automatisk til motsatt spiller
@@ -147,9 +159,9 @@ public class Controller implements InputProcessor {
   /**
    * Starts the game if both players are selected, otherwise prompts selection.
    */
-  public void startGameIfPlayersSelected() {
+  private void startGameIfPlayersSelected() {
     if (playerOne != null || playerTwo != null) {
-      model.setGameState(GameState.ACTIVE_GAME);
+      model.setGameState(GameState.CHOOSE_MAP);
       model.addPlayer(playerOne);
       model.addPlayer(playerTwo);
     } else {
@@ -158,7 +170,6 @@ public class Controller implements InputProcessor {
 
   }
 
-  // endret til public for welcomescreen
 
   /**
    * Returns the player type for Player 1.
@@ -167,6 +178,90 @@ public class Controller implements InputProcessor {
    */
   public PlayerType getPlayerOne() {
     return playerOne;
+  }
+
+
+//Må fikse med levler, at den forrige må være fullført før neste kan starte
+/**
+ * Sets up the UI for ChooseMapScreen.java
+ * @param stage
+ */
+public void setupChooseMapUI(Stage stage) {
+    playButton = new TextButton("Play", createButtonStyle());
+    playButton.setPosition(350, 250);
+    playButton.setSize(100, 50);
+
+    playButton.addListener(new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            model.setGameState(GameState.ACTIVE_GAME);
+        }
+    });
+
+    stage.addActor(playButton);
+}
+
+/**
+ * Creates a TextButtonStyle for the buttons.
+ * @return the TextButtonStyle
+ */
+private TextButton.TextButtonStyle createButtonStyle() {
+    TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+    textButtonStyle.font = new BitmapFont();
+    textButtonStyle.fontColor = Color.WHITE;
+    return textButtonStyle;
+}
+
+  /**
+   * Sets up the UI for the WelcomeScreen.java.
+   *
+   * @param stage the stage to add the UI elements to
+   */
+public void setUWelcomeScreenUI(Stage stage) {
+    startButton = new TextButton("Start Game", createButtonStyle());
+    fireGirlButton = new TextButton("Select FireGirl", createButtonStyle());
+    waterBoyButton = new TextButton("Select WaterBoy", createButtonStyle());
+
+    fireGirlButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        selectPlayer(PlayerType.FIREGIRL);
+        updateButtonStylesWelcomeScreen();
+      }
+    });
+
+    waterBoyButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        selectPlayer(PlayerType.WATERBOY);
+        updateButtonStylesWelcomeScreen();
+      }
+    });
+
+    startButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        startGameIfPlayersSelected();
+      }
+    });
+
+    Table table = new Table();
+    table.setFillParent(true);
+    table.center();
+
+    table.add(fireGirlButton).size(200, 80).padBottom(20).row();
+    table.add(waterBoyButton).size(200, 80).row();
+    table.add(startButton).size(200, 80).padBottom(20).row();
+
+    stage.addActor(table);
+  }
+
+  /**
+   * Updates the button styles to reflect the selected player in WelcomeScreen.
+   */
+  private void updateButtonStylesWelcomeScreen() {
+    fireGirlButton.getStyle().fontColor = (playerOne == PlayerType.FIREGIRL) ? Color.RED : Color.GRAY;
+    waterBoyButton.getStyle().fontColor = (playerOne == PlayerType.WATERBOY) ? Color.BLUE : Color.GRAY;
   }
 
 }
