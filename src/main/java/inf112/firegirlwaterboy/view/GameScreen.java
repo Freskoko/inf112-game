@@ -15,8 +15,7 @@ import inf112.firegirlwaterboy.model.maps.Maps;
 
 /**
  * GameScreen class represents the game screen.
- * The game screen is responsible for rendering the game and updating the game
- * state.
+ * The game screen is responsible for rendering the game. 
  */
 public class GameScreen implements Screen {
   private OrthographicCamera camera;
