@@ -31,14 +31,11 @@ public class WelcomeScreen implements Screen {
     private BitmapFont font;
     private Button startButton;
     private TextButton fireGirlButton, waterBoyButton;
-    private PlayerType playerOne;
-    private PlayerType playerTwo;
     private SpriteBatch batch;
 
     public WelcomeScreen(IControllableModel model, Controller controller) {
         this.model = model;
         this.controller = controller;
-        this.playerOne = null;
 
         // denne må fikses, er for bred for gamescreen
         this.viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

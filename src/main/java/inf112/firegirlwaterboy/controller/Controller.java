@@ -14,10 +14,8 @@ import inf112.firegirlwaterboy.model.entity.PlayerType;
 public class Controller implements InputProcessor {
 
   private IControllableModel model;
-  
-  // Måtte endre til public for å få tilgang fra WelcomeScreen??
-  public PlayerType playerOne; // Controlled by WASD keys
-  public PlayerType playerTwo; // Controlled by Arrow keys
+  private PlayerType playerOne; // Controlled by Arrow keys
+  private PlayerType playerTwo; // Controlled by WASD keys
 
   /**
    * Constructor for the Controller class.
@@ -160,7 +158,7 @@ public class Controller implements InputProcessor {
 
   }
 
-  // endret  til public for welcomescreen
+  // endret til public for welcomescreen
 
   /**
    * Returns the player type for Player 1.
