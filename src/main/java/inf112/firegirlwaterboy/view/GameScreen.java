@@ -59,6 +59,9 @@ public class GameScreen implements Screen {
     map = model.getMap();
     renderer = new OrthogonalTiledMapRenderer(map, 1 / Maps.PPM);
     debugRenderer = new Box2DDebugRenderer();
+   
+    Gdx.input.setInputProcessor(controller);
+
   }
 
   @Override
