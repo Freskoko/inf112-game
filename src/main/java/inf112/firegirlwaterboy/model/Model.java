@@ -31,6 +31,7 @@ public class Model implements IControllableModel, IViewModel {
     this.players = new EntityList<>();
     world.setContactListener(new MyContactListener(players));
     this.currentMapName = "map";
+    this.gameState = GameState.WELCOME;
   }
 
   @Override
@@ -87,6 +88,7 @@ public class Model implements IControllableModel, IViewModel {
   public TiledMap getMap() {
     return maps.getMap(this.currentMapName);
   }
+
   public void addPlayer(PlayerType playerType) {
     Player player1 = new Player(playerType);
     players.addPlayer(playerType, player1);
