@@ -30,8 +30,6 @@ public interface IControllableModel {
      */
     boolean changeDir(PlayerType player, MovementType dir);
 
-    void removePlayer(PlayerType player);
-
     void addPlayer(PlayerType player);
 
     boolean containsPlayer(PlayerType playerType);
