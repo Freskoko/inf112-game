@@ -25,16 +25,17 @@ import inf112.firegirlwaterboy.model.maps.Maps;
  */
 public class Player extends Sprite implements IEntity {
 
-  // Add state enum?? 
+  // Add state enum??
   private float speed = 7;// , gravity = 60 * 1.8f;
   private World world;
   private Body body;
   private boolean onGround;
   private boolean touchingWall;
   private PlayerType playerType;
+  private int collected;
 
   /**
-    * Initalizes a player, giving them a type and texture
+   * Initalizes a player, giving them a type and texture
    */
   public Player(PlayerType playerType) {
     super(getTextureForType(playerType));
@@ -62,7 +63,7 @@ public class Player extends Sprite implements IEntity {
       switch (type) {
         case FIREGIRL:
           texture = new Texture(Gdx.files.internal("FIREGIRL.png"));
-          //System.out.println("firegirl chosen");
+          // System.out.println("firegirl chosen");
           break;
         case WATERBOY:
           texture = new Texture(Gdx.files.internal("WATERBOY.png"));
@@ -77,7 +78,7 @@ public class Player extends Sprite implements IEntity {
       return null;
     }
   }
-  
+
   @Override
   public Texture getTexture() {
     return super.getTexture();
@@ -106,7 +107,6 @@ public class Player extends Sprite implements IEntity {
     PolygonShape bodyShape = new PolygonShape();
     bodyShape.setAsBox(16 / Maps.PPM, 32 / Maps.PPM); // Adjust width & height based on player sprite
 
-
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
     fdef.density = 0.5f;
@@ -117,16 +117,16 @@ public class Player extends Sprite implements IEntity {
 
     // Foot sensor (used for detecting ground contact)
     PolygonShape footShape = new PolygonShape();
-    footShape.setAsBox(12 / Maps.PPM, 2 / Maps.PPM, new Vector2(0, -16 / Maps.PPM), 0);     // Positioned at the bottom
+    footShape.setAsBox(12 / Maps.PPM, 2 / Maps.PPM, new Vector2(0, -16 / Maps.PPM), 0); // Positioned at the bottom
 
     FixtureDef footFdef = new FixtureDef();
     footFdef.shape = footShape;
     footFdef.isSensor = true; // Sensor means it detects but does not physically collide
-    //this.body.createFixture(footFdef).setUserData("FOOT_SENSOR");
+    // this.body.createFixture(footFdef).setUserData("FOOT_SENSOR");
     Fixture footSensor = body.createFixture(footFdef);
     footSensor.setUserData("FOOT_SENSOR");
 
-    //footShape.dispose();
+    // footShape.dispose();
   }
 
   @Override
@@ -164,16 +164,24 @@ public class Player extends Sprite implements IEntity {
   public void jump() {
     if (onGround) {
       body.applyLinearImpulse(new Vector2(0, 10.5f), body.getWorldCenter(), true);
-      //setOnGround(false);
+      // setOnGround(false);
     }
   }
 
   public void setOnGround(boolean onGround) {
-    //System.out.println("Player on ground: " + onGround);
+    // System.out.println("Player on ground: " + onGround);
     this.onGround = onGround;
   }
 
   public void setTouchingWall(boolean touchingWall) {
     this.touchingWall = touchingWall;
+  }
+
+  public void collect() {
+    this.collected++;
+  }
+
+  public PlayerType getPlayerType() {
+    return this.playerType;
   }
 }
