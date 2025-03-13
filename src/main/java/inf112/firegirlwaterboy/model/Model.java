@@ -97,10 +97,6 @@ public class Model implements IControllableModel, IViewModel {
     return this.world;
   }
 
-  public void removePlayer(PlayerType player) {
-    players.removePlayer(player);
-  }
-
   @Override
   public boolean containsPlayer(PlayerType playerType) {
     return this.players.containsKey(playerType);
