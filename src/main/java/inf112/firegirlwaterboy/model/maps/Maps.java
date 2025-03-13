@@ -15,6 +15,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.firegirlwaterboy.model.entity.Collectable;
+import inf112.firegirlwaterboy.model.entity.PlayerType;
+
 /**
  * Manages loading and interacting with tiled maps in the game.
  * Handles map retrieval, layer access, and object creation in a Box2D world.
@@ -100,11 +103,23 @@ public class Maps implements IMaps {
   @Override
   public void createObjectsInWorld(World world, String mapName) {
     for (MapLayer layer : getMap(mapName).getLayers()) {
-      if (layer.getObjects().getCount() > 0 && !layer.getName().equals("Spawn")) {
+      if (layer.getName().equals("Collectable")){ 
+        createCollectableObjectsInWorldFromLayer(world, layer);
+      } else if (layer.getObjects().getCount() > 0 && !layer.getName().equals("Spawn")) {
         createObjectsInWorldFromLayer(world, layer);
       }
     }
   }
+
+  private void createCollectableObjectsInWorldFromLayer(World world, MapLayer layer) {
+    for (MapObject object : layer.getObjects()) {
+        float x = object.getProperties().get("x", Float.class) / PPM;
+        float y = object.getProperties().get("y", Float.class) / PPM;
+        String playerTypeStr = object.getProperties().get("PlayerType", String.class);
+        PlayerType requiredPlayer = PlayerType.valueOf(playerTypeStr.toUpperCase());
+        new Collectable(requiredPlayer, world, x, y);
+    }
+}
 
   /**
    * Creates physics objects in the world from a given map layer.
