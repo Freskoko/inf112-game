@@ -15,15 +15,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 public class EntityList<T, E extends IEntity> implements Iterable<E> {
 
   public static final int maxPlayers = 2;
-
-  // Dette bør være en arrayList
-  private HashMap<T, E> players;
+  private HashMap<T, E> entities;
 
   /**
    * Constructor for EntityList
    */
   public EntityList() {
-    players = new HashMap<T, E>();
+    entities = new HashMap<T, E>();
   }
 
   /**
@@ -35,29 +33,19 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
    */
   public void addPlayer(T playerType, E player) {
 
-    if (players.size() >= EntityList.maxPlayers) {
+    if (entities.size() >= EntityList.maxPlayers) {
       System.out.println("Max players reached!");
       return;
     }
     else {
-      if (players.containsKey(playerType)) {
+      if (entities.containsKey(playerType)) {
         throw new IllegalArgumentException("Player of type:" + playerType + "already exists");
       }
     }
 
-    players.put(playerType, player);
+    entities.put(playerType, player);
   }
 
-  public void removePlayer(T playerType) {
-    if (players.size() <= 0) {
-      System.out.println("Cannot remove player, there are no players to remove!");
-      return;
-    }
-    if (!players.containsKey(playerType)) {
-      throw new IllegalArgumentException("Player of type:" + playerType + "does not exist, they cannot be removed!");
-    }
-    players.remove(playerType);
-  }
 
   /**
    * Retrieve player from the list based on playerType
@@ -66,7 +54,7 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
    * @return player The entity associated with the given type
    */
   public E getPlayer(T playerType) {
-    return players.get(playerType);
+    return entities.get(playerType);
   }
 
   /**
@@ -75,7 +63,7 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
    * @param batch The batch used for rendering
    */
   public void draw(Batch batch) {
-    for (E player : players.values()) {
+    for (E player : entities.values()) {
       player.draw(batch);
     }
   }
@@ -84,31 +72,31 @@ public class EntityList<T, E extends IEntity> implements Iterable<E> {
    * Disposes of all textures used by the players
    */
   public void dispose() {
-    for (E player : players.values()) {
+    for (E player : entities.values()) {
       player.getTexture().dispose();
     }
   }
 
   @Override
   public Iterator<E> iterator() {
-    return players.values().iterator();
+    return entities.values().iterator();
     // Kan hende vi må løse dette ulikt slik vi får med player Type?
     // Evt legge til Type i player klassen.
   }
 
   public boolean isEmpty() {
-    return players.isEmpty();
+    return entities.isEmpty();
   }
 
   public boolean containsKey(PlayerType playerType) {
-    return this.players.containsKey(playerType);
+    return this.entities.containsKey(playerType);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
 
-    for (T playerType : players.keySet()) {
+    for (T playerType : entities.keySet()) {
         sb.append(playerType.toString()).append(", ");
     }
 
