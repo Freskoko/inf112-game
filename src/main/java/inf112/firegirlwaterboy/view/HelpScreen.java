@@ -17,6 +17,7 @@ public class HelpScreen implements Screen {
     private final Viewport viewport;
     private final Controller controller;
     private final Button backButton;
+    private final Texture backgroundTexture;
 
     public HelpScreen(Controller controller) {
         this.controller = controller;
@@ -24,6 +25,9 @@ public class HelpScreen implements Screen {
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
+        // Load background texture
+        backgroundTexture = new Texture("instructions.png");
+        
         backButton = createButton("Back", Color.DARK_GRAY);
 
         setupUI();
@@ -34,19 +38,14 @@ public class HelpScreen implements Screen {
 
     // Set up the UI for the help screen
     private void setupUI() {
-        Table table = new Table();
-        table.setFillParent(true);
-        table.top().center().pad(20);
+        // Create background image
+        Image backgroundImage = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
+        backgroundImage.setSize(viewport.getWorldWidth(), viewport.getWorldHeight()); // Scale to fit
 
-        Label helpText = new Label("Player 1 uses arrows, Player 2 uses WASD",
-                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        helpText.setWrap(true);
-        helpText.setAlignment(Align.center);
+        // Add background first so it stays behind other UI elements
+        stage.addActor(backgroundImage);
 
-        table.add(helpText).width(Gdx.graphics.getWidth() * 0.8f).padBottom(20);
-        table.row();
 
-        stage.addActor(table);
 
         Table backTable = new Table();
         backTable.setFillParent(true);
@@ -87,7 +86,9 @@ public class HelpScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        //viewport.update(width, height, true);
+        viewport.update(width, height, true);
+        
     }
 
     @Override
@@ -106,5 +107,6 @@ public class HelpScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        backgroundTexture.dispose(); // Clean up texture
     }
 }
