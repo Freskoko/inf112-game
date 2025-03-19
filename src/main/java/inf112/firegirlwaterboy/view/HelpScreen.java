@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.*;
@@ -16,23 +15,24 @@ public class HelpScreen implements Screen {
 
     private final Stage stage;
     private final Viewport viewport;
-    private final SpriteBatch batch;
     private final Controller controller;
     private final Button backButton;
 
     public HelpScreen(Controller controller) {
         this.controller = controller;
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.stage = new Stage(viewport);
-        this.batch = new SpriteBatch();
+        stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
         backButton = createButton("Back", Color.DARK_GRAY);
 
         setupUI();
+
+        // Set up listeners for the help screen, and send them to the controller
         controller.attachHelpScreenListeners(backButton);
     }
 
+    // Set up the UI for the help screen
     private void setupUI() {
         Table table = new Table();
         table.setFillParent(true);
@@ -42,10 +42,10 @@ public class HelpScreen implements Screen {
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         helpText.setWrap(true);
         helpText.setAlignment(Align.center);
-        
+
         table.add(helpText).width(Gdx.graphics.getWidth() * 0.8f).padBottom(20);
         table.row();
-        
+
         stage.addActor(table);
 
         Table backTable = new Table();
@@ -55,6 +55,7 @@ public class HelpScreen implements Screen {
         stage.addActor(backTable);
     }
 
+    // Method for creating a button with a given text and color
     private Button createButton(String text, Color color) {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = new BitmapFont();
@@ -105,6 +106,5 @@ public class HelpScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        batch.dispose();
     }
 }

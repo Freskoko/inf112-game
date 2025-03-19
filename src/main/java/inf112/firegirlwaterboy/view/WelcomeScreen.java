@@ -14,7 +14,6 @@ public class WelcomeScreen implements Screen {
 
     private final Stage stage;
     private final Viewport viewport;
-    private final SpriteBatch batch;
     private final Texture logo;
     private final Controller controller;
     private Button fireGirlButtonP1 = createButton("FireGirl", Color.RED);
@@ -29,7 +28,6 @@ public class WelcomeScreen implements Screen {
 
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage = new Stage(viewport);
-        batch = new SpriteBatch();
 
         logo = new Texture("logo.png");
 
@@ -41,6 +39,7 @@ public class WelcomeScreen implements Screen {
         table.setFillParent(true);
         table.bottom().padBottom(200);
 
+        // Button listeners sent to controller
         controller.attachWelcomeScreenListeners(fireGirlButtonP1, waterBoyButtonP1, fireGirlButtonP2, waterBoyButtonP2,
                 startButton, helpButton);
 
@@ -49,7 +48,8 @@ public class WelcomeScreen implements Screen {
 
         // Player 1 selection
         Table p1Table = new Table();
-        Label player1Label = new Label("Player 1 (ueses arrows) choose your character:", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label player1Label = new Label("Player 1 (ueses arrows) choose your character:",
+                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         p1Table.add(player1Label).colspan(2).center().padBottom(10);
         p1Table.row();
         p1Table.add(fireGirlButtonP1).size(150, 50).pad(10);
@@ -58,7 +58,8 @@ public class WelcomeScreen implements Screen {
 
         // Player 2 selection
         Table p2Table = new Table();
-        Label player2Label = new Label("Player 2 (uses) choose your character:", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label player2Label = new Label("Player 2 (uses) choose your character:",
+                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         p2Table.add(player2Label).colspan(2).center().padBottom(10);
         p2Table.row();
         p2Table.add(fireGirlButtonP2).size(150, 50).pad(10);
@@ -72,23 +73,33 @@ public class WelcomeScreen implements Screen {
 
         stage.addActor(table);
 
-
-
-
         // Help button
         Table helpTable = new Table();
         helpTable.setFillParent(true);
         helpTable.top().right().pad(20);
         helpTable.add(helpButton).size(100, 50);
         stage.addActor(helpTable);
+
+        // Logo image
+        Image logoImage = new Image(new TextureRegionDrawable(new TextureRegion(logo)));
+
+        // Set logo size and position
+        float logoWidth = logo.getWidth();
+        float logoHeight = logo.getHeight();
+
+        logoImage.setSize(logoWidth, logoHeight);
+        logoImage.setPosition((viewport.getWorldWidth() - logoWidth) / 2, viewport.getWorldHeight() * 0.45f);
+
+        stage.addActor(logoImage);
     }
 
+    // Method to create buttons with text and color
     private Button createButton(String text, Color color) {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = new BitmapFont();
         style.fontColor = Color.WHITE;
 
-        // Legg til bakgrunnsfarge på knappene
+        // Background color on buttons
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGB888);
         pixmap.setColor(color);
         pixmap.fill();
@@ -132,13 +143,6 @@ public class WelcomeScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.begin();
-        // batch.draw(background, 0, 0, viewport.getWorldWidth(),
-        // viewport.getWorldHeight());
-        batch.draw(logo, (viewport.getWorldWidth() - logo.getWidth()) / 2,
-                (viewport.getWorldHeight() - logo.getHeight()) * 0.75f);
-        batch.end();
-
         stage.act(delta);
         stage.draw();
     }
@@ -156,8 +160,6 @@ public class WelcomeScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        batch.dispose();
-        //background.dispose();
         logo.dispose();
     }
 

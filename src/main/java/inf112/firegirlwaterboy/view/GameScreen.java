@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.maps.Maps;
@@ -24,6 +26,8 @@ public class GameScreen implements Screen {
   private TiledMap map;
   private IViewModel model;
   private Controller controller; // Må være her
+  private Viewport viewport;
+
 
   /**
    * Constructs a GameScreen with a given view model and controller.
@@ -37,31 +41,32 @@ public class GameScreen implements Screen {
   }
 
   @Override
-  public void resize(int width, int height) {
-    camera.viewportWidth = width / Maps.PPM;
-    camera.viewportHeight = height/ Maps.PPM;
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+public void resize(int width, int height) {
+    viewport.update(width, height, true);  // DENNE ER HELT AVGJØRENDE
+    camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
     camera.update();
-  }
+}
 
   @Override
-  public void show() {
+public void show() {
     float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
 
-    // Set up the camera
-    camera = new OrthographicCamera(w / Maps.PPM, h / Maps.PPM);
-    camera.position.set(w / 2 / Maps.PPM, h / 2 / Maps.PPM, 0);
+    camera = new OrthographicCamera();
+    viewport = new FitViewport(w / Maps.PPM, h / Maps.PPM, camera);
+    viewport.apply(true);
+
+    camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
     camera.update();
 
     // Load map
     map = model.getMap();
     renderer = new OrthogonalTiledMapRenderer(map, 1 / Maps.PPM);
     debugRenderer = new Box2DDebugRenderer();
-   
-    Gdx.input.setInputProcessor(controller);
 
-  }
+    Gdx.input.setInputProcessor(controller);
+}
+
 
   @Override
   public void render(float delta) {
