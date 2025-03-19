@@ -147,8 +147,8 @@ public class Controller implements InputProcessor {
 
   }
 
-  //WELCOME SCREEN
-  // Attach listeners to buttons on WelcomeScreen
+  //WELCOME SCREEN BUTTONS
+  // WelcomeScreen, Attach listeners to buttons on WelcomeScreen
   public void attachWelcomeScreenListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start, Button help) {
     fgP1.addListener(selectPlayerListener(1, PlayerType.FIREGIRL));
     wbP1.addListener(selectPlayerListener(1, PlayerType.WATERBOY));
@@ -159,7 +159,7 @@ public class Controller implements InputProcessor {
   }
 
 
-  //Help button on welcomeScreen, directs to help screen
+  //WelcomeScreen, Help button on welcomeScreen, directs to help screen
   private ClickListener helpButtonListener() {
     return new ClickListener() {
       @Override
@@ -170,7 +170,7 @@ public class Controller implements InputProcessor {
     };
   }
 
-  /* Handling button on WelcomeScreen where user select player */
+  /* WelcomeScreen, Handling button on WelcomeScreen where user select player */
   private ClickListener selectPlayerListener(int playerNum, PlayerType type) {
     return new ClickListener() {
       @Override
@@ -186,6 +186,7 @@ public class Controller implements InputProcessor {
   }
 
    /*
+   * WelcomeScreen, 
    * Handling start button on WelcomeScreen. Start buttons sends the user to
    * ChooseMapsScreen
    */
@@ -205,12 +206,12 @@ public class Controller implements InputProcessor {
 
   //HELP SCREEN BUTTONS
   
-  //Back button on helpScreen, directs to welcome screen
+  // HelpScreen, Back button on helpScreen, directs to welcome screen
   public void attachHelpScreenListeners(Button back) {
     back.addListener(backButtonListener());
   }
  
-  // Handles click from back button on HelpScreen
+  // HelpScreen, Handles click from back button on HelpScreen
   private ClickListener backButtonListener() {
     return new ClickListener() {
       @Override
@@ -230,6 +231,7 @@ public class Controller implements InputProcessor {
   //CHOOSE MAP SCREEN BUTTONS
 
   /**
+   * ChooseMapScreen, 
    * Handles button clicks in the ChooseMapScreen.
    * 
    * @param playButton the play button
@@ -243,7 +245,7 @@ public class Controller implements InputProcessor {
     });
   }
 
-  /* Handles play button in ChooseMapScreen */
+  /* ChooseMapScreen, Handles play button in ChooseMapScreen */
   private void handlePlayButtonClicked() {
     model.setGameState(GameState.ACTIVE_GAME);
     System.out.println("Play button clicked: Changing state to ACTIVE_GAME.");
