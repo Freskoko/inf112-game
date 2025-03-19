@@ -15,25 +15,22 @@ public class WelcomeScreen implements Screen {
     private final Stage stage;
     private final Viewport viewport;
     private final SpriteBatch batch;
-    //private final Texture background;
     private final Texture logo;
     private final Controller controller;
-    private Button fireGirlButtonP1 = createButton("P1: FireGirl", Color.RED);
-    private Button waterBoyButtonP1 = createButton("P1: WaterBoy", Color.BLUE);
-    private Button fireGirlButtonP2 = createButton("P2: FireGirl", Color.RED);
-    private Button waterBoyButtonP2 = createButton("P2: WaterBoy", Color.BLUE);
+    private Button fireGirlButtonP1 = createButton("FireGirl", Color.RED);
+    private Button waterBoyButtonP1 = createButton("WaterBoy", Color.BLUE);
+    private Button fireGirlButtonP2 = createButton("FireGirl", Color.RED);
+    private Button waterBoyButtonP2 = createButton("WaterBoy", Color.BLUE);
     private Button startButton = createButton("Start", Color.DARK_GRAY);
     private Button helpButton = createButton("Help", Color.DARK_GRAY);
 
     public WelcomeScreen(Controller controller) {
         this.controller = controller;
 
-        //background = new Texture("background.png"); // Initialize the background texture
-
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage = new Stage(viewport);
         batch = new SpriteBatch();
-        
+
         logo = new Texture("logo.png");
 
         setupUI();
@@ -44,26 +41,46 @@ public class WelcomeScreen implements Screen {
         table.setFillParent(true);
         table.bottom().padBottom(200);
 
+        controller.attachWelcomeScreenListeners(fireGirlButtonP1, waterBoyButtonP1, fireGirlButtonP2, waterBoyButtonP2,
+                startButton, helpButton);
 
-        controller.attachWelcomeScreenListeners(fireGirlButtonP1, waterBoyButtonP1, fireGirlButtonP2, waterBoyButtonP2, startButton, helpButton);
+        // Player selection
+        Table playerSelectionTable = new Table();
 
+        // Player 1 selection
         Table p1Table = new Table();
+        Label player1Label = new Label("Player 1 (ueses arrows) choose your character:", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        p1Table.add(player1Label).colspan(2).center().padBottom(10);
+        p1Table.row();
         p1Table.add(fireGirlButtonP1).size(150, 50).pad(10);
         p1Table.add(waterBoyButtonP1).size(150, 50).pad(10);
-        table.add(p1Table).expandX().left().pad(20);
+        playerSelectionTable.add(p1Table).expandX().left().pad(20);
 
+        // Player 2 selection
         Table p2Table = new Table();
+        Label player2Label = new Label("Player 2 (uses) choose your character:", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        p2Table.add(player2Label).colspan(2).center().padBottom(10);
+        p2Table.row();
         p2Table.add(fireGirlButtonP2).size(150, 50).pad(10);
         p2Table.add(waterBoyButtonP2).size(150, 50).pad(10);
-        table.add(p2Table).expandX().right().pad(20);
+        playerSelectionTable.add(p2Table).expandX().right().pad(20);
+
+        table.add(playerSelectionTable).colspan(2);
 
         table.row();
         table.add(startButton).colspan(2).center().padTop(20);
-        table.row();
-        table.add(helpButton).colspan(2).center().padTop(20);
-
 
         stage.addActor(table);
+
+
+
+
+        // Help button
+        Table helpTable = new Table();
+        helpTable.setFillParent(true);
+        helpTable.top().right().pad(20);
+        helpTable.add(helpButton).size(100, 50);
+        stage.addActor(helpTable);
     }
 
     private Button createButton(String text, Color color) {
@@ -116,7 +133,8 @@ public class WelcomeScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        //batch.draw(background, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        // batch.draw(background, 0, 0, viewport.getWorldWidth(),
+        // viewport.getWorldHeight());
         batch.draw(logo, (viewport.getWorldWidth() - logo.getWidth()) / 2,
                 (viewport.getWorldHeight() - logo.getHeight()) * 0.75f);
         batch.end();
