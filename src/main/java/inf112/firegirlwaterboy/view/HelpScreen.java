@@ -6,11 +6,14 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.*;
 
 import inf112.firegirlwaterboy.controller.Controller;
 
+/**
+ * HelpScreen class represents the help screen.
+ * The help screen is responsible for displaying the instructions for the game.
+ */
 public class HelpScreen implements Screen {
 
     private final Stage stage;
@@ -27,7 +30,7 @@ public class HelpScreen implements Screen {
 
         // Load background texture
         backgroundTexture = new Texture("instructions.png");
-        
+
         backButton = createButton("Back", Color.DARK_GRAY);
 
         setupUI();
@@ -40,12 +43,8 @@ public class HelpScreen implements Screen {
     private void setupUI() {
         // Create background image
         Image backgroundImage = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
-        backgroundImage.setSize(viewport.getWorldWidth(), viewport.getWorldHeight()); // Scale to fit
-
-        // Add background first so it stays behind other UI elements
+        backgroundImage.setSize(viewport.getWorldWidth(), viewport.getWorldHeight()); 
         stage.addActor(backgroundImage);
-
-
 
         Table backTable = new Table();
         backTable.setFillParent(true);
@@ -86,9 +85,8 @@ public class HelpScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        //viewport.update(width, height, true);
         viewport.update(width, height, true);
-        
+
     }
 
     @Override
@@ -107,6 +105,6 @@ public class HelpScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        backgroundTexture.dispose(); // Clean up texture
+        backgroundTexture.dispose(); 
     }
 }

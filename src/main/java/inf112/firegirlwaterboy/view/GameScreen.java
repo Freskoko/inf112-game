@@ -17,7 +17,7 @@ import inf112.firegirlwaterboy.model.maps.Maps;
 
 /**
  * GameScreen class represents the game screen.
- * The game screen is responsible for rendering the game. 
+ * The game screen is responsible for rendering the game.
  */
 public class GameScreen implements Screen {
   private OrthographicCamera camera;
@@ -27,7 +27,6 @@ public class GameScreen implements Screen {
   private IViewModel model;
   private Controller controller; // Må være her
   private Viewport viewport;
-
 
   /**
    * Constructs a GameScreen with a given view model and controller.
@@ -40,15 +39,16 @@ public class GameScreen implements Screen {
     this.controller = controller;
   }
 
+  // Denne må fikses, zoom fungerer ikke optimalt
   @Override
-public void resize(int width, int height) {
-    viewport.update(width, height, true);  // DENNE ER HELT AVGJØRENDE
+  public void resize(int width, int height) {
+    viewport.update(width, height, true);
     camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
     camera.update();
-}
+  }
 
   @Override
-public void show() {
+  public void show() {
     float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
 
@@ -65,8 +65,7 @@ public void show() {
     debugRenderer = new Box2DDebugRenderer();
 
     Gdx.input.setInputProcessor(controller);
-}
-
+  }
 
   @Override
   public void render(float delta) {
@@ -80,7 +79,7 @@ public void show() {
 
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     camera.update();
-    
+
     // Render the map
     renderer.setView(camera);
     renderer.render();
@@ -95,7 +94,7 @@ public void show() {
     // Oppdater spiller pos
     float deltaTime = Gdx.graphics.getDeltaTime();
     model.update(deltaTime);
-    
+
   }
 
   @Override

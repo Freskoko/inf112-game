@@ -147,9 +147,10 @@ public class Controller implements InputProcessor {
 
   }
 
-  //WELCOME SCREEN BUTTONS
+  // WELCOME SCREEN BUTTONS
   // WelcomeScreen, Attach listeners to buttons on WelcomeScreen
-  public void attachWelcomeScreenListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start, Button help) {
+  public void attachWelcomeScreenListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start,
+      Button help) {
     fgP1.addListener(selectPlayerListener(1, PlayerType.FIREGIRL));
     wbP1.addListener(selectPlayerListener(1, PlayerType.WATERBOY));
     fgP2.addListener(selectPlayerListener(2, PlayerType.FIREGIRL));
@@ -158,14 +159,12 @@ public class Controller implements InputProcessor {
     help.addListener(helpButtonListener());
   }
 
-
-  //WelcomeScreen, Help button on welcomeScreen, directs to help screen
+  // WelcomeScreen, Help button on welcomeScreen, directs to help screen
   private ClickListener helpButtonListener() {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
         model.setGameState(GameState.HELP);
-        System.out.println("help trykket");
       }
     };
   }
@@ -176,17 +175,12 @@ public class Controller implements InputProcessor {
       @Override
       public void clicked(InputEvent e, float x, float y) {
         selectPlayer(type);
-        System.out.println("Player " + playerNum + " selected: " + type);
-        // Oppdater UI i WelcomeScreen basert på valget
-            if (Gdx.app.getApplicationListener() instanceof WelcomeScreen welcomeScreen) {
-                welcomeScreen.updateButtonStates(type, playerNum);
-            }
       }
     };
   }
 
-   /*
-   * WelcomeScreen, 
+  /*
+   * WelcomeScreen,
    * Handling start button on WelcomeScreen. Start buttons sends the user to
    * ChooseMapsScreen
    */
@@ -195,22 +189,17 @@ public class Controller implements InputProcessor {
       @Override
       public void clicked(InputEvent e, float x, float y) {
         startGameIfPlayersSelected();
-        System.out.println("Start button clicked.");
       }
     };
   }
 
+  // HELP SCREEN BUTTONS
 
-  
-
-
-  //HELP SCREEN BUTTONS
-  
   // HelpScreen, Back button on helpScreen, directs to welcome screen
   public void attachHelpScreenListeners(Button back) {
     back.addListener(backButtonListener());
   }
- 
+
   // HelpScreen, Handles click from back button on HelpScreen
   private ClickListener backButtonListener() {
     return new ClickListener() {
@@ -222,16 +211,10 @@ public class Controller implements InputProcessor {
     };
   }
 
-
-  
-
- 
-
-
-  //CHOOSE MAP SCREEN BUTTONS
+  // CHOOSE MAP SCREEN BUTTONS
 
   /**
-   * ChooseMapScreen, 
+   * ChooseMapScreen,
    * Handles button clicks in the ChooseMapScreen.
    * 
    * @param playButton the play button
@@ -248,8 +231,6 @@ public class Controller implements InputProcessor {
   /* ChooseMapScreen, Handles play button in ChooseMapScreen */
   private void handlePlayButtonClicked() {
     model.setGameState(GameState.ACTIVE_GAME);
-    System.out.println("Play button clicked: Changing state to ACTIVE_GAME.");
   }
 
-  
 }

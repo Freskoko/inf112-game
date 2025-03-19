@@ -14,6 +14,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.firegirlwaterboy.controller.Controller;
 
+/**
+ * ChooseMapScreen class represents the screen where the player can choose a
+ * map.
+ */
 public class ChooseMapScreen implements Screen {
 
     private IViewModel model;
@@ -38,6 +42,7 @@ public class ChooseMapScreen implements Screen {
         setupUI();
     }
 
+    // Set up the UI for the choose map screen
     private void setupUI() {
         Table table = new Table();
         table.setFillParent(true);
@@ -51,6 +56,7 @@ public class ChooseMapScreen implements Screen {
         stage.addActor(table);
     }
 
+    // Method for creating a button with a given text and color
     private Button createButton(String text, Color color) {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = font;
@@ -85,10 +91,12 @@ public class ChooseMapScreen implements Screen {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
     public void hide() {

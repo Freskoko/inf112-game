@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.*;
 import inf112.firegirlwaterboy.controller.Controller;
-import inf112.firegirlwaterboy.model.entity.PlayerType;
+
 
 public class WelcomeScreen implements Screen {
 
@@ -58,7 +58,7 @@ public class WelcomeScreen implements Screen {
 
         // Player 2 selection
         Table p2Table = new Table();
-        Label player2Label = new Label("Player 2 (uses) choose your character:",
+        Label player2Label = new Label("Player 2 (uses WASD) choose your character:",
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         p2Table.add(player2Label).colspan(2).center().padBottom(10);
         p2Table.row();
@@ -68,8 +68,9 @@ public class WelcomeScreen implements Screen {
 
         table.add(playerSelectionTable).colspan(2);
 
+        // Start button
         table.row();
-        table.add(startButton).colspan(2).center().padTop(20);
+        table.add(startButton).colspan(2).size(150,50).center().padTop(20);
 
         stage.addActor(table);
 
@@ -112,21 +113,6 @@ public class WelcomeScreen implements Screen {
         return new TextButton(text, style);
     }
 
-    public void updateButtonStates(PlayerType selectedType, int playerNum) {
-        if (playerNum == 1) {
-            fireGirlButtonP2.setDisabled(selectedType == PlayerType.FIREGIRL);
-            fireGirlButtonP2.setColor(selectedType == PlayerType.FIREGIRL ? Color.GRAY : Color.RED);
-
-            waterBoyButtonP2.setDisabled(selectedType == PlayerType.WATERBOY);
-            waterBoyButtonP2.setColor(selectedType == PlayerType.WATERBOY ? Color.GRAY : Color.BLUE);
-        } else if (playerNum == 2) {
-            fireGirlButtonP1.setDisabled(selectedType == PlayerType.FIREGIRL);
-            fireGirlButtonP1.setColor(selectedType == PlayerType.FIREGIRL ? Color.GRAY : Color.RED);
-
-            waterBoyButtonP1.setDisabled(selectedType == PlayerType.WATERBOY);
-            waterBoyButtonP1.setColor(selectedType == PlayerType.WATERBOY ? Color.GRAY : Color.BLUE);
-        }
-    }
 
     @Override
     public void show() {
