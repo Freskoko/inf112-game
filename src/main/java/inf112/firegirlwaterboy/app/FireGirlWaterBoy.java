@@ -10,6 +10,7 @@ import inf112.firegirlwaterboy.model.Model;
 import inf112.firegirlwaterboy.view.ChooseMapScreen;
 import inf112.firegirlwaterboy.view.GameScreen;
 import inf112.firegirlwaterboy.view.WelcomeScreen;
+import inf112.firegirlwaterboy.view.HelpScreen;
 
 /**
  * FireGirlWaterBoy is a game where the player controls two characters, FireGirl
@@ -24,8 +25,10 @@ public class FireGirlWaterBoy extends Game {
   private Controller controller;
   private WelcomeScreen welcomeScreen;
   private GameScreen gameScreen;
+  private HelpScreen helpScreen;
   private ChooseMapScreen chooseMapScreen;
   private GameState currentGameState;
+  
 
   public FireGirlWaterBoy() {
     this.model = new Model();
@@ -64,7 +67,7 @@ public class FireGirlWaterBoy extends Game {
     switch (gameState) {
       case WELCOME:
         if (welcomeScreen == null) {
-          welcomeScreen = new WelcomeScreen(model, controller);
+          welcomeScreen = new WelcomeScreen(controller);
         }
         return welcomeScreen;
 
@@ -80,6 +83,12 @@ public class FireGirlWaterBoy extends Game {
           chooseMapScreen = new ChooseMapScreen(model, controller);
         }
         return chooseMapScreen;
+
+      case HELP:
+      if (helpScreen == null) {
+        helpScreen = new HelpScreen(controller);
+      }
+      return helpScreen;
 
       default:
         System.out.println("Ukjent GameState: " + gameState);

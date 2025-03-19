@@ -147,12 +147,9 @@ public class Controller implements InputProcessor {
 
   }
 
-  /**
-   * Handles button clicks in the WelcomeScreen.
-   * 
-   * @param stage
-   */
-  public void attachListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start, Button help) {
+  //WELCOME SCREEN
+  // Attach listeners to buttons on WelcomeScreen
+  public void attachWelcomeScreenListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start, Button help) {
     fgP1.addListener(selectPlayerListener(1, PlayerType.FIREGIRL));
     wbP1.addListener(selectPlayerListener(1, PlayerType.WATERBOY));
     fgP2.addListener(selectPlayerListener(2, PlayerType.FIREGIRL));
@@ -161,7 +158,19 @@ public class Controller implements InputProcessor {
     help.addListener(helpButtonListener());
   }
 
-  /* Hanling button on WelcomeScreen where user select player */
+
+  //Help button on welcomeScreen, directs to help screen
+  private ClickListener helpButtonListener() {
+    return new ClickListener() {
+      @Override
+      public void clicked(InputEvent e, float x, float y) {
+        model.setGameState(GameState.HELP);
+        System.out.println("help trykket");
+      }
+    };
+  }
+
+  /* Handling button on WelcomeScreen where user select player */
   private ClickListener selectPlayerListener(int playerNum, PlayerType type) {
     return new ClickListener() {
       @Override
@@ -176,7 +185,7 @@ public class Controller implements InputProcessor {
     };
   }
 
-  /*
+   /*
    * Handling start button on WelcomeScreen. Start buttons sends the user to
    * ChooseMapsScreen
    */
@@ -190,15 +199,35 @@ public class Controller implements InputProcessor {
     };
   }
 
-  private ClickListener helpButtonListener() {
+
+  
+
+
+  //HELP SCREEN BUTTONS
+  
+  //Back button on helpScreen, directs to welcome screen
+  public void attachHelpScreenListeners(Button back) {
+    back.addListener(backButtonListener());
+  }
+ 
+  // Handles click from back button on HelpScreen
+  private ClickListener backButtonListener() {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
-        model.setGameState(null);
+        model.setGameState(GameState.WELCOME);
+        System.out.println("back trykket");
       }
     };
   }
 
+
+  
+
+ 
+
+
+  //CHOOSE MAP SCREEN BUTTONS
 
   /**
    * Handles button clicks in the ChooseMapScreen.
@@ -220,4 +249,5 @@ public class Controller implements InputProcessor {
     System.out.println("Play button clicked: Changing state to ACTIVE_GAME.");
   }
 
+  
 }

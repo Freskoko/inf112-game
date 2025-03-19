@@ -45,7 +45,7 @@ public class WelcomeScreen implements Screen {
         table.bottom().padBottom(200);
 
 
-        controller.attachListeners(fireGirlButtonP1, waterBoyButtonP1, fireGirlButtonP2, waterBoyButtonP2, startButton, helpButton);
+        controller.attachWelcomeScreenListeners(fireGirlButtonP1, waterBoyButtonP1, fireGirlButtonP2, waterBoyButtonP2, startButton, helpButton);
 
         Table p1Table = new Table();
         p1Table.add(fireGirlButtonP1).size(150, 50).pad(10);
@@ -59,6 +59,9 @@ public class WelcomeScreen implements Screen {
 
         table.row();
         table.add(startButton).colspan(2).center().padTop(20);
+        table.row();
+        table.add(helpButton).colspan(2).center().padTop(20);
+
 
         stage.addActor(table);
     }
