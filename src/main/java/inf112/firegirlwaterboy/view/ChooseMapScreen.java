@@ -7,16 +7,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.firegirlwaterboy.controller.Controller;
-//import inf112.firegirlwaterboy.controller.IControllableModel;
 
-/**
- * Class for the screen where the player chooses a map/level.
- * The player must have completed the level before to choose the next one.
- */
 public class ChooseMapScreen implements Screen {
+
     private IViewModel model;
     private Controller controller;
     private Stage stage;
@@ -28,17 +27,38 @@ public class ChooseMapScreen implements Screen {
         this.model = model;
         this.controller = controller;
 
-        this.viewport = new FitViewport(800, 600);
-        this.stage = new Stage(viewport);
-        Gdx.input.setInputProcessor(stage);
+        viewport = new FitViewport(800, 600);
+        stage = new Stage(viewport);
 
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
         font.getData().setScale(2f);
 
-        // Kaller controller for å sette opp UI og håndtere logikk mtp buttons
-        controller.setupChooseMapUI(stage);
+        setupUI();
+    }
+
+    private void setupUI() {
+        Table table = new Table();
+        table.setFillParent(true);
+
+        Button playButton = createButton("Play", Color.DARK_GRAY);
+
+        // Delegating button logic to controller
+        controller.setupPlayButtonListener(playButton);
+
+        table.add(playButton).size(200, 60).center();
+        stage.addActor(table);
+    }
+
+    private Button createButton(String text, Color color) {
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style.font = font;
+        style.fontColor = Color.WHITE;
+
+        TextButton button = new TextButton(text, style);
+        button.setColor(color);
+        return button;
     }
 
     @Override
@@ -52,7 +72,7 @@ public class ChooseMapScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        font.draw(batch, "Choose Level:", 300, 550);
+        font.draw(batch, "Choose Level:", 320, 550);
         batch.end();
 
         stage.act(delta);
