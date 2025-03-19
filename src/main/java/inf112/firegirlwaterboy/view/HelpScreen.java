@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.*;
 
 import inf112.firegirlwaterboy.controller.Controller;
@@ -21,29 +22,37 @@ public class HelpScreen implements Screen {
 
     public HelpScreen(Controller controller) {
         this.controller = controller;
-        this.viewport = new ScreenViewport();
+        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.stage = new Stage(viewport);
         this.batch = new SpriteBatch();
         Gdx.input.setInputProcessor(stage);
 
         backButton = createButton("Back", Color.DARK_GRAY);
-        
+
         setupUI();
         controller.attachHelpScreenListeners(backButton);
     }
-    
+
     private void setupUI() {
-        
         Table table = new Table();
         table.setFillParent(true);
+        table.top().center().pad(20);
+
+        Label helpText = new Label("Player 1 uses arrows, Player 2 uses WASD",
+                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        helpText.setWrap(true);
+        helpText.setAlignment(Align.center);
         
-        Label helpText = new Label("How to play:", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        
-        table.add(helpText).padBottom(20);
+        table.add(helpText).width(Gdx.graphics.getWidth() * 0.8f).padBottom(20);
         table.row();
-        table.add(backButton).padTop(20);
         
         stage.addActor(table);
+
+        Table backTable = new Table();
+        backTable.setFillParent(true);
+        backTable.top().right().pad(20);
+        backTable.add(backButton).size(100, 50);
+        stage.addActor(backTable);
     }
 
     private Button createButton(String text, Color color) {
@@ -81,10 +90,12 @@ public class HelpScreen implements Screen {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
     public void hide() {
