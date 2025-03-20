@@ -34,7 +34,9 @@ public class Player extends Sprite implements IEntity {
   private boolean onGround;
   private boolean touchingWall;
   private PlayerType playerType;
-  private ImmunityComponent immunities; 
+  private ImmunityComponent immunities;
+  private ElementType immuneTo;
+  private boolean isAlive = true;
 
   /**
     * Initalizes a player, giving them a type and texture
@@ -42,7 +44,6 @@ public class Player extends Sprite implements IEntity {
   public Player(PlayerType playerType) {
     super(getTextureForType(playerType));
     this.playerType = playerType;
-    setUpImmunities(playerType);
   }
 
   /**
@@ -58,6 +59,12 @@ public class Player extends Sprite implements IEntity {
     this.touchingWall = false;
     createBody(pos);
     setPosition(pos.x, pos.y);
+    if (playerType.equals(PlayerType.FIREGIRL)) {
+      this.immuneTo = ElementType.LAVA;
+    } else if (playerType.equals(PlayerType.WATERBOY)) {
+      this.immuneTo = ElementType.WATER;
+    }
+    //setUpImmunities(playerType);
   }
 
   /**
@@ -215,7 +222,7 @@ public class Player extends Sprite implements IEntity {
    * 
    * @param playerType the type of player
    */
-  private void setUpImmunities(PlayerType playerType) {
+  /*private void setUpImmunities(PlayerType playerType) {
     HashSet<String> immunitiesSet = new HashSet<>();
     switch (playerType) {
       case FIREGIRL:
@@ -226,7 +233,7 @@ public class Player extends Sprite implements IEntity {
         break;
     }
     this.immunities = new ImmunityComponent(immunitiesSet);
-  }
+  }*/
 
   /**
    * Checks if the player is immune to a hazard.
@@ -234,7 +241,25 @@ public class Player extends Sprite implements IEntity {
    * @param hazard to check
    * @return true if the player is immune to the hazard
    */
-  public boolean isImmuneTo(String hazard) {
+  /*public boolean isImmuneTo(String hazard) {
     return immunities.isImmuneTo(hazard);
   }
+
+  public void handleHazard(String hazard) {
+    if (!isImmuneTo(hazard)) {
+      System.out.println("Player hit by hazard: " + hazard);
+    } else {
+      System.out.println("Player immune to hazard: " + hazard);
+    }
+  }*/
+
+  public void interactWithElement(ElementType elementType) {
+    if (!immuneTo.equals(elementType)) {
+      isAlive = false;
+      System.out.println(playerType + " interacted with deadly " + elementType);
+    } else {
+      System.out.println(playerType + " interacted with safe " + elementType);
+    }
+  }
+
 }

@@ -15,6 +15,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.firegirlwaterboy.model.entity.ElementType;
+
 /**
  * Manages loading and interacting with tiled maps in the game.
  * Handles map retrieval, layer access, and object creation in a Box2D world.
@@ -134,12 +136,25 @@ public class Maps implements IMaps {
       
       FixtureDef fdef = new FixtureDef();
       fdef.shape = shape;
-      //fdef.friction = 2f; // Optional: Adds friction
-      //fdef.restitution = 0f; // Optional: No bouncing
-
       Fixture fixture = body.createFixture(fdef);
-      fixture.setUserData(layer.getName());
+
+      String type = object.getProperties().get("type", String.class);
+      ElementType elementType = null;
+
+      if (type != null && type.equalsIgnoreCase("lava")) {
+        elementType = ElementType.LAVA;
+        fixture.setSensor(true);
+        fixture.setUserData(elementType);
+      } else if (type != null && type.equalsIgnoreCase("water")) {
+        elementType = ElementType.WATER;
+        fixture.setSensor(true);
+        fixture.setUserData(elementType);
+      } else {
+        fixture.setUserData(layer.getName());
+      }
+
       shape.dispose();
+    
     }
   }
 }
