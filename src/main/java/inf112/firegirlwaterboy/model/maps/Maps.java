@@ -111,6 +111,12 @@ public class Maps implements IMaps {
     }
   }
 
+  /**
+   * Creates elements in the world from a given map layer.
+   * 
+   * @param world The Box2D world where elements should be created.
+   * @param layer The map layer containing elements.
+   */
   private void createElementsInWorldFromLayer(World world, MapLayer layer) {
     for (MapObject object : layer.getObjects()) {
       float px = object.getProperties().get("x", Float.class);
