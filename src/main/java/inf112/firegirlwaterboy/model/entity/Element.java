@@ -13,10 +13,13 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.maps.Maps;
 
+/**
+ * Element class represents an element in the game.
+ * Elements are static objects that can be interacted with by players.
+ */
 public class Element implements IEntity {
   private Texture texture;
   private ElementType type;
-  //private Vector2 position;
   private Body body;
   private World world;
   private Vector2 position, size;
@@ -32,7 +35,6 @@ public class Element implements IEntity {
     float width = size.x / 2 / Maps.PPM;
     float height = size.y / 2 / Maps.PPM;
 
-
     BodyDef bdef = new BodyDef();
     bdef.position.set(position.x, position.y);
     bdef.type = BodyDef.BodyType.StaticBody;
@@ -47,7 +49,6 @@ public class Element implements IEntity {
     fixture.setSensor(true);
     fixture.setUserData(type); 
     shape.dispose();
-
   }
 
   @Override
@@ -65,6 +66,11 @@ public class Element implements IEntity {
     return texture;
   }
 
+  /**
+   * Returns the type of the element.
+   * 
+   * @return the type of the element
+   */
   public ElementType getType() {
     return type;
   }

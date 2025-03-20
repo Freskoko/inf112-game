@@ -11,6 +11,10 @@ import inf112.firegirlwaterboy.model.entity.EntityList;
 import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.entity.PlayerType;
 
+/**
+ * MyContactListener is a class that listens for contacts between fixtures in
+ * the game world.
+ */
 public class MyContactListener implements ContactListener {
 
   private EntityList<PlayerType, Player> players;
@@ -29,25 +33,21 @@ public class MyContactListener implements ContactListener {
     playerCollision(contact, false);
   }
 
+  /**
+   * Handles collision between player and other objects.
+   * 
+   * @param contact the contact between two fixtures
+   * @param contactStatus true if the contact is beginning, false if it is ending
+   */
   private void playerCollision(Contact contact, Boolean contactStatus) {
     Fixture a = contact.getFixtureA();
     Fixture b = contact.getFixtureB();
   
     for (Player player : players) {
-
       if (!isPlayer(a, b, player)) {
         continue;
       }
 
-      // isPlayerFootSensor does not work as intended, might not need it anyway
-      /*if (isPlayerFootSensor(a, b, player)) {
-        player.setOnGround(contactStatus);
-        System.out.println("it is foot");
-        if (isHorizontal(a, b)) {
-          System.out.println("cs: " + contactStatus);
-          player.setOnGround(contactStatus);
-        }
-      }*/
       if (isHorizontal(a, b)) {
         player.setOnGround(contactStatus);
       } else if (isVertical(a, b)) {
@@ -55,29 +55,19 @@ public class MyContactListener implements ContactListener {
       }
 
       ElementType elementType = getElementType(a, b);
-      //System.out.println("Element type: " + elementType);
-      //System.out.println("fix a: " + a.getUserData() + " type: " + a.getUserData().getClass());
-      //System.out.println("fix b: " + b.getUserData() + " type: " + b.getUserData().getClass());
       if (elementType != null && contactStatus) {
         player.interactWithElement(elementType);
       }
-            
-
-      /*if (isHazard(a, b)) {
-        String hazard = getHazardType(a, b);
-        System.out.println("Hazard: " + hazard);
-        player.handleHazard(hazard);
-      }*/
     }
   }
 
-  /*private boolean isPlayerFootSensor(Fixture a, Fixture b, Player player) {
-    boolean footA = "FOOT_SENSOR".equals(a.getUserData()) && a.getBody() == player.getBody();
-    boolean footB = "FOOT_SENSOR".equals(b.getUserData()) && b.getBody() == player.getBody();
-    //return (footA || footB) && (isHorizontal(b, a) || isHorizontal(a, b));
-    return footA || footB;
-  }*/
-
+  /**
+   * Returns the element type of the fixture that is in contact with the player.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return the element type of the fixture in contact with the player
+   */
   private ElementType getElementType(Fixture a, Fixture b) {
     if (a.getUserData().equals(ElementType.LAVA) || a.getUserData().equals(ElementType.WATER)) {
       return (ElementType) a.getUserData();
@@ -87,30 +77,39 @@ public class MyContactListener implements ContactListener {
     return null;
   }
 
+  /**
+   * Returns true if one of the given fixtures is a player.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @param player the player to compare with the fixtures
+   * @return true if one of the fixtures is a player
+   */
   private boolean isPlayer(Fixture a, Fixture b, Player player) {
     return (a.getBody().equals(player.getBody()) || b.getBody().equals(player.getBody()));
   }
 
+  /**
+   * Returns true if one of the given fixtures is a horizontal fixture.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return true if one of the fixtures is a horizontal fixture
+   */
   private boolean isVertical(Fixture a, Fixture b) {
     return "Vertical".equals(a.getUserData()) || "Vertical".equals(b.getUserData());
   }
 
+  /**
+   * Returns true if one of the given fixtures is a vertical fixture.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return true if one of the fixtures is a vertical fixture
+   */
   private boolean isHorizontal(Fixture a, Fixture b) {
     return "Horizontal".equals(a.getUserData()) || "Horizontal".equals(b.getUserData());
   }
-
-  /*private boolean isHazard(Fixture a, Fixture b) {
-    return "lava".equals(a.getUserData()) || "water".equals(b.getUserData()) || "lava".equals(b.getUserData()) || "water".equals(a.getUserData());
-  }
-
-  private String getHazardType(Fixture a, Fixture b) {
-    if ("lava".equals(a.getUserData()) || "water".equals(a.getUserData())) {
-      return (String) a.getUserData();
-    } else if ("lava".equals(b.getUserData()) || "water".equals(b.getUserData())) {
-      return (String) b.getUserData();
-    }
-    return null;
-  }*/
 
   @Override
   public void postSolve(Contact arg0, ContactImpulse arg1) {
@@ -119,5 +118,4 @@ public class MyContactListener implements ContactListener {
   @Override
   public void preSolve(Contact arg0, Manifold arg1) {
   }
-
 }
