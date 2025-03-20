@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.ElementType;
 
 /**
@@ -102,9 +103,27 @@ public class Maps implements IMaps {
   @Override
   public void createObjectsInWorld(World world, String mapName) {
     for (MapLayer layer : getMap(mapName).getLayers()) {
-      if (layer.getObjects().getCount() > 0 && !layer.getName().equals("Spawn")) {
+      if (layer.getName().equals("Elements")){ 
+        createElementsInWorldFromLayer(world, layer);
+      } else if (layer.getObjects().getCount() > 0 && !layer.getName().equals("Spawn")) {
         createObjectsInWorldFromLayer(world, layer);
       }
+    }
+  }
+
+  private void createElementsInWorldFromLayer(World world, MapLayer layer) {
+    for (MapObject object : layer.getObjects()) {
+      float px = object.getProperties().get("x", Float.class);
+      float py = object.getProperties().get("y", Float.class);
+      float width = object.getProperties().get("width", Float.class);
+      float height = object.getProperties().get("height", Float.class);
+
+      float x = (px + width / 2) / PPM;
+      float y = (py + height / 2) / PPM;
+      Vector2 position = new Vector2(x, y);
+      Vector2 size = new Vector2(width, height);
+      ElementType type = ElementType.valueOf(object.getProperties().get("type", String.class).toUpperCase());
+      new Element(type, world, position, size);
     }
   }
 
@@ -138,20 +157,7 @@ public class Maps implements IMaps {
       fdef.shape = shape;
       Fixture fixture = body.createFixture(fdef);
 
-      String type = object.getProperties().get("type", String.class);
-      ElementType elementType = null;
-
-      if (type != null && type.equalsIgnoreCase("lava")) {
-        elementType = ElementType.LAVA;
-        fixture.setSensor(true);
-        fixture.setUserData(elementType);
-      } else if (type != null && type.equalsIgnoreCase("water")) {
-        elementType = ElementType.WATER;
-        fixture.setSensor(true);
-        fixture.setUserData(elementType);
-      } else {
-        fixture.setUserData(layer.getName());
-      }
+      fixture.setUserData(layer.getName());
 
       shape.dispose();
     
