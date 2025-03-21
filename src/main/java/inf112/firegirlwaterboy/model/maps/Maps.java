@@ -103,24 +103,46 @@ public class Maps implements IMaps {
   @Override
   public void createObjectsInWorld(World world, String mapName) {
     for (MapLayer layer : getMap(mapName).getLayers()) {
-      if (layer.getName().equals("Collectable")){ 
-        createCollectableObjectsInWorldFromLayer(world, layer);
-      } else if (layer.getObjects().getCount() > 0 && !layer.getName().equals("Spawn")) {
-        createObjectsInWorldFromLayer(world, layer);
+      String layerName = layer.getName();
+      switch (layerName) {
+        case "Collectable":
+          createCollectableObjectsInWorldFromLayer(world, layer);
+          break;
+        case "Spawn":
+          break;
+        default:
+          createObjectsInWorldFromLayer(world, layer);
+          break;
       }
     }
   }
 
   private void createCollectableObjectsInWorldFromLayer(World world, MapLayer layer) {
     for (MapObject object : layer.getObjects()) {
-        float x = object.getProperties().get("x", Float.class) / PPM;
-        float y = object.getProperties().get("y", Float.class) / PPM;
-        String playerTypeStr = object.getProperties().get("PlayerType", String.class);
-        PlayerType requiredPlayer = PlayerType.valueOf(playerTypeStr.toUpperCase());
-        new Collectable(requiredPlayer, world, x, y);
+      new Collectable(world, object);
     }
-}
+  }
 
+  public static float getX(MapObject object) {
+    float x = object.getProperties().get("x", Float.class) / PPM;
+    return x;
+  }
+  public static float getY(MapObject object) {
+    float y = object.getProperties().get("y", Float.class) / PPM;
+    return y;
+  }
+
+  public static float getWidth(MapObject object) {
+    float width = object.getProperties().get("width", Float.class) / PPM;
+    return width;
+  }
+
+  public static float getHeight(MapObject object) {
+    float height = object.getProperties().get("height", Float.class) / PPM;
+    return height;
+  }
+
+ 
   /**
    * Creates physics objects in the world from a given map layer.
    *
@@ -146,11 +168,11 @@ public class Maps implements IMaps {
 
       PolygonShape shape = new PolygonShape();
       shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
-      
+
       FixtureDef fdef = new FixtureDef();
       fdef.shape = shape;
-      //fdef.friction = 2f; // Optional: Adds friction
-      //fdef.restitution = 0f; // Optional: No bouncing
+      // fdef.friction = 2f; // Optional: Adds friction
+      // fdef.restitution = 0f; // Optional: No bouncing
 
       Fixture fixture = body.createFixture(fdef);
       fixture.setUserData(layer.getName());
