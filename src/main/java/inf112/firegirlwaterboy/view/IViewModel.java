@@ -21,11 +21,9 @@ public interface IViewModel {
   GameState getGameState();
 
   /**
-   * Updates the game logic based on the given time elapsed since the last update.
-   *
-   * @param deltaTime The time elapsed since the last update (in seconds)
+   * Updates the game logic
    */
-  void update(float deltaTime);
+  void update();
 
   /**
    * Renders the game using the given batch.
