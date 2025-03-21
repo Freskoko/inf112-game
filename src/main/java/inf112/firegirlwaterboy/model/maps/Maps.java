@@ -119,17 +119,8 @@ public class Maps implements IMaps {
    */
   private void createElementsInWorldFromLayer(World world, MapLayer layer) {
     for (MapObject object : layer.getObjects()) {
-      float px = object.getProperties().get("x", Float.class);
-      float py = object.getProperties().get("y", Float.class);
-      float width = object.getProperties().get("width", Float.class);
-      float height = object.getProperties().get("height", Float.class);
-
-      float x = (px + width / 2) / PPM;
-      float y = (py + height / 2) / PPM;
-      Vector2 position = new Vector2(x, y);
-      Vector2 size = new Vector2(width, height);
       ElementType type = ElementType.valueOf(object.getProperties().get("type", String.class).toUpperCase());
-      new Element(type, world, position, size);
+      new Element(type, world, object);
     }
   }
 
@@ -158,7 +149,7 @@ public class Maps implements IMaps {
 
       PolygonShape shape = new PolygonShape();
       shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
-      
+
       FixtureDef fdef = new FixtureDef();
       fdef.shape = shape;
       Fixture fixture = body.createFixture(fdef);
@@ -166,7 +157,31 @@ public class Maps implements IMaps {
       fixture.setUserData(layer.getName());
 
       shape.dispose();
-    
+
     }
+  }
+
+  public static float getX(MapObject object) {
+    float px = object.getProperties().get("x", Float.class);
+    float width = getWidth(object);
+    float x = (px + width / 2) / PPM;
+    return x;
+  }
+
+  public static float getY(MapObject object) {
+    float py = object.getProperties().get("y", Float.class);
+    float height = getHeight(object);
+    float y = (py + height / 2) / PPM;
+    return y;
+  }
+
+  public static float getWidth(MapObject object) {
+    float width = object.getProperties().get("width", Float.class);
+    return width;
+  }
+
+  public static float getHeight(MapObject object) {
+    float height = object.getProperties().get("height", Float.class);
+    return height;
   }
 }
