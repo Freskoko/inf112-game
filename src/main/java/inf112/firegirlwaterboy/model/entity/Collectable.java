@@ -1,5 +1,9 @@
 package inf112.firegirlwaterboy.model.entity;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -9,16 +13,19 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.maps.Maps;
 
-public class Collectable {
+public class Collectable implements IEntity, ICollectable{
 
-  private boolean collected;
   private PlayerType requiredPlayer;
   private Body body;
   private World world;
 
-  public Collectable(PlayerType requiredPlayer, World world, float x, float y) {
-    this.requiredPlayer = requiredPlayer;
-    this.collected = false;
+  public Collectable(World world, MapObject object) {
+    float x = Maps.getX(object);
+    float y = Maps.getY(object);
+  
+    String playerTypeStr = object.getProperties().get("PlayerType", String.class);
+    this.requiredPlayer = PlayerType.valueOf(playerTypeStr.toUpperCase());
+    this.world = world;
 
     BodyDef bdef = new BodyDef();
     bdef.position.set(x, y);
@@ -26,24 +33,52 @@ public class Collectable {
     body = world.createBody(bdef);
 
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(8 / Maps.PPM, 8 / Maps.PPM); 
+    shape.setAsBox(8 / Maps.PPM, 8 / Maps.PPM);
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
+
     Fixture fixture = body.createFixture(fdef);
-    fixture.setUserData(this); 
+    fixture.setSensor(true);
+    fixture.setUserData(this);
     shape.dispose();
   }
 
+  @Override
   public PlayerType getRequiredPlayer() {
     return requiredPlayer;
   }
 
+  @Override  
   public void collect() {
-    if (!collected) {
-      collected = true;
-      this.world.destroyBody(body); // Remove from the world
-      body.setUserData(null);
-    }
+    this.world.destroyBody(body);
+    body.setUserData(null);
   }
 
+  @Override
+  public String toString() {
+    return "collectable for " + requiredPlayer;
+  }
+
+  @Override
+  public void update() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'update'");
+  }
+
+  @Override
+  public void draw(Batch batch) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'draw'");
+  }
+
+  @Override
+  public Texture getTexture() {
+    return new Texture(Gdx.files.internal("FIREGIRL.png"));
+  }
+
+  @Override
+  public Body getBody() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getBody'");
+  }
 }
