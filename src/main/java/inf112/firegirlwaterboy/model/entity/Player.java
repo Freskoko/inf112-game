@@ -16,8 +16,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import inf112.firegirlwaterboy.controller.MovementType;
 import inf112.firegirlwaterboy.model.maps.Maps;
 
-// Må denne være public?
-
 /**
  * Player class represents a player character in the game.
  * The player is a sprite that can move, has velocity and is affected by
@@ -25,13 +23,14 @@ import inf112.firegirlwaterboy.model.maps.Maps;
  */
 public class Player extends Sprite implements IEntity {
 
-  // Add state enum?? 
-  private float speed = 7;// , gravity = 60 * 1.8f;
+  private float speed = 7;
   private World world;
   private Body body;
   private boolean onGround;
   private boolean touchingWall;
   private PlayerType playerType;
+  private ElementType immuneTo;
+  private boolean isAlive = true;
 
   /**
     * Initalizes a player, giving them a type and texture
@@ -54,15 +53,25 @@ public class Player extends Sprite implements IEntity {
     this.touchingWall = false;
     createBody(pos);
     setPosition(pos.x, pos.y);
+    if (playerType.equals(PlayerType.FIREGIRL)) {
+      this.immuneTo = ElementType.LAVA;
+    } else if (playerType.equals(PlayerType.WATERBOY)) {
+      this.immuneTo = ElementType.WATER;
+    }
   }
 
+  /**
+   * Returns the player's texture.
+   * 
+   * @param type the player's type
+   * @return the player's texture
+   */
   private static TextureRegion getTextureForType(PlayerType type) {
     Texture texture;
     try {
       switch (type) {
         case FIREGIRL:
           texture = new Texture(Gdx.files.internal("FIREGIRL.png"));
-          //System.out.println("firegirl chosen");
           break;
         case WATERBOY:
           texture = new Texture(Gdx.files.internal("WATERBOY.png"));
@@ -83,6 +92,11 @@ public class Player extends Sprite implements IEntity {
     return super.getTexture();
   }
 
+  /**
+   * Returns the player's body.
+   * 
+   * @return the player's body
+   */
   public Body getBody() {
     return body;
   }
@@ -93,6 +107,11 @@ public class Player extends Sprite implements IEntity {
     super.draw(batch);
   }
 
+  /**
+   * Creates the player's body in the world. 
+   * 
+   * @param position the position of the player
+   */
   public void createBody(Vector2 position) {
     BodyDef bdef = new BodyDef();
     bdef.position.set(position.x / Maps.PPM, position.y / Maps.PPM);
@@ -102,10 +121,8 @@ public class Player extends Sprite implements IEntity {
     bdef.linearDamping = 0;
     this.body = world.createBody(bdef);
 
-    // Main player body (rectangle shape)
     PolygonShape bodyShape = new PolygonShape();
-    bodyShape.setAsBox(16 / Maps.PPM, 32 / Maps.PPM); // Adjust width & height based on player sprite
-
+    bodyShape.setAsBox(16 / Maps.PPM, 32 / Maps.PPM); 
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
@@ -114,19 +131,6 @@ public class Player extends Sprite implements IEntity {
     fdef.restitution = 0;
     this.body.createFixture(fdef).setUserData("PLAYER");
     bodyShape.dispose();
-
-    // Foot sensor (used for detecting ground contact)
-    PolygonShape footShape = new PolygonShape();
-    footShape.setAsBox(12 / Maps.PPM, 2 / Maps.PPM, new Vector2(0, -16 / Maps.PPM), 0);     // Positioned at the bottom
-
-    FixtureDef footFdef = new FixtureDef();
-    footFdef.shape = footShape;
-    footFdef.isSensor = true; // Sensor means it detects but does not physically collide
-    //this.body.createFixture(footFdef).setUserData("FOOT_SENSOR");
-    Fixture footSensor = body.createFixture(footFdef);
-    footSensor.setUserData("FOOT_SENSOR");
-
-    //footShape.dispose();
   }
 
   @Override
@@ -161,6 +165,9 @@ public class Player extends Sprite implements IEntity {
     }
   }
 
+  /**
+   * Makes the player jump.
+   */
   public void jump() {
     if (onGround) {
       body.applyLinearImpulse(new Vector2(0, 10.5f), body.getWorldCenter(), true);
@@ -168,12 +175,36 @@ public class Player extends Sprite implements IEntity {
     }
   }
 
+  /**
+   * Sets the player's onGround status.
+   * 
+   * @param onGround true if the player is on the ground
+   */
   public void setOnGround(boolean onGround) {
     //System.out.println("Player on ground: " + onGround);
     this.onGround = onGround;
   }
 
+  /**
+   * Sets the player's touchingWall status.
+   * 
+   * @param touchingWall true if the player is touching a wall
+   */
   public void setTouchingWall(boolean touchingWall) {
     this.touchingWall = touchingWall;
+  }
+
+  /**
+   * Handles the player's interaction with an element.
+   * 
+   * @param elementType the type of element, for example LAVA or WATER
+   */
+  public void interactWithElement(ElementType elementType) {
+    if (!immuneTo.equals(elementType)) {
+      isAlive = false;
+      System.out.println(playerType + " interacted with deadly " + elementType);
+    } else {
+      System.out.println(playerType + " interacted with safe " + elementType);
+    }
   }
 }

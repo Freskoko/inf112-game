@@ -15,6 +15,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.firegirlwaterboy.model.entity.Element;
+import inf112.firegirlwaterboy.model.entity.ElementType;
+
 /**
  * Manages loading and interacting with tiled maps in the game.
  * Handles map retrieval, layer access, and object creation in a Box2D world.
@@ -100,9 +103,24 @@ public class Maps implements IMaps {
   @Override
   public void createObjectsInWorld(World world, String mapName) {
     for (MapLayer layer : getMap(mapName).getLayers()) {
-      if (layer.getObjects().getCount() > 0 && !layer.getName().equals("Spawn")) {
+      if (layer.getName().equals("Elements")){ 
+        createElementsInWorldFromLayer(world, layer);
+      } else if (layer.getObjects().getCount() > 0 && !layer.getName().equals("Spawn")) {
         createObjectsInWorldFromLayer(world, layer);
       }
+    }
+  }
+
+  /**
+   * Creates elements in the world from a given map layer.
+   * 
+   * @param world The Box2D world where elements should be created.
+   * @param layer The map layer containing elements.
+   */
+  private void createElementsInWorldFromLayer(World world, MapLayer layer) {
+    for (MapObject object : layer.getObjects()) {
+      ElementType type = ElementType.valueOf(object.getProperties().get("type", String.class).toUpperCase());
+      new Element(type, world, object);
     }
   }
 
@@ -131,15 +149,39 @@ public class Maps implements IMaps {
 
       PolygonShape shape = new PolygonShape();
       shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
-      
+
       FixtureDef fdef = new FixtureDef();
       fdef.shape = shape;
-      //fdef.friction = 2f; // Optional: Adds friction
-      //fdef.restitution = 0f; // Optional: No bouncing
-
       Fixture fixture = body.createFixture(fdef);
+
       fixture.setUserData(layer.getName());
+
       shape.dispose();
+
     }
+  }
+
+  public static float getX(MapObject object) {
+    float px = object.getProperties().get("x", Float.class);
+    float width = getWidth(object);
+    float x = (px + width / 2) / PPM;
+    return x;
+  }
+
+  public static float getY(MapObject object) {
+    float py = object.getProperties().get("y", Float.class);
+    float height = getHeight(object);
+    float y = (py + height / 2) / PPM;
+    return y;
+  }
+
+  public static float getWidth(MapObject object) {
+    float width = object.getProperties().get("width", Float.class);
+    return width;
+  }
+
+  public static float getHeight(MapObject object) {
+    float height = object.getProperties().get("height", Float.class);
+    return height;
   }
 }

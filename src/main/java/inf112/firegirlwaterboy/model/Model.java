@@ -57,7 +57,7 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public void update(float deltaTime) {
-    world.step(1 / 60f, 6, 2); // Usikker hva parameter gjør?
+    world.step(1 / 60f, 6, 2); 
     for (Player player : players) {
       player.update(deltaTime);
     }
@@ -78,7 +78,9 @@ public class Model implements IControllableModel, IViewModel {
     players.draw(batch);
   }
 
-  /** Cleans up allocated resources */
+  /** 
+   * Cleans up allocated resources 
+   */
   public void dispose() {
     players.dispose();
   }
