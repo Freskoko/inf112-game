@@ -104,7 +104,7 @@ public class Controller implements InputProcessor {
   private void handleActiveGameState(int keycode) {
     PlayerType player = getPlayer(keycode);
     switch (keycode) {
-      case Keys.UP, Keys.W -> model.changeDir(player, MovementType.JUMP);
+      case Keys.UP, Keys.W -> model.changeDir(player, MovementType.UP);
       case Keys.LEFT, Keys.A -> model.changeDir(player, MovementType.LEFT);
       case Keys.RIGHT, Keys.D -> model.changeDir(player, MovementType.RIGHT);
     }
