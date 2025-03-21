@@ -79,7 +79,7 @@ public class WelcomeScreen implements Screen {
         font.draw(batch, "WELCOME TO FIREGIRL AND WATERBOY", titleX, titleY);
         font.draw(batch, "Press 'P' to start", instructionX, instructionY);
 
-        font.draw(batch, "These players are active: " + model.getPlayersAsString(), playerX, playerY);
+        font.draw(batch, "These players are active: " + model.toString(), playerX, playerY);
         font.draw(batch, "Use keys these keys to select characters: (W, F)",
                 arrowX, arrowY);
         batch.end();
