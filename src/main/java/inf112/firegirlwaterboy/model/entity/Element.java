@@ -3,7 +3,7 @@ package inf112.firegirlwaterboy.model.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -22,21 +22,20 @@ public class Element implements IEntity {
   private ElementType type;
   private Body body;
   private World world;
-  private Vector2 position, size;
-
+  private float x, y;
   
-  public Element(ElementType type, World world, Vector2 position, Vector2 size) {
+  public Element(ElementType type, World world, MapObject object) {
     this.type = type;
     this.texture = new Texture(Gdx.files.internal(type.getTexturePath()));
     this.world = world;
-    this.position = position;
-    this.size = size;
+    this.x = Maps.getX(object);
+    this.y = Maps.getY(object);
 
-    float width = size.x / 2 / Maps.PPM;
-    float height = size.y / 2 / Maps.PPM;
+    float width = Maps.getWidth(object) / 2 / Maps.PPM;
+    float height = Maps.getHeight(object) / 2 / Maps.PPM;
 
     BodyDef bdef = new BodyDef();
-    bdef.position.set(position.x, position.y);
+    bdef.position.set(x, y);
     bdef.type = BodyDef.BodyType.StaticBody;
     body = world.createBody(bdef);
 
@@ -53,12 +52,11 @@ public class Element implements IEntity {
 
   @Override
   public void update(float deltaTime) {
-
   }
 
   @Override
   public void draw(Batch batch) {
-    batch.draw(texture, position.x, position.y);
+    batch.draw(texture, x, y);
   }
 
   @Override
@@ -75,4 +73,3 @@ public class Element implements IEntity {
     return type;
   }
 }
-
