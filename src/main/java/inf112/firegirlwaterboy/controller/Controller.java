@@ -104,19 +104,28 @@ public class Controller implements InputProcessor {
   }
 
   /**
-   * Assigns a player type to Player 1 (WASD) or Player 2 (Arrows).
-   * Ensures Player 2 is different from Player 1.
-   *
-   * @param playerType the selected player type
-   */
-  private void selectPlayer(PlayerType playerType) {
-    if (playerOne == null) {
-      playerOne = playerType;
-      // Setter playerTwo automatisk til motsatt spiller
-      // fiks opp i dette!!!!??
-      playerTwo = (playerOne == PlayerType.FIREGIRL) ? PlayerType.WATERBOY : PlayerType.FIREGIRL;
+ * Assigns a player type to Player 1 (WASD) or Player 2 (Arrows).
+ * Ensures Player 1 and Player 2 select different types.
+ *
+ * @param playerType the selected player type
+ * @param isPlayerOne true if selecting for Player 1, false for Player 2
+ */
+private void selectPlayer(PlayerType playerType, boolean isPlayerOne) {
+  if (isPlayerOne) {
+    if (playerTwo != null && playerType == playerTwo) {
+      System.out.println("Player 1 kan ikke velge samme figur som Player 2!");
+      return;
     }
+    playerOne = playerType;
+  } else {
+    if (playerOne != null && playerType == playerOne) {
+      System.out.println("Player 2 kan ikke velge samme figur som Player 1!");
+      return;
+    }
+    playerTwo = playerType;
   }
+}
+
 
   /**
    * Returns the player associated with the given key press.
@@ -170,14 +179,15 @@ public class Controller implements InputProcessor {
   }
 
   /* WelcomeScreen, Handling button on WelcomeScreen where user select player */
-  private ClickListener selectPlayerListener(int playerNum, PlayerType type) {
-    return new ClickListener() {
-      @Override
-      public void clicked(InputEvent e, float x, float y) {
-        selectPlayer(type);
-      }
-    };
-  }
+private ClickListener selectPlayerListener(int playerNum, PlayerType type) {
+  return new ClickListener() {
+    @Override
+    public void clicked(InputEvent e, float x, float y) {
+      boolean isPlayerOne = (playerNum == 1);
+      selectPlayer(type, isPlayerOne);
+    }
+  };
+}
 
   /*
    * WelcomeScreen,
