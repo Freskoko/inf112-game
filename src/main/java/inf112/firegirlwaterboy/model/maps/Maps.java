@@ -2,6 +2,7 @@ package inf112.firegirlwaterboy.model.maps;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -16,10 +17,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.entity.Element;
-import inf112.firegirlwaterboy.model.entity.ElementType;
 
 import inf112.firegirlwaterboy.model.entity.Collectable;
-import inf112.firegirlwaterboy.model.entity.PlayerType;
 
 /**
  * Manages loading and interacting with tiled maps in the game.
@@ -28,15 +27,10 @@ import inf112.firegirlwaterboy.model.entity.PlayerType;
 public class Maps implements IMaps {
 
   private HashMap<String, TiledMap> maps;
-  private String currentMapName;
   public static final float PPM = 32;
   private final Vector2 DEFAULT_SPAWN_POS = new Vector2(100, 100);
 
-  @Override
-  public void init() {
-    this.maps = loadAllMaps();
-    this.currentMapName = "map";
-  }
+
 
   /**
    * Loads all Tiled maps (*.tmx) from the resources folder into a HashMap.
@@ -65,6 +59,10 @@ public class Maps implements IMaps {
 
   @Override
   public TiledMap getMap(String mapName) {
+    if (maps == null) {
+      maps = loadAllMaps();
+    }
+
     if (!maps.containsKey(mapName)) {
       throw new IllegalArgumentException("Map not found: " + mapName);
     }
@@ -81,22 +79,23 @@ public class Maps implements IMaps {
   }
 
   @Override
-  public Vector2 getPlayerSpawn() {
-    MapLayer objectLayer = getLayer(currentMapName, "Spawn");
+  public Vector2 getSpawnPos(String mapName) {
+    MapLayer objectLayer = getLayer(mapName, "Spawn");
 
     if (objectLayer == null) {
-      System.out.println("Warning: 'Spawn' layer missing in map " + currentMapName);
+      System.out.println("Warning: 'Spawn' layer missing in map " + mapName);
       return DEFAULT_SPAWN_POS;
     }
     if (objectLayer.getObjects().getCount() == 0) {
-      System.err.println("Warning: 'Spawn' layer exists but contains no objects in map " + currentMapName);
+      System.err.println("Warning: 'Spawn' layer exists but contains no objects in map " + mapName);
       return DEFAULT_SPAWN_POS;
     }
 
     MapObject object = objectLayer.getObjects().get(0);
-    Float x = (Float) object.getProperties().get("x");
-    Float y = (Float) object.getProperties().get("y");
-
+    Float x = getX(object);
+    Float y = getY(object);
+    
+    
     if (x != null && y != null) {
       return new Vector2(x, y); // Mulig de må deles på PPM
     }
@@ -108,17 +107,10 @@ public class Maps implements IMaps {
     for (MapLayer layer : getMap(mapName).getLayers()) {
       String layerName = layer.getName();
       switch (layerName) {
-        case "Collectable":
-          createCollectableObjectsInWorldFromLayer(world, layer);
-          break;
-        case "Spawn":
-          break;
-        case "Elements":
-          createElementsInWorldFromLayer(world, layer);
-
-        default:
-          createObjectsInWorldFromLayer(world, layer);
-          break;
+        case "Collectable" -> createCollectablesFromLayer(world, layer);
+        case "Elements" -> createElementsFromLayer(world, layer);
+        case "Spawn" -> {} // Ignore spawn layer;
+        default ->  createObjectsFromLayer(world, layer);
       }
     }
   }
@@ -129,24 +121,60 @@ public class Maps implements IMaps {
    * @param world The Box2D world where elements should be created.
    * @param layer The map layer containing elements.
    */
-  private void createElementsInWorldFromLayer(World world, MapLayer layer) {
+  private void createElementsFromLayer(World world, MapLayer layer) {
     for (MapObject object : layer.getObjects()) {
       new Element(world, object);
     }
   }
 
-  private void createCollectableObjectsInWorldFromLayer(World world, MapLayer layer) {
+   /**
+   * Creates collectable objects in the world from a given map layer.
+   * 
+   * @param world The Box2D world where elements should be created.
+   * @param layer The map layer containing collectable object.
+   */
+  private void createCollectablesFromLayer(World world, MapLayer layer) {
     for (MapObject object : layer.getObjects()) {
       new Collectable(world, object);
+    
     }
   }
 
-  public static float getX(MapObject object) {
-    return object.getProperties().get("x", Float.class) / PPM;
+  
+
+ 
+  /**
+   * Creates physics objects in the world from a given map layer.
+   *
+   * @param world The Box2D world where objects should be created.
+   * @param layer The map layer containing objects.
+   */
+  private void createObjectsFromLayer(World world, MapLayer layer) {
+    for (MapObject object : layer.getObjects()) {
+      BodyDef bdef = new BodyDef();
+      bdef.type = BodyDef.BodyType.StaticBody;
+
+      float width = getWidth(object);
+      float height = getHeight(object);
+      float x = getCX(object);
+      float y = getCY(object);
+
+      bdef.position.set(x, y);
+      Body body = world.createBody(bdef);
+
+      PolygonShape shape = new PolygonShape();
+      shape.setAsBox(width / 2, height / 2);
+
+      FixtureDef fdef = new FixtureDef();
+      fdef.shape = shape;
+      Fixture fixture = body.createFixture(fdef);
+
+      fixture.setUserData(layer.getName());
+      shape.dispose();
+    }
   }
-  public static float getY(MapObject object) {
-    return object.getProperties().get("y", Float.class) / PPM;
-  }
+
+ 
 
   public static float getWidth(MapObject object) {
     return object.getProperties().get("width", Float.class) / PPM;
@@ -156,66 +184,23 @@ public class Maps implements IMaps {
     return object.getProperties().get("height", Float.class) / PPM;
   }
 
- 
-  /**
-   * Creates physics objects in the world from a given map layer.
-   *
-   * @param world The Box2D world where objects should be created.
-   * @param layer The map layer containing objects.
-   */
-  private void createObjectsInWorldFromLayer(World world, MapLayer layer) {
-    for (MapObject object : layer.getObjects()) {
-      BodyDef bdef = new BodyDef();
-      bdef.type = BodyDef.BodyType.StaticBody;
+  public static float getCX(MapObject object) {
+    float x = object.getProperties().get("x", Float.class) / PPM;
+    float width = getWidth(object);
+    return x + width / 2;
+  }
 
-      float px = object.getProperties().get("x", Float.class);
-      float py = object.getProperties().get("y", Float.class);
-      float width = object.getProperties().get("width", Float.class);
-      float height = object.getProperties().get("height", Float.class);
-
-      float x = (px + width / 2) / PPM;
-      float y = (py + height / 2) / PPM;
-
-      bdef.position.set(x, y);
-
-      Body body = world.createBody(bdef);
-
-      PolygonShape shape = new PolygonShape();
-      shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
-
-      FixtureDef fdef = new FixtureDef();
-      fdef.shape = shape;
-      Fixture fixture = body.createFixture(fdef);
-
-      fixture.setUserData(layer.getName());
-
-      shape.dispose();
-
-    }
+  public static float getCY(MapObject object) {
+    float y = object.getProperties().get("y", Float.class) / PPM;
+    float height = getHeight(object);
+    return y + height / 2;
   }
 
   public static float getX(MapObject object) {
-    float px = object.getProperties().get("x", Float.class);
-    float width = getWidth(object);
-    float x = (px + width / 2) / PPM;
-    return x;
+    return object.getProperties().get("x", Float.class) / PPM;
   }
 
   public static float getY(MapObject object) {
-    float py = object.getProperties().get("y", Float.class);
-    float height = getHeight(object);
-    float y = (py + height / 2) / PPM;
-    return y;
+    return object.getProperties().get("y", Float.class) / PPM;
   }
-
-  public static float getWidth(MapObject object) {
-    float width = object.getProperties().get("width", Float.class);
-    return width;
-  }
-
-  public static float getHeight(MapObject object) {
-    float height = object.getProperties().get("height", Float.class);
-    return height;
-  }
-
 }
