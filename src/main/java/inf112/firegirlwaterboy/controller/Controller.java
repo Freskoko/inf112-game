@@ -1,38 +1,90 @@
 package inf112.firegirlwaterboy.controller;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.entity.PlayerType;
-import inf112.firegirlwaterboy.view.WelcomeScreen;
 
 /**
  * Controller class for the game FireGirl & WaterBoy.
- * This class is responsible for handling input from the player and updating the
- * model accordingly.
+ * Handles keyboard input and delegates button logic via ScreenButtonHandler.
  */
 public class Controller implements InputProcessor {
 
   private IControllableModel model;
   private PlayerType playerOne; // Controlled by Arrow keys
   private PlayerType playerTwo; // Controlled by WASD keys
-  TextButton playButton;
+  private ScreenButtonHandler buttonHandler;
 
-  /**
-   * Constructor for the Controller class.
-   * 
-   * @param model the model to be controlled.
-   */
   public Controller(IControllableModel model) {
     this.model = model;
     this.playerOne = null;
     this.playerTwo = null;
+    this.buttonHandler = new ScreenButtonHandler(this);
+  }
+
+  /**
+   * Returns the model.
+   * @return
+   */
+  public IControllableModel getModel() {
+    return model;
+  }
+
+  /**
+   * Selects a playerType for a player.
+   * @param playerType The playerType to select.
+   * @param isPlayerOne True if player 1, false if player 2.
+   */
+  public void selectPlayer(PlayerType playerType, boolean isPlayerOne) {
+    if (isPlayerOne) {
+      if (playerTwo != null && playerType == playerTwo) {
+        System.out.println("Player 1 kan ikke velge samme figur som Player 2!");
+        return;
+      }
+      playerOne = playerType;
+    } else {
+      if (playerOne != null && playerType == playerOne) {
+        System.out.println("Player 2 kan ikke velge samme figur som Player 1!");
+        return;
+      }
+      playerTwo = playerType;
+    }
+  }
+
+  /**
+   * Starts the game if both players have selected a playerType.
+   */
+  public void startGameIfPlayersSelected() {
+    if (playerOne != null && playerTwo != null) {
+      model.setGameState(GameState.CHOOSE_MAP);
+      model.addPlayer(playerOne);
+      model.addPlayer(playerTwo);
+    } else {
+      System.out.println("Please select playerType for both players.");
+    }
+  }
+
+  // Attach buttons from WelcomeScreen
+  public void attachWelcomeScreenListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start, Button help) {
+    fgP1.addListener(buttonHandler.selectPlayerListener(1, PlayerType.FIREGIRL));
+    wbP1.addListener(buttonHandler.selectPlayerListener(1, PlayerType.WATERBOY));
+    fgP2.addListener(buttonHandler.selectPlayerListener(2, PlayerType.FIREGIRL));
+    wbP2.addListener(buttonHandler.selectPlayerListener(2, PlayerType.WATERBOY));
+    start.addListener(buttonHandler.startButtonListener());
+    help.addListener(buttonHandler.helpButtonListener());
+  }
+
+  // Attach HelpScreen buttons
+  public void attachHelpScreenListeners(Button back) {
+    back.addListener(buttonHandler.backButtonListener());
+  }
+
+  // Attach ChooseMapScreen buttons
+  public void setupPlayButtonListener(Button playButton) {
+    playButton.addListener(buttonHandler.playButtonListener());
   }
 
   @Override
@@ -87,7 +139,8 @@ public class Controller implements InputProcessor {
     return false;
   }
 
-  /**
+ 
+   /**
    * Handles key inputs in the ACTIVE_GAME state.
    * Moves the corresponding player based on the key pressed.
    *
@@ -104,35 +157,8 @@ public class Controller implements InputProcessor {
   }
 
   /**
- * Assigns a player type to Player 1 (WASD) or Player 2 (Arrows).
- * Ensures Player 1 and Player 2 select different types.
- *
- * @param playerType the selected player type
- * @param isPlayerOne true if selecting for Player 1, false for Player 2
- */
-private void selectPlayer(PlayerType playerType, boolean isPlayerOne) {
-  if (isPlayerOne) {
-    if (playerTwo != null && playerType == playerTwo) {
-      System.out.println("Player 1 kan ikke velge samme figur som Player 2!");
-      return;
-    }
-    playerOne = playerType;
-  } else {
-    if (playerOne != null && playerType == playerOne) {
-      System.out.println("Player 2 kan ikke velge samme figur som Player 1!");
-      return;
-    }
-    playerTwo = playerType;
-  }
-}
-
-
-  /**
-   * Returns the player associated with the given key press.
-   * WASD controls Player 1, Arrows control Player 2.
-   *
-   * @param keycode the key pressed
-   * @return the corresponding player, or null if invalid key
+   * Returns the player assigned to the given key input.
+   * WASD controls Player 2, Arrows control Player 1.
    */
   private PlayerType getPlayer(int keycode) {
     return switch (keycode) {
@@ -141,106 +167,4 @@ private void selectPlayer(PlayerType playerType, boolean isPlayerOne) {
       default -> null;
     };
   }
-
-  /**
-   * Starts the game if both players are selected, otherwise prompts selection.
-   */
-  private void startGameIfPlayersSelected() {
-    if (playerOne != null || playerTwo != null) {
-      model.setGameState(GameState.CHOOSE_MAP);
-      model.addPlayer(playerOne);
-      model.addPlayer(playerTwo);
-    } else {
-      System.out.println("Please select playerType for both players.");
-    }
-
-  }
-
-  // WELCOME SCREEN BUTTONS
-  // WelcomeScreen, Attach listeners to buttons on WelcomeScreen
-  public void attachWelcomeScreenListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start,
-      Button help) {
-    fgP1.addListener(selectPlayerListener(1, PlayerType.FIREGIRL));
-    wbP1.addListener(selectPlayerListener(1, PlayerType.WATERBOY));
-    fgP2.addListener(selectPlayerListener(2, PlayerType.FIREGIRL));
-    wbP2.addListener(selectPlayerListener(2, PlayerType.WATERBOY));
-    start.addListener(startButtonListener());
-    help.addListener(helpButtonListener());
-  }
-
-  // WelcomeScreen, Help button on welcomeScreen, directs to help screen
-  private ClickListener helpButtonListener() {
-    return new ClickListener() {
-      @Override
-      public void clicked(InputEvent e, float x, float y) {
-        model.setGameState(GameState.HELP);
-      }
-    };
-  }
-
-  /* WelcomeScreen, Handling button on WelcomeScreen where user select player */
-private ClickListener selectPlayerListener(int playerNum, PlayerType type) {
-  return new ClickListener() {
-    @Override
-    public void clicked(InputEvent e, float x, float y) {
-      boolean isPlayerOne = (playerNum == 1);
-      selectPlayer(type, isPlayerOne);
-    }
-  };
-}
-
-  /*
-   * WelcomeScreen,
-   * Handling start button on WelcomeScreen. Start buttons sends the user to
-   * ChooseMapsScreen
-   */
-  private ClickListener startButtonListener() {
-    return new ClickListener() {
-      @Override
-      public void clicked(InputEvent e, float x, float y) {
-        startGameIfPlayersSelected();
-      }
-    };
-  }
-
-  // HELP SCREEN BUTTONS
-
-  // HelpScreen, Back button on helpScreen, directs to welcome screen
-  public void attachHelpScreenListeners(Button back) {
-    back.addListener(backButtonListener());
-  }
-
-  // HelpScreen, Handles click from back button on HelpScreen
-  private ClickListener backButtonListener() {
-    return new ClickListener() {
-      @Override
-      public void clicked(InputEvent e, float x, float y) {
-        model.setGameState(GameState.WELCOME);
-        System.out.println("back trykket");
-      }
-    };
-  }
-
-  // CHOOSE MAP SCREEN BUTTONS
-
-  /**
-   * ChooseMapScreen,
-   * Handles button clicks in the ChooseMapScreen.
-   * 
-   * @param playButton the play button
-   */
-  public void setupPlayButtonListener(Button playButton) {
-    playButton.addListener(new ClickListener() {
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        handlePlayButtonClicked();
-      }
-    });
-  }
-
-  /* ChooseMapScreen, Handles play button in ChooseMapScreen */
-  private void handlePlayButtonClicked() {
-    model.setGameState(GameState.ACTIVE_GAME);
-  }
-
 }
