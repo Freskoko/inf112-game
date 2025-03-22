@@ -30,6 +30,8 @@ public class Player extends Sprite implements IEntity, IPlayer {
   private Body body;
   private boolean onGround;
   private PlayerType playerType;
+  private ElementType immuneTo;
+  private boolean isAlive = true;
   private int countCollected;
   private Queue<Collectable> collected;
   private boolean touchingWall; // Må vurderes om nødvendig for videre utvikling
@@ -171,6 +173,7 @@ public class Player extends Sprite implements IEntity, IPlayer {
     this.body = world.createBody(bdef);
 
     PolygonShape bodyShape = new PolygonShape();
+    bodyShape.setAsBox(16 / Maps.PPM, 32 / Maps.PPM); 
     bodyShape.setAsBox(16 / Maps.PPM, 32 / Maps.PPM);
 
     FixtureDef fdef = new FixtureDef();
@@ -180,5 +183,19 @@ public class Player extends Sprite implements IEntity, IPlayer {
     fdef.restitution = 0;
     body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
+  }
+
+  /**
+   * Handles the player's interaction with an element.
+   * 
+   * @param elementType the type of element, for example LAVA or WATER
+   */
+  public void interactWithElement(ElementType elementType) {
+    if (!immuneTo.equals(elementType)) {
+      isAlive = false;
+      System.out.println(playerType + " interacted with deadly " + elementType);
+    } else {
+      System.out.println(playerType + " interacted with safe " + elementType);
+    }
   }
 }

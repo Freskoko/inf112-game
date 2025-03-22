@@ -15,6 +15,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.firegirlwaterboy.model.entity.Element;
+import inf112.firegirlwaterboy.model.entity.ElementType;
+
 import inf112.firegirlwaterboy.model.entity.Collectable;
 import inf112.firegirlwaterboy.model.entity.PlayerType;
 
@@ -110,10 +113,25 @@ public class Maps implements IMaps {
           break;
         case "Spawn":
           break;
+        case "Elements":
+          createElementsInWorldFromLayer(world, layer);
+
         default:
           createObjectsInWorldFromLayer(world, layer);
           break;
       }
+    }
+  }
+
+  /**
+   * Creates elements in the world from a given map layer.
+   * 
+   * @param world The Box2D world where elements should be created.
+   * @param layer The map layer containing elements.
+   */
+  private void createElementsInWorldFromLayer(World world, MapLayer layer) {
+    for (MapObject object : layer.getObjects()) {
+      new Element(world, object);
     }
   }
 
@@ -124,22 +142,18 @@ public class Maps implements IMaps {
   }
 
   public static float getX(MapObject object) {
-    float x = object.getProperties().get("x", Float.class) / PPM;
-    return x;
+    return object.getProperties().get("x", Float.class) / PPM;
   }
   public static float getY(MapObject object) {
-    float y = object.getProperties().get("y", Float.class) / PPM;
-    return y;
+    return object.getProperties().get("y", Float.class) / PPM;
   }
 
   public static float getWidth(MapObject object) {
-    float width = object.getProperties().get("width", Float.class) / PPM;
-    return width;
+    return object.getProperties().get("width", Float.class) / PPM;
   }
 
   public static float getHeight(MapObject object) {
-    float height = object.getProperties().get("height", Float.class) / PPM;
-    return height;
+    return object.getProperties().get("height", Float.class) / PPM;
   }
 
  
@@ -171,12 +185,37 @@ public class Maps implements IMaps {
 
       FixtureDef fdef = new FixtureDef();
       fdef.shape = shape;
-      // fdef.friction = 2f; // Optional: Adds friction
-      // fdef.restitution = 0f; // Optional: No bouncing
-
       Fixture fixture = body.createFixture(fdef);
+
       fixture.setUserData(layer.getName());
+
       shape.dispose();
+
     }
   }
+
+  public static float getX(MapObject object) {
+    float px = object.getProperties().get("x", Float.class);
+    float width = getWidth(object);
+    float x = (px + width / 2) / PPM;
+    return x;
+  }
+
+  public static float getY(MapObject object) {
+    float py = object.getProperties().get("y", Float.class);
+    float height = getHeight(object);
+    float y = (py + height / 2) / PPM;
+    return y;
+  }
+
+  public static float getWidth(MapObject object) {
+    float width = object.getProperties().get("width", Float.class);
+    return width;
+  }
+
+  public static float getHeight(MapObject object) {
+    float height = object.getProperties().get("height", Float.class);
+    return height;
+  }
+
 }
