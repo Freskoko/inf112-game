@@ -45,15 +45,17 @@ public interface IViewModel {
   TiledMap getMap();
 
   /**
-   * Initializes the game state, maps, and entities.
-   */
-  void init();
-
-  /**
    * Returns the current physics world associated with this game.
    * 
    * @return the physics world used by this game instance
    */
   World getWorld();
+
+   /**
+   * Restart the game
+   */
+  void restartGame();
+
+
 
 }
