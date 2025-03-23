@@ -23,25 +23,28 @@ public class Model implements IControllableModel, IViewModel {
   private EntitySet<Player> players;
   private GameState gameState;
   private IMaps maps;
-  private String currentMapName;
+  private String mapName;
   private World world;
+  private int collectedCount;
 
   public Model() {
     this.players = new EntitySet<>();
-    this.currentMapName = "map";
+    this.collectedCount = 0;
+    this.mapName = "map";
     this.maps = new Maps();
-    this.world = new World(new Vector2(0, -9.8f), true);
-    world.setContactListener(new MyContactListener());
   }
 
   @Override
-  public void init() {
-    maps.init();
-    maps.createObjectsInWorld(world, currentMapName);
+  public void restartGame(){
+    world = new World(new Vector2(0, -9.8f), true);
+    world.setContactListener(new MyContactListener());
+    maps.createObjectsInWorld(world, mapName);
     for (Player player : players) {
-      player.spawn(world, maps.getPlayerSpawn());
+      player.spawn(world, maps.getSpawnPos(mapName));
     }
   }
+
+
 
   @Override
   public boolean changeDir(PlayerType playerType, MovementType dir) {
@@ -60,6 +63,9 @@ public class Model implements IControllableModel, IViewModel {
     world.step(1 / 60f, 6, 2);
     for (Player player : players) {
       player.update();
+      if (!player.isAlive()) {
+        gameState = GameState.GAME_OVER;
+      }
     }
   }
 
@@ -85,7 +91,7 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public TiledMap getMap() {
-    return maps.getMap(currentMapName);
+    return maps.getMap(mapName);
   }
 
   @Override
