@@ -33,6 +33,7 @@ public class Controller implements InputProcessor {
     switch (model.getGameState()) {
       case WELCOME -> handleWelcomeState(keycode);
       case ACTIVE_GAME -> handleActiveGameState(keycode);
+      case GAME_OVER -> handleGameOverState(keycode);
     }
     return true;
   }
@@ -110,6 +111,15 @@ public class Controller implements InputProcessor {
     }
   }
 
+  private void handleGameOverState(int keycode) {
+    switch (keycode) {
+      case Keys.R:
+        model.setGameState(GameState.ACTIVE_GAME);
+        model.restartGame();
+        break;
+    }
+  }
+
   /**
    * Assigns a player type to Player 1 (WASD) or Player 2 (Arrows).
    * Ensures Player 2 is different from Player 1.
@@ -151,4 +161,5 @@ public class Controller implements InputProcessor {
       System.out.println("Please select playerType for both players.");
     }
   }
+
 }
