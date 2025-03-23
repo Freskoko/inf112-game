@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -26,11 +27,10 @@ import inf112.firegirlwaterboy.model.maps.Maps;
 public class Player extends Sprite implements IEntity, IPlayer {
 
   private float speed = 7;
-  private World world;
+  private float jumpSpeed = 10.5f;
   private Body body;
   private boolean onGround;
   private PlayerType playerType;
-  private ElementType immuneTo;
   private boolean isAlive = true;
   private int countCollected;
   private Queue<Collectable> collected;
@@ -42,6 +42,7 @@ public class Player extends Sprite implements IEntity, IPlayer {
   public Player(PlayerType playerType) {
     super(getTextureForType(playerType));
     this.playerType = playerType;
+    this.collected = new LinkedList<>();
   }
 
   //////////////////////////
@@ -91,7 +92,7 @@ public class Player extends Sprite implements IEntity, IPlayer {
   @Override
   public void jump() {
     if (onGround) {
-      body.applyLinearImpulse(new Vector2(0, 10.5f), body.getWorldCenter(), true);
+      body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
     }
   }
 
@@ -124,18 +125,32 @@ public class Player extends Sprite implements IEntity, IPlayer {
   @Override
   public void spawn(World world, Vector2 pos) {
     setSize(getTexture().getWidth() / Maps.PPM, getTexture().getHeight() / Maps.PPM);
-    this.world = world;
-    onGround = false;
+    onGround = true;
     touchingWall = false;
     collected = new LinkedList<>();
     countCollected = 0;
-    createBody(pos);
+    createBody(world, pos);
     setPosition(pos.x, pos.y);
   }
 
   @Override
   public int getCountCollected() {
     return countCollected;
+  }
+
+  @Override
+  public void interactWithElement(ElementType elementType) {
+    if (!playerType.getImmunity().equals(elementType)) {
+      isAlive = false;
+      System.out.println(playerType + " interacted with deadly " + elementType);
+    } else {
+      System.out.println(playerType + " interacted with safe " + elementType);
+    }
+  }
+
+  @Override
+  public boolean isAlive() {
+    return isAlive;
   }
 
   //////////////////////////
@@ -163,9 +178,12 @@ public class Player extends Sprite implements IEntity, IPlayer {
     }
   }
 
-  private void createBody(Vector2 position) {
+  private void createBody(World world, Vector2 pos) {
+    Float width = getWidth();
+    Float height = getHeight();
+
     BodyDef bdef = new BodyDef();
-    bdef.position.set(position.x / Maps.PPM, position.y / Maps.PPM);
+    bdef.position.set(pos);
     bdef.type = BodyDef.BodyType.DynamicBody;
     bdef.fixedRotation = true;
 
@@ -173,8 +191,7 @@ public class Player extends Sprite implements IEntity, IPlayer {
     this.body = world.createBody(bdef);
 
     PolygonShape bodyShape = new PolygonShape();
-    bodyShape.setAsBox(16 / Maps.PPM, 32 / Maps.PPM); 
-    bodyShape.setAsBox(16 / Maps.PPM, 32 / Maps.PPM);
+    bodyShape.setAsBox(width / 2, height / 2); 
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
@@ -183,19 +200,5 @@ public class Player extends Sprite implements IEntity, IPlayer {
     fdef.restitution = 0;
     body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
-  }
-
-  /**
-   * Handles the player's interaction with an element.
-   * 
-   * @param elementType the type of element, for example LAVA or WATER
-   */
-  public void interactWithElement(ElementType elementType) {
-    if (!immuneTo.equals(elementType)) {
-      isAlive = false;
-      System.out.println(playerType + " interacted with deadly " + elementType);
-    } else {
-      System.out.println(playerType + " interacted with safe " + elementType);
-    }
   }
 }
