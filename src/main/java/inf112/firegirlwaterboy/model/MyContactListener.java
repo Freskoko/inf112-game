@@ -29,7 +29,7 @@ public class MyContactListener implements ContactListener {
   /**
    * Handles collision between player and other objects.
    * 
-   * @param contact the contact between two fixtures
+   * @param contact       the contact between two fixtures
    * @param contactStatus true if the contact is beginning, false if it is ending
    */
   private void playerCollision(Contact contact, Boolean contactStatus) {
@@ -41,19 +41,18 @@ public class MyContactListener implements ContactListener {
       if (isHorizontal(a, b)) {
         player.setOnGround(contactStatus);
       }
+
       if (isVertical(a, b)) {
         player.setTouchingWall(contactStatus);
       }
 
-       {
-        Collectable collectable = getCollectable(a, b);
-        if (collectable != null && canCollect(player, collectable)) {
-          player.collect(collectable);
-        }
-      
+      Collectable collectable = getCollectable(a, b);
+      if (collectable != null && canCollect(player, collectable)) {
+        player.collect(collectable);
+      }
 
       ElementType elementType = getElementType(a, b);
-      if (elementType != null && contactStatus) {
+      if (elementType != null) {
         player.interactWithElement(elementType);
       }
     }
@@ -67,25 +66,22 @@ public class MyContactListener implements ContactListener {
    * @return the element type of the fixture in contact with the player
    */
   private ElementType getElementType(Fixture a, Fixture b) {
-    if (a.getUserData().equals(ElementType.LAVA) || a.getUserData().equals(ElementType.WATER)) {
-      return (ElementType) a.getUserData();
-    } else if (b.getUserData().equals(ElementType.LAVA) || b.getUserData().equals(ElementType.WATER)) {
-      return (ElementType) b.getUserData();
+   
+    if (a.getUserData() instanceof ElementType elementType) {
+      return elementType;
+    } else if (b.getUserData() instanceof ElementType elementType) {
+      return elementType;
     }
     return null;
+
+    // if (a.getUserData().equals(ElementType.LAVA) || a.getUserData().equals(ElementType.WATER)) {
+    //   return (ElementType) a.getUserData();
+    // } else if (b.getUserData().equals(ElementType.LAVA) || b.getUserData().equals(ElementType.WATER)) {
+    //   return (ElementType) b.getUserData();
+    // }
+
   }
 
-  /**
-   * Returns true if one of the given fixtures is a player.
-   * 
-   * @param a the first fixture
-   * @param b the second fixture
-   * @param player the player to compare with the fixtures
-   * @return true if one of the fixtures is a player
-   */
-  private boolean isPlayer(Fixture a, Fixture b, Player player) {
-    return (a.getBody().equals(player.getBody()) || b.getBody().equals(player.getBody()));
-  }
 
   /**
    * Returns true if one of the given fixtures is a horizontal fixture.
@@ -117,20 +113,22 @@ public class MyContactListener implements ContactListener {
   public void preSolve(Contact arg0, Manifold arg1) {
   }
 
-  
   /**
-   * Determines if a player can collect a given collectable item based on their type.
+   * Determines if a player can collect a given collectable item based on their
+   * type.
    *
-   * @param player the player attempting to collect the item
+   * @param player      the player attempting to collect the item
    * @param collectable the collectable item
-   * @return true if the player's type matches the collectable's required type; false otherwise
+   * @return true if the player's type matches the collectable's required type;
+   *         false otherwise
    */
   private boolean canCollect(Player player, Collectable collectable) {
     return player.getPlayerType() == collectable.getRequiredPlayer();
   }
 
-   /**
-   * Retrieves the Collectable object involved in the collision between two fixtures.
+  /**
+   * Retrieves the Collectable object involved in the collision between two
+   * fixtures.
    *
    * @return the Collectable object if found; null otherwise
    */
