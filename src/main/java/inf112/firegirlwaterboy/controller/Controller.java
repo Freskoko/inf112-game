@@ -107,11 +107,21 @@ public class Controller implements InputProcessor {
 
   @Override
   public boolean keyUp(int keycode) {
-    PlayerType player = getPlayer(keycode);
-    switch (keycode) {
-      case Keys.LEFT, Keys.RIGHT, Keys.A, Keys.D -> model.changeDir(player, MovementType.STOP);
+    if (model.getGameState().equals(GameState.ACTIVE_GAME)) {
+      PlayerType player = getPlayer(keycode);
+
+      switch (keycode) {
+          case Keys.LEFT:
+          case Keys.RIGHT:
+          case Keys.A:
+          case Keys.D:
+              model.changeDir(player, MovementType.STOP);
+              return true;
+          default:
+              return false;
+      }
     }
-    return true;
+    return false;
   }
 
   @Override
