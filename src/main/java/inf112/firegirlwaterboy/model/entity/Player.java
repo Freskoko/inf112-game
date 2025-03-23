@@ -200,4 +200,12 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
   }
+
+  public boolean isOnGround() {
+    return onGround;
+  }
+
+  public boolean isTouchingEdge() {
+    return touchingEdge;
+  }
 }
