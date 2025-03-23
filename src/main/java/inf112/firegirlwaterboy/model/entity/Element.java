@@ -21,18 +21,17 @@ public class Element implements IEntity {
   private Texture texture;
   private ElementType type;
   private Body body;
-  private World world;
   private float x, y;
   
-  public Element(ElementType type, World world, MapObject object) {
-    this.type = type;
+  public Element(World world, MapObject object) {
+    this.type = ElementType.valueOf(object.getProperties().get("type", String.class).toUpperCase());
     this.texture = new Texture(Gdx.files.internal(type.getTexturePath()));
-    this.world = world;
-    this.x = Maps.getX(object);
-    this.y = Maps.getY(object);
 
-    float width = Maps.getWidth(object) / 2 / Maps.PPM;
-    float height = Maps.getHeight(object) / 2 / Maps.PPM;
+    float width = Maps.getWidth(object);
+    float height = Maps.getHeight(object);
+    
+    this.x = Maps.getCX(object);
+    this.y = Maps.getCY(object);
 
     BodyDef bdef = new BodyDef();
     bdef.position.set(x, y);
@@ -40,7 +39,7 @@ public class Element implements IEntity {
     body = world.createBody(bdef);
 
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(width, height);
+    shape.setAsBox(width / 2, height / 2);
     
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
@@ -51,7 +50,7 @@ public class Element implements IEntity {
   }
 
   @Override
-  public void update(float deltaTime) {
+  public void update() {
   }
 
   @Override
@@ -72,4 +71,9 @@ public class Element implements IEntity {
   public ElementType getType() {
     return type;
   }
+
+	@Override
+	public Body getBody() {
+		return body;
+	}
 }
