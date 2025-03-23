@@ -30,5 +30,16 @@ public interface IControllableModel {
    */
   boolean changeDir(PlayerType player, MovementType dir);
 
+
+  /**
+   * Add player to the game
+   * 
+   * @param playerType
+   */
   void addPlayer(PlayerType playerType);
+
+  /**
+   * Restart the game
+   */
+  void restartGame();
 }
