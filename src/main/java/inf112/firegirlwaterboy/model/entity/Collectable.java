@@ -13,18 +13,19 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.maps.Maps;
 
-public class Collectable implements IEntity, ICollectable{
+public class Collectable implements IEntity, ICollectable {
 
   private PlayerType requiredPlayer;
   private Body body;
   private World world;
 
   public Collectable(World world, MapObject object) {
-    float x = Maps.getX(object);
-    float y = Maps.getY(object);
-  
-    String playerTypeStr = object.getProperties().get("PlayerType", String.class);
-    this.requiredPlayer = PlayerType.valueOf(playerTypeStr.toUpperCase());
+    float x = Maps.getCX(object);
+    float y = Maps.getCY(object);
+    float with = Maps.getWidth(object);
+    float height = Maps.getHeight(object);
+
+    this.requiredPlayer = PlayerType.valueOf(object.getProperties().get("PlayerType", String.class).toUpperCase());
     this.world = world;
 
     BodyDef bdef = new BodyDef();
@@ -33,7 +34,7 @@ public class Collectable implements IEntity, ICollectable{
     body = world.createBody(bdef);
 
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(8 / Maps.PPM, 8 / Maps.PPM);
+    shape.setAsBox( 8 / Maps.PPM, 8/ Maps.PPM);
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
 
@@ -48,7 +49,7 @@ public class Collectable implements IEntity, ICollectable{
     return requiredPlayer;
   }
 
-  @Override  
+  @Override
   public void collect() {
     this.world.destroyBody(body);
     body.setUserData(null);
@@ -73,12 +74,11 @@ public class Collectable implements IEntity, ICollectable{
 
   @Override
   public Texture getTexture() {
-    return new Texture(Gdx.files.internal("FIREGIRL.png"));
+    return new Texture(Gdx.files.internal("FIREGIRL.png")); // Midlertidig
   }
 
   @Override
   public Body getBody() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getBody'");
+    return body;
   }
 }
