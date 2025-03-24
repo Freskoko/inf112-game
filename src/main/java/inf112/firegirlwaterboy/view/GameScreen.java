@@ -39,12 +39,15 @@ public class GameScreen implements Screen {
     this.controller = controller;
   }
 
-  // Denne må fikses, zoom fungerer ikke optimalt
   @Override
   public void resize(int width, int height) {
+    float scale = 1.0f; 
+
+    float newWorldWidth = (width / Maps.PPM) * scale;
+    float newWorldHeight = (height / Maps.PPM) * scale;
+
+    viewport.setWorldSize(newWorldWidth, newWorldHeight);
     viewport.update(width, height, true);
-    camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
-    camera.update();
   }
 
   @Override
