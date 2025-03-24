@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="392">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="400">
  <tileset firstgid="1" source="tileset.xml"/>
  <tileset firstgid="49" source="FIREGIRL.tsx"/>
- <layer id="1" name="Border" width="30" height="30" locked="1">
+ <layer id="1" name="Border" width="30" height="30" visible="1" locked="1">
   <data encoding="csv">
 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
 9,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,11,
@@ -36,7 +36,7 @@
 17,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,19
 </data>
  </layer>
- <layer id="2" name="lava" width="30" height="30" locked="1">
+ <layer id="2" name="lava" width="30" height="30" visible="1" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -70,7 +70,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="Horizontal">
+ <objectgroup id="3" name="Horizontal" locked="1">
   <object id="352" x="800" y="160" width="128" height="32"/>
   <object id="353" x="160" y="288" width="768" height="32"/>
   <object id="354" x="32" y="448" width="128" height="32"/>
@@ -88,7 +88,7 @@
    <polygon points="0,0 32,0 32,-16"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Vertical">
+ <objectgroup id="7" name="Vertical" locked="1">
   <object id="335" x="928" y="0" width="32" height="960"/>
   <object id="336" x="0" y="0" width="32" height="960"/>
   <object id="337" x="800" y="160" width="32" height="32"/>
@@ -106,7 +106,7 @@
   <object id="350" x="448" y="896" width="32" height="32"/>
   <object id="351" x="576" y="896" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="10" name="Verticalvol2">
+ <objectgroup id="10" name="Verticalvol2" visible="1" locked="1">
   <object id="389" x="160" y="769">
    <polygon points="0,0 0,30 0,0 0,30 0,29 0,23"/>
   </object>
@@ -114,10 +114,10 @@
    <polygon points="0,0 0,30 0,0 0,30 0,29 0,23"/>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Spawn">
+ <objectgroup id="4" name="Spawn" visible="1" locked="1">
   <object id="221" name="Spawn" gid="49" x="64" y="896" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="6" name="Elements">
+ <objectgroup id="6" name="Elements" visible="1" locked="1">
   <object id="369" x="480" y="320" width="32" height="128">
    <properties>
     <property name="type" value="water"/>
@@ -149,7 +149,19 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="8" name="Finish">
+ <objectgroup id="11" name="Collectable">
+  <object id="397" x="238.667" y="688.667">
+   <properties>
+    <property name="PlayerType" value="WaterBoy"/>
+   </properties>
+  </object>
+  <object id="398" x="239.333" y="850">
+   <properties>
+    <property name="PlayerType" value="FIREGIRL"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="Finish" visible="1" locked="1">
   <object id="381" x="832" y="96" width="64" height="64"/>
  </objectgroup>
 </map>

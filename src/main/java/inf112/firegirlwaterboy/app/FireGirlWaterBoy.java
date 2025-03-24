@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Model;
+import inf112.firegirlwaterboy.view.GameOverScreen;
 import inf112.firegirlwaterboy.view.GameScreen;
 import inf112.firegirlwaterboy.view.WelcomeScreen;
 
@@ -63,25 +64,23 @@ public class FireGirlWaterBoy extends Game {
   //Legger til flere cases ettersom vi får flere screens
   //Endrer screen basert på state
   private Screen getScreenByGameState(GameState gameState) {
+    Screen screen;
     switch (gameState) {
       case WELCOME:
-        if (welcomeScreen == null) {
-          welcomeScreen = new WelcomeScreen(model, controller);
-        }
-        return welcomeScreen;
-
+        screen = new WelcomeScreen(model, controller);
+        break;
       case ACTIVE_GAME:
-        if (gameScreen == null) {
-          gameScreen = new GameScreen(model, controller);
-          model.init();
-        }
-        return gameScreen;
-
+        model.restartGame();
+        screen = new GameScreen(model, controller);
+        break;
+      case GAME_OVER:
+        // screen = new GameOverScreen(model, controller); 
+        screen = new GameScreen(model, controller);
+        break;
       default:
-      System.out.println("Ukjent GameState: " + gameState);
-      return welcomeScreen; //default å returnere til welcomeScreen hvis ukjent? Vet ikke hva som er nødvendig. 
-
+        System.out.println("Ukjent GameState: " + gameState);
+        screen = new WelcomeScreen(model, controller);
     }
-
+    return screen; //default å returnere til welcomeScreen hvis ukjent? Vet ikke hva som er nødvendig.
   }
 }

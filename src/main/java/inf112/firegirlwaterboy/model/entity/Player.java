@@ -1,14 +1,17 @@
 package inf112.firegirlwaterboy.model.entity;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -21,51 +24,139 @@ import inf112.firegirlwaterboy.model.maps.Maps;
  * The player is a sprite that can move, has velocity and is affected by
  * gravity.
  */
-public class Player extends Sprite implements IEntity {
+public class Player extends Sprite implements IEntity, IPlayer {
 
   private float speed = 7;
-  private World world;
+  private float jumpSpeed = 10.5f;
   private Body body;
   private boolean onGround;
-  private boolean touchingWall;
   private PlayerType playerType;
-  private ElementType immuneTo;
   private boolean isAlive = true;
+  private int countCollected;
+  private Queue<Collectable> collected;
+  private boolean touchingWall; // Må vurderes om nødvendig for videre utvikling
 
   /**
-    * Initalizes a player, giving them a type and texture
+   * Initalizes a player, giving them a type and texture
    */
   public Player(PlayerType playerType) {
     super(getTextureForType(playerType));
     this.playerType = playerType;
+    this.collected = new LinkedList<>();
   }
 
-  /**
-   * Spawns a player with a given sprite and initial position.
-   *
-   * @param world The world representing the player
-   * @param pos   The initial position of the player
-   */
-  public void spawn(World world, Vector2 pos) {
-    setSize(getTexture().getWidth() / Maps.PPM, getTexture().getHeight() / Maps.PPM);
-    this.world = world;
-    this.onGround = false;
-    this.touchingWall = false;
-    createBody(pos);
-    setPosition(pos.x, pos.y);
-    if (playerType.equals(PlayerType.FIREGIRL)) {
-      this.immuneTo = ElementType.LAVA;
-    } else if (playerType.equals(PlayerType.WATERBOY)) {
-      this.immuneTo = ElementType.WATER;
+  //////////////////////////
+  /// IENTITY INTERFACE ///
+  //////////////////////////
+
+  @Override
+  public Texture getTexture() {
+    return super.getTexture();
+  }
+
+  @Override
+  public Body getBody() {
+    return body;
+  }
+
+  @Override
+  public void draw(Batch batch) {
+    super.draw(batch);
+  }
+
+  @Override
+  public void update() {
+    while (!collected.isEmpty()) {
+      Collectable collectable = collected.poll();
+      collectable.collect();
+    }
+    Vector2 position = body.getPosition();
+    setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2);
+  }
+
+  //////////////////////////
+  /// IPLAYER INTERFACE ///
+  //////////////////////////
+
+  @Override
+  public void move(MovementType dir) {
+    switch (dir) {
+      case UP -> jump();
+      case LEFT -> body.setLinearVelocity(-speed, body.getLinearVelocity().y);
+      case RIGHT -> body.setLinearVelocity(speed, body.getLinearVelocity().y);
+      case STOP -> body.setLinearVelocity(0, body.getLinearVelocity().y);
+      default -> throw new IllegalArgumentException("Unexpected value: " + dir);
     }
   }
 
-  /**
-   * Returns the player's texture.
-   * 
-   * @param type the player's type
-   * @return the player's texture
-   */
+  @Override
+  public void jump() {
+    if (onGround) {
+      body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
+    }
+  }
+
+  @Override
+  public void setOnGround(boolean onGround) {
+    this.onGround = onGround;
+  }
+
+  @Override
+  public void setTouchingWall(boolean touchingWall) {
+    this.touchingWall = touchingWall;
+  }
+
+  @Override
+  public PlayerType getPlayerType() {
+    return playerType;
+  }
+
+  @Override
+  public String toString() {
+    return playerType.toString();
+  }
+
+  @Override
+  public void collect(Collectable collectable) {
+    collected.add(collectable);
+    countCollected++;
+  }
+
+  @Override
+  public void spawn(World world, Vector2 pos) {
+    setSize(getTexture().getWidth() / Maps.PPM, getTexture().getHeight() / Maps.PPM);
+    onGround = true;
+    touchingWall = false;
+    collected = new LinkedList<>();
+    countCollected = 0;
+    createBody(world, pos);
+    setPosition(pos.x, pos.y);
+  }
+
+  @Override
+  public int getCountCollected() {
+    return countCollected;
+  }
+
+  @Override
+  public void interactWithElement(ElementType elementType) {
+    if (!playerType.getImmunity().equals(elementType)) {
+      isAlive = false;
+      System.out.println(playerType + " interacted with deadly " + elementType);
+    } else {
+      System.out.println(playerType + " interacted with safe " + elementType);
+    }
+  }
+
+  @Override
+  public boolean isAlive() {
+    return isAlive;
+  }
+
+  //////////////////////////
+  ///  PRIVATE METHODS   ///
+  //////////////////////////
+
   private static TextureRegion getTextureForType(PlayerType type) {
     Texture texture;
     try {
@@ -86,35 +177,13 @@ public class Player extends Sprite implements IEntity {
       return null;
     }
   }
-  
-  @Override
-  public Texture getTexture() {
-    return super.getTexture();
-  }
 
-  /**
-   * Returns the player's body.
-   * 
-   * @return the player's body
-   */
-  public Body getBody() {
-    return body;
-  }
+  private void createBody(World world, Vector2 pos) {
+    Float width = getWidth();
+    Float height = getHeight();
 
-  @Override
-  public void draw(Batch batch) {
-    update(Gdx.graphics.getDeltaTime());
-    super.draw(batch);
-  }
-
-  /**
-   * Creates the player's body in the world. 
-   * 
-   * @param position the position of the player
-   */
-  public void createBody(Vector2 position) {
     BodyDef bdef = new BodyDef();
-    bdef.position.set(position.x / Maps.PPM, position.y / Maps.PPM);
+    bdef.position.set(pos);
     bdef.type = BodyDef.BodyType.DynamicBody;
     bdef.fixedRotation = true;
 
@@ -122,89 +191,14 @@ public class Player extends Sprite implements IEntity {
     this.body = world.createBody(bdef);
 
     PolygonShape bodyShape = new PolygonShape();
-    bodyShape.setAsBox(16 / Maps.PPM, 32 / Maps.PPM); 
+    bodyShape.setAsBox(width / 2, height / 2); 
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
     fdef.density = 0.5f;
     fdef.friction = 0;
     fdef.restitution = 0;
-    this.body.createFixture(fdef).setUserData("PLAYER");
+    body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
-  }
-
-  @Override
-  public void update(float deltaTime) {
-    Vector2 position = body.getPosition();
-    this.setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2);
-    // velocity.x * deltatime
-  }
-
-  /**
-   * Sets the velocity of the player.
-   * 
-   * @param dir The velocity in x direction
-   */
-  public void move(MovementType dir) {
-    switch (dir) {
-      case JUMP:
-        this.jump();
-        break;
-
-      case LEFT:
-        body.setLinearVelocity(-speed, body.getLinearVelocity().y);
-        break;
-
-      case RIGHT:
-        body.setLinearVelocity(speed, body.getLinearVelocity().y);
-        break;
-
-      case STOP:
-        body.setLinearVelocity(0, body.getLinearVelocity().y);
-        break;
-    }
-  }
-
-  /**
-   * Makes the player jump.
-   */
-  public void jump() {
-    if (onGround) {
-      body.applyLinearImpulse(new Vector2(0, 10.5f), body.getWorldCenter(), true);
-      //setOnGround(false);
-    }
-  }
-
-  /**
-   * Sets the player's onGround status.
-   * 
-   * @param onGround true if the player is on the ground
-   */
-  public void setOnGround(boolean onGround) {
-    //System.out.println("Player on ground: " + onGround);
-    this.onGround = onGround;
-  }
-
-  /**
-   * Sets the player's touchingWall status.
-   * 
-   * @param touchingWall true if the player is touching a wall
-   */
-  public void setTouchingWall(boolean touchingWall) {
-    this.touchingWall = touchingWall;
-  }
-
-  /**
-   * Handles the player's interaction with an element.
-   * 
-   * @param elementType the type of element, for example LAVA or WATER
-   */
-  public void interactWithElement(ElementType elementType) {
-    if (!immuneTo.equals(elementType)) {
-      isAlive = false;
-      System.out.println(playerType + " interacted with deadly " + elementType);
-    } else {
-      System.out.println(playerType + " interacted with safe " + elementType);
-    }
   }
 }

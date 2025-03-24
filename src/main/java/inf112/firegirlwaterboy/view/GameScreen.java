@@ -84,10 +84,7 @@ public class GameScreen implements Screen {
     renderer.getBatch().begin();
     model.draw(renderer.getBatch());
     renderer.getBatch().end();
-
-    // Oppdater spiller pos
-    float deltaTime = Gdx.graphics.getDeltaTime();
-    model.update(deltaTime);
+    model.update();
     
   }
 

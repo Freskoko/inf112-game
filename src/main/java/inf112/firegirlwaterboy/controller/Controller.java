@@ -33,6 +33,7 @@ public class Controller implements InputProcessor {
     switch (model.getGameState()) {
       case WELCOME -> handleWelcomeState(keycode);
       case ACTIVE_GAME -> handleActiveGameState(keycode);
+      case GAME_OVER -> handleGameOverState(keycode);
     }
     return true;
   }
@@ -104,9 +105,18 @@ public class Controller implements InputProcessor {
   private void handleActiveGameState(int keycode) {
     PlayerType player = getPlayer(keycode);
     switch (keycode) {
-      case Keys.UP, Keys.W -> model.changeDir(player, MovementType.JUMP);
+      case Keys.UP, Keys.W -> model.changeDir(player, MovementType.UP);
       case Keys.LEFT, Keys.A -> model.changeDir(player, MovementType.LEFT);
       case Keys.RIGHT, Keys.D -> model.changeDir(player, MovementType.RIGHT);
+    }
+  }
+
+  private void handleGameOverState(int keycode) {
+    switch (keycode) {
+      case Keys.R:
+        model.setGameState(GameState.ACTIVE_GAME);
+        model.restartGame();
+        break;
     }
   }
 
@@ -151,4 +161,5 @@ public class Controller implements InputProcessor {
       System.out.println("Please select playerType for both players.");
     }
   }
+
 }

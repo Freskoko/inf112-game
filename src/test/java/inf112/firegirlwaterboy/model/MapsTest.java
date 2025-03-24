@@ -36,6 +36,6 @@ public class MapsTest {
     @Test
     void testMapLoadsAsExpected() {
         Maps maps = new Maps();
-        maps.init();;
+        //maps.init();; // Maps are loaded the first time get maps is used.
     }
 }

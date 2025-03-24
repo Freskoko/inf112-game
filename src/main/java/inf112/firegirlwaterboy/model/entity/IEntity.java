@@ -2,6 +2,7 @@ package inf112.firegirlwaterboy.model.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.physics.box2d.Body;
 
 /**
  * Interface that represents an entity in the game.
@@ -12,11 +13,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 public interface IEntity {
 
   /**
-   * Updates the entity´s state based on the given deltaTime.
-   * 
-   * @param deltaTime The time elapsed since the last update (in seconds)
+   * Updates the entity´s state
    */
-  void update(float deltaTime);
+  void update();
 
   /**
    * Renders the entity using the given batch.
@@ -27,5 +26,7 @@ public interface IEntity {
 
   /** @return The texture of the entity */
   Texture getTexture();
+
+  Body getBody();
 
 }
