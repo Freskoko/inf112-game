@@ -11,9 +11,9 @@ public interface IPlayer {
 
   PlayerType getPlayerType();
 
-  void setOnGround(boolean onGround);
+  void setOnGround(boolean groundStatus);
 
-  void setTouchingEdge(boolean touchingWall);
+  void setTouchingEdge(boolean edgeStatus);
 
   void jump();
 
