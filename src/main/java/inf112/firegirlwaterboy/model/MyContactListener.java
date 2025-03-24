@@ -38,12 +38,12 @@ public class MyContactListener implements ContactListener {
     Player player = getPlayer(a, b);
 
     if (player != null) {
-      if (isHorizontal(a, b)) {
+      if (isHorizontal(a, b) || isOutline(a, b)) {
         player.setOnGround(contactStatus);
       }
 
       if (isVertical(a, b)) {
-        player.setTouchingWall(contactStatus);
+        player.setTouchingEdge(contactStatus);
       }
 
       Collectable collectable = getCollectable(a, b);
@@ -66,32 +66,12 @@ public class MyContactListener implements ContactListener {
    * @return the element type of the fixture in contact with the player
    */
   private ElementType getElementType(Fixture a, Fixture b) {
-   
     if (a.getUserData() instanceof ElementType elementType) {
       return elementType;
     } else if (b.getUserData() instanceof ElementType elementType) {
       return elementType;
     }
     return null;
-
-    // if (a.getUserData().equals(ElementType.LAVA) || a.getUserData().equals(ElementType.WATER)) {
-    //   return (ElementType) a.getUserData();
-    // } else if (b.getUserData().equals(ElementType.LAVA) || b.getUserData().equals(ElementType.WATER)) {
-    //   return (ElementType) b.getUserData();
-    // }
-
-  }
-
-
-  /**
-   * Returns true if one of the given fixtures is a horizontal fixture.
-   * 
-   * @param a the first fixture
-   * @param b the second fixture
-   * @return true if one of the fixtures is a horizontal fixture
-   */
-  private boolean isVertical(Fixture a, Fixture b) {
-    return "Vertical".equals(a.getUserData()) || "Vertical".equals(b.getUserData());
   }
 
   /**
@@ -101,8 +81,30 @@ public class MyContactListener implements ContactListener {
    * @param b the second fixture
    * @return true if one of the fixtures is a vertical fixture
    */
+  private boolean isVertical(Fixture a, Fixture b) {
+    return "Vertical".equals(a.getUserData()) || "Vertical".equals(b.getUserData());
+  }
+
+  /**
+   * Returns true if one of the given fixtures is a horizontal fixture.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return true if one of the fixtures is a horizontal fixture
+   */
   private boolean isHorizontal(Fixture a, Fixture b) {
     return "Horizontal".equals(a.getUserData()) || "Horizontal".equals(b.getUserData());
+  }
+
+  /**
+   * Returns true if one of the given fixtures is a outline fixture.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return true if one of the fixtures is a outline fixture
+   */
+  private boolean isOutline(Fixture a, Fixture b) {
+    return "Outline".equals(a.getUserData()) || "Outline".equals(b.getUserData());
   }
 
   @Override
