@@ -39,6 +39,14 @@ public interface IControllableModel {
   void addPlayer(PlayerType playerType);
 
   /**
+   * Checks if a player is in the game
+   *
+   * @param playerType
+   * @returns if the player is in the model or to
+   */
+  boolean containsPlayer(PlayerType playerType);
+
+  /**
    * Restart the game
    */
   void restartGame();

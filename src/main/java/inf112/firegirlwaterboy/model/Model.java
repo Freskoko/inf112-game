@@ -110,4 +110,9 @@ public class Model implements IControllableModel, IViewModel {
   public String toString() {
     return players.toString();
   }
+
+  @Override
+  public boolean containsPlayer(PlayerType playerType) {
+    return players.containsEntity(playerType);
+  }
 }
