@@ -2,10 +2,10 @@ package inf112.firegirlwaterboy.model.maps;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
@@ -29,8 +29,6 @@ public class Maps implements IMaps {
   private HashMap<String, TiledMap> maps;
   public static final float PPM = 32;
   private final Vector2 DEFAULT_SPAWN_POS = new Vector2(100, 100);
-
-
 
   /**
    * Loads all Tiled maps (*.tmx) from the resources folder into a HashMap.
@@ -140,9 +138,6 @@ public class Maps implements IMaps {
     }
   }
 
-  
-
- 
   /**
    * Creates physics objects in the world from a given map layer.
    *
@@ -151,30 +146,74 @@ public class Maps implements IMaps {
    */
   private void createObjectsFromLayer(World world, MapLayer layer) {
     for (MapObject object : layer.getObjects()) {
-      BodyDef bdef = new BodyDef();
-      bdef.type = BodyDef.BodyType.StaticBody;
-
-      float width = getWidth(object);
-      float height = getHeight(object);
-      float x = getCX(object);
-      float y = getCY(object);
-
-      bdef.position.set(x, y);
-      Body body = world.createBody(bdef);
-
-      PolygonShape shape = new PolygonShape();
-      shape.setAsBox(width / 2, height / 2);
-
-      FixtureDef fdef = new FixtureDef();
-      fdef.shape = shape;
-      Fixture fixture = body.createFixture(fdef);
-
-      fixture.setUserData(layer.getName());
-      shape.dispose();
+      if (object instanceof PolygonMapObject) {
+        createPolygonObject(world, (PolygonMapObject) object, layer.getName());
+      } else {
+        createRectangleObject(world, object, layer.getName());
+      }
     }
   }
 
- 
+  /**
+   * Creates a polygon object in the world from a given map object.
+   * 
+   * @param world The Box2D world where the object should be created.
+   * @param polygon The map object to create a polygon from.
+   * @param layerName The name of the layer the object belongs to.
+   */
+  private void createPolygonObject(World world, PolygonMapObject polygon, String layerName) {
+    BodyDef bdef = new BodyDef();
+    bdef.type = BodyDef.BodyType.StaticBody;
+
+    Body body = world.createBody(bdef);
+
+    PolygonShape shape = new PolygonShape();
+    float[] vertices = polygon.getPolygon().getTransformedVertices();
+    Vector2[] worldVertices = new Vector2[vertices.length / 2];
+
+    for (int i = 0; i < worldVertices.length; i++) {
+      worldVertices[i] = new Vector2(vertices[i * 2] / PPM, vertices[i * 2 + 1] / PPM);
+    }
+
+    shape.set(worldVertices);
+
+    FixtureDef fdef = new FixtureDef();
+    fdef.shape = shape;
+    Fixture fixture = body.createFixture(fdef);
+
+    fixture.setUserData(layerName);
+    shape.dispose();
+  }
+
+  /**
+   * Creates a rectangle object in the world from a given map object.
+   * 
+   * @param world The Box2D world where the object should be created.
+   * @param object The map object to create a rectangle from.
+   * @param layerName The name of the layer the object belongs to.
+   */
+  private void createRectangleObject(World world, MapObject object, String layerName) {
+    BodyDef bdef = new BodyDef();
+    bdef.type = BodyDef.BodyType.StaticBody;
+
+    float width = getWidth(object);
+    float height = getHeight(object);
+    float x = getCX(object);
+    float y = getCY(object);
+
+    bdef.position.set(x, y);
+    Body body = world.createBody(bdef);
+
+    PolygonShape shape = new PolygonShape();
+    shape.setAsBox(width / 2, height / 2);
+
+    FixtureDef fdef = new FixtureDef();
+    fdef.shape = shape;
+    Fixture fixture = body.createFixture(fdef);
+
+    fixture.setUserData(layerName);
+    shape.dispose();
+  }
 
   public static float getWidth(MapObject object) {
     return object.getProperties().get("width", Float.class) / PPM;
