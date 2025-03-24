@@ -41,9 +41,8 @@ public class HelpScreen implements Screen {
 
     // Set up the UI for the help screen
     private void setupUI() {
-        // Create background image
         Image backgroundImage = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
-        backgroundImage.setSize(viewport.getWorldWidth(), viewport.getWorldHeight()); 
+        backgroundImage.setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
         stage.addActor(backgroundImage);
 
         Table backTable = new Table();
@@ -105,6 +104,6 @@ public class HelpScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        backgroundTexture.dispose(); 
+        backgroundTexture.dispose();
     }
 }

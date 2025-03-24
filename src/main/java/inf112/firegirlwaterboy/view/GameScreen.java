@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
 
   @Override
   public void resize(int width, int height) {
-    float scale = 1.0f; 
+    float scale = 1.0f;
 
     float newWorldWidth = (width / Maps.PPM) * scale;
     float newWorldHeight = (height / Maps.PPM) * scale;

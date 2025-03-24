@@ -27,6 +27,7 @@ public class Controller implements InputProcessor {
 
   /**
    * Returns the model.
+   * 
    * @return
    */
   public IControllableModel getModel() {
@@ -35,19 +36,20 @@ public class Controller implements InputProcessor {
 
   /**
    * Selects a playerType for a player.
-   * @param playerType The playerType to select.
+   * 
+   * @param playerType  The playerType to select.
    * @param isPlayerOne True if player 1, false if player 2.
    */
   public void selectPlayer(PlayerType playerType, boolean isPlayerOne) {
     if (isPlayerOne) {
       if (playerTwo != null && playerType == playerTwo) {
-        System.out.println("Player 1 kan ikke velge samme figur som Player 2!");
+        System.out.println("Player 1 cant choose the same as Player 2!");
         return;
       }
       playerOne = playerType;
     } else {
       if (playerOne != null && playerType == playerOne) {
-        System.out.println("Player 2 kan ikke velge samme figur som Player 1!");
+        System.out.println("Player 2 cant choose the same as Player 1!");
         return;
       }
       playerTwo = playerType;
@@ -68,7 +70,8 @@ public class Controller implements InputProcessor {
   }
 
   // Attach buttons from WelcomeScreen
-  public void attachWelcomeScreenListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start, Button help) {
+  public void attachWelcomeScreenListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start,
+      Button help) {
     fgP1.addListener(buttonHandler.selectPlayerListener(1, PlayerType.FIREGIRL));
     wbP1.addListener(buttonHandler.selectPlayerListener(1, PlayerType.WATERBOY));
     fgP2.addListener(buttonHandler.selectPlayerListener(2, PlayerType.FIREGIRL));
@@ -139,8 +142,7 @@ public class Controller implements InputProcessor {
     return false;
   }
 
- 
-   /**
+  /**
    * Handles key inputs in the ACTIVE_GAME state.
    * Moves the corresponding player based on the key pressed.
    *

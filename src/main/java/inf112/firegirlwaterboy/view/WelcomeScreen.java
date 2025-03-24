@@ -9,7 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.*;
 import inf112.firegirlwaterboy.controller.Controller;
 
-
+/**
+ * WelcomeScreen class represents the welcome screen.
+ * Here the player can choose their character and start the game, and press help
+ * button for instructions.
+ */
 public class WelcomeScreen implements Screen {
 
     private final Stage stage;
@@ -70,7 +74,7 @@ public class WelcomeScreen implements Screen {
 
         // Start button
         table.row();
-        table.add(startButton).colspan(2).size(150,50).center().padTop(20);
+        table.add(startButton).colspan(2).size(150, 50).center().padTop(20);
 
         stage.addActor(table);
 
@@ -113,7 +117,6 @@ public class WelcomeScreen implements Screen {
         return new TextButton(text, style);
     }
 
-
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -122,7 +125,6 @@ public class WelcomeScreen implements Screen {
     @Override
     public void render(float delta) {
         if (Gdx.input.getInputProcessor() != stage) {
-            System.out.println("Input processor er IKKE stage. Setter den nå.");
             Gdx.input.setInputProcessor(stage);
         }
 

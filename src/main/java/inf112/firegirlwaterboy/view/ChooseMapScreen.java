@@ -49,7 +49,7 @@ public class ChooseMapScreen implements Screen {
 
         Button playButton = createButton("Play", Color.DARK_GRAY);
 
-        // Delegating button logic to controller
+        // Sending button logic to controller
         controller.setupPlayButtonListener(playButton);
 
         table.add(playButton).size(200, 60).center();
