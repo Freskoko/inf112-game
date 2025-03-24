@@ -64,38 +64,23 @@ public class FireGirlWaterBoy extends Game {
    * @return The corresponding Screen instance for the given game state.
    */
   private Screen getScreenByGameState(GameState gameState) {
+    Screen screen;
     switch (gameState) {
       case WELCOME:
-        if (welcomeScreen == null) {
-          welcomeScreen = new WelcomeScreen(controller);
-        }
-        return welcomeScreen;
-
+        screen = new WelcomeScreen(model, controller);
+        break;
       case ACTIVE_GAME:
-        if (gameScreen == null) {
-          gameScreen = new GameScreen(model, controller);
-          model.init();
-        }
-        return gameScreen;
-
-      case CHOOSE_MAP:
-        if (chooseMapScreen == null) {
-          chooseMapScreen = new ChooseMapScreen(model, controller);
-        }
-        return chooseMapScreen;
-
-      case HELP:
-      if (helpScreen == null) {
-        helpScreen = new HelpScreen(controller);
-      }
-      return helpScreen;
-
+        model.restartGame();
+        screen = new GameScreen(model, controller);
+        break;
+      case GAME_OVER:
+        // screen = new GameOverScreen(model, controller); 
+        screen = new GameScreen(model, controller);
+        break;
       default:
         System.out.println("Ukjent GameState: " + gameState);
-        return welcomeScreen; // default å returnere til welcomeScreen hvis ukjent? Vet ikke hva som er
-                              // nødvendig.
-
+        screen = new WelcomeScreen(model, controller);
     }
-
+    return screen; //default å returnere til welcomeScreen hvis ukjent? Vet ikke hva som er nødvendig.
   }
 }

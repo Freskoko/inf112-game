@@ -6,17 +6,15 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
-import inf112.firegirlwaterboy.model.entity.EntityList;
+import inf112.firegirlwaterboy.model.entity.ElementType;
+import inf112.firegirlwaterboy.model.entity.Collectable;
 import inf112.firegirlwaterboy.model.entity.Player;
-import inf112.firegirlwaterboy.model.entity.PlayerType;
 
+/**
+ * MyContactListener is a class that listens for contacts between fixtures in
+ * the game world.
+ */
 public class MyContactListener implements ContactListener {
-
-  private EntityList<PlayerType, Player> players;
-
-  public MyContactListener(EntityList<PlayerType, Player> players) {
-    this.players = players;
-  }
 
   @Override
   public void beginContact(Contact contact) {
@@ -28,37 +26,81 @@ public class MyContactListener implements ContactListener {
     playerCollision(contact, false);
   }
 
+  /**
+   * Handles collision between player and other objects.
+   * 
+   * @param contact       the contact between two fixtures
+   * @param contactStatus true if the contact is beginning, false if it is ending
+   */
   private void playerCollision(Contact contact, Boolean contactStatus) {
     Fixture a = contact.getFixtureA();
     Fixture b = contact.getFixtureB();
-    for (Player player : players) {
-      // isPlayerFootSensor does not work as intended, might not need it anyway
-      /*if (isPlayerFootSensor(a, b, player)) {
-        System.out.println("it is foot");
-        if (isHorizontal(a, b)) {
-          System.out.println("cs: " + contactStatus);
-          player.setOnGround(contactStatus);
-        }
-      }*/
+    Player player = getPlayer(a, b);
+
+    if (player != null) {
       if (isHorizontal(a, b)) {
         player.setOnGround(contactStatus);
-      } 
-      else if (isVertical(a, b)) {
+      }
+
+      if (isVertical(a, b)) {
         player.setTouchingWall(contactStatus);
+      }
+
+      Collectable collectable = getCollectable(a, b);
+      if (collectable != null && canCollect(player, collectable)) {
+        player.collect(collectable);
+      }
+
+      ElementType elementType = getElementType(a, b);
+      if (elementType != null) {
+        player.interactWithElement(elementType);
       }
     }
   }
 
-  /*private boolean isPlayerFootSensor(Fixture a, Fixture b, Player player) {
-    boolean footA = "FOOT_SENSOR".equals(a.getUserData()) && a.getBody() == player.getBody();
-    boolean footB = "FOOT_SENSOR".equals(b.getUserData()) && b.getBody() == player.getBody();
-    return (footA || footB) && (isHorizontal(b, a) || isHorizontal(a, b));
-  }*/
+  /**
+   * Returns the element type of the fixture that is in contact with the player.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return the element type of the fixture in contact with the player
+   */
+  private ElementType getElementType(Fixture a, Fixture b) {
+   
+    if (a.getUserData() instanceof ElementType elementType) {
+      return elementType;
+    } else if (b.getUserData() instanceof ElementType elementType) {
+      return elementType;
+    }
+    return null;
 
+    // if (a.getUserData().equals(ElementType.LAVA) || a.getUserData().equals(ElementType.WATER)) {
+    //   return (ElementType) a.getUserData();
+    // } else if (b.getUserData().equals(ElementType.LAVA) || b.getUserData().equals(ElementType.WATER)) {
+    //   return (ElementType) b.getUserData();
+    // }
+
+  }
+
+
+  /**
+   * Returns true if one of the given fixtures is a horizontal fixture.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return true if one of the fixtures is a horizontal fixture
+   */
   private boolean isVertical(Fixture a, Fixture b) {
     return "Vertical".equals(a.getUserData()) || "Vertical".equals(b.getUserData());
   }
 
+  /**
+   * Returns true if one of the given fixtures is a vertical fixture.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return true if one of the fixtures is a vertical fixture
+   */
   private boolean isHorizontal(Fixture a, Fixture b) {
     return "Horizontal".equals(a.getUserData()) || "Horizontal".equals(b.getUserData());
   }
@@ -71,4 +113,41 @@ public class MyContactListener implements ContactListener {
   public void preSolve(Contact arg0, Manifold arg1) {
   }
 
+  /**
+   * Determines if a player can collect a given collectable item based on their
+   * type.
+   *
+   * @param player      the player attempting to collect the item
+   * @param collectable the collectable item
+   * @return true if the player's type matches the collectable's required type;
+   *         false otherwise
+   */
+  private boolean canCollect(Player player, Collectable collectable) {
+    return player.getPlayerType() == collectable.getRequiredPlayer();
+  }
+
+  /**
+   * Retrieves the Collectable object involved in the collision between two
+   * fixtures.
+   *
+   * @return the Collectable object if found; null otherwise
+   */
+  private Collectable getCollectable(Fixture a, Fixture b) {
+    if (a.getUserData() instanceof Collectable collectable) {
+      return collectable;
+    } else if (b.getUserData() instanceof Collectable collectable) {
+      return collectable;
+    }
+    return null;
+  }
+
+  private Player getPlayer(Fixture a, Fixture b) {
+    if (a.getUserData() instanceof Player player) {
+      return player;
+    }
+    if (b.getUserData() instanceof Player player) {
+      return player;
+    }
+    return null;
+  }
 }

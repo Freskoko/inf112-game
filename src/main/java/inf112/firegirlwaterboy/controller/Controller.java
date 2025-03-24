@@ -94,6 +94,7 @@ public class Controller implements InputProcessor {
   public boolean keyDown(int keycode) {
     switch (model.getGameState()) {
       case ACTIVE_GAME -> handleActiveGameState(keycode);
+      case GAME_OVER -> handleGameOverState(keycode);
     }
     return true;
   }
@@ -152,9 +153,18 @@ public class Controller implements InputProcessor {
     PlayerType player = getPlayer(keycode);
 
     switch (keycode) {
-      case Keys.UP, Keys.W -> model.changeDir(player, MovementType.JUMP);
+      case Keys.UP, Keys.W -> model.changeDir(player, MovementType.UP);
       case Keys.LEFT, Keys.A -> model.changeDir(player, MovementType.LEFT);
       case Keys.RIGHT, Keys.D -> model.changeDir(player, MovementType.RIGHT);
+    }
+  }
+
+  private void handleGameOverState(int keycode) {
+    switch (keycode) {
+      case Keys.R:
+        model.setGameState(GameState.ACTIVE_GAME);
+        model.restartGame();
+        break;
     }
   }
 
@@ -169,4 +179,18 @@ public class Controller implements InputProcessor {
       default -> null;
     };
   }
+
+  /**
+   * Starts the game if both players are selected, otherwise prompts selection.
+   */
+  private void startGameIfPlayersSelected() {
+    if (playerOne != null || playerTwo != null) {
+      model.setGameState(GameState.ACTIVE_GAME);
+      model.addPlayer(playerOne);
+      model.addPlayer(playerTwo);
+    } else {
+      System.out.println("Please select playerType for both players.");
+    }
+  }
+
 }
