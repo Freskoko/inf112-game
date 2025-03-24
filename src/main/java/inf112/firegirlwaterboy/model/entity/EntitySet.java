@@ -11,8 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * 
  * @param <E> Entity
  */
-public class EntitySet<E extends IEntity> implements Iterable<E>, IEntitySet<E> {
-
+public class EntitySet<E extends IEntity<T>, T> implements Iterable<E>, IEntitySet<E, T> {
   public static final int maxPlayers = 2;
   private HashSet<E> entities;
 
@@ -39,7 +38,7 @@ public class EntitySet<E extends IEntity> implements Iterable<E>, IEntitySet<E> 
   
   public E getEntity(PlayerType playerType) {
     for (E entity : entities) {
-      if (entity instanceof Player player && player.getPlayerType() == playerType) {
+      if (entity.getEntityType() == playerType) {
         return entity;
       }
     }
@@ -90,5 +89,15 @@ public class EntitySet<E extends IEntity> implements Iterable<E>, IEntitySet<E> 
     }
 
     return sb.toString();
+  }
+
+  @Override
+  public boolean containsEntity(T entityType) {
+      for (E entity : entities) {
+          if (entity.getEntityType() == entityType) {
+              return true;
+          }
+      }
+      return false;
   }
 }

@@ -3,7 +3,7 @@ package inf112.firegirlwaterboy.model.entity;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 
-public interface IEntitySet<E extends IEntity> {
+public interface IEntitySet<E extends IEntity, T> {
 
   /**
    * Add antity to collection
