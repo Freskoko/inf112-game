@@ -74,7 +74,8 @@ public class FireGirlWaterBoy extends Game {
         screen = new GameScreen(model, controller);
         break;
       case GAME_OVER:
-        screen = new GameOverScreen(model, controller); 
+        // screen = new GameOverScreen(model, controller); 
+        screen = new GameScreen(model, controller);
         break;
       default:
         System.out.println("Ukjent GameState: " + gameState);
