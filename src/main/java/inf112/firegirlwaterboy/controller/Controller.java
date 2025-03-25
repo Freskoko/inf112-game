@@ -180,17 +180,5 @@ public class Controller implements InputProcessor {
     };
   }
 
-  /**
-   * Starts the game if both players are selected, otherwise prompts selection.
-   */
-  private void startGameIfPlayersSelected() {
-    if (playerOne != null || playerTwo != null) {
-      model.setGameState(GameState.ACTIVE_GAME);
-      model.addPlayer(playerOne);
-      model.addPlayer(playerTwo);
-    } else {
-      System.out.println("Please select playerType for both players.");
-    }
-  }
 
 }
