@@ -24,7 +24,13 @@ public class FireGirlWaterBoy extends Game {
   private Model model;
   private Controller controller;
   private GameState currentGameState;
-  
+
+  // Opprett referanser til skjermene. Legger til flere ettersom vi lager flere
+  // screens
+  private WelcomeScreen welcomeScreen;
+  private GameScreen gameScreen;
+  private HelpScreen helpScreen;
+  private ChooseMapScreen chooseMapScreen;
 
   public FireGirlWaterBoy() {
     this.model = new Model();
@@ -60,31 +66,33 @@ public class FireGirlWaterBoy extends Game {
    * @return The corresponding Screen instance for the given game state.
    */
   private Screen getScreenByGameState(GameState gameState) {
-    Screen screen;
     switch (gameState) {
       case WELCOME:
-        screen = new WelcomeScreen(controller);
-        break;
-      case ACTIVE_GAME:
-        model.restartGame();
-        screen = new GameScreen(model, controller);
-        break;
-      case GAME_OVER:
-        // screen = new GameOverScreen(model, controller); 
-        screen = new GameScreen(model, controller);
-        break;
-      case HELP:
-        screen = new HelpScreen(controller);
-        break;
-      case CHOOSE_MAP:
-        screen = new ChooseMapScreen(model, controller);
-        break;
-      default:
+        if (welcomeScreen == null)
+          welcomeScreen = new WelcomeScreen(controller);
+        return welcomeScreen;
 
-      
+      case ACTIVE_GAME:
+        model.restartGame(); // restart game hver gang det blir aktivt
+        gameScreen = new GameScreen(model, controller); // eventuelt også cache denne hvis ønsket
+        return gameScreen;
+
+      case HELP:
+        if (helpScreen == null)
+          helpScreen = new HelpScreen(controller);
+        return helpScreen;
+
+      case CHOOSE_MAP:
+        if (chooseMapScreen == null)
+          chooseMapScreen = new ChooseMapScreen(controller);
+        return chooseMapScreen;
+
+      default:
         System.out.println("Ukjent GameState: " + gameState);
-        screen = new WelcomeScreen(controller);
+        if (welcomeScreen == null)
+          welcomeScreen = new WelcomeScreen(controller);
+        return welcomeScreen;
     }
-    return screen; //default å returnere til welcomeScreen hvis ukjent? Vet ikke hva som er nødvendig.
   }
+
 }
