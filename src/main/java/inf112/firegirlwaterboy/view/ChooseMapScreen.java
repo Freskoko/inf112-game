@@ -11,7 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.controller.Controller;
 
 /**
@@ -20,18 +23,15 @@ import inf112.firegirlwaterboy.controller.Controller;
  */
 public class ChooseMapScreen implements Screen {
 
-    private IViewModel model;
     private Controller controller;
     private Stage stage;
     private Viewport viewport;
     private BitmapFont font;
     private SpriteBatch batch;
 
-    public ChooseMapScreen(IViewModel model, Controller controller) {
-        this.model = model;
+    public ChooseMapScreen(Controller controller) {
         this.controller = controller;
-
-        viewport = new FitViewport(800, 600);
+        viewport = new ScreenViewport();
         stage = new Stage(viewport);
 
         batch = new SpriteBatch();
