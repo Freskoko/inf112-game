@@ -32,6 +32,7 @@ public class Model implements IControllableModel, IViewModel {
     this.collectedCount = 0;
     this.mapName = "map";
     this.maps = new Maps();
+    this.gameState = GameState.WELCOME;
   }
 
   @Override
