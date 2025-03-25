@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.*;
+
+
 import inf112.firegirlwaterboy.controller.Controller;
 
 /**
@@ -29,10 +31,9 @@ public class WelcomeScreen implements Screen {
 
     public WelcomeScreen(Controller controller) {
         this.controller = controller;
+        viewport = new ScreenViewport();
 
-        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage = new Stage(viewport);
-
         logo = new Texture("logo.png");
 
         setupUI();
