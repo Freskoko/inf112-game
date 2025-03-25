@@ -1,5 +1,6 @@
 package inf112.firegirlwaterboy.controller;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -30,6 +31,7 @@ public class ScreenButtonHandler {
       public void clicked(InputEvent e, float x, float y) {
         boolean isPlayerOne = (playerNum == 1);
         controller.selectPlayer(type, isPlayerOne);
+        e.getListenerActor().setColor(Color.GRAY);
       }
     };
   }
@@ -42,6 +44,7 @@ public class ScreenButtonHandler {
       @Override
       public void clicked(InputEvent e, float x, float y) {
         controller.startGameIfPlayersSelected();
+        System.out.println("Start clicked");
       }
     };
   }
