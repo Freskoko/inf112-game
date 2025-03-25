@@ -9,8 +9,8 @@ import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Model;
 import inf112.firegirlwaterboy.view.ChooseMapScreen;
 import inf112.firegirlwaterboy.view.GameScreen;
-import inf112.firegirlwaterboy.view.WelcomeScreen;
 import inf112.firegirlwaterboy.view.HelpScreen;
+import inf112.firegirlwaterboy.view.WelcomeScreen;
 
 /**
  * FireGirlWaterBoy is a game where the player controls two characters, FireGirl
@@ -23,10 +23,6 @@ public class FireGirlWaterBoy extends Game {
 
   private Model model;
   private Controller controller;
-  private WelcomeScreen welcomeScreen;
-  private GameScreen gameScreen;
-  private HelpScreen helpScreen;
-  private ChooseMapScreen chooseMapScreen;
   private GameState currentGameState;
   
 
@@ -48,7 +44,7 @@ public class FireGirlWaterBoy extends Game {
     super.render();
 
     GameState newGameState = model.getGameState();
-    if (newGameState != currentGameState) {
+    if (!newGameState.equals(currentGameState)) {
       setScreen(getScreenByGameState(newGameState));
       currentGameState = newGameState;
     }
@@ -67,7 +63,7 @@ public class FireGirlWaterBoy extends Game {
     Screen screen;
     switch (gameState) {
       case WELCOME:
-        screen = new WelcomeScreen(model, controller);
+        screen = new WelcomeScreen(controller);
         break;
       case ACTIVE_GAME:
         model.restartGame();
@@ -77,9 +73,17 @@ public class FireGirlWaterBoy extends Game {
         // screen = new GameOverScreen(model, controller); 
         screen = new GameScreen(model, controller);
         break;
+      case HELP:
+        screen = new HelpScreen(controller);
+        break;
+      case CHOOSE_MAP:
+        screen = new ChooseMapScreen(model, controller);
+        break;
       default:
+
+      
         System.out.println("Ukjent GameState: " + gameState);
-        screen = new WelcomeScreen(model, controller);
+        screen = new WelcomeScreen(controller);
     }
     return screen; //default å returnere til welcomeScreen hvis ukjent? Vet ikke hva som er nødvendig.
   }
