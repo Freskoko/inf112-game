@@ -38,11 +38,11 @@ public class MyContactListener implements ContactListener {
     Player player = getPlayer(a, b);
 
     if (player != null) {
-      if (isHorizontal(a, b) || isOutline(a, b)) {
+      if (isHorizontal(a, b)) {
         player.setOnGround(contactStatus);
       }
 
-      if (isVertical(a, b)) {
+      if (isEdge(a, b)) {
         player.setTouchingEdge(contactStatus);
       }
 
@@ -75,14 +75,14 @@ public class MyContactListener implements ContactListener {
   }
 
   /**
-   * Returns true if one of the given fixtures is a vertical fixture.
+   * Returns true if one of the given fixtures is an edge fixture.
    * 
    * @param a the first fixture
    * @param b the second fixture
-   * @return true if one of the fixtures is a vertical fixture
+   * @return true if one of the fixtures is an edge fixture
    */
-  private boolean isVertical(Fixture a, Fixture b) {
-    return "Vertical".equals(a.getUserData()) || "Vertical".equals(b.getUserData());
+  private boolean isEdge(Fixture a, Fixture b) {
+    return "Edges".equals(a.getUserData()) || "Edges".equals(b.getUserData());
   }
 
   /**
@@ -94,17 +94,6 @@ public class MyContactListener implements ContactListener {
    */
   private boolean isHorizontal(Fixture a, Fixture b) {
     return "Horizontal".equals(a.getUserData()) || "Horizontal".equals(b.getUserData());
-  }
-
-  /**
-   * Returns true if one of the given fixtures is a outline fixture.
-   * 
-   * @param a the first fixture
-   * @param b the second fixture
-   * @return true if one of the fixtures is a outline fixture
-   */
-  private boolean isOutline(Fixture a, Fixture b) {
-    return "Outline".equals(a.getUserData()) || "Outline".equals(b.getUserData());
   }
 
   @Override
