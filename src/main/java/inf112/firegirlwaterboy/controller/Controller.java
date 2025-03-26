@@ -90,6 +90,12 @@ public class Controller implements InputProcessor {
     playButton.addListener(buttonHandler.playButtonListener());
   }
 
+  // Attach GameOverScreen buttons
+  public void attachGameOverScreenListeners(Button backToWelcomeScreenButton) {
+    backToWelcomeScreenButton.addListener(buttonHandler.welcomeScreenButtonListener());
+
+  }
+
   @Override
   public boolean keyDown(int keycode) {
     switch (model.getGameState()) {
@@ -179,6 +185,8 @@ public class Controller implements InputProcessor {
       default -> null;
     };
   }
+
+
 
 
 }

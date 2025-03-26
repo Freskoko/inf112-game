@@ -89,4 +89,14 @@ public class ScreenButtonHandler {
       }
     };
   }
+
+  // GAME OVER SCREEN BUTTON
+  public ClickListener welcomeScreenButtonListener() {
+    return new ClickListener() {
+      @Override
+      public void clicked(InputEvent e, float x, float y) {
+        controller.getModel().setGameState(GameState.WELCOME);
+      }
+    };
+  }
 }
