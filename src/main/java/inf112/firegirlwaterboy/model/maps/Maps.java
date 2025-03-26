@@ -179,6 +179,8 @@ public class Maps implements IMaps {
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
+    fdef.friction = 0.6f;
+    fdef.restitution = 0f;
     Fixture fixture = body.createFixture(fdef);
 
     fixture.setUserData(layerName);

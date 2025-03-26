@@ -195,8 +195,8 @@ public class Player extends Sprite implements IEntity, IPlayer {
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
     fdef.density = 0.5f;
-    fdef.friction = 0;
-    fdef.restitution = 0;
+    fdef.friction = 0.1f;
+    fdef.restitution = 0f;
     body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
   }
