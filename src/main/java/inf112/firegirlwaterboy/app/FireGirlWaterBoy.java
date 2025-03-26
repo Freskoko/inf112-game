@@ -7,8 +7,9 @@ import com.badlogic.gdx.Screen;
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Model;
-import inf112.firegirlwaterboy.view.GameOverScreen;
+import inf112.firegirlwaterboy.view.ChooseMapScreen;
 import inf112.firegirlwaterboy.view.GameScreen;
+import inf112.firegirlwaterboy.view.HelpScreen;
 import inf112.firegirlwaterboy.view.WelcomeScreen;
 
 /**
@@ -22,14 +23,14 @@ public class FireGirlWaterBoy extends Game {
 
   private Model model;
   private Controller controller;
-
-  // Opprett referanser til skjermene. Legger til flere ettersom vi lager flere screens
-  private WelcomeScreen welcomeScreen;
-  private GameScreen gameScreen;
-
-  // Holder styr på current game state
   private GameState currentGameState;
 
+  // Opprett referanser til skjermene. Legger til flere ettersom vi lager flere
+  // screens
+  private WelcomeScreen welcomeScreen;
+  private GameScreen gameScreen;
+  private HelpScreen helpScreen;
+  private ChooseMapScreen chooseMapScreen;
 
   public FireGirlWaterBoy() {
     this.model = new Model();
@@ -40,8 +41,6 @@ public class FireGirlWaterBoy extends Game {
 
   @Override
   public void create() {
-    // Setter Welcome som start screen
-    
     setScreen(getScreenByGameState(currentGameState));
     Gdx.input.setInputProcessor(controller);
   }
@@ -50,37 +49,50 @@ public class FireGirlWaterBoy extends Game {
   public void render() {
     super.render();
 
-    // Sjekker hva den nye game state er hvis den skiftes
     GameState newGameState = model.getGameState();
-
-    // Hvis gamestate har endret seg, så skiftes skjermen
-    if (newGameState != currentGameState) {
+    if (!newGameState.equals(currentGameState)) {
       setScreen(getScreenByGameState(newGameState));
       currentGameState = newGameState;
     }
-
   }
 
-  //Legger til flere cases ettersom vi får flere screens
-  //Endrer screen basert på state
+  /**
+   * Returns the appropriate screen based on the current game state.
+   * 
+   * This method ensures that the correct screen is returned for each game state.
+   * If the screen instance does not already exist, it creates and initializes it.
+   * 
+   * @param gameState The current state of the game.
+   * @return The corresponding Screen instance for the given game state.
+   */
   private Screen getScreenByGameState(GameState gameState) {
-    Screen screen;
     switch (gameState) {
       case WELCOME:
-        screen = new WelcomeScreen(model, controller);
-        break;
+        if (welcomeScreen == null)
+          welcomeScreen = new WelcomeScreen(controller);
+        return welcomeScreen;
+
       case ACTIVE_GAME:
-        model.restartGame();
-        screen = new GameScreen(model, controller);
-        break;
-      case GAME_OVER:
-        // screen = new GameOverScreen(model, controller); 
-        screen = new GameScreen(model, controller);
-        break;
+        model.restartGame(); // restart game hver gang det blir aktivt
+        gameScreen = new GameScreen(model, controller); // eventuelt også cache denne hvis ønsket
+        return gameScreen;
+
+      case HELP:
+        if (helpScreen == null)
+          helpScreen = new HelpScreen(controller);
+        return helpScreen;
+
+      case CHOOSE_MAP:
+        if (chooseMapScreen == null)
+          chooseMapScreen = new ChooseMapScreen(controller);
+        return chooseMapScreen;
+
       default:
         System.out.println("Ukjent GameState: " + gameState);
-        screen = new WelcomeScreen(model, controller);
+        if (welcomeScreen == null)
+          welcomeScreen = new WelcomeScreen(controller);
+        return welcomeScreen;
     }
-    return screen; //default å returnere til welcomeScreen hvis ukjent? Vet ikke hva som er nødvendig.
   }
+
 }

@@ -2,36 +2,97 @@ package inf112.firegirlwaterboy.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.entity.PlayerType;
 
 /**
  * Controller class for the game FireGirl & WaterBoy.
- * This class is responsible for handling input from the player and updating the
- * model accordingly.
+ * Handles keyboard input and delegates button logic via ScreenButtonHandler.
  */
 public class Controller implements InputProcessor {
 
   private IControllableModel model;
-  private PlayerType playerOne; // Controlled by WASD keys
-  private PlayerType playerTwo; // Controlled by Arrow keys
+  private PlayerType playerOne; // Controlled by Arrow keys
+  private PlayerType playerTwo; // Controlled by WASD keys
+  private ScreenButtonHandler buttonHandler;
 
-  /**
-   * Constructor for the Controller class.
-   * 
-   * @param model the model to be controlled.
-   */
   public Controller(IControllableModel model) {
     this.model = model;
     this.playerOne = null;
     this.playerTwo = null;
+    this.buttonHandler = new ScreenButtonHandler(this);
+  }
+
+  /**
+   * Returns the model.
+   * 
+   * @return
+   */
+  public IControllableModel getModel() {
+    return model;
+  }
+
+  /**
+   * Selects a playerType for a player.
+   * 
+   * @param playerType  The playerType to select.
+   * @param isPlayerOne True if player 1, false if player 2.
+   */
+  public void selectPlayer(PlayerType playerType, boolean isPlayerOne) {
+    if (isPlayerOne) {
+      if (playerTwo != null && playerType == playerTwo) {
+        System.out.println("Player 1 cant choose the same as Player 2!");
+        return;
+      }
+      playerOne = playerType;
+    } else {
+      if (playerOne != null && playerType == playerOne) {
+        System.out.println("Player 2 cant choose the same as Player 1!");
+        return;
+      }
+      playerTwo = playerType;
+    }
+  }
+
+  /**
+   * Starts the game if both players have selected a playerType.
+   */
+  public void startGameIfPlayersSelected() {
+    if (playerOne != null && playerTwo != null) {
+      model.setGameState(GameState.CHOOSE_MAP);
+      model.addPlayer(playerOne);
+      model.addPlayer(playerTwo);
+    } else {
+      System.out.println("Please select playerType for both players.");
+    }
+  }
+
+  // Attach buttons from WelcomeScreen
+  public void attachWelcomeScreenListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start,
+      Button help) {
+    fgP1.addListener(buttonHandler.selectPlayerListener(1, PlayerType.FIREGIRL));
+    wbP1.addListener(buttonHandler.selectPlayerListener(1, PlayerType.WATERBOY));
+    fgP2.addListener(buttonHandler.selectPlayerListener(2, PlayerType.FIREGIRL));
+    wbP2.addListener(buttonHandler.selectPlayerListener(2, PlayerType.WATERBOY));
+    start.addListener(buttonHandler.startButtonListener());
+    help.addListener(buttonHandler.helpButtonListener());
+  }
+
+  // Attach HelpScreen buttons
+  public void attachHelpScreenListeners(Button back) {
+    back.addListener(buttonHandler.backButtonListener());
+  }
+
+  // Attach ChooseMapScreen buttons
+  public void setupPlayButtonListener(Button playButton) {
+    playButton.addListener(buttonHandler.playButtonListener());
   }
 
   @Override
   public boolean keyDown(int keycode) {
     switch (model.getGameState()) {
-      case WELCOME -> handleWelcomeState(keycode);
       case ACTIVE_GAME -> handleActiveGameState(keycode);
       case GAME_OVER -> handleGameOverState(keycode);
     }
@@ -83,20 +144,6 @@ public class Controller implements InputProcessor {
   }
 
   /**
-   * Handles key inputs in the WELCOME state.
-   * Allows player selection or game start if both players are chosen.
-   *
-   * @param keycode the key pressed
-   */
-  private void handleWelcomeState(int keycode) {
-    switch (keycode) {
-      case Keys.P -> startGameIfPlayersSelected();
-      case Keys.W -> selectPlayer(PlayerType.WATERBOY);
-      case Keys.F -> selectPlayer(PlayerType.FIREGIRL);
-    }
-  }
-
-  /**
    * Handles key inputs in the ACTIVE_GAME state.
    * Moves the corresponding player based on the key pressed.
    *
@@ -104,6 +151,7 @@ public class Controller implements InputProcessor {
    */
   private void handleActiveGameState(int keycode) {
     PlayerType player = getPlayer(keycode);
+
     switch (keycode) {
       case Keys.UP, Keys.W -> model.changeDir(player, MovementType.UP);
       case Keys.LEFT, Keys.A -> model.changeDir(player, MovementType.LEFT);
@@ -121,45 +169,16 @@ public class Controller implements InputProcessor {
   }
 
   /**
-   * Assigns a player type to Player 1 (WASD) or Player 2 (Arrows).
-   * Ensures Player 2 is different from Player 1.
-   *
-   * @param playerType the selected player type
-   */
-  private void selectPlayer(PlayerType playerType) {
-    if (playerOne == null) {
-      playerOne = playerType;
-    } else if (playerType != playerOne && playerTwo == null) {
-      playerTwo = playerType;
-    }
-  }
-
-  /**
-   * Returns the player associated with the given key press.
-   * WASD controls Player 1, Arrows control Player 2.
-   *
-   * @param keycode the key pressed
-   * @return the corresponding player, or null if invalid key
+   * Returns the player assigned to the given key input.
+   * WASD controls Player 2, Arrows control Player 1.
    */
   private PlayerType getPlayer(int keycode) {
     return switch (keycode) {
-      case Keys.W, Keys.A, Keys.D -> playerOne;
-      case Keys.UP, Keys.LEFT, Keys.RIGHT -> playerTwo;
+      case Keys.W, Keys.A, Keys.D -> playerTwo;
+      case Keys.UP, Keys.LEFT, Keys.RIGHT -> playerOne;
       default -> null;
     };
   }
 
-  /**
-   * Starts the game if both players are selected, otherwise prompts selection.
-   */
-  private void startGameIfPlayersSelected() {
-    if (playerOne != null || playerTwo != null) {
-      model.setGameState(GameState.ACTIVE_GAME);
-      model.addPlayer(playerOne);
-      model.addPlayer(playerTwo);
-    } else {
-      System.out.println("Please select playerType for both players.");
-    }
-  }
 
 }
