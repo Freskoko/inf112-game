@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -34,7 +33,7 @@ public class Player extends Sprite implements IEntity, IPlayer {
   private boolean isAlive = true;
   private int countCollected;
   private Queue<Collectable> collected;
-  private boolean touchingWall; // Må vurderes om nødvendig for videre utvikling
+  private boolean touchingEdge; // Må vurderes om nødvendig for videre utvikling
 
   /**
    * Initalizes a player, giving them a type and texture
@@ -91,19 +90,19 @@ public class Player extends Sprite implements IEntity, IPlayer {
 
   @Override
   public void jump() {
-    if (onGround) {
+    if (onGround && !touchingEdge) {
       body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
     }
   }
 
   @Override
-  public void setOnGround(boolean onGround) {
-    this.onGround = onGround;
+  public void setOnGround(boolean groundStatus) {
+    this.onGround = groundStatus;
   }
 
   @Override
-  public void setTouchingWall(boolean touchingWall) {
-    this.touchingWall = touchingWall;
+  public void setTouchingEdge(boolean edgeStatus) {
+    this.touchingEdge = edgeStatus;
   }
 
   @Override
@@ -126,7 +125,7 @@ public class Player extends Sprite implements IEntity, IPlayer {
   public void spawn(World world, Vector2 pos) {
     setSize(getTexture().getWidth() / Maps.PPM, getTexture().getHeight() / Maps.PPM);
     onGround = true;
-    touchingWall = false;
+    touchingEdge = false;
     collected = new LinkedList<>();
     countCollected = 0;
     createBody(world, pos);
@@ -196,8 +195,8 @@ public class Player extends Sprite implements IEntity, IPlayer {
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
     fdef.density = 0.5f;
-    fdef.friction = 0;
-    fdef.restitution = 0;
+    fdef.friction = 0.1f;
+    fdef.restitution = 0f;
     body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
   }
