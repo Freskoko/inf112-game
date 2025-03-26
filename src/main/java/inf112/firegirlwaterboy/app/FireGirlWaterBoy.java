@@ -91,7 +91,7 @@ public class FireGirlWaterBoy extends Game {
 
       case GAME_OVER:
         if (gameOverScreen == null)
-          gameOverScreen = new GameOverScreen(model, controller);
+          gameOverScreen = new GameOverScreen(controller);
         return gameOverScreen;
 
       default:
