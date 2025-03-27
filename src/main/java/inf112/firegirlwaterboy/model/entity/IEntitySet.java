@@ -23,6 +23,14 @@ public interface IEntitySet<E extends IEntity, T> {
   E getEntity(PlayerType playerType);
 
   /**
+   * Checks if a entity is in the entityset
+   *
+   * @param entityType The key representing the entity type
+   * @return true if the entity is in the set, false otherwise
+   */
+  boolean containsEntity(T entityType);
+
+  /**
    * Draws all players contained in the list using the given batch
    * 
    * @param batch The batch used for rendering
