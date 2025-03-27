@@ -31,7 +31,7 @@ public class GameOverScreen implements Screen {
   private BitmapFont font;
   private Stage stage;
   private Viewport viewport;
-  private Button welcomeScreenButton = createButton("Back to Welcome Screen", Color.DARK_GRAY);
+  private Button welcomeScreenButton = createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
 
 
   public GameOverScreen(Controller controller) {
