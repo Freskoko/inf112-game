@@ -23,7 +23,7 @@ import inf112.firegirlwaterboy.model.maps.Maps;
  * The player is a sprite that can move, has velocity and is affected by
  * gravity.
  */
-public class Player extends Sprite implements IEntity, IPlayer {
+public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   private float speed = 7;
   private float jumpSpeed = 10.5f;
@@ -106,7 +106,7 @@ public class Player extends Sprite implements IEntity, IPlayer {
   }
 
   @Override
-  public PlayerType getPlayerType() {
+  public PlayerType getEntityType() {
     return playerType;
   }
 

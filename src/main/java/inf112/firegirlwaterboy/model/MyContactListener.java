@@ -114,7 +114,7 @@ public class MyContactListener implements ContactListener {
    *         false otherwise
    */
   private boolean canCollect(Player player, Collectable collectable) {
-    return player.getPlayerType() == collectable.getRequiredPlayer();
+    return player.getEntityType() == collectable.getRequiredPlayer();
   }
 
   /**

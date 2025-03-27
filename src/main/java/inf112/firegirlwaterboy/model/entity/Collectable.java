@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.maps.Maps;
 
-public class Collectable implements IEntity, ICollectable {
+public class Collectable implements IEntity<String>, ICollectable {
 
   private PlayerType requiredPlayer;
   private Body body;
@@ -80,5 +80,11 @@ public class Collectable implements IEntity, ICollectable {
   @Override
   public Body getBody() {
     return body;
+  }
+
+  @Override
+  public String getEntityType() {
+    return "Collectable";
+    // In future multiple collectable types are added
   }
 }

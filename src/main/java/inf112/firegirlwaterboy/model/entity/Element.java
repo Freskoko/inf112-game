@@ -17,7 +17,7 @@ import inf112.firegirlwaterboy.model.maps.Maps;
  * Element class represents an element in the game.
  * Elements are static objects that can be interacted with by players.
  */
-public class Element implements IEntity {
+public class Element implements IEntity<String> {
   private Texture texture;
   private ElementType type;
   private Body body;
@@ -76,4 +76,9 @@ public class Element implements IEntity {
 	public Body getBody() {
 		return body;
 	}
+
+  @Override
+  public String getEntityType() {
+    return "Entity";
+  }
 }
