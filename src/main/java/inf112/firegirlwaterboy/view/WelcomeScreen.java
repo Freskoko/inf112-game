@@ -53,7 +53,7 @@ public class WelcomeScreen implements Screen {
 
         // Player 1 selection
         Table p1Table = new Table();
-        Label player1Label = new Label("Player 1 (ueses arrows) choose your character:",
+        Label player1Label = new Label("Player 1 (uses arrows) choose your character:",
                 new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         p1Table.add(player1Label).colspan(2).center().padBottom(10);
         p1Table.row();
