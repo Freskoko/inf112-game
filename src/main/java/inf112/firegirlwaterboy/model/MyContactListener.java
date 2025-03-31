@@ -47,8 +47,8 @@ public class MyContactListener implements ContactListener {
       }
 
       Collectable collectable = getCollectable(a, b);
-      if (collectable != null && canCollect(player, collectable)) {
-        player.collect(collectable);
+      if (collectable != null) {
+        player.interactWithCollectable(collectable);
       }
 
       ElementType elementType = getElementType(a, b);
@@ -102,19 +102,6 @@ public class MyContactListener implements ContactListener {
 
   @Override
   public void preSolve(Contact arg0, Manifold arg1) {
-  }
-
-  /**
-   * Determines if a player can collect a given collectable item based on their
-   * type.
-   *
-   * @param player      the player attempting to collect the item
-   * @param collectable the collectable item
-   * @return true if the player's type matches the collectable's required type;
-   *         false otherwise
-   */
-  private boolean canCollect(Player player, Collectable collectable) {
-    return player.getEntityType() == collectable.getRequiredPlayer();
   }
 
   /**

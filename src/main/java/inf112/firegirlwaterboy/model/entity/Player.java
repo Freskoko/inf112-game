@@ -32,7 +32,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private boolean onGround;
   private PlayerType playerType;
   private boolean isAlive;
-  private int countCollected;
+  private int collectedCount;
   private Queue<Collectable> collected;
   private boolean touchingEdge;
 
@@ -124,11 +124,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     return playerType.toString();
   }
 
-  @Override
-  public void collect(Collectable collectable) {
-    collected.add(collectable);
-    countCollected++;
-  }
+
 
   @Override
   public void spawn(World world, Vector2 pos) {
@@ -137,19 +133,27 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     touchingEdge = false;
     isAlive = true;
     collected = new LinkedList<>();
-    countCollected = 0;
+    collectedCount = 0;
     createBody(world, pos);
     setPosition(pos.x, pos.y);
   }
 
   @Override
-  public int getCountCollected() {
-    return countCollected;
+  public int getCollectedCount() {
+    return collectedCount;
   }
 
   @Override
   public void interactWithElement(ElementType elementType) {
     isAlive = playerType.getImmunity().equals(elementType);
+  }
+
+  @Override
+  public void interactWithCollectable(Collectable collectable) {
+    if (collectable.getRequiredPlayer().equals(playerType)) {
+      collected.add(collectable);
+      collectedCount++;
+    }
   }
 
   @Override

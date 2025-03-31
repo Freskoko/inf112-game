@@ -13,7 +13,7 @@ public interface IPlayer {
    *
    * @param collectable The collectable item to be added.
    */
-  void collect(Collectable collectable);
+  void interactWithCollectable(Collectable collectable);
 
   /**
    * Sets whether the player is currently on the ground.
@@ -52,7 +52,7 @@ public interface IPlayer {
    *
    * @return The number of items collected by the player.
    */
-  int getCountCollected();
+  int getCollectedCount();
 
   /**
    *
