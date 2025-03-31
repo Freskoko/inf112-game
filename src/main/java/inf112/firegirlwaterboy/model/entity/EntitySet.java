@@ -49,7 +49,7 @@ public abstract class EntitySet<E extends IEntity> implements Iterable<E>, IEnti
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    entities.forEach(entity -> sb.append(entity).append(","));
+    entities.forEach(entity -> sb.append(entity).append(", "));
 
     if (sb.length() > 0) {
       sb.setLength(sb.length() - 2);
