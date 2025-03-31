@@ -10,8 +10,8 @@ import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.entity.EntitySet;
 import inf112.firegirlwaterboy.model.entity.Player;
+import inf112.firegirlwaterboy.model.entity.PlayerSet;
 import inf112.firegirlwaterboy.model.entity.PlayerType;
 
 public class ModelTest {
@@ -61,8 +61,10 @@ public class ModelTest {
         // Mock player
         Player mockPlayer = mock(Player.class);
 
-        EntitySet<Player, PlayerType> mockPlayers = mock(EntitySet.class);
-        when(mockPlayers.getEntity(PlayerType.FIREGIRL)).thenReturn(mockPlayer);
+        PlayerSet mockPlayers = mock(PlayerSet.class);
+
+        when(mockPlayers.containsPlayer(PlayerType.FIREGIRL)).thenReturn(true);
+        when(mockPlayers.getPlayer(PlayerType.FIREGIRL)).thenReturn(mockPlayer);
 
         try {
             java.lang.reflect.Field playersField = Model.class.getDeclaredField("players");
@@ -85,7 +87,7 @@ public class ModelTest {
         verify(mockPlayer).move(MovementType.STOP);
 
         // test with nonexistant player
-        when(mockPlayers.getEntity(PlayerType.WATERBOY)).thenThrow(new IllegalArgumentException("Player not found"));
+        when(mockPlayers.getPlayer(PlayerType.WATERBOY)).thenThrow(new IllegalArgumentException("Player not found"));
         assertFalse(mockModel.changeDir(PlayerType.WATERBOY, MovementType.RIGHT));
     }
 }
