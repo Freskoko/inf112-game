@@ -64,8 +64,8 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   //////////////////////////
 
   @Override
-  public Texture getTexture() {
-    return super.getTexture();
+  public void dispose() {
+    super.getTexture().dispose();
   }
 
   @Override
@@ -103,7 +103,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     }
   }
 
-
   @Override
   public void setOnGround(boolean groundStatus) {
     this.onGround = groundStatus;
@@ -123,8 +122,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   public String toString() {
     return playerType.toString();
   }
-
-
 
   @Override
   public void spawn(World world, Vector2 pos) {

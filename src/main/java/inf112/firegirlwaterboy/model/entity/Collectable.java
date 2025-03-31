@@ -73,8 +73,8 @@ public class Collectable implements IEntity<String>, ICollectable {
   }
 
   @Override
-  public Texture getTexture() {
-    return new Texture(Gdx.files.internal("FIREGIRL.png")); // Midlertidig
+  public void dispose() {
+    // TODO Auto-generated method stub
   }
 
   @Override

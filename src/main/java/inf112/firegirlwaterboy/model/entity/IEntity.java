@@ -25,9 +25,9 @@ public interface IEntity<T> {
   void draw(Batch batch);
 
   /**
-   * @return The texture of the entity
+   * dispose the texture of entity
    */
-  Texture getTexture();
+  void dispose();
 
   /**
    * Retrieves the physics body associated with this entity.
