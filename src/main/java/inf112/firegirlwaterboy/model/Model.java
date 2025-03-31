@@ -20,7 +20,7 @@ import inf112.firegirlwaterboy.view.IViewModel;
  */
 public class Model implements IControllableModel, IViewModel {
 
-  private EntitySet<Player> players;
+  private EntitySet<Player, PlayerType> players;
   private GameState gameState;
   private IMaps maps;
   private String mapName;
@@ -109,5 +109,10 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public String toString() {
     return players.toString();
+  }
+
+  @Override
+  public boolean containsPlayer(PlayerType playerType) {
+    return players.containsEntity(playerType);
   }
 }

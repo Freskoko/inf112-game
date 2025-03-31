@@ -9,8 +9,6 @@ public interface IPlayer {
 
   void collect(Collectable collectable);
 
-  PlayerType getPlayerType();
-
   void setOnGround(boolean groundStatus);
 
   void setTouchingEdge(boolean edgeStatus);

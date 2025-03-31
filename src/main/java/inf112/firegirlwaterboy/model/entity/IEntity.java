@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.Body;
  * Defines the basic methods that an entity must have, including updating,
  * rendering and getting the texture of the entity.
  */
-public interface IEntity {
+public interface IEntity<T> {
 
   /**
    * Updates the entity´s state
@@ -28,5 +28,7 @@ public interface IEntity {
   Texture getTexture();
 
   Body getBody();
+
+  T getEntityType();
 
 }

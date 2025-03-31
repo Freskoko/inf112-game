@@ -3,7 +3,7 @@ package inf112.firegirlwaterboy.model.entity;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 
-public interface IEntitySet<E extends IEntity> {
+public interface IEntitySet<E extends IEntity, T> {
 
   /**
    * Add antity to collection
@@ -21,6 +21,14 @@ public interface IEntitySet<E extends IEntity> {
    * @return player The entity associated with the given type
    */
   E getEntity(PlayerType playerType);
+
+  /**
+   * Checks if a entity is in the entityset
+   *
+   * @param entityType The key representing the entity type
+   * @return true if the entity is in the set, false otherwise
+   */
+  boolean containsEntity(T entityType);
 
   /**
    * Draws all players contained in the list using the given batch
