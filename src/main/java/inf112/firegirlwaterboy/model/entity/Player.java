@@ -103,12 +103,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     }
   }
 
-  @Override
-  public void jump() {
-    if (onGround && !touchingEdge) {
-      body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
-    }
-  }
 
   @Override
   public void setOnGround(boolean groundStatus) {
@@ -220,5 +214,11 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     fdef.restitution = 0f;
     body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
+  }
+
+  public void jump() {
+    if (onGround && !touchingEdge) {
+      body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
+    }
   }
 }
