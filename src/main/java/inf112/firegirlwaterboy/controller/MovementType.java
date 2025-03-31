@@ -10,7 +10,7 @@ public enum MovementType {
   STOP(),
   DOWN();
 
-  public MovementType getOppositeDir(MovementType movementType) {
+  static public MovementType getOppositeDir(MovementType movementType) {
     switch (movementType) {
       case LEFT:
         return MovementType.RIGHT;
