@@ -17,9 +17,9 @@ import com.badlogic.gdx.graphics.GL20;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 
-public class EntitySetTest {
+public class PlayerSetTest {
 
-    private EntitySet<Player, PlayerType> entitySet;
+    private PlayerSet playerSet;
 
     @BeforeAll
     private static void setUp() {
@@ -36,43 +36,44 @@ public class EntitySetTest {
 
     @BeforeEach
     private void setUpEachTest() {
-        this.entitySet = new EntitySet<>();
+        this.playerSet = new PlayerSet();
     }
 
     @Test
-    void testaddEntity() {
-        assertTrue(this.entitySet.isEmpty());
-        entitySet.addEntity(new Player(PlayerType.FIREGIRL));
-        assertFalse(entitySet.isEmpty());
+    void testAddEntity() {
+        assertTrue(this.playerSet.isEmpty());
+        playerSet.add(new Player(PlayerType.FIREGIRL));
+        assertFalse(playerSet.isEmpty());
     }
 
     @Test
-    void testContainsKey() {
-        entitySet.addEntity(new Player(PlayerType.FIREGIRL));
-        assertTrue(entitySet.containsEntity(PlayerType.FIREGIRL));
-        assertFalse(entitySet.containsEntity(PlayerType.WATERBOY));
+    void testContainsPlayer() {
+        playerSet.add(new Player(PlayerType.FIREGIRL));
+        assertTrue(playerSet.containsPlayer(PlayerType.FIREGIRL));
+        assertFalse(playerSet.containsPlayer(PlayerType.WATERBOY));
     }
 
     @Test
     void testGetPlayer() {
-        entitySet.addEntity(new Player(PlayerType.FIREGIRL));
-        Player player1 = entitySet.getEntity(PlayerType.FIREGIRL);
-        assertEquals(player1.getEntityType(), PlayerType.FIREGIRL);
+        playerSet.add(new Player(PlayerType.FIREGIRL));
+        Player player1 = playerSet.getPlayer(PlayerType.FIREGIRL);
+        assertEquals(player1.getType(), PlayerType.FIREGIRL);
 
         // cannot grab player which is not there
-        assertThrows(IllegalArgumentException.class, () -> entitySet.getEntity(PlayerType.WATERBOY));
+        assertThrows(IllegalArgumentException.class, () -> playerSet.getPlayer(PlayerType.WATERBOY));
     }
 
     @Test
     void testIsEmpty() {
-        assertTrue(entitySet.isEmpty());
-        entitySet.addEntity(new Player(PlayerType.FIREGIRL));
-        assertFalse(entitySet.isEmpty());
+        assertTrue(playerSet.isEmpty());
+        playerSet.add(new Player(PlayerType.FIREGIRL));
+        assertFalse(playerSet.isEmpty());
     }
 
     @Test
     void testToString() {
-        entitySet.addEntity(new Player(PlayerType.FIREGIRL));
-        assertEquals("FIREGIRL", entitySet.toString());
+        playerSet.add(new Player(PlayerType.FIREGIRL));
+        assertEquals("FIREGIRL", playerSet.toString());
     }
+
 }
