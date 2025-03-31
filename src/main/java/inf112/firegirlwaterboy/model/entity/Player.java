@@ -1,6 +1,7 @@
 package inf112.firegirlwaterboy.model.entity;
 
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
 
 import com.badlogic.gdx.Gdx;
@@ -30,10 +31,10 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private Body body;
   private boolean onGround;
   private PlayerType playerType;
-  private boolean isAlive = true;
+  private boolean isAlive;
   private int countCollected;
   private Queue<Collectable> collected;
-  private boolean touchingEdge; // Må vurderes om nødvendig for videre utvikling
+  private boolean touchingEdge;
 
   /**
    * Initalizes a player, giving them a type and texture
@@ -41,7 +42,21 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   public Player(PlayerType playerType) {
     super(getTextureForType(playerType));
     this.playerType = playerType;
-    this.collected = new LinkedList<>();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null || getClass() != obj.getClass())
+      return false;
+    Player player = (Player) obj;
+    return playerType == player.playerType;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(playerType);
   }
 
   //////////////////////////
@@ -74,7 +89,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   }
 
   //////////////////////////
-  /// IPLAYER INTERFACE ///
+  //// IPLAYER INTERFACE ///
   //////////////////////////
 
   @Override
@@ -84,7 +99,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
       case LEFT -> body.setLinearVelocity(-speed, body.getLinearVelocity().y);
       case RIGHT -> body.setLinearVelocity(speed, body.getLinearVelocity().y);
       case STOP -> body.setLinearVelocity(0, body.getLinearVelocity().y);
-      default -> throw new IllegalArgumentException("Unexpected value: " + dir);
+      default -> throw new IllegalArgumentException("Unexpected MovementType for move() method: " + dir);
     }
   }
 
@@ -106,7 +121,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   }
 
   @Override
-  public PlayerType getEntityType() {
+  public PlayerType getType() {
     return playerType;
   }
 
@@ -126,6 +141,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     setSize(getTexture().getWidth() / Maps.PPM, getTexture().getHeight() / Maps.PPM);
     onGround = true;
     touchingEdge = false;
+    isAlive = true;
     collected = new LinkedList<>();
     countCollected = 0;
     createBody(world, pos);
@@ -139,12 +155,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   @Override
   public void interactWithElement(ElementType elementType) {
-    if (!playerType.getImmunity().equals(elementType)) {
-      isAlive = false;
-      System.out.println(playerType + " interacted with deadly " + elementType);
-    } else {
-      System.out.println(playerType + " interacted with safe " + elementType);
-    }
+    isAlive = playerType.getImmunity().equals(elementType);
   }
 
   @Override
@@ -152,8 +163,18 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     return isAlive;
   }
 
+  @Override
+  public boolean isOnGround() {
+    return onGround;
+  }
+
+  @Override
+  public boolean isTouchingEdge() {
+    return touchingEdge;
+  }
+
   //////////////////////////
-  ///  PRIVATE METHODS   ///
+  //// PRIVATE METHODS /////
   //////////////////////////
 
   private static TextureRegion getTextureForType(PlayerType type) {
@@ -190,7 +211,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     this.body = world.createBody(bdef);
 
     PolygonShape bodyShape = new PolygonShape();
-    bodyShape.setAsBox(width / 2, height / 2); 
+    bodyShape.setAsBox(width / 2, height / 2);
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
@@ -199,13 +220,5 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     fdef.restitution = 0f;
     body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
-  }
-
-  public boolean isOnGround() {
-    return onGround;
-  }
-
-  public boolean isTouchingEdge() {
-    return touchingEdge;
   }
 }
