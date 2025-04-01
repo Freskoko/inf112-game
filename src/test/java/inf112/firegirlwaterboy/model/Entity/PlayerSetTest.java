@@ -49,8 +49,8 @@ public class PlayerSetTest {
     @Test
     void testContainsPlayer() {
         playerSet.add(new Player(PlayerType.FIREGIRL));
-        assertTrue(playerSet.containsPlayer(PlayerType.FIREGIRL));
-        assertFalse(playerSet.containsPlayer(PlayerType.WATERBOY));
+        assertTrue(playerSet.contains(PlayerType.FIREGIRL));
+        assertFalse(playerSet.contains(PlayerType.WATERBOY));
     }
 
     @Test

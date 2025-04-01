@@ -40,16 +40,14 @@ public class Model implements IControllableModel, IViewModel {
     world = new World(new Vector2(0, -9.8f), true);
     world.setContactListener(new MyContactListener());
     maps.createObjectsInWorld(world, mapName);
-    for (Player player : players) {
-      player.spawn(world, maps.getSpawnPos(mapName));
-    }
+    players.forEach(player -> player.spawn(world, maps.getSpawnPos(mapName)));
   }
 
 
 
   @Override
   public boolean changeDir(PlayerType playerType, MovementType dir) {
-    if (players.containsPlayer(playerType)) {
+    if (players.contains(playerType)) {
       Player player = players.getPlayer(playerType);
       player.move(dir);
       return true;
@@ -111,6 +109,6 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public boolean containsPlayer(PlayerType playerType) {
-    return players.containsPlayer(playerType);
+    return players.contains(playerType);
   }
 }

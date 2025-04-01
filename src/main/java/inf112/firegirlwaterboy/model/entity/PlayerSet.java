@@ -21,8 +21,7 @@ public class PlayerSet extends EntitySet<Player> {
     throw new IllegalArgumentException("PlayerSet does not contain a Player of type: " + playerType);
   }
 
-  public boolean containsPlayer(PlayerType playerType) {
+  public boolean contains(PlayerType playerType) {
     return super.contains(new Player(playerType));
   }
-
 }

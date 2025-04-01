@@ -63,7 +63,7 @@ public class ModelTest {
 
         PlayerSet mockPlayers = mock(PlayerSet.class);
 
-        when(mockPlayers.containsPlayer(PlayerType.FIREGIRL)).thenReturn(true);
+        when(mockPlayers.contains(PlayerType.FIREGIRL)).thenReturn(true);
         when(mockPlayers.getPlayer(PlayerType.FIREGIRL)).thenReturn(mockPlayer);
 
         try {
