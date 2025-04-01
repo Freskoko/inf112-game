@@ -9,9 +9,9 @@ public interface IPlayer {
 
   /**
    * Adds a collectable item to the player's collection queue and increments the
-   * collected count.
+   * collected count if collectable can be collected by the player.
    *
-   * @param collectable The collectable item to be added.
+   * @param collectable The collectable object the player interacts with.
    */
   void interactWithCollectable(Collectable collectable);
 
