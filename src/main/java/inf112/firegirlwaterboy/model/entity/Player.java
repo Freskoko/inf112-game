@@ -217,7 +217,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     bodyShape.dispose();
   }
 
-  public void jump() {
+  private void jump() {
     if (onGround && !touchingEdge) {
       body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
     }
