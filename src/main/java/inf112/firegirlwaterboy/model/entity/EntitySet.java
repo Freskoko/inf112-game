@@ -11,58 +11,29 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * 
  * @param <E> Entity
  */
-public class EntitySet<E extends IEntity<T>, T> implements Iterable<E>, IEntitySet<E, T> {
-  public static final int maxPlayers = 2;
-  private HashSet<E> entities;
+public abstract class EntitySet<E extends IEntity> implements Iterable<E>, IEntitySet<E> {
 
-  public EntitySet() {
+  protected HashSet<E> entities;
+
+  protected EntitySet() {
     entities = new HashSet<>();
   }
 
   @Override
-  public void addEntity(E entity) {
-    if (entity instanceof Player) {
-      if (entities.size() >= EntitySet.maxPlayers) {
-        System.out.println("Max players reached!");
-        return;
-      } else {
-        if (entities.contains(entity)) {
-          throw new IllegalArgumentException("Player of type:" + entity + "already exists");
-        }
-      }
-
+  public void add(E entity) {
+    if (!entities.add(entity)) {
+      throw new IllegalArgumentException("Entity of type: " + entity.getType() + " already exists");
     }
-    entities.add(entity);
   }
-
-  
-  public E getEntity(PlayerType playerType) {
-    for (E entity : entities) {
-      if (entity.getEntityType() == playerType) {
-        return entity;
-      }
-    }
-    throw new IllegalArgumentException("EntitySet does not contain a Player of type: " + playerType);
-  }
-
-  
-
-
 
   @Override
   public void draw(Batch batch) {
-    for (E entity : entities) {
-      entity.draw(batch);
-    }
+    entities.forEach(entity -> entity.draw(batch));
   }
 
-  /**
-   * Disposes of all textures used by the players
-   */
+  @Override
   public void dispose() {
-    for (E entity : entities) {
-      entity.getTexture().dispose();
-    }
+    entities.forEach(entity -> entity.dispose());
   }
 
   @Override
@@ -75,14 +46,10 @@ public class EntitySet<E extends IEntity<T>, T> implements Iterable<E>, IEntityS
     return entities.isEmpty();
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-
-    for (E entities : entities) {
-      sb.append(entities.toString()).append(", ");
-    }
+    entities.forEach(entity -> sb.append(entity).append(", "));
 
     if (sb.length() > 0) {
       sb.setLength(sb.length() - 2);
@@ -92,12 +59,8 @@ public class EntitySet<E extends IEntity<T>, T> implements Iterable<E>, IEntityS
   }
 
   @Override
-  public boolean containsEntity(T entityType) {
-      for (E entity : entities) {
-          if (entity.getEntityType() == entityType) {
-              return true;
-          }
-      }
-      return false;
+  public boolean contains(E entity) {
+    return entities.contains(entity);
   }
+
 }

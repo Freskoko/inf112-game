@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.IControllableModel;
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.entity.EntitySet;
 import inf112.firegirlwaterboy.model.entity.Player;
+import inf112.firegirlwaterboy.model.entity.PlayerSet;
 import inf112.firegirlwaterboy.model.entity.PlayerType;
 import inf112.firegirlwaterboy.model.maps.IMaps;
 import inf112.firegirlwaterboy.model.maps.Maps;
@@ -20,7 +20,7 @@ import inf112.firegirlwaterboy.view.IViewModel;
  */
 public class Model implements IControllableModel, IViewModel {
 
-  private EntitySet<Player, PlayerType> players;
+  private PlayerSet players;
   private GameState gameState;
   private IMaps maps;
   private String mapName;
@@ -28,7 +28,7 @@ public class Model implements IControllableModel, IViewModel {
   private int collectedCount;
 
   public Model() {
-    this.players = new EntitySet<>();
+    this.players = new PlayerSet();
     this.collectedCount = 0;
     this.mapName = "map";
     this.maps = new Maps();
@@ -40,23 +40,19 @@ public class Model implements IControllableModel, IViewModel {
     world = new World(new Vector2(0, -9.8f), true);
     world.setContactListener(new MyContactListener());
     maps.createObjectsInWorld(world, mapName);
-    for (Player player : players) {
-      player.spawn(world, maps.getSpawnPos(mapName));
-    }
+    players.forEach(player -> player.spawn(world, maps.getSpawnPos(mapName)));
   }
 
 
 
   @Override
   public boolean changeDir(PlayerType playerType, MovementType dir) {
-    try {
-      Player player = players.getEntity(playerType);
+    if (players.contains(playerType)) {
+      Player player = players.getPlayer(playerType);
       player.move(dir);
       return true;
-    } catch (IllegalArgumentException e) {
-      System.out.println(e.getMessage());
-      return false;
     }
+    return false;
   }
 
   @Override
@@ -98,7 +94,7 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public void addPlayer(PlayerType playerType) {
     Player player1 = new Player(playerType);
-    players.addEntity(player1);
+    players.add(player1);
   }
 
   @Override
@@ -113,6 +109,6 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public boolean containsPlayer(PlayerType playerType) {
-    return players.containsEntity(playerType);
+    return players.contains(playerType);
   }
 }

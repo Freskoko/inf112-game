@@ -24,11 +24,21 @@ public interface IEntity<T> {
    */
   void draw(Batch batch);
 
-  /** @return The texture of the entity */
-  Texture getTexture();
+  /**
+   * dispose the texture of entity
+   */
+  void dispose();
 
+  /**
+   * Retrieves the physics body associated with this entity.
+   *
+   * @return The Box2D body of the entity.
+   */
   Body getBody();
 
-  T getEntityType();
+  /**
+   * @return the type of the entity
+   */
+  T getType();
 
 }

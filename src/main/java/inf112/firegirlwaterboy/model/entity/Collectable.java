@@ -34,7 +34,7 @@ public class Collectable implements IEntity<String>, ICollectable {
     body = world.createBody(bdef);
 
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox( 8 / Maps.PPM, 8/ Maps.PPM);
+    shape.setAsBox(8 / Maps.PPM, 8 / Maps.PPM);
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
 
@@ -57,7 +57,7 @@ public class Collectable implements IEntity<String>, ICollectable {
 
   @Override
   public String toString() {
-    return "collectable for " + requiredPlayer;
+    return "Collectable for " + requiredPlayer;
   }
 
   @Override
@@ -73,8 +73,8 @@ public class Collectable implements IEntity<String>, ICollectable {
   }
 
   @Override
-  public Texture getTexture() {
-    return new Texture(Gdx.files.internal("FIREGIRL.png")); // Midlertidig
+  public void dispose() {
+    // TODO Auto-generated method stub
   }
 
   @Override
@@ -83,7 +83,7 @@ public class Collectable implements IEntity<String>, ICollectable {
   }
 
   @Override
-  public String getEntityType() {
+  public String getType() {
     return "Collectable";
     // In future multiple collectable types are added
   }

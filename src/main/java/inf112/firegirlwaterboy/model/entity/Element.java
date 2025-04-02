@@ -17,19 +17,19 @@ import inf112.firegirlwaterboy.model.maps.Maps;
  * Element class represents an element in the game.
  * Elements are static objects that can be interacted with by players.
  */
-public class Element implements IEntity<String> {
+public class Element implements IEntity<ElementType> {
   private Texture texture;
   private ElementType type;
   private Body body;
   private float x, y;
-  
+
   public Element(World world, MapObject object) {
     this.type = ElementType.valueOf(object.getProperties().get("type", String.class).toUpperCase());
     this.texture = new Texture(Gdx.files.internal(type.getTexturePath()));
 
     float width = Maps.getWidth(object);
     float height = Maps.getHeight(object);
-    
+
     this.x = Maps.getCX(object);
     this.y = Maps.getCY(object);
 
@@ -40,12 +40,12 @@ public class Element implements IEntity<String> {
 
     PolygonShape shape = new PolygonShape();
     shape.setAsBox(width / 2, height / 2);
-    
+
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
     Fixture fixture = body.createFixture(fdef);
     fixture.setSensor(true);
-    fixture.setUserData(type); 
+    fixture.setUserData(type);
     shape.dispose();
   }
 
@@ -59,26 +59,17 @@ public class Element implements IEntity<String> {
   }
 
   @Override
-  public Texture getTexture() {
-    return texture;
+  public void dispose() {
+    texture.dispose();
   }
-
-  /**
-   * Returns the type of the element.
-   * 
-   * @return the type of the element
-   */
-  public ElementType getType() {
-    return type;
-  }
-
-	@Override
-	public Body getBody() {
-		return body;
-	}
 
   @Override
-  public String getEntityType() {
-    return "Entity";
+  public Body getBody() {
+    return body;
+  }
+
+  @Override
+  public ElementType getType() {
+    return type;
   }
 }

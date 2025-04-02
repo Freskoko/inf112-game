@@ -7,38 +7,76 @@ import inf112.firegirlwaterboy.controller.MovementType;
 
 public interface IPlayer {
 
-  void collect(Collectable collectable);
-
-  void setOnGround(boolean groundStatus);
-
-  void setTouchingEdge(boolean edgeStatus);
-
-  void jump();
+  /**
+   * Adds a collectable item to the player's collection queue and increments the
+   * collected count if collectable can be collected by the player.
+   *
+   * @param collectable The collectable object the player interacts with.
+   */
+  void interactWithCollectable(Collectable collectable);
 
   /**
-   * Sets the velocity of the player.
-   * 
-   * @param dir The velocity in x direction
+   * Sets whether the player is currently on the ground.
+   *
+   * @param groundStatus true if the player is on the ground; false otherwise.
+   */
+  void setOnGround(boolean groundStatus);
+
+  /**
+   * Sets whether the player is touching an edge.
+   *
+   * @param edgeStatus true if the player is touching an edge; false otherwise.
+   */
+  void setTouchingEdge(boolean edgeStatus);
+
+  /**
+   * Moves the player in the specified direction by modifying its body's linear
+   * velocity.
+   *
+   * @param dir The direction in which the player should move (UP, LEFT, RIGHT,
+   *            STOP).
+   * @throws IllegalArgumentException if an unexpected MovementType is provided.
    */
   void move(MovementType dir);
 
   /**
-   * Spawns a player with a given sprite and initial position.
+   * Spawns the player in the specified world at the given position, initializing
+   * its attributes and creating its physics body.
    *
-   * @param world The world representing the player
-   * @param pos   The initial position of the player
+   * @param world The Box2D world where the player will be spawned.
+   * @param pos   The position to spawn the player at.
    */
   void spawn(World world, Vector2 pos);
 
-  int getCountCollected();
+  /**
+   *
+   * @return The number of items collected by the player.
+   */
+  int getCollectedCount();
 
+  /**
+   *
+   * @return true if the player is alive; false otherwise.
+   */
   boolean isAlive();
 
   /**
-   * Handles the player's interaction with an element.
-   * 
-   * @param elementType the type of element, for example LAVA or WATER
+   * Determines the player's alive status based on interaction with a specific
+   * element type.
+   * The player survives only if its immunity matches the given element type.
+   *
+   * @param elementType The type of element the player interacts with.
    */
   void interactWithElement(ElementType elementType);
+
+  /**
+   * @return true if the player is on the ground; false otherwise.
+   */
+  boolean isOnGround();
+
+  /**
+   * @return true if the player is touching an edge; false otherwise.
+   */
+  boolean isTouchingEdge();
 
 }
