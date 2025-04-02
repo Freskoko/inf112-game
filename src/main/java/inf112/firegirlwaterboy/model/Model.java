@@ -119,4 +119,15 @@ public class Model implements IControllableModel, IViewModel {
   public boolean containsPlayer(PlayerType playerType) {
     return players.contains(playerType);
   }
+
+
+  @Override
+  public int getTotalCollectedScore() {
+    int collectedCount = 0;
+    for (Player player : players) {
+      collectedCount += player.getCountCollected();
+    }
+    return collectedCount;
+  }
+
 }

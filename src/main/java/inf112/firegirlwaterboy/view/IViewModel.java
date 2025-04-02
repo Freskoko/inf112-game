@@ -57,5 +57,13 @@ public interface IViewModel {
   void restartGame();
 
 
+  /**
+   * Get the total score collected by the players
+   * 
+   * @return the total score collected by the player
+   */
+  int getTotalCollectedScore();
+
+
 
 }
