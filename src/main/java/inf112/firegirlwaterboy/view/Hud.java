@@ -8,6 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Hud class represents the heads-up display for the game.
@@ -19,38 +23,44 @@ public class Hud {
     private Label scoreLabel;
     private Integer score;
     private Label timerLabel;
-    private float time; // Time in seconds since start
+    private float time;
+    private IViewModel model;
 
     /**
      * Constructor for the Hud class.
      * 
      * @param batch
      */
-    public Hud(SpriteBatch batch) {
+    public Hud(SpriteBatch batch, IViewModel model) {
+        this.model = model;
         score = 0;
 
         viewport = new ScreenViewport();
         stage = new Stage(viewport, batch);
 
-        Table table = new Table();
-        table.top();
-        table.setFillParent(true);
+        Table mainTable = new Table();
+        mainTable.top();
+        mainTable.setFillParent(true);
 
         BitmapFont font = new BitmapFont();
-        Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
+        Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.BLACK);
 
         scoreLabel = new Label("Score: " + score, labelStyle);
         time = 0f;
-
         timerLabel = new Label("Time: 0", labelStyle);
-        table.row();
-        table.add(timerLabel).expandX().padTop(10);
-        table.add(scoreLabel).expandX().padTop(10);
 
-        stage.addActor(table);
+        Table hudTable = new Table();
+        // Usikker på farge på tekst og evt bakgrunnsfarge på HUD, så kommenterer ut for nå
+        //hudTable.setBackground(createBackgroundDrawable(Color.LIGHT_GRAY, 0.5f));
+        hudTable.pad(10);
+
+        hudTable.add(timerLabel).expandX().padRight(20);
+        hudTable.add(scoreLabel).expandX();
+
+        mainTable.add(hudTable).expandX().padTop(10);
+
+        stage.addActor(mainTable);
     }
-
-    
 
     /**
      * Draw the stage.
@@ -86,11 +96,14 @@ public class Hud {
     }
 
     /**
+     * Update the score and time.
+     * 
      * @param deltaTime
      */
-    public void updateTime(float deltaTime) {
+    public void update(float deltaTime) {
         time += deltaTime;
         timerLabel.setText("Time: " + (int) time);
+        scoreLabel.setText("Score: " + model.getTotalCollectedScore());
     }
 
     /**
@@ -111,10 +124,14 @@ public class Hud {
         scoreLabel.setText("Score: " + score);
     }
 
-    public void updateScoreFromModel(IViewModel model) {
-        //score = model.getCollectedCount();
-        scoreLabel.setText("Score: " + score);
+    private Drawable createBackgroundDrawable(Color color, float alpha) {
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        color.a = alpha;
+        pixmap.setColor(color);
+        pixmap.fill();
+        Texture texture = new Texture(pixmap);
+        pixmap.dispose();
+        return new TextureRegionDrawable(texture);
     }
-
 
 }
