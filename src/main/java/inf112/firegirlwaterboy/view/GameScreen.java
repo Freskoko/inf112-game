@@ -68,7 +68,7 @@ public class GameScreen implements Screen {
     camera.update();
 
     batch = new SpriteBatch();
-    hud = new Hud(batch); // Ensure Hud is a static class or adjust instantiation
+    hud = new Hud(batch, model); 
 
     // Load map
     map = model.getMap();
@@ -104,14 +104,12 @@ public class GameScreen implements Screen {
     model.update();
 
     batch.setProjectionMatrix(hud.getStage().getCamera().combined);
-    hud.updateTime(delta);
+    hud.update(delta);
     hud.draw();
 
-    if (model.getGameState() == GameState.ACTIVE_GAME) {
-      hud.updateTime(delta);
-      hud.updateScoreFromModel(model);
+
     }
-  }
+  
 
   @Override
   public void resume() {
