@@ -35,6 +35,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private int collectedCount;
   private Queue<Collectable> collected;
   private boolean touchingEdge;
+  private Platform currentPlatform;
 
   /**
    * Initalizes a player, giving them a type and texture
@@ -84,6 +85,8 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
       Collectable collectable = collected.poll();
       collectable.collect();
     }
+
+  
     Vector2 position = body.getPosition();
     setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2);
   }
@@ -201,7 +204,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     bdef.position.set(pos);
     bdef.type = BodyDef.BodyType.DynamicBody;
     bdef.fixedRotation = true;
-
     bdef.linearDamping = 0;
     this.body = world.createBody(bdef);
 
@@ -211,15 +213,22 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
     fdef.density = 0.5f;
-    fdef.friction = 0.1f;
+    //fdef.friction = 0.1f;
     fdef.restitution = 0f;
     body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
   }
 
   private void jump() {
-    if (onGround && !touchingEdge) {
-      body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
-    }
+    if (!touchingEdge )
+      if (onGround || currentPlatform != null) {
+        body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
+        currentPlatform = null;
+      }
+  }
+
+  public void setOnPlatform(Platform platform) {
+    this.currentPlatform = platform;
+    //body.setGravityScale(0);
   }
 }
