@@ -83,8 +83,8 @@ public class MyContactListener implements ContactListener {
       }
     }
   }
-  
-  
+
+
   /**
    * Returns true if one of the given objects is "Finish"
    * 

@@ -68,7 +68,7 @@ public class Model implements IControllableModel, IViewModel {
       if (!player.isAlive()) {
         gameState = GameState.GAME_OVER;
       }
-    }   
+    }
     if (players.areFinished()) {
       gameState = GameState.COMPLETED_LEVEL;
     }

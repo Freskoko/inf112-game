@@ -116,11 +116,28 @@ public class Maps implements IMaps {
         case "Collectable" -> createCollectablesFromLayer(world, layer);
         case "Elements" -> createElementsFromLayer(world, layer);
         case "Spawn" -> {} // Ignore spawn layer;
-        case "Finish" -> createFinishFromLayer(world, layer);
         case "Platform" -> createPlatform(world, layer, mapName);
-        default -> createObjectsFromLayer(world, layer);
+        case "Finish" -> createFinishFromLayer(world, layer);
+        default ->  createObjectsFromLayer(world, layer);
       }
     }
+  }
+
+
+    /**
+   * Creates platfroms in the world from a given map layer.
+   * Saves platforms in hashmap with the map name as key.
+   * 
+   * @param world The Box2D world where platforms should be created.
+   * @param layer The map layer containing platforms.
+   * @param mapName The name of the map to save the platforms with.
+   */
+  private void createPlatform(World world, MapLayer layer, String mapName) {
+    EntitySet<Platform> platforms = new EntitySet<>();
+    for (MapObject object : layer.getObjects()) {
+      platforms.add(new Platform(world, object));
+    }
+    platformsMap.put(mapName, platforms);
   }
 
   /**
@@ -146,24 +163,6 @@ public class Maps implements IMaps {
       fixture.setUserData(layer.getName());
       shape.dispose();
     }
-  }
-
-
-
-    /**
-   * Creates platfroms in the world from a given map layer.
-   * Saves platforms in hashmap with the map name as key.
-   * 
-   * @param world The Box2D world where platforms should be created.
-   * @param layer The map layer containing platforms.
-   * @param mapName The name of the map to save the platforms with.
-   */
-  private void createPlatform(World world, MapLayer layer, String mapName) {
-    EntitySet<Platform> platforms = new EntitySet<>();
-    for (MapObject object : layer.getObjects()) {
-      platforms.add(new Platform(world, object));
-    }
-    platformsMap.put(mapName, platforms);
   }
 
   /**
