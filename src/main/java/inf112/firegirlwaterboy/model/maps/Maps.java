@@ -1,7 +1,10 @@
 package inf112.firegirlwaterboy.model.maps;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -17,7 +20,9 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.entity.Element;
-
+import inf112.firegirlwaterboy.model.entity.EntitySet;
+import inf112.firegirlwaterboy.model.entity.Platform;
+import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.entity.Collectable;
 
 /**
@@ -29,6 +34,9 @@ public class Maps implements IMaps {
   private HashMap<String, TiledMap> maps;
   public static final float PPM = 32;
   private final Vector2 DEFAULT_SPAWN_POS = new Vector2(100, 100);
+
+  private HashMap<String, EntitySet<Platform>> platformsMap = new HashMap<>(); 
+
 
   /**
    * Loads all Tiled maps (*.tmx) from the resources folder into a HashMap.
@@ -109,6 +117,7 @@ public class Maps implements IMaps {
         case "Elements" -> createElementsFromLayer(world, layer);
         case "Spawn" -> {} // Ignore spawn layer;
         case "Finish" -> createFinishFromLayer(world, layer);
+        case "Platform" -> createPlatform(world, layer, mapName);
         default -> createObjectsFromLayer(world, layer);
       }
     }
@@ -137,6 +146,24 @@ public class Maps implements IMaps {
       fixture.setUserData(layer.getName());
       shape.dispose();
     }
+  }
+
+
+
+    /**
+   * Creates platfroms in the world from a given map layer.
+   * Saves platforms in hashmap with the map name as key.
+   * 
+   * @param world The Box2D world where platforms should be created.
+   * @param layer The map layer containing platforms.
+   * @param mapName The name of the map to save the platforms with.
+   */
+  private void createPlatform(World world, MapLayer layer, String mapName) {
+    EntitySet<Platform> platforms = new EntitySet<>();
+    for (MapObject object : layer.getObjects()) {
+      platforms.add(new Platform(world, object));
+    }
+    platformsMap.put(mapName, platforms);
   }
 
   /**
@@ -205,7 +232,6 @@ public class Maps implements IMaps {
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
-    fdef.friction = 0.6f;
     fdef.restitution = 0f;
     Fixture fixture = body.createFixture(fdef);
 
@@ -270,4 +296,16 @@ public class Maps implements IMaps {
   public static float getY(MapObject object) {
     return object.getProperties().get("y", Float.class) / PPM;
   }
+
+  public static String getProperty(MapObject object, String property) {
+    return object.getProperties().get(property, String.class).toUpperCase();
+  }
+
+  @Override
+  public EntitySet<Platform> getPlatforms(String mapName) {
+    return platformsMap.get(mapName);
+  }
+
+  
+
 }
