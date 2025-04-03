@@ -82,8 +82,8 @@ public class MyContactListener implements ContactListener {
         player.setOnPlatform(platform);
       }
     }
-    }
   }
+  
   
   /**
    * Returns true if one of the given objects is "Finish"
