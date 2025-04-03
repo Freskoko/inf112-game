@@ -53,7 +53,7 @@ public class Maps implements IMaps {
       for (File file : tmxFiles) {
         try {
           String mapName = file.getName().replace(".tmx", "");
-          maps.put(mapName, new TmxMapLoader().load("src/main/resources/" + file.getName()));
+          maps.put(mapName, new TmxMapLoader().load("src/main/resources/maps" + file.getName()));
         } catch (Exception e) {
           System.err.println("Error loading map: " + file.getName());
           e.printStackTrace();

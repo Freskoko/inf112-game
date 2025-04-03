@@ -4,9 +4,9 @@ package inf112.firegirlwaterboy.model.types;
  * Enum for the different element types in the game.
  */
 public enum ElementType {
-  LAVA("lava.png"),
-  WATER("water.png"),
-  NEUTRAL("platform.png"); // Legg inn bilde senere
+  LAVA("element/lava.png"),
+  WATER("element/water.png"),
+  NEUTRAL("element/platform.png"); // Legg inn bilde senere
 
   private final String texturePath;
 
