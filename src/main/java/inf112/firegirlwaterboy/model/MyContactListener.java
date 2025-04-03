@@ -46,6 +46,10 @@ public class MyContactListener implements ContactListener {
         player.setTouchingEdge(contactStatus);
       }
 
+      if (isFinishZone(a, b)) {
+        player.setFinished(contactStatus);
+      }
+
       Collectable collectable = getCollectable(a, b);
       if (collectable != null) {
         player.interactWithCollectable(collectable);
@@ -56,6 +60,17 @@ public class MyContactListener implements ContactListener {
         player.interactWithElement(elementType);
       }
     }
+  }
+  
+  /**
+   * Returns true if one of the given fixtures is the finish zone.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return true if one of the fixtures is the finish zone
+   */
+  private boolean isFinishZone(Fixture a, Fixture b) {
+    return "Finish".equals(a.getUserData()) || "Finish".equals(b.getUserData());
   }
 
   /**
