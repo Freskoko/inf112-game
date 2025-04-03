@@ -11,11 +11,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * 
  * @param <E> Entity
  */
-public abstract class EntitySet<E extends IEntity> implements Iterable<E>, IEntitySet<E> {
+public class EntitySet<E extends IEntity<?>> implements Iterable<E>, IEntitySet<E> {
 
   protected HashSet<E> entities;
 
-  protected EntitySet() {
+  public EntitySet() {
     entities = new HashSet<>();
   }
 
@@ -61,6 +61,11 @@ public abstract class EntitySet<E extends IEntity> implements Iterable<E>, IEnti
   @Override
   public boolean contains(E entity) {
     return entities.contains(entity);
+  }
+
+  @Override
+  public void update() {
+    entities.forEach(entity -> entity.update());
   }
 
 }
