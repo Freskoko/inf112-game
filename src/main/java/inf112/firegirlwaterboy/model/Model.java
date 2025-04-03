@@ -43,8 +43,6 @@ public class Model implements IControllableModel, IViewModel {
     players.forEach(player -> player.spawn(world, maps.getSpawnPos(mapName)));
   }
 
-
-
   @Override
   public boolean changeDir(PlayerType playerType, MovementType dir) {
     if (players.contains(playerType)) {
@@ -63,6 +61,9 @@ public class Model implements IControllableModel, IViewModel {
       if (!player.isAlive()) {
         gameState = GameState.GAME_OVER;
       }
+    }
+    if (players.areFinished()) {
+      gameState = GameState.COMPLETED_LEVEL;
     }
   }
 

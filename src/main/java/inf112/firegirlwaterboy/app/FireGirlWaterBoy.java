@@ -12,6 +12,7 @@ import inf112.firegirlwaterboy.view.GameOverScreen;
 import inf112.firegirlwaterboy.view.GameScreen;
 import inf112.firegirlwaterboy.view.HelpScreen;
 import inf112.firegirlwaterboy.view.WelcomeScreen;
+import inf112.firegirlwaterboy.view.CompletedLevelScreen;
 
 /**
  * FireGirlWaterBoy is a game where the player controls two characters, FireGirl
@@ -33,6 +34,7 @@ public class FireGirlWaterBoy extends Game {
   private HelpScreen helpScreen;
   private ChooseMapScreen chooseMapScreen;
   private GameOverScreen gameOverScreen;
+  private CompletedLevelScreen completedLevelScreen;
 
   public FireGirlWaterBoy() {
     this.model = new Model();
@@ -94,6 +96,11 @@ public class FireGirlWaterBoy extends Game {
           gameOverScreen = new GameOverScreen(controller);
         return gameOverScreen;
 
+      case COMPLETED_LEVEL:
+        if (completedLevelScreen == null)
+          completedLevelScreen = new CompletedLevelScreen(controller);
+        return completedLevelScreen;
+        
       default:
         System.out.println("Ukjent GameState: " + gameState);
         if (welcomeScreen == null)

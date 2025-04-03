@@ -93,7 +93,15 @@ public class Controller implements InputProcessor {
   // Attach GameOverScreen buttons
   public void attachGameOverScreenListeners(Button backToWelcomeScreenButton) {
     backToWelcomeScreenButton.addListener(buttonHandler.welcomeScreenButtonListener());
+  }
 
+  /**
+   * Attaches listeners to the buttons on the CompletedLevelScreen.
+   * 
+   * @param backToChooseMapScreenButton The button uesd to go back to the ChooseMapScreen.
+   */
+  public void attachCompletedLevelScreenListeners(Button backToChooseMapScreenButton) {
+    backToChooseMapScreenButton.addListener(buttonHandler.welcomeScreenButtonListener());
   }
 
   @Override
@@ -101,8 +109,21 @@ public class Controller implements InputProcessor {
     switch (model.getGameState()) {
       case ACTIVE_GAME -> handleActiveGameState(keycode);
       case GAME_OVER -> handleGameOverState(keycode);
+      case COMPLETED_LEVEL -> handleCompletedLevelState(keycode);
+      case HELP -> {}
+      case WELCOME -> {}
+      case CHOOSE_MAP -> {}
     }
     return true;
+  }
+
+  private void handleCompletedLevelState(int keycode) {
+    switch (keycode) {
+      case Keys.R:
+        model.setGameState(GameState.ACTIVE_GAME);
+        model.restartGame();
+        break;
+    }
   }
 
   @Override

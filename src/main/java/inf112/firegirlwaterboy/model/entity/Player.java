@@ -35,6 +35,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private int collectedCount;
   private Queue<Collectable> collected;
   private boolean touchingEdge;
+  private boolean finished;
 
   /**
    * Initalizes a player, giving them a type and texture
@@ -42,6 +43,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   public Player(PlayerType playerType) {
     super(getTextureForType(playerType));
     this.playerType = playerType;
+    this.finished = false;
   }
 
   @Override
@@ -166,6 +168,16 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   @Override
   public boolean isTouchingEdge() {
     return touchingEdge;
+  }
+
+  @Override
+  public void setFinished(boolean finished) {
+    this.finished = finished;
+  }
+
+  @Override
+  public boolean isFinished() {
+    return finished;
   }
 
   //////////////////////////
