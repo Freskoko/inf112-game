@@ -1,4 +1,7 @@
-package inf112.firegirlwaterboy.model.entity;
+package inf112.firegirlwaterboy.model.managers;
+
+import inf112.firegirlwaterboy.model.entity.Player;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 public class PlayerSet extends EntitySet<Player> {
 

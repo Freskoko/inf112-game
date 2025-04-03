@@ -1,5 +1,7 @@
 package inf112.firegirlwaterboy.model.entity;
 
+import inf112.firegirlwaterboy.model.types.PlayerType;
+
 public interface ICollectable {
 
   /**

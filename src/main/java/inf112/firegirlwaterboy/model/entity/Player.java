@@ -18,6 +18,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.MovementType;
 import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.types.ElementType;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 /**
  * Player class represents a player character in the game.
