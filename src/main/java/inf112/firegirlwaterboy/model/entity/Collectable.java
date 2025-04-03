@@ -19,22 +19,19 @@ public class Collectable implements IEntity<String>, ICollectable {
   private Body body;
   private World world;
 
-  public Collectable(World world, MapObject object) {
-    float x = Maps.getCX(object);
-    float y = Maps.getCY(object);
-    float with = Maps.getWidth(object);
-    float height = Maps.getHeight(object);
-
-    this.requiredPlayer = PlayerType.valueOf(object.getProperties().get("PlayerType", String.class).toUpperCase());
+  public Collectable(World world, MapObject collectable) {
+    float width = Maps.getWidth(collectable);
+    float height = Maps.getHeight(collectable);
+    this.requiredPlayer = PlayerType.valueOf(Maps.getProperty(collectable, "PlayerType"));
     this.world = world;
 
     BodyDef bdef = new BodyDef();
-    bdef.position.set(x, y);
+    bdef.position.set(Maps.getCX(collectable), Maps.getCY(collectable));
     bdef.type = BodyDef.BodyType.StaticBody;
     body = world.createBody(bdef);
 
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(8 / Maps.PPM, 8 / Maps.PPM);
+    shape.setAsBox(width / 2, height / 2);
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
 
@@ -84,6 +81,7 @@ public class Collectable implements IEntity<String>, ICollectable {
 
   @Override
   public String getType() {
+
     return "Collectable";
     // In future multiple collectable types are added
   }
