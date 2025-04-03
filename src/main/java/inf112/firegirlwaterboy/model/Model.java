@@ -7,8 +7,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.IControllableModel;
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.entity.EntitySet;
-import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.entity.PlayerSet;
 import inf112.firegirlwaterboy.model.entity.PlayerType;
@@ -23,7 +21,6 @@ import inf112.firegirlwaterboy.view.IViewModel;
 public class Model implements IControllableModel, IViewModel {
 
   private PlayerSet players;
-  private EntitySet<Platform> platforms;
   private GameState gameState;
   private IMaps maps;
   private String mapName;
@@ -43,8 +40,6 @@ public class Model implements IControllableModel, IViewModel {
     world = new World(new Vector2(0, -9.8f), true);
     world.setContactListener(new MyContactListener());
     maps.createObjectsInWorld(world, mapName);
-    platforms = new EntitySet<>();
-    platforms = maps.getPlatforms(mapName);
     players.forEach(player -> player.spawn(world, maps.getSpawnPos(mapName)));
   }
 
@@ -61,14 +56,12 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public void update() {
     world.step(1 / 60f, 6, 2);
-    players.update();
-    platforms.update();
-
     for (Player player : players) {
+      player.update();
       if (!player.isAlive()) {
         gameState = GameState.GAME_OVER;
       }
-    }   
+    }
     if (players.areFinished()) {
       gameState = GameState.COMPLETED_LEVEL;
     }
@@ -87,7 +80,6 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public void draw(Batch batch) {
     players.draw(batch);
-    platforms.draw(batch);
   }
 
   @Override
@@ -102,7 +94,8 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public void addPlayer(PlayerType playerType) {
-    players.add(new Player(playerType));
+    Player player1 = new Player(playerType);
+    players.add(player1);
   }
 
   @Override

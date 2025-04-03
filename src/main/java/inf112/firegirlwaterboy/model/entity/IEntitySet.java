@@ -35,9 +35,4 @@ public interface IEntitySet<E extends IEntity> {
    * @return true if entitySet contains enitity
    */
   boolean contains(E entity);
-
-  /**
-   * Updates all entities in the set. Used for updatating entity state.
-   */
-  void update();
 }

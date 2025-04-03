@@ -1,22 +1,15 @@
 package inf112.firegirlwaterboy.model.maps;
 
-import java.util.List;
-
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
-import inf112.firegirlwaterboy.model.entity.EntitySet;
-import inf112.firegirlwaterboy.model.entity.Platform;
-import inf112.firegirlwaterboy.model.entity.Player;
-
 public interface IMaps {
 
   /**
    * Retrieves a {@link TiledMap} by its name.
-   * If maps not initialized: initializes the all maps by loading all available
-   * Tiled maps from recources
+   * If maps not initialized: initializes the all maps by loading all available Tiled maps from recources
    * folder.
    *
    * @param mapName The name of the map to retrieve.
@@ -36,8 +29,7 @@ public interface IMaps {
   MapLayer getLayer(String mapName, String layerName);
 
   /**
-   * Gets the player's spawn position from the "Spawn" object layer in the
-   * specified
+   * Gets the player's spawn position from the "Spawn" object layer in the specified
    * map.
    * Returns a default position if the layer or objects are missing.
    * 
@@ -58,13 +50,4 @@ public interface IMaps {
    * @param mapName The name of the map with object layers
    */
   void createObjectsInWorld(World world, String mapName);
-
-  /**
-   * Retrieves the set of platforms associated with the specified map.
-   *
-   * @param mapName the name of the map for which platforms are requested
-   * @return an {@code EntitySet} containing the platforms for the given map,
-   *         or {@code null} if no platforms exist for the specified map
-   */
-  EntitySet<Platform> getPlatforms(String mapName);
 }

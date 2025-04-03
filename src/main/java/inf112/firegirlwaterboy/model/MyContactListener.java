@@ -3,13 +3,11 @@ package inf112.firegirlwaterboy.model;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import inf112.firegirlwaterboy.model.entity.ElementType;
-import inf112.firegirlwaterboy.model.entity.IEntity;
-import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Collectable;
-import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Player;
 
 /**
@@ -21,24 +19,11 @@ public class MyContactListener implements ContactListener {
   @Override
   public void beginContact(Contact contact) {
     playerCollision(contact, true);
-    platformCollision(contact);
   }
 
   @Override
   public void endContact(Contact contact) {
     playerCollision(contact, false);
-  }
-
-  private void platformCollision(Contact contact) {
-    Object a = contact.getFixtureA().getUserData();
-    Object b = contact.getFixtureB().getUserData();
-
-    Platform platform = getEntity(a, b, Platform.class);
-    if (platform != null) {
-      if (isEdge(a, b) || isHorizontal(a, b)) {
-        platform.collision();
-      }
-    }
   }
 
   /**
@@ -48,13 +33,11 @@ public class MyContactListener implements ContactListener {
    * @param contactStatus true if the contact is beginning, false if it is ending
    */
   private void playerCollision(Contact contact, Boolean contactStatus) {
-    Object a = contact.getFixtureA().getUserData();
-    Object b = contact.getFixtureB().getUserData();
-
-    Player player = getEntity(a, b, Player.class);
+    Fixture a = contact.getFixtureA();
+    Fixture b = contact.getFixtureB();
+    Player player = getPlayer(a, b);
 
     if (player != null) {
-
       if (isHorizontal(a, b)) {
         player.setOnGround(contactStatus);
       }
@@ -67,56 +50,65 @@ public class MyContactListener implements ContactListener {
         player.setFinished(contactStatus);
       }
 
-      Collectable collectable = getEntity(a, b, Collectable.class);
+      Collectable collectable = getCollectable(a, b);
       if (collectable != null) {
         player.interactWithCollectable(collectable);
       }
 
-      Element element = getEntity(a, b, Element.class);
-      if (element != null) {
-        player.interactWithElement(element.getType());
-      }
-
-      Platform platform = getEntity(a, b, Platform.class);
-      if (platform != null) {
-        player.setOnPlatform(platform);
+      ElementType elementType = getElementType(a, b);
+      if (elementType != null) {
+        player.interactWithElement(elementType);
       }
     }
   }
   
-  
   /**
-   * Returns true if one of the given objects is "Finish"
+   * Returns true if one of the given fixtures is the finish zone.
    * 
-   * @param a the first object
-   * @param b the second object
-   * @return true if one of the objects is "Finish" String
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return true if one of the fixtures is the finish zone
    */
-  private boolean isFinishZone(Object a, Object b) {
-    return "Finish".equals(a) || "Finish".equals(b);
-  }
-
-
-  /**
-   * Returns true if one of the given objects is an "Edge"
-   * 
-   * @param a the first object
-   * @param b the second object
-   * @return true if one of the fixtures is an "Edge" String
-   */
-  private boolean isEdge(Object a, Object b) {
-    return "Edges".equals(a) || "Edges".equals(b);
+  private boolean isFinishZone(Fixture a, Fixture b) {
+    return "Finish".equals(a.getUserData()) || "Finish".equals(b.getUserData());
   }
 
   /**
-   * Returns true if one of the given object is "Horizontal"
+   * Returns the element type of the fixture that is in contact with the player.
    * 
-   * @param a the first object
-   * @param b the second object
-   * @return true if one of the objects is "Horizontal"
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return the element type of the fixture in contact with the player
    */
-  private boolean isHorizontal(Object a, Object b) {
-    return "Horizontal".equals(a) || "Horizontal".equals(b);
+  private ElementType getElementType(Fixture a, Fixture b) {
+    if (a.getUserData() instanceof ElementType elementType) {
+      return elementType;
+    } else if (b.getUserData() instanceof ElementType elementType) {
+      return elementType;
+    }
+    return null;
+  }
+
+  /**
+   * Returns true if one of the given fixtures is an edge fixture.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return true if one of the fixtures is an edge fixture
+   */
+  private boolean isEdge(Fixture a, Fixture b) {
+    return "Edges".equals(a.getUserData()) || "Edges".equals(b.getUserData());
+  }
+
+  /**
+   * Returns true if one of the given fixtures is a horizontal fixture.
+   * 
+   * @param a the first fixture
+   * @param b the second fixture
+   * @return true if one of the fixtures is a horizontal fixture
+   */
+  private boolean isHorizontal(Fixture a, Fixture b) {
+    return "Horizontal".equals(a.getUserData()) || "Horizontal".equals(b.getUserData());
   }
 
   @Override
@@ -128,26 +120,27 @@ public class MyContactListener implements ContactListener {
   }
 
   /**
-   * Retrieves an entity of the specified type from two given objects.
-   * This method checks whether either of the objects is an instance of the given
-   * class and returns the first matching entity.
+   * Retrieves the Collectable object involved in the collision between two
+   * fixtures.
    *
-   * @param <T>   the type of entity to retrieve, extending {@code IEntity<?>}
-   * @param a     the first object to check
-   * @param b     the second object to check
-   * @param clazz the class type of the entity to retrieve
-   * @return an instance of {@code T} if one of the objects matches the specified
-   *         type, otherwise {@code null}
+   * @return the Collectable object if found; null otherwise
    */
-
-  private <T extends IEntity<?>> T getEntity(Object a, Object b, Class<T> clazz) {
-    if (clazz.isInstance(a)) {
-      return clazz.cast(a);
-    }
-    if (clazz.isInstance(b)) {
-      return clazz.cast(b);
+  private Collectable getCollectable(Fixture a, Fixture b) {
+    if (a.getUserData() instanceof Collectable collectable) {
+      return collectable;
+    } else if (b.getUserData() instanceof Collectable collectable) {
+      return collectable;
     }
     return null;
   }
 
+  private Player getPlayer(Fixture a, Fixture b) {
+    if (a.getUserData() instanceof Player player) {
+      return player;
+    }
+    if (b.getUserData() instanceof Player player) {
+      return player;
+    }
+    return null;
+  }
 }
