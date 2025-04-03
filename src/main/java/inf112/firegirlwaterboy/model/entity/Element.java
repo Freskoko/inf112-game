@@ -23,15 +23,15 @@ public class Element implements IEntity<ElementType> {
   private Body body;
   private float x, y;
 
-  public Element(World world, MapObject object) {
-    this.type = ElementType.valueOf(object.getProperties().get("type", String.class).toUpperCase());
+  public Element(World world, MapObject element) {
+    this.type = ElementType.valueOf(Maps.getProperty(element, "type"));
     this.texture = new Texture(Gdx.files.internal(type.getTexturePath()));
 
-    float width = Maps.getWidth(object);
-    float height = Maps.getHeight(object);
+    float width = Maps.getWidth(element);
+    float height = Maps.getHeight(element);
 
-    this.x = Maps.getCX(object);
-    this.y = Maps.getCY(object);
+    this.x = Maps.getCX(element);
+    this.y = Maps.getCY(element);
 
     BodyDef bdef = new BodyDef();
     bdef.position.set(x, y);
@@ -45,7 +45,7 @@ public class Element implements IEntity<ElementType> {
     fdef.shape = shape;
     Fixture fixture = body.createFixture(fdef);
     fixture.setSensor(true);
-    fixture.setUserData(type);
+    fixture.setUserData(this);
     shape.dispose();
   }
 
