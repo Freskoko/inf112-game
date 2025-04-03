@@ -24,4 +24,13 @@ public class PlayerSet extends EntitySet<Player> {
   public boolean contains(PlayerType playerType) {
     return super.contains(new Player(playerType));
   }
+
+  public boolean areFinished() {
+    for (Player player : entities) {
+      if (!player.isFinished()) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
