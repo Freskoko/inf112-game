@@ -165,6 +165,25 @@ public class Maps implements IMaps {
     platformsMap.put(mapName, platforms);
   }
 
+
+
+
+    /**
+   * Creates platfroms in the world from a given map layer.
+   * Saves platforms in hashmap with the map name as key.
+   * 
+   * @param world The Box2D world where platforms should be created.
+   * @param layer The map layer containing platforms.
+   * @param mapName The name of the map to save the platforms with.
+   */
+  private void createPlatform(World world, MapLayer layer, String mapName) {
+    EntitySet<Platform> platforms = new EntitySet<>();
+    for (MapObject object : layer.getObjects()) {
+      platforms.add(new Platform(world, object));
+    }
+    platformsMap.put(mapName, platforms);
+  }
+
   /**
    * Creates elements in the world from a given map layer.
    * 
