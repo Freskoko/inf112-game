@@ -108,8 +108,34 @@ public class Maps implements IMaps {
         case "Collectable" -> createCollectablesFromLayer(world, layer);
         case "Elements" -> createElementsFromLayer(world, layer);
         case "Spawn" -> {} // Ignore spawn layer;
-        default ->  createObjectsFromLayer(world, layer);
+        case "Finish" -> createFinishFromLayer(world, layer);
+        default -> createObjectsFromLayer(world, layer);
       }
+    }
+  }
+
+  /**
+   * Creates finish zone objects in the world from a given map layer.
+   * 
+   * @param world The Box2D world where objects should be created.
+   * @param layer The map layer containing finish zone objects.
+   */
+  private void createFinishFromLayer(World world, MapLayer layer) {
+    for (MapObject object : layer.getObjects()) {
+      BodyDef bdef = new BodyDef();
+      bdef.position.set(getCX(object), getCY(object));
+      bdef.type = BodyDef.BodyType.StaticBody;
+      Body body = world.createBody(bdef);
+
+      PolygonShape shape = new PolygonShape();
+      shape.setAsBox(getWidth(object) / 2, getHeight(object) / 2);
+
+      FixtureDef fdef = new FixtureDef();
+      fdef.shape = shape;
+      Fixture fixture = body.createFixture(fdef);
+      fixture.setSensor(true);
+      fixture.setUserData(layer.getName());
+      shape.dispose();
     }
   }
 
