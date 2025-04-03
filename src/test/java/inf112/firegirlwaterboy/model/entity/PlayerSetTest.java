@@ -16,6 +16,8 @@ import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
+import inf112.firegirlwaterboy.model.managers.PlayerSet;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 public class PlayerSetTest {
 
