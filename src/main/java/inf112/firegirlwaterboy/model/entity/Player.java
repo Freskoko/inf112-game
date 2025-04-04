@@ -194,13 +194,13 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     try {
       switch (type) {
         case FIREGIRL:
-          texture = new Texture(Gdx.files.internal("FIREGIRL.png"));
+          texture = new Texture(Gdx.files.internal("assets/maps/mapassets/players/FIREGIRL.png"));
           break;
         case WATERBOY:
-          texture = new Texture(Gdx.files.internal("WATERBOY.png"));
+          texture = new Texture(Gdx.files.internal("assets/maps/mapassets/players/WATERBOY.png"));
           break;
         default:
-          texture = new Texture(Gdx.files.internal("textures/default.png"));
+          texture = new Texture(Gdx.files.internal("/default.png"));
           break;
       }
       return new TextureRegion(texture);
