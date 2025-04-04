@@ -1,11 +1,7 @@
 package inf112.firegirlwaterboy.model.maps;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
@@ -22,7 +18,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.managers.EntitySet;
 import inf112.firegirlwaterboy.model.entity.Platform;
-import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.entity.Collectable;
 
 /**
@@ -46,14 +41,14 @@ public class Maps implements IMaps {
    */
   private HashMap<String, TiledMap> loadAllMaps() {
     HashMap<String, TiledMap> maps = new HashMap<>();
-    File dir = new File("src/main/resources/");
+    File dir = new File("src/main/resources/assets/maps/");
     File[] tmxFiles = dir.listFiles((dir1, name) -> name.toLowerCase().endsWith(".tmx"));
 
     if (tmxFiles != null) {
       for (File file : tmxFiles) {
         try {
           String mapName = file.getName().replace(".tmx", "");
-          maps.put(mapName, new TmxMapLoader().load("src/main/resources/maps" + file.getName()));
+          maps.put(mapName, new TmxMapLoader().load("src/main/resources/assets/maps/" + file.getName()));
         } catch (Exception e) {
           System.err.println("Error loading map: " + file.getName());
           e.printStackTrace();
