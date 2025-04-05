@@ -39,7 +39,7 @@ public class Model implements IControllableModel, IViewModel {
   }
 
   @Override
-  public void restartGame(){
+  public void restartGame() {
     world = new World(new Vector2(0, -9.8f), true);
     world.setContactListener(new MyContactListener());
     maps.createObjectsInWorld(world, mapName);
@@ -120,14 +120,9 @@ public class Model implements IControllableModel, IViewModel {
     return players.contains(playerType);
   }
 
-
   @Override
   public int getTotalCollectedScore() {
-    int collectedCount = 0;
-    for (Player player : players) {
-      collectedCount += player.getCountCollected();
-    }
-    return collectedCount;
+    return players.getTotalCollectedScore();
   }
 
 }

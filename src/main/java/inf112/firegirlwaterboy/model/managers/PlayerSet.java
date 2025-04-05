@@ -36,4 +36,12 @@ public class PlayerSet extends EntitySet<Player> {
     }
     return true;
   }
+
+  public int getTotalCollectedScore() {
+    int total = 0;
+    for (Player player : this) {
+        total += player.getCountCollected();
+    }
+    return total;
+}
 }
