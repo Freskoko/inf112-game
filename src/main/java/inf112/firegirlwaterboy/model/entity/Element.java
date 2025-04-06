@@ -73,4 +73,8 @@ public class Element implements IEntity<ElementType> {
   public ElementType getType() {
     return type;
   }
+
+  public Texture getTexture() {
+    return texture;
+  }
 }
