@@ -81,7 +81,7 @@ public class MapsTest {
      */
     @Test
     void testGetLayerFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.maps.getLayer("default_map", "idontexist!"));
+        assertThrows(IllegalArgumentException.class, () -> this.maps.getLayer("map", "idontexist!"));
     }
 
     @Test

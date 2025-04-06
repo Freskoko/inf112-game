@@ -5,7 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 import inf112.firegirlwaterboy.model.GameState;
-import inf112.firegirlwaterboy.model.entity.PlayerType;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 /**
  * Controller class for the game FireGirl & WaterBoy.

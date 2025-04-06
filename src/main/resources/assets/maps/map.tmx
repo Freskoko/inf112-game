@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="475">
  <tileset firstgid="1" source="tileset.xml"/>
- <tileset firstgid="49" source="FIREGIRL.tsx"/>
- <layer id="1" name="Background" width="30" height="30">
+ <tileset firstgid="49" source="mapassets/FIREGIRL.tsx"/>
+ <layer id="1" name="Background" width="30" height="30" locked="1">
   <data encoding="csv">
 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
 9,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,11,

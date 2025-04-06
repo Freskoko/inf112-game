@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import inf112.firegirlwaterboy.model.GameState;
-import inf112.firegirlwaterboy.model.entity.PlayerType;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 /**
  * ScreenButtonHandler class handles button logic for the different screens in

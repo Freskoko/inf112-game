@@ -18,6 +18,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.MovementType;
 import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.types.ElementType;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 /**
  * Player class represents a player character in the game.
@@ -192,13 +194,13 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     try {
       switch (type) {
         case FIREGIRL:
-          texture = new Texture(Gdx.files.internal("FIREGIRL.png"));
+          texture = new Texture(Gdx.files.internal("assets/maps/mapassets/players/FIREGIRL.png"));
           break;
         case WATERBOY:
-          texture = new Texture(Gdx.files.internal("WATERBOY.png"));
+          texture = new Texture(Gdx.files.internal("assets/maps/mapassets/players/WATERBOY.png"));
           break;
         default:
-          texture = new Texture(Gdx.files.internal("textures/default.png"));
+          texture = new Texture(Gdx.files.internal("/default.png"));
           break;
       }
       return new TextureRegion(texture);

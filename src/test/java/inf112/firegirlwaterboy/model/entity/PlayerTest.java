@@ -17,9 +17,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
-import inf112.firegirlwaterboy.model.entity.ElementType;
 import inf112.firegirlwaterboy.model.entity.Player;
-import inf112.firegirlwaterboy.model.entity.PlayerType;
+import inf112.firegirlwaterboy.model.types.ElementType;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 public class PlayerTest {
 

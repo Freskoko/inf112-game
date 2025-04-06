@@ -1,7 +1,5 @@
 package inf112.firegirlwaterboy.model.entity;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -12,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 public class Collectable implements IEntity<String>, ICollectable {
 

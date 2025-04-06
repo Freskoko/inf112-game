@@ -7,13 +7,13 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.IControllableModel;
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.entity.EntitySet;
+import inf112.firegirlwaterboy.model.managers.EntitySet;
 import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Player;
-import inf112.firegirlwaterboy.model.entity.PlayerSet;
-import inf112.firegirlwaterboy.model.entity.PlayerType;
+import inf112.firegirlwaterboy.model.managers.PlayerSet;
 import inf112.firegirlwaterboy.model.maps.IMaps;
 import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 import inf112.firegirlwaterboy.view.IViewModel;
 
 /**

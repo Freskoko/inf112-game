@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.MovementType;
+import inf112.firegirlwaterboy.model.types.ElementType;
 
 public interface IPlayer {
 

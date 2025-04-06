@@ -1,9 +1,11 @@
-package inf112.firegirlwaterboy.model.entity;
+package inf112.firegirlwaterboy.model.managers;
 
 import java.util.HashSet;
 import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+
+import inf112.firegirlwaterboy.model.entity.IEntity;
 
 /**
  * EntitySet is a class that holds a collection of entities.

@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.types.ElementType;
 
 /**
  * Element class represents an element in the game.

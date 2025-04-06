@@ -1,6 +1,8 @@
-package inf112.firegirlwaterboy.model.entity;
+package inf112.firegirlwaterboy.model.managers;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+
+import inf112.firegirlwaterboy.model.entity.IEntity;
 
 public interface IEntitySet<E extends IEntity> {
 

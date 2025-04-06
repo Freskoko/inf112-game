@@ -24,7 +24,7 @@ import com.badlogic.gdx.graphics.GL20;
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Model;
-import inf112.firegirlwaterboy.model.entity.PlayerType;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 public class ControllerTest {
     private Model model;

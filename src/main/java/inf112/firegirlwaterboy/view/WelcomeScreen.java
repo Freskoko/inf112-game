@@ -34,7 +34,7 @@ public class WelcomeScreen implements Screen {
         viewport = new ScreenViewport();
 
         stage = new Stage(viewport);
-        logo = new Texture("logo.png");
+        logo = new Texture("assets/pages/logo.png");
 
         setupUI();
     }
