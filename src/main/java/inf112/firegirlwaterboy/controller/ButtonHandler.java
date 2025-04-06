@@ -2,6 +2,7 @@ package inf112.firegirlwaterboy.controller;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import inf112.firegirlwaterboy.model.GameState;
@@ -12,12 +13,16 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
  * the game.
  */
 
-public class ScreenButtonHandler {
+public class ButtonHandler {
 
   private final Controller controller;
+  private String selectedMapName = null;
+  private final IControllableModel model;
 
-  public ScreenButtonHandler(Controller controller) {
+
+  public ButtonHandler(Controller controller, IControllableModel model) {
     this.controller = controller;
+    this.model = model;
   }
 
   // WELCOME SCREEN BUTTONS
@@ -44,7 +49,6 @@ public class ScreenButtonHandler {
       @Override
       public void clicked(InputEvent e, float x, float y) {
         controller.startGameIfPlayersSelected();
-        System.out.println("Start clicked");
       }
     };
   }
@@ -56,7 +60,7 @@ public class ScreenButtonHandler {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
-        controller.getModel().setGameState(GameState.HELP);
+        model.setGameState(GameState.HELP);
       }
     };
   }
@@ -70,32 +74,53 @@ public class ScreenButtonHandler {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
-        controller.getModel().setGameState(GameState.WELCOME);
-        System.out.println("Back clicked");
+        model.setGameState(GameState.WELCOME);
       }
     };
   }
 
   // CHOOSE MAP SCREEN BUTTON
 
-  /**
-   * Returns a ClickListener for the play button on choosemapscreen.
-   */
+  // CHOOSE MAP SCREEN BUTTONS
+  public ClickListener selectMapListener(String mapName, Button playButton, Button map1button, Button map2button) {
+    return new ClickListener() {
+      @Override
+      public void clicked(InputEvent e, float x, float y) {
+        selectedMapName = mapName;
+        playButton.setDisabled(false);
+        
+        // Reset color
+        map1button.setColor(Color.WHITE);
+        map2button.setColor(Color.WHITE);
+  
+        // Mark the selected button
+        e.getListenerActor().setColor(Color.GRAY);
+      }
+    };
+  }
+  
+
+  // PLAY
   public ClickListener playButtonListener() {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
-        controller.getModel().setGameState(GameState.ACTIVE_GAME);
+        if (selectedMapName != null) {
+          model.setMap(selectedMapName);
+          model.setGameState(GameState.ACTIVE_GAME);
+          selectedMapName = null;
+        }
       }
     };
   }
+  
 
   // GAME OVER SCREEN BUTTON
-  public ClickListener welcomeScreenButtonListener() {
+  public ClickListener toMapScreenListener() {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
-        controller.getModel().setGameState(GameState.CHOOSE_MAP);
+        model.setGameState(GameState.CHOOSE_MAP);
       }
     };
   }

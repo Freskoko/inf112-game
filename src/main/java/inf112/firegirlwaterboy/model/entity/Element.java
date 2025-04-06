@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.maps.MapsFactory;
 import inf112.firegirlwaterboy.model.types.ElementType;
 
 /**
@@ -25,14 +25,14 @@ public class Element implements IEntity<ElementType> {
   private float x, y;
 
   public Element(World world, MapObject element) {
-    this.type = ElementType.valueOf(Maps.getProperty(element, "type"));
+    this.type = ElementType.valueOf(MapsFactory.getProperty(element, "type"));
     this.texture = new Texture(Gdx.files.internal(type.getTexturePath()));
 
-    float width = Maps.getWidth(element);
-    float height = Maps.getHeight(element);
+    float width = MapsFactory.getWidth(element);
+    float height = MapsFactory.getHeight(element);
 
-    this.x = Maps.getCX(element);
-    this.y = Maps.getCY(element);
+    this.x = MapsFactory.getCX(element);
+    this.y = MapsFactory.getCY(element);
 
     BodyDef bdef = new BodyDef();
     bdef.position.set(x, y);

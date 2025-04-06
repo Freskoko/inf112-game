@@ -12,11 +12,11 @@ import inf112.firegirlwaterboy.view.GameOverScreen;
 import inf112.firegirlwaterboy.view.GameScreen;
 import inf112.firegirlwaterboy.view.HelpScreen;
 import inf112.firegirlwaterboy.view.WelcomeScreen;
-import inf112.firegirlwaterboy.view.CompletedLevelScreen;
+import inf112.firegirlwaterboy.view.CompletedMapScreen;
 
 /**
  * FireGirlWaterBoy is a game where the player controls two characters, FireGirl
- * and WaterBoy, to solve puzzles and complete levels.
+ * and WaterBoy, to solve puzzles and complete maps.
  * This class is the main class of the game, it initializes the model and
  * controller, and sets the screen to the GameScreen.
  * this class extends the Game class from libGDX.
@@ -27,25 +27,15 @@ public class FireGirlWaterBoy extends Game {
   private Controller controller;
   private GameState currentGameState;
 
-  // Opprett referanser til skjermene. Legger til flere ettersom vi lager flere
-  // screens
-  private WelcomeScreen welcomeScreen;
-  private GameScreen gameScreen;
-  private HelpScreen helpScreen;
-  private ChooseMapScreen chooseMapScreen;
-  private GameOverScreen gameOverScreen;
-  private CompletedLevelScreen completedLevelScreen;
-
   public FireGirlWaterBoy() {
     this.model = new Model();
     this.controller = new Controller(model);
-    this.currentGameState = GameState.WELCOME;
-
+    this.currentGameState = model.getGameState();
   }
 
   @Override
   public void create() {
-    setScreen(getScreenByGameState(currentGameState));
+    setScreen(getScreen(currentGameState));
     Gdx.input.setInputProcessor(controller);
   }
 
@@ -55,57 +45,36 @@ public class FireGirlWaterBoy extends Game {
 
     GameState newGameState = model.getGameState();
     if (!newGameState.equals(currentGameState)) {
-      setScreen(getScreenByGameState(newGameState));
+      setScreen(getScreen(newGameState));
       currentGameState = newGameState;
     }
   }
 
   /**
-   * Returns the appropriate screen based on the current game state.
+   * Returns appropriate screen based on the current game state.
    * 
    * This method ensures that the correct screen is returned for each game state.
-   * If the screen instance does not already exist, it creates and initializes it.
    * 
    * @param gameState The current state of the game.
-   * @return The corresponding Screen instance for the given game state.
+   * @return a new corresponding Screen instance for the given game state.
    */
-  private Screen getScreenByGameState(GameState gameState) {
+  private Screen getScreen(GameState gameState) {
     switch (gameState) {
       case WELCOME:
-        if (welcomeScreen == null)
-          welcomeScreen = new WelcomeScreen(controller);
-        return welcomeScreen;
-
+        return new WelcomeScreen(controller);
       case ACTIVE_GAME:
-        model.restartGame(); // restart game hver gang det blir aktivt
-        gameScreen = new GameScreen(model, controller); // eventuelt også cache denne hvis ønsket
-        return gameScreen;
-
+        model.restartGame();
+        return new GameScreen(model, controller);
       case HELP:
-        if (helpScreen == null)
-          helpScreen = new HelpScreen(controller);
-        return helpScreen;
-
+        return new HelpScreen(controller);
       case CHOOSE_MAP:
-        if (chooseMapScreen == null)
-          chooseMapScreen = new ChooseMapScreen(controller);
-        return chooseMapScreen;
-
+        return new ChooseMapScreen(controller);
       case GAME_OVER:
-        if (gameOverScreen == null)
-          gameOverScreen = new GameOverScreen(controller);
-        return gameOverScreen;
-
-      case COMPLETED_LEVEL:
-        if (completedLevelScreen == null)
-          completedLevelScreen = new CompletedLevelScreen(controller);
-        return completedLevelScreen;
-        
+        return new GameOverScreen(controller);
+      case COMPLETED_MAP:
+        return new CompletedMapScreen(controller);
       default:
-        System.out.println("Ukjent GameState: " + gameState);
-        if (welcomeScreen == null)
-          welcomeScreen = new WelcomeScreen(controller);
-        return welcomeScreen;
+        throw new IllegalArgumentException("Unknown game state: " + gameState);
     }
   }
 

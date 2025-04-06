@@ -17,7 +17,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.maps.MapsFactory;
 import inf112.firegirlwaterboy.model.types.ElementType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
@@ -46,7 +46,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   public Player(PlayerType playerType) {
     super(getTextureForType(playerType));
     this.playerType = playerType;
-    this.finished = false;
   }
 
   @Override
@@ -132,10 +131,11 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   @Override
   public void spawn(World world, Vector2 pos) {
-    setSize(getTexture().getWidth() / Maps.PPM, getTexture().getHeight() / Maps.PPM);
+    setSize(getTexture().getWidth() / MapsFactory.PPM, getTexture().getHeight() / MapsFactory.PPM);
     onGround = true;
     touchingEdge = false;
     isAlive = true;
+    finished = false;
     collected = new LinkedList<>();
     collectedCount = 0;
     createBody(world, pos);

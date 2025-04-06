@@ -19,7 +19,7 @@ import com.badlogic.gdx.graphics.Color;
 import inf112.firegirlwaterboy.controller.Controller;
 
 
-public class CompletedLevelScreen implements Screen{
+public class CompletedMapScreen implements Screen{
   
   private Controller controller;
   private SpriteBatch batch;
@@ -28,7 +28,7 @@ public class CompletedLevelScreen implements Screen{
   private Viewport viewport;
   private Button welcomeScreenButton = createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
 
-  public CompletedLevelScreen(Controller controller) {
+  public CompletedMapScreen(Controller controller) {
     this.controller = controller;
     viewport = new ScreenViewport();
     stage = new Stage(viewport);
@@ -42,7 +42,7 @@ public class CompletedLevelScreen implements Screen{
     setupUI();
   }
 
-  // Set up the UI for the completed level screen
+  // Set up the UI for the completed map screen
   private void setupUI() {
     Table table = new Table();
     table.setFillParent(true);
@@ -50,7 +50,7 @@ public class CompletedLevelScreen implements Screen{
     table.center();
 
 
-    controller.attachCompletedLevelScreenListeners(welcomeScreenButton);
+    controller.attachCompletedMapScreenListeners(welcomeScreenButton);
 
     table.add(welcomeScreenButton);
     stage.addActor(table);
@@ -95,7 +95,7 @@ public class CompletedLevelScreen implements Screen{
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     batch.begin();
-    font.draw(batch, "Level completed!", Gdx.graphics.getWidth() / 2f - 150, Gdx.graphics.getHeight() / 2f + 20);
+    font.draw(batch, "Map completed!", Gdx.graphics.getWidth() / 2f - 150, Gdx.graphics.getHeight() / 2f + 20);
 
     batch.end();
 

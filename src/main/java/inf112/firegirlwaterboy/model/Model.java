@@ -1,5 +1,7 @@
 package inf112.firegirlwaterboy.model;
 
+import java.util.HashSet;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
@@ -11,8 +13,8 @@ import inf112.firegirlwaterboy.model.managers.EntitySet;
 import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.managers.PlayerSet;
-import inf112.firegirlwaterboy.model.maps.IMaps;
-import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.maps.IMapsFactory;
+import inf112.firegirlwaterboy.model.maps.MapsFactory;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 import inf112.firegirlwaterboy.view.IViewModel;
 
@@ -25,17 +27,17 @@ public class Model implements IControllableModel, IViewModel {
   private PlayerSet players;
   private EntitySet<Platform> platforms;
   private GameState gameState;
-  private IMaps maps;
+  private IMapsFactory maps;
   private String mapName;
   private World world;
-  private int collectedCount;
+  private HashSet<String> completedMaps;
 
   public Model() {
     this.players = new PlayerSet();
-    this.collectedCount = 0;
-    this.mapName = "map";
-    this.maps = new Maps();
+    this.mapName = "map1";
+    this.maps = new MapsFactory();
     this.gameState = GameState.WELCOME;
+    this.completedMaps = new HashSet<>();
   }
 
   @Override
@@ -43,7 +45,6 @@ public class Model implements IControllableModel, IViewModel {
     world = new World(new Vector2(0, -9.8f), true);
     world.setContactListener(new MyContactListener());
     maps.createObjectsInWorld(world, mapName);
-    platforms = new EntitySet<>();
     platforms = maps.getPlatforms(mapName);
     players.forEach(player -> player.spawn(world, maps.getSpawnPos(mapName)));
   }
@@ -70,7 +71,8 @@ public class Model implements IControllableModel, IViewModel {
       }
     }
     if (players.areFinished()) {
-      gameState = GameState.COMPLETED_LEVEL;
+      gameState = GameState.COMPLETED_MAP;
+      completedMaps.add(mapName);
     }
   }
 
@@ -123,6 +125,16 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public int getTotalCollectedScore() {
     return players.getTotalCollectedScore();
+  }
+
+  @Override
+  public void setMap(String mapName) {
+    this.mapName = mapName;
+}
+
+  @Override
+  public boolean isComplete(String mapName) {
+    return completedMaps.contains(mapName);
   }
 
 }

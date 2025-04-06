@@ -12,10 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import inf112.firegirlwaterboy.controller.Controller;
-import inf112.firegirlwaterboy.model.GameState;
-import inf112.firegirlwaterboy.model.maps.Maps;
-import inf112.firegirlwaterboy.model.Model;
-
+import inf112.firegirlwaterboy.model.maps.MapsFactory;
 // Tilemap example : https://github.com/libgdx/libgdx/blob/master/tests/gdx-tests/src/com/badlogic/gdx/tests/superkoalio/SuperKoalio.java
 
 /**
@@ -48,8 +45,8 @@ public class GameScreen implements Screen {
   public void resize(int width, int height) {
     float scale = 1.0f;
 
-    float newWorldWidth = (width / Maps.PPM) * scale;
-    float newWorldHeight = (height / Maps.PPM) * scale;
+    float newWorldWidth = (width / MapsFactory.PPM) * scale;
+    float newWorldHeight = (height / MapsFactory.PPM) * scale;
 
     viewport.setWorldSize(newWorldWidth, newWorldHeight);
     viewport.update(width, height, true);
@@ -61,7 +58,7 @@ public class GameScreen implements Screen {
     float h = Gdx.graphics.getHeight();
 
     camera = new OrthographicCamera();
-    viewport = new FitViewport(w / Maps.PPM, h / Maps.PPM, camera);
+    viewport = new FitViewport(w / MapsFactory.PPM, h / MapsFactory.PPM, camera);
     viewport.apply(true);
 
     camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
@@ -72,7 +69,7 @@ public class GameScreen implements Screen {
 
     // Load map
     map = model.getMap();
-    renderer = new OrthogonalTiledMapRenderer(map, 1 / Maps.PPM);
+    renderer = new OrthogonalTiledMapRenderer(map, 1 / MapsFactory.PPM);
     debugRenderer = new Box2DDebugRenderer();
 
     Gdx.input.setInputProcessor(controller);

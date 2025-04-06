@@ -136,13 +136,16 @@ public class ControllerTest {
     /*
      * Tests that pressing R when the game is over, restarts the game
      */
-    @Test
-    void testHandleGameOverStateRestart() {
-        when(model.getGameState()).thenReturn(GameState.GAME_OVER);
+    // @Test
+    // void testHandleGameOverStateRestart() {
+        // when(model.getGameState()).thenReturn(GameState.GAME_OVER);
 
-        controller.keyDown(Keys.R);
+        // controller.keyDown(Keys.R);
 
-        verify(model).setGameState(GameState.ACTIVE_GAME);
-        verify(model).restartGame();
-    }
+        // keys logic is removed from controller
+
+        // verify(model).setGameState(GameState.ACTIVE_GAME);
+        // verify(model).restartGame();
+
+    // }
 }
