@@ -125,4 +125,9 @@ public class Model implements IControllableModel, IViewModel {
     return players.getTotalCollectedScore();
   }
 
+
+  public void setMap(String mapName) {
+    this.mapName = mapName;
+}
+
 }
