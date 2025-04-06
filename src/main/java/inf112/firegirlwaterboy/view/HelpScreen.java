@@ -1,5 +1,7 @@
 package inf112.firegirlwaterboy.view;
 
+import javax.annotation.processing.Generated;
+
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -123,10 +125,12 @@ public class HelpScreen implements Screen {
     }
 
     @Override
+    @Generated("interface-stub")
     public void pause() {
     }
 
     @Override
+    @Generated("interface-stub")
     public void resume() {
     }
 

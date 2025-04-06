@@ -2,7 +2,6 @@ package inf112.firegirlwaterboy.model.maps;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 
-public class MapsTest {
+public class MapsFactoryTest {
     private MapsFactory maps;
 
     /*
@@ -91,7 +90,6 @@ public class MapsTest {
 
     @Test
     public void testEmptyBodyDoesNotCreateBodies() throws Exception {
-        // Update method name to match the actual implementation
         java.lang.reflect.Method method = MapsFactory.class.getDeclaredMethod(
                 "createObjectsFromLayer", World.class, MapLayer.class);
         method.setAccessible(true);
@@ -142,16 +140,12 @@ public class MapsTest {
         when(mockProperties.get("width", Float.class)).thenReturn(50f);
         when(mockProperties.get("height", Float.class)).thenReturn(30f);
 
-        // call the private method directly
         method.invoke(maps, mockWorld, mockLayer);
 
-        // verify createBody was called once
         verify(mockWorld, times(1)).createBody(any(BodyDef.class));
 
-        // verify createFixture was called once
         verify(mockBody, times(1)).createFixture(any(FixtureDef.class));
 
-        // verify setUserData was called with the layer name
         verify(mockFixture).setUserData("TestLayer");
     }
 }

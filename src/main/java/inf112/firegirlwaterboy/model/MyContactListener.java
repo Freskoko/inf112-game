@@ -1,5 +1,7 @@
 package inf112.firegirlwaterboy.model;
 
+import javax.annotation.processing.Generated;
+
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -101,10 +103,12 @@ public class MyContactListener implements ContactListener {
   }
 
   @Override
+  @Generated("interface-stub")
   public void postSolve(Contact arg0, ContactImpulse arg1) {
   }
 
   @Override
+  @Generated("interface-stub")
   public void preSolve(Contact arg0, Manifold arg1) {
   }
 
