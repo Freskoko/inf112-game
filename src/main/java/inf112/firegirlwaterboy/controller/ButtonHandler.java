@@ -13,14 +13,16 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
  * the game.
  */
 
-public class ScreenButtonHandler {
+public class ButtonHandler {
 
   private final Controller controller;
   private String selectedMapName = null;
+  private final IControllableModel model;
 
 
-  public ScreenButtonHandler(Controller controller) {
+  public ButtonHandler(Controller controller, IControllableModel model) {
     this.controller = controller;
+    this.model = model;
   }
 
   // WELCOME SCREEN BUTTONS
@@ -47,7 +49,6 @@ public class ScreenButtonHandler {
       @Override
       public void clicked(InputEvent e, float x, float y) {
         controller.startGameIfPlayersSelected();
-        System.out.println("Start clicked");
       }
     };
   }
@@ -59,7 +60,7 @@ public class ScreenButtonHandler {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
-        controller.getModel().setGameState(GameState.HELP);
+        model.setGameState(GameState.HELP);
       }
     };
   }
@@ -73,8 +74,7 @@ public class ScreenButtonHandler {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
-        controller.getModel().setGameState(GameState.WELCOME);
-        System.out.println("Back clicked");
+        model.setGameState(GameState.WELCOME);
       }
     };
   }
@@ -82,21 +82,19 @@ public class ScreenButtonHandler {
   // CHOOSE MAP SCREEN BUTTON
 
   // CHOOSE MAP SCREEN BUTTONS
-  public ClickListener selectMapListener(String mapName, Button playButton, Button level1Button, Button level2Button) {
+  public ClickListener selectMapListener(String mapName, Button playButton, Button map1button, Button map2button) {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
         selectedMapName = mapName;
         playButton.setDisabled(false);
-  
+        
         // Reset color
-        level1Button.setColor(Color.WHITE);
-        level2Button.setColor(Color.WHITE);
+        map1button.setColor(Color.WHITE);
+        map2button.setColor(Color.WHITE);
   
         // Mark the selected button
         e.getListenerActor().setColor(Color.GRAY);
-  
-        System.out.println("Map selected: " + mapName);
       }
     };
   }
@@ -108,12 +106,9 @@ public class ScreenButtonHandler {
       @Override
       public void clicked(InputEvent e, float x, float y) {
         if (selectedMapName != null) {
-          System.out.println("Play clicked with map: " + selectedMapName);
-          controller.getModel().setMap(selectedMapName);
-          controller.getModel().restartGame();
-          controller.getModel().setGameState(GameState.ACTIVE_GAME);
-        } else {
-          System.out.println("Play clicked but no map selected.");
+          model.setMap(selectedMapName);
+          model.setGameState(GameState.ACTIVE_GAME);
+          selectedMapName = null;
         }
       }
     };
@@ -121,11 +116,11 @@ public class ScreenButtonHandler {
   
 
   // GAME OVER SCREEN BUTTON
-  public ClickListener chooseMapScreenListener() {
+  public ClickListener toMapScreenListener() {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
-        controller.getModel().setGameState(GameState.CHOOSE_MAP);
+        model.setGameState(GameState.CHOOSE_MAP);
       }
     };
   }
