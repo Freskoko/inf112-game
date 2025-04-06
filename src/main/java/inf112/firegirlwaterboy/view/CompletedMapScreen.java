@@ -19,7 +19,7 @@ import com.badlogic.gdx.graphics.Color;
 import inf112.firegirlwaterboy.controller.Controller;
 
 
-public class CompletedLevelScreen implements Screen{
+public class CompletedMapScreen implements Screen{
   
   private Controller controller;
   private SpriteBatch batch;
@@ -28,7 +28,7 @@ public class CompletedLevelScreen implements Screen{
   private Viewport viewport;
   private Button welcomeScreenButton = createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
 
-  public CompletedLevelScreen(Controller controller) {
+  public CompletedMapScreen(Controller controller) {
     this.controller = controller;
     viewport = new ScreenViewport();
     stage = new Stage(viewport);
