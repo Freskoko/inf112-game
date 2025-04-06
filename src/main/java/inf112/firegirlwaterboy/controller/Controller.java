@@ -14,133 +14,83 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
  * Controller class for the game FireGirl & WaterBoy.
  * Handles keyboard input and delegates button logic via ScreenButtonHandler.
  */
-public class Controller implements InputProcessor {
+public class Controller implements IController, InputProcessor {
 
   private IControllableModel model;
   private PlayerType playerOne; // Controlled by Arrow keys
   private PlayerType playerTwo; // Controlled by WASD keys
-  private ButtonHandler buttonHandler;
+  private ButtonHandler bh;
 
   public Controller(IControllableModel model) {
     this.model = model;
     this.playerOne = null;
     this.playerTwo = null;
-    this.buttonHandler = new ButtonHandler(this, model);
+    this.bh = new ButtonHandler(this, model);
   }
 
   public Controller(IControllableModel model, ButtonHandler buttonHandler) {
     this.model = model;
     this.playerOne = null;
     this.playerTwo = null;
-    this.buttonHandler = buttonHandler;
-}
-
-  /**
-   * Returns the model.
-   * 
-   * @return
-   */
-  public IControllableModel getModel() {
-    return model;
+    this.bh = buttonHandler;
   }
 
-  /**
-   * This method assigns a player type to either
-   * Player One or Player Two.
-   * A player type can only be assigned if it is not already taken by the other
-   * player.
-   * 
-   * @param playerType  The type of player to assign (FireGirl or WaterBoy).
-   * @param isPlayerOne A boolean indicating whether the player is Player One
-   *                    (true) or Player Two (false).
-   * @return {@code true} if the player type was successfully assigned;
-   *         {@code false} otherwise.
-   */
+  @Override
   public boolean selectPlayer(PlayerType playerType, boolean isPlayerOne) {
     if (isPlayerOne) {
       if (playerOne == null && playerType != playerTwo) {
         playerOne = playerType;
+        model.addPlayer(playerType);
         return true;
       }
     } else {
       if (playerTwo == null && playerType != playerOne) {
         playerTwo = playerType;
+        model.addPlayer(playerType);
         return true;
       }
     }
     return false;
   }
 
-  /**
-   * Starts the game if both players have selected a playerType.
-   */
-  public void startGameIfPlayersSelected() {
+  @Override
+  public void continueIfPlayersSelected() {
     if (playerOne != null && playerTwo != null) {
       model.setGameState(GameState.CHOOSE_MAP);
-      model.addPlayer(playerOne);
-      model.addPlayer(playerTwo);
-    } else {
-      System.out.println("Please select playerType for both players.");
     }
   }
 
-  // Attach buttons from WelcomeScreen
-  public void attachWelcomeScreenListeners(Button fgP1, Button wbP1, Button fgP2, Button wbP2, Button start,
-      Button help) {
-    fgP1.addListener(buttonHandler.selectPlayerListener(1, PlayerType.FIREGIRL));
-    wbP1.addListener(buttonHandler.selectPlayerListener(1, PlayerType.WATERBOY));
-    fgP2.addListener(buttonHandler.selectPlayerListener(2, PlayerType.FIREGIRL));
-    wbP2.addListener(buttonHandler.selectPlayerListener(2, PlayerType.WATERBOY));
-    start.addListener(buttonHandler.startButtonListener());
-    help.addListener(buttonHandler.helpButtonListener());
+  @Override
+  public void attachSelectPlayerListener(Button button, boolean isPlayerOne, PlayerType type) {
+    button.addListener(bh.getSelectPlayerListener(isPlayerOne, type));
   }
 
-  // Attach HelpScreen buttons
-  public void attachHelpScreenListeners(Button back) {
-    back.addListener(buttonHandler.backButtonListener());
+  @Override
+  public void attachToHelpListener(Button help) {
+    help.addListener(bh.getToHelpListener());
   }
 
-  // Attach ChooseMapScreen buttons
-  public void setupPlayButtonListener(Button playButton) {
-    playButton.addListener(buttonHandler.playButtonListener());
+  @Override
+  public void attachToWelcomeListeners(Button button) {
+    button.addListener(bh.getToWelcomeListener());
   }
 
-  /**
-   * Attaches listeners to the buttons on the GameOverScreen.
-   * 
-   * @param backToWelcomeScreenButton The button used to go back to the
-   *                                  WelcomeScreen.
-   */
-  public void attachGameOverScreenListeners(Button backToChooseMapScreen) {
-    backToChooseMapScreen.addListener(buttonHandler.toMapScreenListener());
+  @Override
+  public void attachToActiveListener(Button button) {
+    button.addListener(bh.getToActiveListener());
   }
 
-  /**
-   * Attaches listeners to the buttons on the ChooseMapScreen.
-   * 
-   * @param map1Button The button used to select map 1.
-   * @param map2Button The button used to select map 2.
-   * @param playButton The button used to start the game.
-   */
-  public void attachChooseMapScreenListeners(Button map1Button, Button map2Button, Button playButton) {
+  @Override
+  public void attachToChooseMapsListener(Button button) {
+    button.addListener(bh.getToChooseMapListener());
+  }
 
-    map1Button.addListener(buttonHandler.selectMapListener("map1", playButton, map1Button, map2Button));
-
+  @Override
+  public void attachChooseMapListeners(Button map1Button, Button map2Button) {
+    map1Button.addListener(bh.getSelectMapListener("map1", map1Button, map2Button));
     if (model.isComplete("map1")) {
-      System.out.println("Map 1 is complete!");
-      map2Button.addListener(buttonHandler.selectMapListener("map2", playButton, map1Button, map2Button));
+      map2Button.addListener(bh.getSelectMapListener("map2", map1Button, map2Button));
     }
-    playButton.addListener(buttonHandler.playButtonListener());
-  }
-
-  /**
-   * Attaches listeners to the buttons on the CompletedMapScreen.
-   * 
-   * @param backToChooseMapScreenButton The button uesd to go back to the
-   *                                    ChooseMapScreen.
-   */
-  public void attachCompletedMapScreenListeners(Button backToChooseMapScreenButton) {
-    backToChooseMapScreenButton.addListener(buttonHandler.toMapScreenListener());
   }
 
   @Override
@@ -149,7 +99,6 @@ public class Controller implements InputProcessor {
       return false;
     }
     PlayerType player = getPlayer(keycode);
-
     switch (keycode) {
       case Keys.UP, Keys.W -> model.changeDir(player, MovementType.UP);
       case Keys.LEFT, Keys.A -> model.changeDir(player, MovementType.LEFT);

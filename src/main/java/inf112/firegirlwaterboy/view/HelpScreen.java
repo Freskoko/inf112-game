@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.*;
 
-
 import inf112.firegirlwaterboy.controller.Controller;
 
 /**
@@ -21,24 +20,21 @@ public class HelpScreen implements Screen {
 
     private final Stage stage;
     private final Viewport viewport;
-    private final Controller controller;
     private final Button backButton;
     private final Texture backgroundTexture;
     private Texture boxTexture;
 
     public HelpScreen(Controller controller) {
-        this.controller = controller;
         viewport = new ScreenViewport();
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
         backgroundTexture = new Texture("assets/pages/background.png");
 
-
         backButton = createButton("Back", Color.valueOf("#cab558"));
 
         setupUI();
-        controller.attachHelpScreenListeners(backButton);
+        controller.attachToWelcomeListeners(backButton);
     }
 
     private void setupUI() {
@@ -53,8 +49,8 @@ public class HelpScreen implements Screen {
         whitePixmap.dispose();
         TextureRegionDrawable whiteBackground = new TextureRegionDrawable(new TextureRegion(boxTexture));
 
-        String instructionsText = "How to play:\n\n" + 
-              "Player 1 uses the arrow keys and Player 2 uses WASD\n\n" +
+        String instructionsText = "How to play:\n\n" +
+                "Player 1 uses the arrow keys and Player 2 uses WASD\n\n" +
                 "Collect all diamonds and guide both characters to the door.\n\n" +
                 "Avoid obstacles - FireGirl can't touch water, and WaterBoy can't touch fire!";
 

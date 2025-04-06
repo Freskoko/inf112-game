@@ -59,12 +59,13 @@ public class ChooseMapScreen implements Screen {
 
         Button map1Button = createButton("Map 1", Color.DARK_GRAY);
         Button map2Button = createButton("Map 2", Color.DARK_GRAY);
+        map1Button.setName("Map1");
         playButton = createImageButton("assets/pages/PlayButton.png", 300, 100);
-        playButton.setDisabled(true);
         playButton.setDisabled(true);
 
         // Koble knappene til controller
-        controller.attachChooseMapScreenListeners(map1Button, map2Button, playButton);
+        controller.attachChooseMapListeners(map1Button, map2Button);
+        controller.attachToActiveListener(playButton);
 
         // Legg map-knappene på samme rad
         table.add(map1Button).size(200, 60).padRight(20);

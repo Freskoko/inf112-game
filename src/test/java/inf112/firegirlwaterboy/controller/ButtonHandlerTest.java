@@ -23,31 +23,31 @@ public class ButtonHandlerTest {
 
     @Test
     void testBackButtonListener() {
-        ClickListener listener = buttonHandler.backButtonListener();
+        ClickListener listener = buttonHandler.getToWelcomeListener();
         assertNotNull(listener, "Back button listener should not be null");
     }
 
     @Test
     void testHelpButtonListener() {
-        ClickListener listener = buttonHandler.helpButtonListener();
+        ClickListener listener = buttonHandler.getToHelpListener();
         assertNotNull(listener, "Help button listener should not be null");
     }
 
     @Test
     void testPlayButtonListener() {
-        ClickListener listener = buttonHandler.playButtonListener();
+        ClickListener listener = buttonHandler.getToActiveListener();
         assertNotNull(listener, "Play button listener should not be null");
     }
 
     @Test
     void testSelectPlayerListener() {
-        ClickListener listener = buttonHandler.selectPlayerListener(1, PlayerType.FIREGIRL);
+        ClickListener listener = buttonHandler.getSelectPlayerListener(true, PlayerType.FIREGIRL);
         assertNotNull(listener, "Select player listener should not be null");
     }
 
     @Test
     void testStartButtonListener() {
-        ClickListener listener = buttonHandler.startButtonListener();
+        ClickListener listener = buttonHandler.getToChooseMapListener();
         assertNotNull(listener, "Start button listener should not be null");
     }
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.*;
 
 import inf112.firegirlwaterboy.controller.Controller;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 /**
  * WelcomeScreen class represents the welcome screen.
@@ -52,13 +53,18 @@ public class WelcomeScreen implements Screen {
         table.bottom().padBottom(200);
 
         // Button listeners sent to controller
-        controller.attachWelcomeScreenListeners(fireGirlButtonP1, waterBoyButtonP1, fireGirlButtonP2, waterBoyButtonP2,
-                startButton, helpButton);
 
-  
+        controller.attachSelectPlayerListener(fireGirlButtonP1, true, PlayerType.FIREGIRL);
+        controller.attachSelectPlayerListener(waterBoyButtonP1, true, PlayerType.WATERBOY);
+        controller.attachSelectPlayerListener(fireGirlButtonP2, false, PlayerType.FIREGIRL);
+        controller.attachSelectPlayerListener(waterBoyButtonP2, false, PlayerType.WATERBOY);
+        controller.attachToChooseMapsListener(startButton);
+        controller.attachToHelpListener(helpButton);
+
+
         Table playerSelectionTable = new Table();
 
-        playerSelectionTable.top().padTop(20); 
+        playerSelectionTable.top().padTop(20);
 
         // Logo image
         Image logoImage = new Image(new TextureRegionDrawable(new TextureRegion(logo)));
@@ -69,7 +75,7 @@ public class WelcomeScreen implements Screen {
         logoImage.setSize(logoWidth, logoHeight);
 
         // Add logo to the top of the player selection table
-        playerSelectionTable.add(logoImage).colspan(2).center().padBottom(30); 
+        playerSelectionTable.add(logoImage).colspan(2).center().padBottom(30);
         playerSelectionTable.row();
 
         // Player 1 selection
