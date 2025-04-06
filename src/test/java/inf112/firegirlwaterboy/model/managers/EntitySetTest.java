@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
+import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.IEntity;
 import inf112.firegirlwaterboy.model.types.ElementType;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,17 +16,17 @@ import org.junit.jupiter.api.Test;
 
 public class EntitySetTest {
 
-    private EntitySet<IEntity<ElementType>> entitySet;
+    private EntitySet<Element> entitySet;
     private Batch mockBatch;
-    private IEntity<ElementType> mockEntity1;
-    private IEntity<ElementType> mockEntity2;
+    private Element mockEntity1;
+    private Element mockEntity2;
 
     @BeforeEach
     void setUp() {
         entitySet = new EntitySet<>();
         mockBatch = mock(Batch.class);
-        mockEntity1 = mock(IEntity.class);
-        mockEntity2 = mock(IEntity.class);
+        mockEntity1 = mock(Element.class);
+        mockEntity2 = mock(Element.class);
 
         when(mockEntity1.getType()).thenReturn(ElementType.LAVA);
         when(mockEntity2.getType()).thenReturn(ElementType.WATER);

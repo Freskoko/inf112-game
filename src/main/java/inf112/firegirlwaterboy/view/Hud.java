@@ -8,10 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Hud class represents the heads-up display for the game.
@@ -124,14 +120,14 @@ public class Hud {
         scoreLabel.setText("Score: " + score);
     }
 
-    private Drawable createBackgroundDrawable(Color color, float alpha) {
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        color.a = alpha;
-        pixmap.setColor(color);
-        pixmap.fill();
-        Texture texture = new Texture(pixmap);
-        pixmap.dispose();
-        return new TextureRegionDrawable(texture);
-    }
+    // private Drawable createBackgroundDrawable(Color color, float alpha) {
+    //     Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+    //     color.a = alpha;
+    //     pixmap.setColor(color);
+    //     pixmap.fill();
+    //     Texture texture = new Texture(pixmap);
+    //     pixmap.dispose();
+    //     return new TextureRegionDrawable(texture);
+    // }
 
 }
