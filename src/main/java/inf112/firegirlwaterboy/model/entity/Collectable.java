@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.maps.MapsFactory;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
 public class Collectable implements IEntity<String>, ICollectable {
@@ -19,13 +19,13 @@ public class Collectable implements IEntity<String>, ICollectable {
   private World world;
 
   public Collectable(World world, MapObject collectable) {
-    float width = Maps.getWidth(collectable);
-    float height = Maps.getHeight(collectable);
-    this.requiredPlayer = PlayerType.valueOf(Maps.getProperty(collectable, "PlayerType"));
+    float width = MapsFactory.getWidth(collectable);
+    float height = MapsFactory.getHeight(collectable);
+    this.requiredPlayer = PlayerType.valueOf(MapsFactory.getProperty(collectable, "PlayerType"));
     this.world = world;
 
     BodyDef bdef = new BodyDef();
-    bdef.position.set(Maps.getCX(collectable), Maps.getCY(collectable));
+    bdef.position.set(MapsFactory.getCX(collectable), MapsFactory.getCY(collectable));
     bdef.type = BodyDef.BodyType.StaticBody;
     body = world.createBody(bdef);
 

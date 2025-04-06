@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 
 public class MapsTest {
-    private Maps maps;
+    private MapsFactory maps;
 
     /*
      * Sets up a headless version of the app, reuqired to load map/ images files
@@ -55,7 +55,7 @@ public class MapsTest {
 
     @BeforeEach
     private void initTest() {
-        this.maps = new Maps();
+        this.maps = new MapsFactory();
         // this.maps.init();
     }
 
@@ -92,7 +92,7 @@ public class MapsTest {
     @Test
     public void testEmptyBodyDoesNotCreateBodies() throws Exception {
         // Update method name to match the actual implementation
-        java.lang.reflect.Method method = Maps.class.getDeclaredMethod(
+        java.lang.reflect.Method method = MapsFactory.class.getDeclaredMethod(
                 "createObjectsFromLayer", World.class, MapLayer.class);
         method.setAccessible(true);
 
@@ -113,7 +113,7 @@ public class MapsTest {
 
     @Test
     public void testEmptyBodyDoesCreateBodies() throws Exception {
-        java.lang.reflect.Method method = Maps.class.getDeclaredMethod(
+        java.lang.reflect.Method method = MapsFactory.class.getDeclaredMethod(
                 "createObjectsFromLayer", World.class, MapLayer.class);
         method.setAccessible(true);
 

@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import inf112.firegirlwaterboy.model.managers.EntitySet;
 import inf112.firegirlwaterboy.model.entity.Platform;
 
-public interface IMaps {
+public interface IMapsFactory {
 
   /**
    * Retrieves a {@link TiledMap} by its name.

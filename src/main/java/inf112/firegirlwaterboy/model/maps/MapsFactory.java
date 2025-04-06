@@ -24,7 +24,7 @@ import inf112.firegirlwaterboy.model.entity.Collectable;
  * Manages loading and interacting with tiled maps in the game.
  * Handles map retrieval, layer access, and object creation in a Box2D world.
  */
-public class Maps implements IMaps {
+public class MapsFactory implements IMapsFactory {
 
   private HashMap<String, TiledMap> maps;
   public static final float PPM = 32;
