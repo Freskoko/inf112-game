@@ -39,6 +39,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private boolean touchingEdge;
   private boolean finished;
   private Platform currentPlatform;
+  private boolean powerUp;
 
   /**
    * Initalizes a player, giving them a type and texture
@@ -150,6 +151,10 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   @Override
   public void interactWithElement(ElementType elementType) {
     isAlive = playerType.getImmunity().equals(elementType);
+    if (!isAlive && powerUp) {
+      isAlive = true;
+      powerUp = false;
+    }
   }
 
   @Override
@@ -158,6 +163,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
       collected.add(collectable);
       collectedCount++;
     }
+    powerUp |= collectable.getPowerUp();
   }
 
   @Override
