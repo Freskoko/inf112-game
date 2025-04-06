@@ -38,7 +38,7 @@ public class WelcomeScreen implements Screen {
         stage = new Stage(viewport);
         logo = new Texture("assets/pages/logo.png");
 
-        backgroundTexture = new Texture("background.png");
+        backgroundTexture = new Texture("assets/pages/background.png");
         batch = new SpriteBatch();
 
         setupUI();

@@ -30,7 +30,7 @@ public class HelpScreen implements Screen {
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
-        backgroundTexture = new Texture("background.png");
+        backgroundTexture = new Texture("assets/pages/background.png");
 
 
         backButton = createButton("Back", Color.valueOf("#cab558"));
