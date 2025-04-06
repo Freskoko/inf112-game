@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.*;
 
-
 import inf112.firegirlwaterboy.controller.Controller;
 
 /**
@@ -22,12 +21,15 @@ public class WelcomeScreen implements Screen {
     private final Viewport viewport;
     private final Texture logo;
     private final Controller controller;
-    private Button fireGirlButtonP1 = createButton("FireGirl", Color.RED);
-    private Button waterBoyButtonP1 = createButton("WaterBoy", Color.BLUE);
-    private Button fireGirlButtonP2 = createButton("FireGirl", Color.RED);
-    private Button waterBoyButtonP2 = createButton("WaterBoy", Color.BLUE);
-    private Button startButton = createButton("Start", Color.DARK_GRAY);
-    private Button helpButton = createButton("Help", Color.DARK_GRAY);
+    private Button fireGirlButtonP1 = createButton("FireGirl", Color.valueOf("#f23800"));
+    private Button waterBoyButtonP1 = createButton("WaterBoy", Color.valueOf("#18beeb"));
+    private Button fireGirlButtonP2 = createButton("FireGirl", Color.valueOf("f23800"));
+    private Button waterBoyButtonP2 = createButton("WaterBoy", Color.valueOf("#18beeb"));
+    private Button startButton = createButton("Start", Color.valueOf("#cab558"));
+    private Button helpButton = createButton("Help", Color.valueOf("#cab558"));
+
+    private Texture backgroundTexture;
+    private SpriteBatch batch;
 
     public WelcomeScreen(Controller controller) {
         this.controller = controller;
@@ -35,6 +37,9 @@ public class WelcomeScreen implements Screen {
 
         stage = new Stage(viewport);
         logo = new Texture("assets/pages/logo.png");
+
+        backgroundTexture = new Texture("background.png");
+        batch = new SpriteBatch();
 
         setupUI();
     }
@@ -54,7 +59,7 @@ public class WelcomeScreen implements Screen {
         // Player 1 selection
         Table p1Table = new Table();
         Label player1Label = new Label("Player 1 (uses arrows) choose your character:",
-                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+                new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         p1Table.add(player1Label).colspan(2).center().padBottom(10);
         p1Table.row();
         p1Table.add(fireGirlButtonP1).size(150, 50).pad(10);
@@ -64,7 +69,7 @@ public class WelcomeScreen implements Screen {
         // Player 2 selection
         Table p2Table = new Table();
         Label player2Label = new Label("Player 2 (uses WASD) choose your character:",
-                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+                new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         p2Table.add(player2Label).colspan(2).center().padBottom(10);
         p2Table.row();
         p2Table.add(fireGirlButtonP2).size(150, 50).pad(10);
@@ -99,16 +104,26 @@ public class WelcomeScreen implements Screen {
         stage.addActor(logoImage);
     }
 
-    // Method to create buttons with text and color
-    private Button createButton(String text, Color color) {
+    private Button createButton(String text, Color fillColor) {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = new BitmapFont();
-        style.fontColor = Color.WHITE;
+        style.fontColor = Color.BLACK;
 
-        // Background color on buttons
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGB888);
-        pixmap.setColor(color);
-        pixmap.fill();
+        // Knappestørrelse for bakgrunnspixmap
+        int width = 150;
+        int height = 50;
+        int borderWidth = 3;
+
+        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+
+        // Tegn svart ramme først
+        pixmap.setColor(Color.BLACK);
+        pixmap.fillRectangle(0, 0, width, height);
+
+        // Tegn fyll (inni rammen)
+        pixmap.setColor(fillColor);
+        pixmap.fillRectangle(borderWidth, borderWidth, width - 2 * borderWidth, height - 2 * borderWidth);
+
         TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new Texture(pixmap));
         pixmap.dispose();
 
@@ -129,8 +144,12 @@ public class WelcomeScreen implements Screen {
             Gdx.input.setInputProcessor(stage);
         }
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+        batch.begin();
+        batch.draw(backgroundTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        batch.end();
 
         stage.act(delta);
         stage.draw();
