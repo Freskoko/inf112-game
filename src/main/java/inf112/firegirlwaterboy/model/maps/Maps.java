@@ -226,7 +226,8 @@ public class Maps implements IMaps {
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
-    fdef.restitution = 0f;
+    fdef.friction = 1f;
+    //fdef.restitution = 0f;
     Fixture fixture = body.createFixture(fdef);
 
     fixture.setUserData(layerName);
@@ -297,7 +298,7 @@ public class Maps implements IMaps {
 
   @Override
   public EntitySet<Platform> getPlatforms(String mapName) {
-    return platformsMap.get(mapName);
+    return platformsMap.getOrDefault(mapName, new EntitySet<>());
   }
 
   

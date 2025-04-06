@@ -47,7 +47,6 @@ public class Model implements IControllableModel, IViewModel {
     world = new World(new Vector2(0, -9.8f), true);
     world.setContactListener(new MyContactListener());
     maps.createObjectsInWorld(world, mapName);
-    platforms = new EntitySet<>();
     platforms = maps.getPlatforms(mapName);
     players.forEach(player -> player.spawn(world, maps.getSpawnPos(mapName)));
   }

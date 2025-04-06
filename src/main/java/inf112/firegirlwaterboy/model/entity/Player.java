@@ -46,7 +46,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   public Player(PlayerType playerType) {
     super(getTextureForType(playerType));
     this.playerType = playerType;
-    this.finished = false;
   }
 
   @Override
@@ -136,6 +135,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     onGround = true;
     touchingEdge = false;
     isAlive = true;
+    finished = false;
     collected = new LinkedList<>();
     collectedCount = 0;
     createBody(world, pos);

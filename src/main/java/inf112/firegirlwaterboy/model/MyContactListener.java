@@ -21,6 +21,7 @@ public class MyContactListener implements ContactListener {
   public void beginContact(Contact contact) {
     playerCollision(contact, true);
     platformCollision(contact);
+
   }
 
   @Override
@@ -28,13 +29,18 @@ public class MyContactListener implements ContactListener {
     playerCollision(contact, false);
   }
 
+  /**
+   * Handles collision between platforms and other objects.
+   * 
+   * @param contact the contact between two fixtures
+   */
   private void platformCollision(Contact contact) {
     Object a = contact.getFixtureA().getUserData();
     Object b = contact.getFixtureB().getUserData();
 
     Platform platform = getEntity(a, b, Platform.class);
     if (platform != null) {
-      if (isEdge(a, b) || isHorizontal(a, b)) {
+      if (isTarget(a, b, "Verticle") || isTarget(a, b, "Horizontal")) {
         platform.collision();
       }
     }
@@ -53,16 +59,15 @@ public class MyContactListener implements ContactListener {
     Player player = getEntity(a, b, Player.class);
 
     if (player != null) {
-
-      if (isHorizontal(a, b)) {
+      if (isTarget(a, b, "Horizontal")) {
         player.setOnGround(contactStatus);
       }
 
-      if (isEdge(a, b)) {
+      if (isTarget(a, b, "Edges")) {
         player.setTouchingEdge(contactStatus);
       }
 
-      if (isFinishZone(a, b)) {
+      if (isTarget(a, b, "Finish")) {
         player.setFinished(contactStatus);
       }
 
@@ -83,39 +88,16 @@ public class MyContactListener implements ContactListener {
     }
   }
 
-
   /**
-   * Returns true if one of the given objects is "Finish"
-   * 
-   * @param a the first object
-   * @param b the second object
-   * @return true if one of the objects is "Finish" String
+   * Checks if either of the given objects matches the specified target string.
+   *
+   * @param a      the first object
+   * @param b      the second object
+   * @param target the string to compare against
+   * @return true if either object matches the target string
    */
-  private boolean isFinishZone(Object a, Object b) {
-    return "Finish".equals(a) || "Finish".equals(b);
-  }
-
-
-  /**
-   * Returns true if one of the given objects is an "Edge"
-   * 
-   * @param a the first object
-   * @param b the second object
-   * @return true if one of the fixtures is an "Edge" String
-   */
-  private boolean isEdge(Object a, Object b) {
-    return "Edges".equals(a) || "Edges".equals(b);
-  }
-
-  /**
-   * Returns true if one of the given object is "Horizontal"
-   * 
-   * @param a the first object
-   * @param b the second object
-   * @return true if one of the objects is "Horizontal"
-   */
-  private boolean isHorizontal(Object a, Object b) {
-    return "Horizontal".equals(a) || "Horizontal".equals(b);
+  private boolean isTarget(Object a, Object b, String target) {
+    return target.equals(a) || target.equals(b);
   }
 
   @Override
