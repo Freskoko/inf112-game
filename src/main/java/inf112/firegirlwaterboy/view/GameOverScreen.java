@@ -31,7 +31,7 @@ public class GameOverScreen implements Screen {
   private BitmapFont font;
   private Stage stage;
   private Viewport viewport;
-  private Button welcomeScreenButton = createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
+  private Button chooseMapScreenButton = createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
 
 
   public GameOverScreen(Controller controller) {
@@ -56,9 +56,9 @@ public class GameOverScreen implements Screen {
     table.center();
 
 
-    controller.attachGameOverScreenListeners(welcomeScreenButton);
+    controller.attachGameOverScreenListeners(chooseMapScreenButton);
 
-    table.add(welcomeScreenButton);
+    table.add(chooseMapScreenButton);
     stage.addActor(table);
 
   }
