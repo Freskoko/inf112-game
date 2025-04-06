@@ -3,7 +3,7 @@ package inf112.firegirlwaterboy.model.managers;
 import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
-public class PlayerSet extends EntitySet<Player> {
+public class PlayerSet extends EntitySet<Player> implements IPlayerSet {
 
   public static final int MAX_PLAYERS = 2;
 
@@ -36,4 +36,13 @@ public class PlayerSet extends EntitySet<Player> {
     }
     return true;
   }
+
+  @Override
+  public int getTotalCollectedScore() {
+    int total = 0;
+    for (Player player : this) {
+        total += player.getCountCollected();
+    }
+    return total;
+}
 }

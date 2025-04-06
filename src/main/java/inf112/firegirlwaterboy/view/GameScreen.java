@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -11,7 +12,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import inf112.firegirlwaterboy.controller.Controller;
+import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.Model;
 
 // Tilemap example : https://github.com/libgdx/libgdx/blob/master/tests/gdx-tests/src/com/badlogic/gdx/tests/superkoalio/SuperKoalio.java
 
@@ -27,6 +30,8 @@ public class GameScreen implements Screen {
   private IViewModel model;
   private Controller controller; // Må være her
   private Viewport viewport;
+  private Hud hud;
+  private SpriteBatch batch;
 
   /**
    * Constructs a GameScreen with a given view model and controller.
@@ -62,6 +67,9 @@ public class GameScreen implements Screen {
     camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
     camera.update();
 
+    batch = new SpriteBatch();
+    hud = new Hud(batch, model); 
+
     // Load map
     map = model.getMap();
     renderer = new OrthogonalTiledMapRenderer(map, 1 / Maps.PPM);
@@ -94,8 +102,14 @@ public class GameScreen implements Screen {
     model.draw(renderer.getBatch());
     renderer.getBatch().end();
     model.update();
-    
-  }
+
+    batch.setProjectionMatrix(hud.getStage().getCamera().combined);
+    hud.update(delta);
+    hud.draw();
+
+
+    }
+  
 
   @Override
   public void resume() {
@@ -118,5 +132,6 @@ public class GameScreen implements Screen {
     renderer.dispose();
     debugRenderer.dispose();
     model.dispose();
+    batch.dispose();
   }
 }

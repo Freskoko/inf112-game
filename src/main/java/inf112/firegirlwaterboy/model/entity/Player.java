@@ -245,4 +245,8 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     this.currentPlatform = platform;
     //body.setGravityScale(0);
   }
+
+  public int getCountCollected() {
+    return collectedCount;
+  }
 }
