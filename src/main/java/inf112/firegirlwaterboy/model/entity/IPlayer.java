@@ -31,14 +31,14 @@ public interface IPlayer {
   void setTouchingEdge(boolean edgeStatus);
 
   /**
-   * Sets whether the player has finished the level.
+   * Sets whether the player has finished the map.
    *
    * @param finished true if the player has finished; false otherwise.
    */
   void setFinished(boolean finished);
 
   /**
-   * Checks if the player has finished the level. 
+   * Checks if the player has finished the map. 
    * 
    * @return true if the player has finished; false otherwise.
    */

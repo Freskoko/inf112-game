@@ -42,7 +42,7 @@ public class CompletedMapScreen implements Screen{
     setupUI();
   }
 
-  // Set up the UI for the completed level screen
+  // Set up the UI for the completed map screen
   private void setupUI() {
     Table table = new Table();
     table.setFillParent(true);
@@ -50,7 +50,7 @@ public class CompletedMapScreen implements Screen{
     table.center();
 
 
-    controller.attachCompletedLevelScreenListeners(welcomeScreenButton);
+    controller.attachCompletedMapScreenListeners(welcomeScreenButton);
 
     table.add(welcomeScreenButton);
     stage.addActor(table);
@@ -95,7 +95,7 @@ public class CompletedMapScreen implements Screen{
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     batch.begin();
-    font.draw(batch, "Level completed!", Gdx.graphics.getWidth() / 2f - 150, Gdx.graphics.getHeight() / 2f + 20);
+    font.draw(batch, "Map completed!", Gdx.graphics.getWidth() / 2f - 150, Gdx.graphics.getHeight() / 2f + 20);
 
     batch.end();
 
