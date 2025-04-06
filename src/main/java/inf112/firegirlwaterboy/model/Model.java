@@ -1,6 +1,6 @@
 package inf112.firegirlwaterboy.model;
 
-import java.util.HashMap;
+import java.util.HashSet;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -30,16 +30,14 @@ public class Model implements IControllableModel, IViewModel {
   private IMaps maps;
   private String mapName;
   private World world;
-  private int collectedCount;
-  private HashMap<String, Boolean> completedMaps;
+  private HashSet<String> completedMaps;
 
   public Model() {
     this.players = new PlayerSet();
-    this.collectedCount = 0;
     this.mapName = "map1";
     this.maps = new Maps();
     this.gameState = GameState.WELCOME;
-    this.completedMaps = new HashMap<>();
+    this.completedMaps = new HashSet<>();
   }
 
   @Override
@@ -74,7 +72,7 @@ public class Model implements IControllableModel, IViewModel {
     }
     if (players.areFinished()) {
       gameState = GameState.COMPLETED_MAP;
-      completedMaps.putIfAbsent(mapName, true);
+      completedMaps.add(mapName);
     }
   }
 
@@ -136,7 +134,7 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public boolean isComplete(String mapName) {
-    return completedMaps.getOrDefault(mapName, false);
+    return completedMaps.contains(mapName);
   }
 
 }
