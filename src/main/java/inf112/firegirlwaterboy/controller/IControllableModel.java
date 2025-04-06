@@ -30,7 +30,6 @@ public interface IControllableModel {
    */
   boolean changeDir(PlayerType player, MovementType dir);
 
-
   /**
    * Add player to the game
    * 
@@ -53,8 +52,17 @@ public interface IControllableModel {
 
   /**
    * Set the map to the given map name
-   * @param mapName the name of the map to set
+   * 
+   * @param mapName the name of the map to set  
    */
   void setMap(String mapName);
+
+  /**
+   * Checks whether the specified map is marked as completed.
+   *
+   * @param mapName the name of the map to check
+   * @return {@code true} if the map has been completed; {@code false} otherwise
+   */
+  boolean isComplete(String string);
 
 }

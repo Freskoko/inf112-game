@@ -46,7 +46,7 @@ public class ChooseMapScreen implements Screen {
         font.getData().setScale(2f);
 
         chooseMapTextTexture = new Texture(
-                Gdx.files.internal("/Users/guroflatas/Documents/INF112/stein/src/main/resources/ChooseMapText.png"));
+                Gdx.files.internal("ChooseMapText.png"));
 
         setupUI();
     }

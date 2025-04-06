@@ -16,13 +16,13 @@ public class Controller implements InputProcessor {
   private IControllableModel model;
   private PlayerType playerOne; // Controlled by Arrow keys
   private PlayerType playerTwo; // Controlled by WASD keys
-  private ScreenButtonHandler buttonHandler;
+  private ButtonHandler buttonHandler;
 
   public Controller(IControllableModel model) {
     this.model = model;
     this.playerOne = null;
     this.playerTwo = null;
-    this.buttonHandler = new ScreenButtonHandler(this);
+    this.buttonHandler = new ButtonHandler(this, model);
   }
 
   /**
@@ -97,7 +97,7 @@ public class Controller implements InputProcessor {
    *                                  WelcomeScreen.
    */
   public void attachGameOverScreenListeners(Button backToChooseMapScreen) {
-    backToChooseMapScreen.addListener(buttonHandler.chooseMapScreenListener());
+    backToChooseMapScreen.addListener(buttonHandler.toMapScreenListener());
   }
 
   /**
@@ -108,44 +108,39 @@ public class Controller implements InputProcessor {
    * @param playButton The button used to start the game.
    */
   public void attachChooseMapScreenListeners(Button map1Button, Button map2Button, Button playButton) {
-    map1Button.addListener(buttonHandler.selectMapListener("map", playButton, map1Button, map2Button));
-    map2Button.addListener(buttonHandler.selectMapListener("map", playButton, map1Button, map2Button));
+
+    map1Button.addListener(buttonHandler.selectMapListener("map1", playButton, map1Button, map2Button));
+  
+    if (model.isComplete("map1")) {
+      System.out.println("Map 1 is complete!");
+      map2Button.addListener(buttonHandler.selectMapListener("map2", playButton, map1Button, map2Button));
+    }
     playButton.addListener(buttonHandler.playButtonListener());
   }
 
   /**
-   * Attaches listeners to the buttons on the CompletedLevelScreen.
+   * Attaches listeners to the buttons on the CompletedMapScreen.
    * 
    * @param backToChooseMapScreenButton The button uesd to go back to the
    *                                    ChooseMapScreen.
    */
-  public void attachCompletedLevelScreenListeners(Button backToChooseMapScreenButton) {
-    backToChooseMapScreenButton.addListener(buttonHandler.chooseMapScreenListener());
+  public void attachCompletedMapScreenListeners(Button backToChooseMapScreenButton) {
+    backToChooseMapScreenButton.addListener(buttonHandler.toMapScreenListener());
   }
 
   @Override
   public boolean keyDown(int keycode) {
-    switch (model.getGameState()) {
-      case ACTIVE_GAME -> handleActiveGameState(keycode);
-      case GAME_OVER -> handleGameOverState(keycode);
-      case COMPLETED_LEVEL -> handleCompletedLevelState(keycode);
-      case HELP -> {
-      }
-      case WELCOME -> {
-      }
-      case CHOOSE_MAP -> {
-      }
+    if (!model.getGameState().equals(GameState.ACTIVE_GAME)) {
+      return false;
+    }
+    PlayerType player = getPlayer(keycode);
+
+    switch (keycode) {
+      case Keys.UP, Keys.W -> model.changeDir(player, MovementType.UP);
+      case Keys.LEFT, Keys.A -> model.changeDir(player, MovementType.LEFT);
+      case Keys.RIGHT, Keys.D -> model.changeDir(player, MovementType.RIGHT);
     }
     return true;
-  }
-
-  private void handleCompletedLevelState(int keycode) {
-    switch (keycode) {
-      case Keys.R:
-        model.setGameState(GameState.ACTIVE_GAME);
-        model.restartGame();
-        break;
-    }
   }
 
   @Override
@@ -165,6 +160,18 @@ public class Controller implements InputProcessor {
       }
     }
     return false;
+  }
+
+  /**
+   * Returns the player assigned to the given key input.
+   * WASD controls Player 2, Arrows control Player 1.
+   */
+  private PlayerType getPlayer(int keycode) {
+    return switch (keycode) {
+      case Keys.W, Keys.A, Keys.D -> playerTwo;
+      case Keys.UP, Keys.LEFT, Keys.RIGHT -> playerOne;
+      default -> null;
+    };
   }
 
   @Override
@@ -201,42 +208,4 @@ public class Controller implements InputProcessor {
   public boolean scrolled(float amountX, float amountY) {
     return false;
   }
-
-  /**
-   * Handles key inputs in the ACTIVE_GAME state.
-   * Moves the corresponding player based on the key pressed.
-   *
-   * @param keycode the key pressed
-   */
-  private void handleActiveGameState(int keycode) {
-    PlayerType player = getPlayer(keycode);
-
-    switch (keycode) {
-      case Keys.UP, Keys.W -> model.changeDir(player, MovementType.UP);
-      case Keys.LEFT, Keys.A -> model.changeDir(player, MovementType.LEFT);
-      case Keys.RIGHT, Keys.D -> model.changeDir(player, MovementType.RIGHT);
-    }
-  }
-
-  private void handleGameOverState(int keycode) {
-    switch (keycode) {
-      case Keys.R:
-        model.setGameState(GameState.ACTIVE_GAME);
-        model.restartGame();
-        break;
-    }
-  }
-
-  /**
-   * Returns the player assigned to the given key input.
-   * WASD controls Player 2, Arrows control Player 1.
-   */
-  private PlayerType getPlayer(int keycode) {
-    return switch (keycode) {
-      case Keys.W, Keys.A, Keys.D -> playerTwo;
-      case Keys.UP, Keys.LEFT, Keys.RIGHT -> playerOne;
-      default -> null;
-    };
-  }
-
 }
