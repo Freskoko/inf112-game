@@ -4,18 +4,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.controller.Controller;
+
+// #5f4a11 Bakgrunnsfarge
 
 /**
  * ChooseMapScreen class represents the screen where the player can choose a
@@ -28,6 +32,8 @@ public class ChooseMapScreen implements Screen {
     private Viewport viewport;
     private BitmapFont font;
     private SpriteBatch batch;
+    private Texture chooseMapTextTexture;
+    private Button playButton;
 
     public ChooseMapScreen(Controller controller) {
         this.controller = controller;
@@ -39,33 +45,69 @@ public class ChooseMapScreen implements Screen {
         font.setColor(Color.WHITE);
         font.getData().setScale(2f);
 
+        chooseMapTextTexture = new Texture(
+                Gdx.files.internal("/Users/guroflatas/Documents/INF112/stein/src/main/resources/ChooseMapText.png"));
+
         setupUI();
     }
 
-    // Set up the UI for the choose map screen
     private void setupUI() {
         Table table = new Table();
         table.setFillParent(true);
+        table.center().top().padTop(300);
 
-        Button playButton = createButton("Play", Color.DARK_GRAY);
+        Button map1Button = createButton("Map 1", Color.DARK_GRAY);
+        Button map2Button = createButton("Map 2", Color.DARK_GRAY);
+        playButton = createImageButton("PlayButton.png", 300, 100);
+        playButton.setDisabled(true);
+        playButton.setDisabled(true);
 
-        // Sending button logic to controller
-        controller.setupPlayButtonListener(playButton);
+        // Koble knappene til controller
+        controller.attachChooseMapScreenListeners(map1Button, map2Button, playButton);
 
-        table.add(playButton).size(200, 60).center();
+        // Legg map-knappene på samme rad
+        table.add(map1Button).size(200, 60).padRight(20);
+        table.add(map2Button).size(200, 60).padLeft(20);
+        table.row().padTop(300);
+
+        // Play-knappen under
+        table.add(playButton).colspan(2).size(360, 120).center();
+
+
         stage.addActor(table);
     }
 
-    // Method for creating a button with a given text and color
     private Button createButton(String text, Color color) {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.font = font;
+
+        BitmapFont buttonFont = new BitmapFont();
+        buttonFont.getData().setScale(2f);
+        style.font = buttonFont;
         style.fontColor = Color.WHITE;
 
-        TextButton button = new TextButton(text, style);
-        button.setColor(color);
-        return button;
+        Pixmap pixmapUp = new Pixmap(300, 80, Pixmap.Format.RGBA8888);
+        pixmapUp.setColor(color);
+        pixmapUp.fill();
+
+        style.up = new TextureRegionDrawable(new Texture(pixmapUp));
+        pixmapUp.dispose();
+
+        return new TextButton(text, style);
     }
+
+    private Button createImageButton(String imagePath, int width, int height) {
+    Texture texture = new Texture(Gdx.files.internal(imagePath));
+    TextureRegionDrawable drawable = new TextureRegionDrawable(texture);
+
+    ImageButtonStyle style = new ImageButtonStyle();
+    style.imageUp = drawable;
+    style.imageDown = drawable;
+
+    ImageButton button = new ImageButton(style);
+    button.setSize(360,120); // 20 % større
+
+    return button;
+}
 
     @Override
     public void show() {
@@ -74,11 +116,15 @@ public class ChooseMapScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0.373f, 0.290f, 0.067f, 1); // Bakgrunnsfarge: #5f4a11
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        font.draw(batch, "Choose Level:", 320, 550);
+
+        batch.draw(
+                chooseMapTextTexture,
+                Gdx.graphics.getWidth() / 2f - chooseMapTextTexture.getWidth() / 2f,
+                Gdx.graphics.getHeight() - chooseMapTextTexture.getHeight() - 20);
         batch.end();
 
         stage.act(delta);
@@ -108,5 +154,7 @@ public class ChooseMapScreen implements Screen {
         stage.dispose();
         font.dispose();
         batch.dispose();
+        chooseMapTextTexture.dispose();
+
     }
 }
