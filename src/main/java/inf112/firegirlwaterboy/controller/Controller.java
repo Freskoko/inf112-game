@@ -35,25 +35,30 @@ public class Controller implements InputProcessor {
   }
 
   /**
-   * Selects a playerType for a player.
+   * This method assigns a player type to either
+   * Player One or Player Two.
+   * A player type can only be assigned if it is not already taken by the other
+   * player.
    * 
-   * @param playerType  The playerType to select.
-   * @param isPlayerOne True if player 1, false if player 2.
+   * @param playerType  The type of player to assign (FireGirl or WaterBoy).
+   * @param isPlayerOne A boolean indicating whether the player is Player One
+   *                    (true) or Player Two (false).
+   * @return {@code true} if the player type was successfully assigned;
+   *         {@code false} otherwise.
    */
-  public void selectPlayer(PlayerType playerType, boolean isPlayerOne) {
+  public boolean selectPlayer(PlayerType playerType, boolean isPlayerOne) {
     if (isPlayerOne) {
-      if (playerTwo != null && playerType == playerTwo) {
-        System.out.println("Player 1 cant choose the same as Player 2!");
-        return;
+      if (playerOne == null && playerType != playerTwo) {
+        playerOne = playerType;
+        return true;
       }
-      playerOne = playerType;
     } else {
-      if (playerOne != null && playerType == playerOne) {
-        System.out.println("Player 2 cant choose the same as Player 1!");
-        return;
+      if (playerTwo == null && playerType != playerOne) {
+        playerTwo = playerType;
+        return true;
       }
-      playerTwo = playerType;
     }
+    return false;
   }
 
   /**
@@ -110,7 +115,7 @@ public class Controller implements InputProcessor {
   public void attachChooseMapScreenListeners(Button map1Button, Button map2Button, Button playButton) {
 
     map1Button.addListener(buttonHandler.selectMapListener("map1", playButton, map1Button, map2Button));
-  
+
     if (model.isComplete("map1")) {
       System.out.println("Map 1 is complete!");
       map2Button.addListener(buttonHandler.selectMapListener("map2", playButton, map1Button, map2Button));

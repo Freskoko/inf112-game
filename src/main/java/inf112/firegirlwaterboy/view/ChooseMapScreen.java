@@ -19,7 +19,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.firegirlwaterboy.controller.Controller;
 
-// #5f4a11 Bakgrunnsfarge
 
 /**
  * ChooseMapScreen class represents the screen where the player can choose a
@@ -46,7 +45,7 @@ public class ChooseMapScreen implements Screen {
         font.getData().setScale(2f);
 
         chooseMapTextTexture = new Texture(
-                Gdx.files.internal("ChooseMapText.png"));
+                Gdx.files.internal("assets/pages/ChooseMapText.png"));
 
         setupUI();
     }
@@ -58,7 +57,7 @@ public class ChooseMapScreen implements Screen {
 
         Button map1Button = createButton("Map 1", Color.DARK_GRAY);
         Button map2Button = createButton("Map 2", Color.DARK_GRAY);
-        playButton = createImageButton("PlayButton.png", 300, 100);
+        playButton = createImageButton("assets/pages/PlayButton.png", 300, 100);
         playButton.setDisabled(true);
         playButton.setDisabled(true);
 

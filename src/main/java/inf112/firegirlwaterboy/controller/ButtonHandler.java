@@ -35,8 +35,9 @@ public class ButtonHandler {
       @Override
       public void clicked(InputEvent e, float x, float y) {
         boolean isPlayerOne = (playerNum == 1);
-        controller.selectPlayer(type, isPlayerOne);
-        e.getListenerActor().setColor(Color.GRAY);
+        if (controller.selectPlayer(type, isPlayerOne)) {
+          e.getListenerActor().setColor(Color.GRAY);
+        }
       }
     };
   }
