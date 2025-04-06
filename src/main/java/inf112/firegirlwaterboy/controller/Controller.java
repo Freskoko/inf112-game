@@ -90,18 +90,37 @@ public class Controller implements InputProcessor {
     playButton.addListener(buttonHandler.playButtonListener());
   }
 
-  // Attach GameOverScreen buttons
-  public void attachGameOverScreenListeners(Button backToWelcomeScreenButton) {
-    backToWelcomeScreenButton.addListener(buttonHandler.welcomeScreenButtonListener());
+  /**
+   * Attaches listeners to the buttons on the GameOverScreen.
+   * 
+   * @param backToWelcomeScreenButton The button used to go back to the
+   *                                  WelcomeScreen.
+   */
+  public void attachGameOverScreenListeners(Button backToChooseMapScreen) {
+    backToChooseMapScreen.addListener(buttonHandler.chooseMapScreenListener());
+  }
+
+  /**
+   * Attaches listeners to the buttons on the ChooseMapScreen.
+   * 
+   * @param map1Button The button used to select map 1.
+   * @param map2Button The button used to select map 2.
+   * @param playButton The button used to start the game.
+   */
+  public void attachChooseMapScreenListeners(Button map1Button, Button map2Button, Button playButton) {
+    map1Button.addListener(buttonHandler.selectMapListener("map", playButton, map1Button, map2Button));
+    map2Button.addListener(buttonHandler.selectMapListener("map", playButton, map1Button, map2Button));
+    playButton.addListener(buttonHandler.playButtonListener());
   }
 
   /**
    * Attaches listeners to the buttons on the CompletedLevelScreen.
    * 
-   * @param backToChooseMapScreenButton The button uesd to go back to the ChooseMapScreen.
+   * @param backToChooseMapScreenButton The button uesd to go back to the
+   *                                    ChooseMapScreen.
    */
   public void attachCompletedLevelScreenListeners(Button backToChooseMapScreenButton) {
-    backToChooseMapScreenButton.addListener(buttonHandler.welcomeScreenButtonListener());
+    backToChooseMapScreenButton.addListener(buttonHandler.chooseMapScreenListener());
   }
 
   @Override
@@ -110,9 +129,12 @@ public class Controller implements InputProcessor {
       case ACTIVE_GAME -> handleActiveGameState(keycode);
       case GAME_OVER -> handleGameOverState(keycode);
       case COMPLETED_LEVEL -> handleCompletedLevelState(keycode);
-      case HELP -> {}
-      case WELCOME -> {}
-      case CHOOSE_MAP -> {}
+      case HELP -> {
+      }
+      case WELCOME -> {
+      }
+      case CHOOSE_MAP -> {
+      }
     }
     return true;
   }
@@ -132,14 +154,14 @@ public class Controller implements InputProcessor {
       PlayerType player = getPlayer(keycode);
 
       switch (keycode) {
-          case Keys.LEFT:
-          case Keys.RIGHT:
-          case Keys.A:
-          case Keys.D:
-              model.changeDir(player, MovementType.STOP);
-              return true;
-          default:
-              return false;
+        case Keys.LEFT:
+        case Keys.RIGHT:
+        case Keys.A:
+        case Keys.D:
+          model.changeDir(player, MovementType.STOP);
+          return true;
+        default:
+          return false;
       }
     }
     return false;
@@ -216,8 +238,5 @@ public class Controller implements InputProcessor {
       default -> null;
     };
   }
-
-
-
 
 }
