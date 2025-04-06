@@ -31,7 +31,7 @@ public class Platform implements IEntity<ElementType>{
     float width = Maps.getWidth(platform);
     float height = Maps.getHeight(platform);
 
-    this.type = ElementType.valueOf(Maps.getProperty(platform, "tye"));
+    this.type = ElementType.valueOf(Maps.getProperty(platform, "type"));
     this.texture = new Texture(Gdx.files.internal(type.getTexturePath()));
     this.dir = MovementType.valueOf(Maps.getProperty(platform, "dir"));
     this.world = world;
