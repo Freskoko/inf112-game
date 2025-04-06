@@ -26,6 +26,7 @@ public class FireGirlWaterBoy extends Game {
   private Model model;
   private Controller controller;
   private GameState currentGameState;
+  private WelcomeScreen welcomeScreen;
 
   public FireGirlWaterBoy() {
     this.model = new Model();
@@ -61,7 +62,10 @@ public class FireGirlWaterBoy extends Game {
   private Screen getScreen(GameState gameState) {
     switch (gameState) {
       case WELCOME:
-        return new WelcomeScreen(controller);
+        if (welcomeScreen == null)
+          welcomeScreen = new WelcomeScreen(controller);
+        return welcomeScreen;
+
       case ACTIVE_GAME:
         model.restartGame();
         return new GameScreen(model, controller);
