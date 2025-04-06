@@ -8,7 +8,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.maps.Maps;
+import inf112.firegirlwaterboy.model.maps.MapsFactory;
 import inf112.firegirlwaterboy.model.types.ElementType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,10 +63,10 @@ public class PlatformTest {
         mockTexture = mock(Texture.class);
 
         when(mockMapObject.getProperties()).thenReturn(mockProperties);
-        when(mockProperties.get("x", Float.class)).thenReturn(100f / Maps.PPM);
-        when(mockProperties.get("y", Float.class)).thenReturn(100f / Maps.PPM);
-        when(mockProperties.get("width", Float.class)).thenReturn(32f / Maps.PPM);
-        when(mockProperties.get("height", Float.class)).thenReturn(32f / Maps.PPM);
+        when(mockProperties.get("x", Float.class)).thenReturn(100f / MapsFactory.PPM);
+        when(mockProperties.get("y", Float.class)).thenReturn(100f / MapsFactory.PPM);
+        when(mockProperties.get("width", Float.class)).thenReturn(32f / MapsFactory.PPM);
+        when(mockProperties.get("height", Float.class)).thenReturn(32f / MapsFactory.PPM);
         when(mockProperties.get("type", String.class)).thenReturn(ElementType.LAVA.toString());
         when(mockProperties.get("dir", String.class)).thenReturn(MovementType.LEFT.toString());
 
@@ -96,7 +96,19 @@ public class PlatformTest {
     @Test
     void testConstructorSetsUpTypeAndDirection() {
         assertEquals(ElementType.LAVA, platform.getType());
-        // Cannot directly access 'dir' as it's private, but its initial value affects update()
+    }
+
+    @Test
+    void collidesSwapsVelocity() {
+        platform.update();
+        Vector2 initialVelocity = platform.getBody().getLinearVelocity().cpy();
+
+        platform.collision();
+
+        platform.update();
+        Vector2 newVelocity = platform.getBody().getLinearVelocity();
+
+        assertEquals(-initialVelocity.x, newVelocity.x);
     }
 
     @Test
@@ -157,8 +169,8 @@ public class PlatformTest {
 
         float x = platform.getBody().getPosition().x;
         float y = platform.getBody().getPosition().y;
-        float width = 64f / Maps.PPM;
-        float height = 64f / Maps.PPM;
+        float width = 64f / MapsFactory.PPM;
+        float height = 64f / MapsFactory.PPM;
 
         verify(mockBatch).draw(mockTexture, x - width / 2, y - height / 2, width, height);
     }
