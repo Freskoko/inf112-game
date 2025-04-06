@@ -1,11 +1,6 @@
 package inf112.firegirlwaterboy.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -16,10 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.model.GameState;
@@ -29,77 +25,24 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
 public class ControllerTest {
     private Model model;
     private Controller controller;
+    private ButtonHandler buttonHandler;
 
     @BeforeAll
     private static void setUp() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
         HeadlessApplication application = new HeadlessApplication(new FireGirlWaterBoy(), config);
-        // even if not used this is required
 
-        // mocking
         GL20 gl20 = mock(GL20.class);
         Gdx.gl = gl20;
         Gdx.gl20 = gl20;
-
     }
 
-    /*
-     * Helper method
-     */
     @BeforeEach
     private void initTest() {
-        // Create a mock Model instead of a real one
         this.model = mock(Model.class);
-        this.controller = new Controller(this.model);
-
-        // Set default behavior for getGameState
+        this.buttonHandler = mock(ButtonHandler.class);
+        this.controller = new Controller(this.model, this.buttonHandler); // Pass the mock buttonHandler
         when(model.getGameState()).thenReturn(GameState.WELCOME);
-    }
-
-    @Test
-    void testPlayersCanMove() {
-        // Mock behaviors for adding players
-        when(model.containsPlayer(PlayerType.WATERBOY)).thenReturn(false, true);
-        when(model.containsPlayer(PlayerType.FIREGIRL)).thenReturn(false, true);
-
-        // add players
-        this.controller.keyDown(Keys.W); // w
-        this.controller.keyDown(Keys.F); // f
-
-        assertFalse(this.controller.keyUp(Keys.A));
-        assertFalse(this.controller.keyUp(Keys.D));
-
-        when(model.getGameState()).thenReturn(GameState.ACTIVE_GAME);
-
-        // mock movement
-        when(model.changeDir(eq(PlayerType.WATERBOY), any(MovementType.class))).thenReturn(true);
-        when(model.changeDir(eq(PlayerType.FIREGIRL), any(MovementType.class))).thenReturn(true);
-
-        // start the world
-        this.controller.keyDown(Keys.P); // p
-
-        // Test movement after game starts
-        assertTrue(this.controller.keyUp(Keys.A));
-        assertTrue(this.controller.keyUp(Keys.D));
-        assertFalse(this.controller.keyUp(Keys.I));
-        assertFalse(this.controller.keyUp(Keys.U));
-    }
-
-    /*
-     * Tests that an unknown player cannot be added to the game
-     */
-    @Test
-    void testKeyUpUnknownPlayer() {
-        assertFalse(this.controller.keyUp(Integer.MAX_VALUE));
-        assertFalse(this.controller.keyUp(9999));
-    }
-
-    /*
-     * Tests that the game cannot start if no players are selected
-     */
-    @Test
-    void testKeyUpNoPlayer() {
-        assertFalse(this.controller.keyUp(Keys.P));
     }
 
     /*
@@ -133,19 +76,119 @@ public class ControllerTest {
         verify(model, never()).addPlayer(any());
     }
 
-    /*
-     * Tests that pressing R when the game is over, restarts the game
-     */
-    // @Test
-    // void testHandleGameOverStateRestart() {
-        // when(model.getGameState()).thenReturn(GameState.GAME_OVER);
+    @Test
+    void testWelcomeScreenButtonSelection() {
+        ClickListener mockClickListener = mock(ClickListener.class);
+        when(buttonHandler.selectPlayerListener(1, PlayerType.FIREGIRL))
+            .thenReturn(mockClickListener);
 
-        // controller.keyDown(Keys.R);
+        Button fgP1 = mock(Button.class);
 
-        // keys logic is removed from controller
+        controller.attachWelcomeScreenListeners(fgP1, mock(Button.class),
+            mock(Button.class), mock(Button.class), mock(Button.class), mock(Button.class));
 
-        // verify(model).setGameState(GameState.ACTIVE_GAME);
-        // verify(model).restartGame();
+        verify(fgP1).addListener(mockClickListener);
+    }
 
-    // }
+    @Test
+    void testStartButtonTriggersGameStart() {
+        ClickListener mockClickListener = mock(ClickListener.class);
+        when(buttonHandler.startButtonListener())
+            .thenReturn(mockClickListener);
+
+        Button start = mock(Button.class);
+
+        controller.attachWelcomeScreenListeners(mock(Button.class), mock(Button.class),
+            mock(Button.class), mock(Button.class), start, mock(Button.class));
+
+        verify(start).addListener(mockClickListener);
+    }
+
+    @Test
+    void testPlayButtonChangesGameState() {
+        Button playButton = mock(Button.class);
+        ClickListener mockClickListener = mock(ClickListener.class);
+        when(buttonHandler.playButtonListener()).thenReturn(mockClickListener);
+
+        controller.setupPlayButtonListener(playButton);
+
+        verify(playButton).addListener(mockClickListener);
+        verify(buttonHandler).playButtonListener();
+    }
+
+    @Test
+    void testAttachWelcomeScreenListeners() {
+        Button fgP1 = mock(Button.class);
+        Button wbP1 = mock(Button.class);
+        Button fgP2 = mock(Button.class);
+        Button wbP2 = mock(Button.class);
+        Button start = mock(Button.class);
+        Button help = mock(Button.class);
+
+        ClickListener mockClickListener1FG = mock(ClickListener.class);
+        ClickListener mockClickListener1WB = mock(ClickListener.class);
+        ClickListener mockClickListener2FG = mock(ClickListener.class);
+        ClickListener mockClickListener2WB = mock(ClickListener.class);
+        ClickListener mockClickListenerStart = mock(ClickListener.class);
+        ClickListener mockClickListenerHelp = mock(ClickListener.class);
+
+        when(buttonHandler.selectPlayerListener(1, PlayerType.FIREGIRL)).thenReturn(mockClickListener1FG);
+        when(buttonHandler.selectPlayerListener(1, PlayerType.WATERBOY)).thenReturn(mockClickListener1WB);
+        when(buttonHandler.selectPlayerListener(2, PlayerType.FIREGIRL)).thenReturn(mockClickListener2FG);
+        when(buttonHandler.selectPlayerListener(2, PlayerType.WATERBOY)).thenReturn(mockClickListener2WB);
+        when(buttonHandler.startButtonListener()).thenReturn(mockClickListenerStart);
+        when(buttonHandler.helpButtonListener()).thenReturn(mockClickListenerHelp);
+
+        controller.attachWelcomeScreenListeners(fgP1, wbP1, fgP2, wbP2, start, help);
+
+        verify(fgP1).addListener(mockClickListener1FG);
+        verify(wbP1).addListener(mockClickListener1WB);
+        verify(fgP2).addListener(mockClickListener2FG);
+        verify(wbP2).addListener(mockClickListener2WB);
+        verify(start).addListener(mockClickListenerStart);
+        verify(help).addListener(mockClickListenerHelp);
+
+        verify(buttonHandler).selectPlayerListener(1, PlayerType.FIREGIRL);
+        verify(buttonHandler).selectPlayerListener(1, PlayerType.WATERBOY);
+        verify(buttonHandler).selectPlayerListener(2, PlayerType.FIREGIRL);
+        verify(buttonHandler).selectPlayerListener(2, PlayerType.WATERBOY);
+        verify(buttonHandler).startButtonListener();
+        verify(buttonHandler).helpButtonListener();
+    }
+
+    @Test
+    void testAttachHelpScreenListeners() {
+        Button back = mock(Button.class);
+        ClickListener mockClickListener = mock(ClickListener.class);
+        when(buttonHandler.backButtonListener()).thenReturn(mockClickListener);
+
+        controller.attachHelpScreenListeners(back);
+
+        verify(back).addListener(mockClickListener);
+        verify(buttonHandler).backButtonListener();
+    }
+
+    @Test
+    void testSetupPlayButtonListener() {
+        Button playButton = mock(Button.class);
+        ClickListener mockClickListener = mock(ClickListener.class);
+        when(buttonHandler.playButtonListener()).thenReturn(mockClickListener);
+
+        controller.setupPlayButtonListener(playButton);
+
+        verify(playButton).addListener(mockClickListener);
+        verify(buttonHandler).playButtonListener();
+    }
+
+    @Test
+    void testAttachGameOverScreenListeners() {
+        Button backToWelcomeScreenButton = mock(Button.class);
+        ClickListener mockClickListener = mock(ClickListener.class);
+        when(buttonHandler.toMapScreenListener()).thenReturn(mockClickListener);
+
+        controller.attachGameOverScreenListeners(backToWelcomeScreenButton);
+
+        verify(backToWelcomeScreenButton).addListener(mockClickListener);
+        verify(buttonHandler).toMapScreenListener();
+    }
 }

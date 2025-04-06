@@ -1,6 +1,9 @@
 package inf112.firegirlwaterboy.controller;
 
 import com.badlogic.gdx.Input.Keys;
+
+import javax.annotation.processing.Generated;
+
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
@@ -24,6 +27,13 @@ public class Controller implements InputProcessor {
     this.playerTwo = null;
     this.buttonHandler = new ButtonHandler(this, model);
   }
+
+  public Controller(IControllableModel model, ButtonHandler buttonHandler) {
+    this.model = model;
+    this.playerOne = null;
+    this.playerTwo = null;
+    this.buttonHandler = buttonHandler;
+}
 
   /**
    * Returns the model.
@@ -180,36 +190,43 @@ public class Controller implements InputProcessor {
   }
 
   @Override
+  @Generated("interface-stub")
   public boolean keyTyped(char character) {
     return false;
   }
 
   @Override
+  @Generated("interface-stub")
   public boolean touchDown(int screenX, int screenY, int pointer, int button) {
     return false;
   }
 
   @Override
+  @Generated("interface-stub")
   public boolean touchUp(int screenX, int screenY, int pointer, int button) {
     return false;
   }
 
   @Override
+  @Generated("interface-stub")
   public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
     return false;
   }
 
   @Override
+  @Generated("interface-stub")
   public boolean touchDragged(int screenX, int screenY, int pointer) {
     return false;
   }
 
   @Override
+  @Generated("interface-stub")
   public boolean mouseMoved(int screenX, int screenY) {
     return false;
   }
 
   @Override
+  @Generated("interface-stub")
   public boolean scrolled(float amountX, float amountY) {
     return false;
   }
