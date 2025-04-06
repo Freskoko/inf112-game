@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.model.entity;
+package inf112.firegirlwaterboy.model.managers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +16,7 @@ import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
-import inf112.firegirlwaterboy.model.managers.PlayerSet;
+import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
 public class PlayerSetTest {
@@ -76,6 +76,13 @@ public class PlayerSetTest {
     void testToString() {
         playerSet.add(new Player(PlayerType.FIREGIRL));
         assertEquals("FIREGIRL", playerSet.toString());
+    }
+
+    @Test
+    void testPlayersAreNotFinishedAtStart() {
+        assertTrue(playerSet.areFinished()); // empty so true
+        playerSet.add(new Player(PlayerType.FIREGIRL));
+        assertFalse(playerSet.areFinished());
     }
 
 }
