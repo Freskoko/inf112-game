@@ -147,5 +147,5 @@ public class ControllerTest {
         // verify(model).setGameState(GameState.ACTIVE_GAME);
         // verify(model).restartGame();
 
-    }
+    // }
 }

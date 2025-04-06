@@ -72,7 +72,7 @@ public class MapsTest {
      */
     @Test
     void testGetLayer() {
-        MapLayer layer = this.maps.getLayer("map", "Spawn");
+        MapLayer layer = this.maps.getLayer("map1", "Spawn");
         assertEquals(layer.getName(), "Spawn");
     }
 
@@ -86,7 +86,7 @@ public class MapsTest {
 
     @Test
     void testGetPlayerSpawn() {
-        assertEquals(maps.getSpawnPos("map"), new Vector2(2, 2));
+        assertEquals(maps.getSpawnPos("map1"), new Vector2(2, 2));
     }
 
     @Test
