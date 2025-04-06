@@ -50,4 +50,11 @@ public interface IControllableModel {
    * Restart the game
    */
   void restartGame();
+
+  /**
+   * Set the map to the given map name
+   * @param mapName the name of the map to set
+   */
+  void setMap(String mapName);
+
 }
