@@ -60,6 +60,10 @@ public class FireGirlWaterBoy extends Game {
    * @return a new corresponding Screen instance for the given game state.
    */
   private Screen getScreen(GameState gameState) {
+    if (gameState == null){
+      throw new IllegalArgumentException("null is not a valid gamestate");
+    }
+
     switch (gameState) {
       case WELCOME:
         if (welcomeScreen == null)
