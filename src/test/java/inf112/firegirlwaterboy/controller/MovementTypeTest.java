@@ -11,6 +11,7 @@ public class MovementTypeTest {
         assertEquals(MovementType.getOppositeDir(MovementType.UP), MovementType.DOWN);
         assertEquals(MovementType.getOppositeDir(MovementType.RIGHT), MovementType.LEFT);
         assertEquals(MovementType.getOppositeDir(MovementType.LEFT), MovementType.RIGHT);
+        assertEquals(MovementType.getOppositeDir(MovementType.STOP), MovementType.STOP);
 
     }
 }
