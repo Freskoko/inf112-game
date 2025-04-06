@@ -72,17 +72,17 @@ public class MyContactListener implements ContactListener {
       }
 
       Collectable collectable = getEntity(a, b, Collectable.class);
-      if (collectable != null) {
+      if (collectable != null  && contactStatus) {
         player.interactWithCollectable(collectable);
       }
 
       Element element = getEntity(a, b, Element.class);
-      if (element != null) {
+      if (element != null && contactStatus) {
         player.interactWithElement(element.getType());
       }
 
       Platform platform = getEntity(a, b, Platform.class);
-      if (platform != null) {
+      if (platform != null && contactStatus) {
         player.setOnPlatform(platform);
       }
     }

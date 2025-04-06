@@ -17,12 +17,15 @@ public class Collectable implements IEntity<String>, ICollectable {
   private PlayerType requiredPlayer;
   private Body body;
   private World world;
+  private boolean powerUp;
 
   public Collectable(World world, MapObject collectable) {
     float width = MapsFactory.getWidth(collectable);
     float height = MapsFactory.getHeight(collectable);
     this.requiredPlayer = PlayerType.valueOf(MapsFactory.getProperty(collectable, "PlayerType"));
     this.world = world;
+    this.powerUp = Boolean.parseBoolean(MapsFactory.getProperty(collectable, "PowerUp"));
+
 
     BodyDef bdef = new BodyDef();
     bdef.position.set(MapsFactory.getCX(collectable), MapsFactory.getCY(collectable));
@@ -83,5 +86,9 @@ public class Collectable implements IEntity<String>, ICollectable {
 
     return "Collectable";
     // In future multiple collectable types are added
+  }
+
+  public boolean getPowerUp() {
+    return powerUp;
   }
 }
