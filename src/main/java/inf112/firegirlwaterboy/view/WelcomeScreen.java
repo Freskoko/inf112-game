@@ -53,8 +53,22 @@ public class WelcomeScreen implements Screen {
         controller.attachWelcomeScreenListeners(fireGirlButtonP1, waterBoyButtonP1, fireGirlButtonP2, waterBoyButtonP2,
                 startButton, helpButton);
 
-        // Player selection
+  
         Table playerSelectionTable = new Table();
+
+        playerSelectionTable.top().padTop(20); 
+
+        // Logo image
+        Image logoImage = new Image(new TextureRegionDrawable(new TextureRegion(logo)));
+
+        // Set logo size
+        float logoWidth = logo.getWidth();
+        float logoHeight = logo.getHeight();
+        logoImage.setSize(logoWidth, logoHeight);
+
+        // Add logo to the top of the player selection table
+        playerSelectionTable.add(logoImage).colspan(2).center().padBottom(30); 
+        playerSelectionTable.row();
 
         // Player 1 selection
         Table p1Table = new Table();
@@ -90,18 +104,6 @@ public class WelcomeScreen implements Screen {
         helpTable.top().right().pad(20);
         helpTable.add(helpButton).size(100, 50);
         stage.addActor(helpTable);
-
-        // Logo image
-        Image logoImage = new Image(new TextureRegionDrawable(new TextureRegion(logo)));
-
-        // Set logo size and position
-        float logoWidth = logo.getWidth();
-        float logoHeight = logo.getHeight();
-
-        logoImage.setSize(logoWidth, logoHeight);
-        logoImage.setPosition((viewport.getWorldWidth() - logoWidth) / 2, viewport.getWorldHeight() * 0.45f);
-
-        stage.addActor(logoImage);
     }
 
     private Button createButton(String text, Color fillColor) {
