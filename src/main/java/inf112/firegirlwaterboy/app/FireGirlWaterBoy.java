@@ -43,7 +43,6 @@ public class FireGirlWaterBoy extends Game {
   @Override
   public void render() {
     super.render();
-
     GameState newGameState = model.getGameState();
     if (!newGameState.equals(currentGameState)) {
       setScreen(getScreen(newGameState));
@@ -60,7 +59,7 @@ public class FireGirlWaterBoy extends Game {
    * @return a new corresponding Screen instance for the given game state.
    */
   private Screen getScreen(GameState gameState) {
-    if (gameState == null){
+    if (gameState == null) {
       throw new IllegalArgumentException("null is not a valid gamestate");
     }
 

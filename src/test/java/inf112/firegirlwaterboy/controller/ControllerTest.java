@@ -3,6 +3,7 @@ package inf112.firegirlwaterboy.controller;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +31,8 @@ public class ControllerTest {
     @BeforeAll
     private static void setUp() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-        HeadlessApplication application = new HeadlessApplication(new FireGirlWaterBoy(), config);
+        //HeadlessApplication application = 
+        new HeadlessApplication(new FireGirlWaterBoy(), config);
 
         GL20 gl20 = mock(GL20.class);
         Gdx.gl = gl20;
@@ -55,7 +57,7 @@ public class ControllerTest {
         controller.selectPlayer(PlayerType.WATERBOY, false);
 
         // Attempt to start game
-        controller.startGameIfPlayersSelected();
+        controller.continueIfPlayersSelected();
 
         // Verify game state changes and players are added
         verify(model).setGameState(GameState.CHOOSE_MAP);
@@ -70,37 +72,35 @@ public class ControllerTest {
     void testStartGameFailsWithoutBothPlayersSelected() {
         controller.selectPlayer(PlayerType.FIREGIRL, true);
 
-        controller.startGameIfPlayersSelected();
+        controller.continueIfPlayersSelected();
 
         verify(model, never()).setGameState(any());
-        verify(model, never()).addPlayer(any());
+        verify(model, only()).addPlayer(any());
     }
 
     @Test
     void testWelcomeScreenButtonSelection() {
         ClickListener mockClickListener = mock(ClickListener.class);
-        when(buttonHandler.selectPlayerListener(1, PlayerType.FIREGIRL))
+        when(buttonHandler.getSelectPlayerListener(true, PlayerType.FIREGIRL))
             .thenReturn(mockClickListener);
 
         Button fgP1 = mock(Button.class);
 
-        controller.attachWelcomeScreenListeners(fgP1, mock(Button.class),
-            mock(Button.class), mock(Button.class), mock(Button.class), mock(Button.class));
-
+        controller.attachSelectPlayerListener(fgP1, true, PlayerType.FIREGIRL);
+      
         verify(fgP1).addListener(mockClickListener);
     }
 
     @Test
     void testStartButtonTriggersGameStart() {
         ClickListener mockClickListener = mock(ClickListener.class);
-        when(buttonHandler.startButtonListener())
+        when(buttonHandler.getToChooseMapListener())
             .thenReturn(mockClickListener);
 
         Button start = mock(Button.class);
 
-        controller.attachWelcomeScreenListeners(mock(Button.class), mock(Button.class),
-            mock(Button.class), mock(Button.class), start, mock(Button.class));
-
+        controller.attachToChooseMapsListener(start);
+   
         verify(start).addListener(mockClickListener);
     }
 
@@ -108,12 +108,12 @@ public class ControllerTest {
     void testPlayButtonChangesGameState() {
         Button playButton = mock(Button.class);
         ClickListener mockClickListener = mock(ClickListener.class);
-        when(buttonHandler.playButtonListener()).thenReturn(mockClickListener);
+        when(buttonHandler.getToActiveListener()).thenReturn(mockClickListener);
 
-        controller.setupPlayButtonListener(playButton);
+        controller.attachToActiveListener(playButton);
 
         verify(playButton).addListener(mockClickListener);
-        verify(buttonHandler).playButtonListener();
+        verify(buttonHandler).getToActiveListener();
     }
 
     @Test
@@ -132,14 +132,19 @@ public class ControllerTest {
         ClickListener mockClickListenerStart = mock(ClickListener.class);
         ClickListener mockClickListenerHelp = mock(ClickListener.class);
 
-        when(buttonHandler.selectPlayerListener(1, PlayerType.FIREGIRL)).thenReturn(mockClickListener1FG);
-        when(buttonHandler.selectPlayerListener(1, PlayerType.WATERBOY)).thenReturn(mockClickListener1WB);
-        when(buttonHandler.selectPlayerListener(2, PlayerType.FIREGIRL)).thenReturn(mockClickListener2FG);
-        when(buttonHandler.selectPlayerListener(2, PlayerType.WATERBOY)).thenReturn(mockClickListener2WB);
-        when(buttonHandler.startButtonListener()).thenReturn(mockClickListenerStart);
-        when(buttonHandler.helpButtonListener()).thenReturn(mockClickListenerHelp);
+        when(buttonHandler.getSelectPlayerListener(true, PlayerType.FIREGIRL)).thenReturn(mockClickListener1FG);
+        when(buttonHandler.getSelectPlayerListener(true, PlayerType.WATERBOY)).thenReturn(mockClickListener1WB);
+        when(buttonHandler.getSelectPlayerListener(false, PlayerType.FIREGIRL)).thenReturn(mockClickListener2FG);
+        when(buttonHandler.getSelectPlayerListener(false, PlayerType.WATERBOY)).thenReturn(mockClickListener2WB);
+        when(buttonHandler.getToChooseMapListener()).thenReturn(mockClickListenerStart);
+        when(buttonHandler.getToHelpListener()).thenReturn(mockClickListenerHelp);
 
-        controller.attachWelcomeScreenListeners(fgP1, wbP1, fgP2, wbP2, start, help);
+        controller.attachSelectPlayerListener(fgP1, true, PlayerType.FIREGIRL);
+        controller.attachSelectPlayerListener(wbP1, true, PlayerType.WATERBOY);
+        controller.attachSelectPlayerListener(fgP2, false, PlayerType.FIREGIRL);
+        controller.attachSelectPlayerListener(wbP2, false, PlayerType.WATERBOY);
+        controller.attachToChooseMapsListener(start);
+        controller.attachToHelpListener(help);
 
         verify(fgP1).addListener(mockClickListener1FG);
         verify(wbP1).addListener(mockClickListener1WB);
@@ -148,47 +153,48 @@ public class ControllerTest {
         verify(start).addListener(mockClickListenerStart);
         verify(help).addListener(mockClickListenerHelp);
 
-        verify(buttonHandler).selectPlayerListener(1, PlayerType.FIREGIRL);
-        verify(buttonHandler).selectPlayerListener(1, PlayerType.WATERBOY);
-        verify(buttonHandler).selectPlayerListener(2, PlayerType.FIREGIRL);
-        verify(buttonHandler).selectPlayerListener(2, PlayerType.WATERBOY);
-        verify(buttonHandler).startButtonListener();
-        verify(buttonHandler).helpButtonListener();
+        verify(buttonHandler).getSelectPlayerListener(true, PlayerType.FIREGIRL);
+        verify(buttonHandler).getSelectPlayerListener(true, PlayerType.WATERBOY);
+        verify(buttonHandler).getSelectPlayerListener(false, PlayerType.FIREGIRL);
+        verify(buttonHandler).getSelectPlayerListener(false, PlayerType.WATERBOY);
+        verify(buttonHandler).getToChooseMapListener();
+        verify(buttonHandler).getToHelpListener();
     }
 
     @Test
     void testAttachHelpScreenListeners() {
         Button back = mock(Button.class);
         ClickListener mockClickListener = mock(ClickListener.class);
-        when(buttonHandler.backButtonListener()).thenReturn(mockClickListener);
+        when(buttonHandler.getToWelcomeListener()).thenReturn(mockClickListener);
 
-        controller.attachHelpScreenListeners(back);
+        controller.attachToWelcomeListeners(back);
 
         verify(back).addListener(mockClickListener);
-        verify(buttonHandler).backButtonListener();
+        verify(buttonHandler).getToWelcomeListener();
     }
 
     @Test
     void testSetupPlayButtonListener() {
         Button playButton = mock(Button.class);
         ClickListener mockClickListener = mock(ClickListener.class);
-        when(buttonHandler.playButtonListener()).thenReturn(mockClickListener);
+        when(buttonHandler.getToActiveListener()).thenReturn(mockClickListener);
 
-        controller.setupPlayButtonListener(playButton);
+        controller.attachToActiveListener(playButton);
 
         verify(playButton).addListener(mockClickListener);
-        verify(buttonHandler).playButtonListener();
+        verify(buttonHandler).getToActiveListener();
     }
 
     @Test
     void testAttachGameOverScreenListeners() {
         Button backToWelcomeScreenButton = mock(Button.class);
         ClickListener mockClickListener = mock(ClickListener.class);
-        when(buttonHandler.toMapScreenListener()).thenReturn(mockClickListener);
+        when(buttonHandler.getToChooseMapListener()).thenReturn(mockClickListener);
+    
 
-        controller.attachGameOverScreenListeners(backToWelcomeScreenButton);
+        controller.attachToChooseMapsListener(backToWelcomeScreenButton);
 
         verify(backToWelcomeScreenButton).addListener(mockClickListener);
-        verify(buttonHandler).toMapScreenListener();
+        verify(buttonHandler).getToChooseMapListener();
     }
 }

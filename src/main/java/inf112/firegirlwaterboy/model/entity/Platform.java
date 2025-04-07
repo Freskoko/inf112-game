@@ -94,8 +94,7 @@ public class Platform implements IEntity<ElementType>{
    * Handles collision by changing the movement direction of the platform.
    */
   public void collision(){
-    dir = dir.getOppositeDir(dir);
+    dir = MovementType.getOppositeDir(dir);
   }
 
-  
 }

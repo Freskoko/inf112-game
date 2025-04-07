@@ -1,6 +1,5 @@
 package inf112.firegirlwaterboy.model.entity;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 

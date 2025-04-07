@@ -83,10 +83,6 @@ public class MapsFactory implements IMapsFactory {
   public Vector2 getSpawnPos(String mapName) {
     MapLayer objectLayer = getLayer(mapName, "Spawn");
 
-    if (objectLayer == null) {
-      System.out.println("Warning: 'Spawn' layer missing in map " + mapName);
-      return DEFAULT_SPAWN_POS;
-    }
     if (objectLayer.getObjects().getCount() == 0) {
       System.err.println("Warning: 'Spawn' layer exists but contains no objects in map " + mapName);
       return DEFAULT_SPAWN_POS;

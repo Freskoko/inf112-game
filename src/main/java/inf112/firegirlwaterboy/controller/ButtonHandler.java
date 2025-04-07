@@ -16,25 +16,21 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
 public class ButtonHandler {
 
   private final Controller controller;
-  private String selectedMapName = null;
   private final IControllableModel model;
-
+  private String selectedMapName = null;
 
   public ButtonHandler(Controller controller, IControllableModel model) {
     this.controller = controller;
     this.model = model;
   }
 
-  // WELCOME SCREEN BUTTONS
-
   /**
-   * Returns a ClickListener for selecting a player on welcomescreen.
+   * Returns a ClickListener for selecting a player
    */
-  public ClickListener selectPlayerListener(int playerNum, PlayerType type) {
+  public ClickListener getSelectPlayerListener(boolean isPlayerOne, PlayerType type) {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
-        boolean isPlayerOne = (playerNum == 1);
         if (controller.selectPlayer(type, isPlayerOne)) {
           e.getListenerActor().setColor(Color.GRAY);
         }
@@ -43,21 +39,21 @@ public class ButtonHandler {
   }
 
   /**
-   * Returns a ClickListener for the start button on welcomescreen.
+   * Returns a ClickListener that changes gameState to CHOOSE_MAP
    */
-  public ClickListener startButtonListener() {
+  public ClickListener getToChooseMapListener() {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
-        controller.startGameIfPlayersSelected();
+        controller.continueIfPlayersSelected();
       }
     };
   }
 
   /**
-   * Returns a ClickListener for the help button on welcomescreen.
+   * Returns a ClickListener that changes gameStare to HELP
    */
-  public ClickListener helpButtonListener() {
+  public ClickListener getToHelpListener() {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
@@ -66,12 +62,10 @@ public class ButtonHandler {
     };
   }
 
-  // HELP SCREEN BUTTON
-
   /**
-   * Returns a ClickListener for the back button on helpscreen.
+   * Returns a ClickListener that changes gameState to WELCOME
    */
-  public ClickListener backButtonListener() {
+  public ClickListener getToWelcomeListener() {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
@@ -80,29 +74,30 @@ public class ButtonHandler {
     };
   }
 
-  // CHOOSE MAP SCREEN BUTTON
-
-  // CHOOSE MAP SCREEN BUTTONS
-  public ClickListener selectMapListener(String mapName, Button playButton, Button map1button, Button map2button) {
+  /**
+   * Returns a ClickListener for selecting a map
+   */
+  public ClickListener getSelectMapListener(String mapName, Button map1button, Button map2button) {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
         selectedMapName = mapName;
-        playButton.setDisabled(false);
-        
+
         // Reset color
         map1button.setColor(Color.WHITE);
         map2button.setColor(Color.WHITE);
-  
+
         // Mark the selected button
         e.getListenerActor().setColor(Color.GRAY);
       }
     };
   }
-  
 
-  // PLAY
-  public ClickListener playButtonListener() {
+  /**
+   * Returns a ClickListener that changes gameState to ACTIVE_GAME if a map is
+   * selected
+   */
+  public ClickListener getToActiveListener() {
     return new ClickListener() {
       @Override
       public void clicked(InputEvent e, float x, float y) {
@@ -111,17 +106,6 @@ public class ButtonHandler {
           model.setGameState(GameState.ACTIVE_GAME);
           selectedMapName = null;
         }
-      }
-    };
-  }
-  
-
-  // GAME OVER SCREEN BUTTON
-  public ClickListener toMapScreenListener() {
-    return new ClickListener() {
-      @Override
-      public void clicked(InputEvent e, float x, float y) {
-        model.setGameState(GameState.CHOOSE_MAP);
       }
     };
   }

@@ -44,9 +44,9 @@ public class PlayerTest {
     @BeforeAll
     static void setUp() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-        HeadlessApplication application = new HeadlessApplication(new FireGirlWaterBoy(), config);
-        // even if not used this is required
 
+        new HeadlessApplication(new FireGirlWaterBoy(), config);
+     
         // mocking
         GL20 gl20 = mock(GL20.class);
         Gdx.gl = gl20;

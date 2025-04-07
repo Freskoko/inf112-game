@@ -61,19 +61,18 @@ public class Collectable implements IEntity<String>, ICollectable {
 
   @Override
   public void update() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
+    
   }
 
   @Override
   public void draw(Batch batch) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'draw'");
+    
   }
 
   @Override
   public void dispose() {
-    // TODO Auto-generated method stub
+    
+    
   }
 
   @Override
@@ -83,9 +82,7 @@ public class Collectable implements IEntity<String>, ICollectable {
 
   @Override
   public String getType() {
-
     return "Collectable";
-    // In future multiple collectable types are added
   }
 
   public boolean getPowerUp() {

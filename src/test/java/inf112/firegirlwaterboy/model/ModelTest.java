@@ -37,7 +37,8 @@ public class ModelTest {
     static void setUpHeadless() {
         // Set up headless application for tests
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-        HeadlessApplication application = new HeadlessApplication(new FireGirlWaterBoy(), config);
+     
+        new HeadlessApplication(new FireGirlWaterBoy(), config);
         // Mock GL context
         GL20 gl20 = mock(GL20.class);
         Gdx.gl = gl20;

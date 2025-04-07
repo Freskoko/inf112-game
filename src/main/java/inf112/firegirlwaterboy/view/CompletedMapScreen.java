@@ -52,7 +52,7 @@ public class CompletedMapScreen implements Screen{
     table.center();
 
 
-    controller.attachCompletedMapScreenListeners(welcomeScreenButton);
+    controller.attachToChooseMapsListener(welcomeScreenButton);
 
     table.add(welcomeScreenButton);
     stage.addActor(table);

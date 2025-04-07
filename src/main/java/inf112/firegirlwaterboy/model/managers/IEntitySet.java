@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 import inf112.firegirlwaterboy.model.entity.IEntity;
 
-public interface IEntitySet<E extends IEntity> {
+public interface IEntitySet<E extends IEntity<?>> {
 
   /**
    * Add antity to collection

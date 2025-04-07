@@ -53,7 +53,7 @@ public interface IControllableModel {
   /**
    * Set the map to the given map name
    * 
-   * @param mapName the name of the map to set  
+   * @param mapName the name of the map to set
    */
   void setMap(String mapName);
 
