@@ -1,10 +1,8 @@
 package inf112.firegirlwaterboy.controller;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 
-import javax.annotation.processing.Generated;
-
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 import inf112.firegirlwaterboy.model.GameState;
@@ -14,7 +12,7 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
  * Controller class for the game FireGirl & WaterBoy.
  * Handles keyboard input and delegates button logic via ScreenButtonHandler.
  */
-public class Controller implements IController, InputProcessor {
+public class Controller extends InputAdapter implements IController  {
 
   private IControllableModel model;
   private PlayerType playerOne; // Controlled by Arrow keys
@@ -136,47 +134,5 @@ public class Controller implements IController, InputProcessor {
       case Keys.UP, Keys.LEFT, Keys.RIGHT -> playerOne;
       default -> null;
     };
-  }
-
-  @Override
-  @Generated("interface-stub")
-  public boolean keyTyped(char character) {
-    return false;
-  }
-
-  @Override
-  @Generated("interface-stub")
-  public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-    return false;
-  }
-
-  @Override
-  @Generated("interface-stub")
-  public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-    return false;
-  }
-
-  @Override
-  @Generated("interface-stub")
-  public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
-    return false;
-  }
-
-  @Override
-  @Generated("interface-stub")
-  public boolean touchDragged(int screenX, int screenY, int pointer) {
-    return false;
-  }
-
-  @Override
-  @Generated("interface-stub")
-  public boolean mouseMoved(int screenX, int screenY) {
-    return false;
-  }
-
-  @Override
-  @Generated("interface-stub")
-  public boolean scrolled(float amountX, float amountY) {
-    return false;
   }
 }
