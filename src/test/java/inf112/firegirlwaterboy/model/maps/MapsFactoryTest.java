@@ -1,8 +1,15 @@
 package inf112.firegirlwaterboy.model.maps;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.atMost;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -147,5 +154,74 @@ public class MapsFactoryTest {
         verify(mockBody, times(1)).createFixture(any(FixtureDef.class));
 
         verify(mockFixture).setUserData("TestLayer");
+    }
+
+    @Test
+    public void testGetMapNonExistent() {
+        assertThrows(IllegalArgumentException.class, () -> maps.getMap("non-existent-map"));
+    }
+
+    @Test
+    public void testGetPlatforms() {
+        assertNotNull(maps.getPlatforms("map1"));
+    }
+
+    @Test
+    public void testGetSpawnPosWithEmptySpawnLayer() throws Exception {
+        MapsFactory mapsSpy = org.mockito.Mockito.spy(maps);
+
+        MapLayer mockLayer = mock(MapLayer.class);
+        MapObjects mockObjects = mock(MapObjects.class);
+
+        when(mockLayer.getObjects()).thenReturn(mockObjects);
+        when(mockObjects.getCount()).thenReturn(0);
+
+        doReturn(mockLayer).when(mapsSpy).getLayer(eq("test-map"), eq("Spawn"));
+
+        Vector2 result = mapsSpy.getSpawnPos("test-map");
+        assertEquals(new Vector2(100, 100), result);
+    }
+
+    @Test
+    public void testGetSpawnPosWithMissingProperties() throws Exception {
+        MapsFactory mapsSpy = org.mockito.Mockito.spy(maps);
+
+        MapLayer mockLayer = mock(MapLayer.class);
+        MapObjects mockObjects = mock(MapObjects.class);
+        MapObject mockObject = mock(MapObject.class);
+        MapProperties mockProperties = mock(MapProperties.class);
+
+        when(mockLayer.getObjects()).thenReturn(mockObjects);
+        when(mockObjects.getCount()).thenReturn(1);
+        when(mockObjects.get(0)).thenReturn(mockObject);
+        when(mockObject.getProperties()).thenReturn(mockProperties);
+
+        when(mockProperties.get("x", Float.class)).thenReturn(null);
+        when(mockProperties.get("y", Float.class)).thenReturn(null);
+
+        doReturn(mockLayer).when(mapsSpy).getLayer(eq("test-map"), eq("Spawn"));
+
+        assertThrows(NullPointerException.class, () -> mapsSpy.getSpawnPos("test-map"));
+    }
+
+    @Test
+    public void testStaticHelperMethods() {
+        MapObject mockObject = mock(MapObject.class);
+        MapProperties mockProperties = mock(MapProperties.class);
+        when(mockObject.getProperties()).thenReturn(mockProperties);
+
+        when(mockProperties.get("width", Float.class)).thenReturn(64f);
+        when(mockProperties.get("height", Float.class)).thenReturn(32f);
+        when(mockProperties.get("x", Float.class)).thenReturn(100f);
+        when(mockProperties.get("y", Float.class)).thenReturn(200f);
+        when(mockProperties.get("testprop", String.class)).thenReturn("value");
+
+        assertEquals(2f, MapsFactory.getWidth(mockObject)); // 64/32
+        assertEquals(1f, MapsFactory.getHeight(mockObject)); // 32/32
+        assertEquals(3.125f, MapsFactory.getX(mockObject)); // 100/32
+        assertEquals(6.25f, MapsFactory.getY(mockObject)); // 200/32
+        assertEquals(4.125f, MapsFactory.getCX(mockObject)); // 3.125 + 2/2
+        assertEquals(6.75f, MapsFactory.getCY(mockObject)); // 6.25 + 1/2
+        assertEquals("VALUE", MapsFactory.getProperty(mockObject, "testprop"));
     }
 }

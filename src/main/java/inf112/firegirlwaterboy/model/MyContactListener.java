@@ -60,6 +60,7 @@ public class MyContactListener implements ContactListener {
 
     Player player = getEntity(a, b, Player.class);
 
+    // TODO: Use enum for target
     if (player != null) {
       if (isTarget(a, b, "Horizontal")) {
         player.setOnGround(contactStatus);
