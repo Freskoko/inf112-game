@@ -9,11 +9,14 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.IControllableModel;
 import inf112.firegirlwaterboy.controller.MovementType;
+import inf112.firegirlwaterboy.model.managers.CollectableSet;
 import inf112.firegirlwaterboy.model.managers.EntitySet;
+import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.managers.PlayerSet;
 import inf112.firegirlwaterboy.model.maps.IMapsFactory;
+import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.maps.MapsFactory;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 import inf112.firegirlwaterboy.view.IViewModel;
@@ -26,6 +29,8 @@ public class Model implements IControllableModel, IViewModel {
 
   private PlayerSet players;
   private EntitySet<Platform> platforms;
+  private CollectableSet collectables;
+  private EntitySet<Element> elements;
   private GameState gameState;
   private IMapsFactory maps;
   private String mapName;
@@ -46,7 +51,9 @@ public class Model implements IControllableModel, IViewModel {
     world.setContactListener(new MyContactListener());
     maps.createObjectsInWorld(world, mapName);
     platforms = maps.getPlatforms(mapName);
-    players.forEach(player -> player.spawn(world, maps.getSpawnPos(mapName)));
+    collectables = maps.getCollectables(mapName);
+    elements = maps.getElements(mapName);
+    players.forEach(player -> player.spawn(world, MapUtils.getSpawnPos(maps.getLayer(mapName, "Spawn"))));
   }
 
   @Override
@@ -62,6 +69,7 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public void update() {
     world.step(1 / 60f, 6, 2);
+    collectables.update();
     players.update();
     platforms.update();
 
@@ -90,6 +98,8 @@ public class Model implements IControllableModel, IViewModel {
   public void draw(Batch batch) {
     players.draw(batch);
     platforms.draw(batch);
+    elements.draw(batch);
+    collectables.draw(batch);
   }
 
   @Override

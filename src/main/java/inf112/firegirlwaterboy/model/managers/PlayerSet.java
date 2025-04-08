@@ -41,8 +41,8 @@ public class PlayerSet extends EntitySet<Player> implements IPlayerSet {
   public int getTotalCollectedScore() {
     int total = 0;
     for (Player player : this) {
-        total += player.getCountCollected();
+      total += player.getCollectedCount();
     }
     return total;
-}
+  }
 }

@@ -51,8 +51,7 @@ public class CollectableTest {
         when(mockProperties.get("y", Float.class)).thenReturn(100f);
         when(mockProperties.get("width", Float.class)).thenReturn(32f);
         when(mockProperties.get("height", Float.class)).thenReturn(32f);
-        when(mockProperties.get("PlayerType", String.class)).thenReturn("FIREGIRL");
-        when(mockProperties.get("PowerUp", String.class)).thenReturn("false");
+        when(mockProperties.get("type", String.class)).thenReturn("RED");
 
         this.collectable = new Collectable(world, mockMapObject);
     }
@@ -81,12 +80,12 @@ public class CollectableTest {
      */
     @Test
     void testGetRequiredPlayer() {
-        assertEquals(PlayerType.FIREGIRL, collectable.getRequiredPlayer());
-
-        // Test with WATERBOY
-        when(mockProperties.get("PlayerType", String.class)).thenReturn("WATERBOY");
+        assertTrue(collectable.getRequiredPlayer().contains(PlayerType.FIREGIRL));
+    
+        // Test with a different collectable type
+        when(mockProperties.get("type", String.class)).thenReturn("blue");
         Collectable waterboyCollectable = new Collectable(world, mockMapObject);
-        assertEquals(PlayerType.WATERBOY, waterboyCollectable.getRequiredPlayer());
+        assertTrue(waterboyCollectable.getRequiredPlayer().contains(PlayerType.WATERBOY));
     }
 
     /*
@@ -94,7 +93,7 @@ public class CollectableTest {
      */
     @Test
     void testToString() {
-        assertEquals("Collectable for FIREGIRL", collectable.toString());
+        assertEquals("Collectable for [FIREGIRL]", collectable.toString());
     }
 
     @Test

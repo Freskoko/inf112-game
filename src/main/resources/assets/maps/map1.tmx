@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="488">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="495">
  <tileset firstgid="1" source="tileset.xml"/>
  <tileset firstgid="49" source="mapassets/FIREGIRL.tsx"/>
  <layer id="1" name="Background" width="30" height="30" locked="1">
@@ -94,7 +94,7 @@
  <objectgroup id="4" name="Spawn" locked="1">
   <object id="221" name="Spawn" gid="49" x="64" y="896" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="6" name="Elements" locked="1">
+ <objectgroup id="6" name="Elements">
   <object id="369" x="480" y="320" width="32" height="128">
    <properties>
     <property name="type" value="water"/>
@@ -127,52 +127,34 @@
   </object>
  </objectgroup>
  <objectgroup id="11" name="Collectable">
-  <object id="397" x="238.667" y="688.667">
+  <object id="397" x="205.667" y="667.167" width="68.5" height="49">
    <properties>
-    <property name="PlayerType" value="WaterBoy"/>
-    <property name="PowerUp" value="false"/>
+    <property name="type" value="blue"/>
    </properties>
   </object>
-  <object id="398" x="239.333" y="850">
+  <object id="488" x="524.242" y="845.455" width="26.5" height="20.5">
    <properties>
-    <property name="PlayerType" value="FIREGIRL"/>
-    <property name="PowerUp" value="false"/>
+    <property name="type" value="blue"/>
    </properties>
   </object>
-  <object id="482" x="87" y="375">
+  <object id="489" x="524.242" y="693.939" width="33.5" height="27.5">
    <properties>
-    <property name="PlayerType" value="WaterBoy"/>
-    <property name="PowerUp" value="false"/>
+    <property name="type" value="red"/>
    </properties>
   </object>
-  <object id="483" x="558" y="543">
+  <object id="490" x="227.273" y="836.364" width="29.5" height="23">
    <properties>
-    <property name="PlayerType" value="WaterBoy"/>
-    <property name="PowerUp" value="false"/>
+    <property name="type" value="red"/>
    </properties>
   </object>
-  <object id="484" x="397" y="396">
+  <object id="491" x="350.318" y="818.621" width="73.5" height="45.5">
    <properties>
-    <property name="PlayerType" value="WaterBoy"/>
-    <property name="PowerUp" value="false"/>
+    <property name="type" value="powerUp"/>
    </properties>
   </object>
-  <object id="485" x="510" y="683">
+  <object id="492" x="90.9091" y="390.909" width="27" height="30">
    <properties>
-    <property name="PlayerType" value="WaterBoy"/>
-    <property name="PowerUp" value="false"/>
-   </properties>
-  </object>
-  <object id="486" x="529" y="848">
-   <properties>
-    <property name="PlayerType" value="WaterBoy"/>
-    <property name="PowerUp" value="false"/>
-   </properties>
-  </object>
-  <object id="487" x="408" y="822">
-   <properties>
-    <property name="PlayerType" value="WaterBoy"/>
-    <property name="PowerUp" value="true"/>
+    <property name="type" value="duo"/>
    </properties>
   </object>
  </objectgroup>

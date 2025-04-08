@@ -9,6 +9,9 @@ import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
@@ -135,7 +138,13 @@ public class PlayerTest {
     void testUpdateCollectable() {
         player.spawn(mockWorld, new Vector2(0, 0));
         Collectable mockCollectable = mock(Collectable.class);
-        when(mockCollectable.getRequiredPlayer()).thenReturn(PlayerType.FIREGIRL);
+        Set<PlayerType> requiredPlayer = new HashSet<>();
+        requiredPlayer.add(player.getType());
+
+       
+        when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayer);
+        when(mockCollectable.isPowerUp()).thenReturn(true);
+
         player.interactWithCollectable(mockCollectable);
         player.update();
         verify(mockCollectable).collect();
@@ -214,7 +223,9 @@ public class PlayerTest {
         player.spawn(mockWorld, new Vector2(0, 0));
         assertEquals(0, player.getCollectedCount());
         Collectable mockCollectable = mock(Collectable.class);
-        when(mockCollectable.getRequiredPlayer()).thenReturn(PlayerType.FIREGIRL);
+        Set<PlayerType> requiredPlayerSet = new HashSet<>();
+        requiredPlayerSet.add(player.getType()); 
+        when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayerSet);
         player.interactWithCollectable(mockCollectable);
         assertEquals(1, player.getCollectedCount());
         player.update();
@@ -225,7 +236,9 @@ public class PlayerTest {
     void testInteractWithCollectableCorrectType() {
         player.spawn(mockWorld, new Vector2(0, 0));
         Collectable mockCollectable = mock(Collectable.class);
-        when(mockCollectable.getRequiredPlayer()).thenReturn(PlayerType.FIREGIRL);
+        Set<PlayerType> requiredPlayerSet = new HashSet<>();
+        requiredPlayerSet.add(player.getType()); 
+        when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayerSet);
         player.interactWithCollectable(mockCollectable);
         player.update();
         assertEquals(1, player.getCollectedCount());
@@ -235,7 +248,8 @@ public class PlayerTest {
     void testInteractWithCollectableWrongType() {
         player.spawn(mockWorld, new Vector2(0, 0));
         Collectable mockCollectable = mock(Collectable.class);
-        when(mockCollectable.getRequiredPlayer()).thenReturn(PlayerType.WATERBOY);
+        Set<PlayerType> requiredPlayerSet = new HashSet<>();
+        when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayerSet);
         player.interactWithCollectable(mockCollectable);
         player.update();
         assertEquals(0, player.getCollectedCount());

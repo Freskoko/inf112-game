@@ -4,12 +4,13 @@ import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.controller.MovementType;
+import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Player;
+import inf112.firegirlwaterboy.model.managers.CollectableSet;
 import inf112.firegirlwaterboy.model.managers.EntitySet;
 import inf112.firegirlwaterboy.model.managers.PlayerSet;
 import inf112.firegirlwaterboy.model.maps.MapsFactory;
@@ -32,6 +33,8 @@ public class ModelTest {
     private PlayerSet mockPlayers;
     private EntitySet<Platform> mockPlatforms;
     private Set<PlayerType> addedPlayers;
+    private CollectableSet mockCollectables;
+    private EntitySet<Element> mockElements;
 
     @BeforeAll
     static void setUpHeadless() {
@@ -45,6 +48,7 @@ public class ModelTest {
         Gdx.gl20 = gl20;
     }
 
+    @SuppressWarnings("unchecked")
     @BeforeEach
     void setUp() {
         testModel = new Model();
@@ -52,7 +56,9 @@ public class ModelTest {
         mockMaps = mock(MapsFactory.class);
         mockPlayers = mock(PlayerSet.class);
         mockPlatforms = mock(EntitySet.class);
+        mockCollectables = mock(CollectableSet.class);
         addedPlayers = new HashSet<>();
+        mockElements = mock(EntitySet.class);
 
         try {
             java.lang.reflect.Field worldField = Model.class.getDeclaredField("world");
@@ -70,6 +76,15 @@ public class ModelTest {
             java.lang.reflect.Field platformsField = Model.class.getDeclaredField("platforms");
             platformsField.setAccessible(true);
             platformsField.set(testModel, mockPlatforms);
+
+            java.lang.reflect.Field collectablesField = Model.class.getDeclaredField("collectables");
+            collectablesField.setAccessible(true);
+            collectablesField.set(testModel, mockCollectables);
+
+            java.lang.reflect.Field elementsField = Model.class.getDeclaredField("elements");
+            elementsField.setAccessible(true);
+            elementsField .set(testModel, mockElements);
+
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
             fail("Failed to set mock dependencies: " + e.getMessage());
@@ -136,17 +151,12 @@ public class ModelTest {
 
     @Test
     void testRestartGame() {
-        Vector2 spawnPos = new Vector2(1, 1);
-        when(mockMaps.getSpawnPos(anyString())).thenReturn(spawnPos);
-        when(mockMaps.getPlatforms(anyString())).thenReturn(mockPlatforms);
-
-        Player mockPlayer1 = mock(Player.class);
-        Player mockPlayer2 = mock(Player.class);
-        when(mockPlayers.iterator()).thenReturn(java.util.Arrays.asList(mockPlayer1, mockPlayer2).iterator());
-
         testModel.restartGame();
 
         verify(mockMaps).getPlatforms("map1");
+        verify(mockMaps).getCollectables("map1");
+        verify(mockMaps).getElements("map1");
+    
     }
 
     @Test
@@ -163,6 +173,7 @@ public class ModelTest {
         verify(mockWorld).step(1 / 60f, 6, 2);
         verify(mockPlayers).update();
         verify(mockPlatforms).update();
+        verify(mockCollectables).update();
         assertEquals(GameState.WELCOME, testModel.getGameState()); // Game state should remain WELCOME
     }
 
@@ -208,6 +219,8 @@ public class ModelTest {
         testModel.draw(mockBatch);
         verify(mockPlayers).draw(mockBatch);
         verify(mockPlatforms).draw(mockBatch);
+        verify(mockCollectables).draw(mockBatch);
+        verify(mockElements).draw(mockBatch);
     }
 
     @Test

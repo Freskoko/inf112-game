@@ -1,8 +1,6 @@
 package inf112.firegirlwaterboy.model.entity;
 
-import java.util.LinkedList;
 import java.util.Objects;
-import java.util.Queue;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.maps.MapsFactory;
+import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.ElementType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
@@ -35,7 +33,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private PlayerType playerType;
   private boolean isAlive;
   private int collectedCount;
-  private Queue<Collectable> collected;
   private boolean touchingEdge;
   private boolean finished;
   private Platform currentPlatform;
@@ -85,12 +82,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   @Override
   public void update() {
-    while (!collected.isEmpty()) {
-      Collectable collectable = collected.poll();
-      collectable.collect();
-    }
 
-  
     Vector2 position = body.getPosition();
     setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2);
   }
@@ -132,12 +124,11 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   @Override
   public void spawn(World world, Vector2 pos) {
-    setSize(getTexture().getWidth() / MapsFactory.PPM, getTexture().getHeight() / MapsFactory.PPM);
+    setSize(getTexture().getWidth() / MapUtils.PPM, getTexture().getHeight() / MapUtils.PPM);
     onGround = true;
     touchingEdge = false;
     isAlive = true;
     finished = false;
-    collected = new LinkedList<>();
     collectedCount = 0;
     createBody(world, pos);
     setPosition(pos.x, pos.y);
@@ -159,11 +150,11 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   @Override
   public void interactWithCollectable(Collectable collectable) {
-    if (collectable.getRequiredPlayer().equals(playerType)) {
-      collected.add(collectable);
+    if (collectable.getRequiredPlayer().contains(playerType)) {
       collectedCount++;
+      collectable.collect();
     }
-    powerUp |= collectable.getPowerUp();
+    powerUp |= collectable.isPowerUp();
   }
 
   @Override
@@ -233,14 +224,14 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
     fdef.density = 0.5f;
-    //fdef.friction = 0.1f;
+    // fdef.friction = 0.1f;
     fdef.restitution = 0f;
     body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
   }
 
   private void jump() {
-    if (!touchingEdge )
+    if (!touchingEdge)
       if (onGround || currentPlatform != null) {
         body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
         currentPlatform = null;
@@ -249,10 +240,5 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   public void setOnPlatform(Platform platform) {
     this.currentPlatform = platform;
-    //body.setGravityScale(0);
-  }
-
-  public int getCountCollected() {
-    return collectedCount;
   }
 }
