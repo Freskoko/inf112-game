@@ -19,8 +19,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.managers.CollectableSet;
 import inf112.firegirlwaterboy.model.managers.EntitySet;
+import inf112.firegirlwaterboy.model.maps.factories.GameObjectFactory;
 import inf112.firegirlwaterboy.model.entity.Platform;
-import inf112.firegirlwaterboy.model.entity.Collectable;
 
 /**
  * Manages loading and interacting with tiled maps in the game.
@@ -32,6 +32,11 @@ public class MapsFactory implements IMapsFactory {
   private HashMap<String, EntitySet<Platform>> platformsMap = new HashMap<>();
   private HashMap<String, CollectableSet> collectablesMap = new HashMap<>();
   private HashMap<String, EntitySet<Element>> elementsMap = new HashMap<>();
+  private GameObjectFactory gameObjectFactory;
+
+  public MapsFactory(GameObjectFactory gameObjectFactory){
+    this.gameObjectFactory = gameObjectFactory;
+  }
 
 
   /**
@@ -106,7 +111,7 @@ public class MapsFactory implements IMapsFactory {
   private void createPlatform(World world, MapLayer layer, String mapName) {
     EntitySet<Platform> platforms = new EntitySet<>();
     for (MapObject object : layer.getObjects()) {
-      platforms.add(new Platform(world, object));
+      platforms.add(gameObjectFactory.createPlatform(world, object));
     }
     platformsMap.put(mapName, platforms);
   }
@@ -145,7 +150,7 @@ public class MapsFactory implements IMapsFactory {
   private void createElementsFromLayer(World world, MapLayer layer, String mapName) {
     EntitySet<Element> elements = new EntitySet<>();
     for (MapObject object : layer.getObjects()) {
-      elements.add(new Element(world, object));
+      elements.add(gameObjectFactory.createElement(world, object));
     }
     elementsMap.put(mapName, elements);
     
@@ -160,7 +165,7 @@ public class MapsFactory implements IMapsFactory {
   private void createCollectablesFromLayer(World world, MapLayer layer, String mapName) {
     CollectableSet collectables = new CollectableSet();
     for (MapObject object : layer.getObjects()) {
-      collectables.add(new Collectable(world, object));
+      collectables.add(gameObjectFactory.createCollectable(world, object));
     }
     collectablesMap.put(mapName, collectables);
   }
