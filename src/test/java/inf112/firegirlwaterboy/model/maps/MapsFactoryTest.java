@@ -85,7 +85,7 @@ public class MapsFactoryTest {
 
     @Test
     void testGetPlayerSpawn() {
-        assertEquals(maps.getSpawnPos("map1"), new Vector2(2, 2));
+        assertEquals(MapUtils.getSpawnPos(maps.getLayer("map1", "Spawn")), new Vector2(2, 2));
     }
 
     @Test

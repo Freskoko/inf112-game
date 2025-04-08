@@ -8,7 +8,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.maps.MapsFactory;
+import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.ElementType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,10 +63,10 @@ public class PlatformTest {
         mockTexture = mock(Texture.class);
 
         when(mockMapObject.getProperties()).thenReturn(mockProperties);
-        when(mockProperties.get("x", Float.class)).thenReturn(100f / MapsFactory.PPM);
-        when(mockProperties.get("y", Float.class)).thenReturn(100f / MapsFactory.PPM);
-        when(mockProperties.get("width", Float.class)).thenReturn(32f / MapsFactory.PPM);
-        when(mockProperties.get("height", Float.class)).thenReturn(32f / MapsFactory.PPM);
+        when(mockProperties.get("x", Float.class)).thenReturn(100f / MapUtils.PPM);
+        when(mockProperties.get("y", Float.class)).thenReturn(100f / MapUtils.PPM);
+        when(mockProperties.get("width", Float.class)).thenReturn(32f / MapUtils.PPM);
+        when(mockProperties.get("height", Float.class)).thenReturn(32f / MapUtils.PPM);
         when(mockProperties.get("type", String.class)).thenReturn(ElementType.LAVA.toString());
         when(mockProperties.get("dir", String.class)).thenReturn(MovementType.LEFT.toString());
 
@@ -166,13 +166,14 @@ public class PlatformTest {
         when(mockTexture.getHeight()).thenReturn(64);
 
         platform.draw(mockBatch);
+        MapUtils.getX(mockMapObject);
 
-        float x = platform.getBody().getPosition().x;
-        float y = platform.getBody().getPosition().y;
-        float width = 64f / MapsFactory.PPM;
-        float height = 64f / MapsFactory.PPM;
+        float x =  MapUtils.getX(mockMapObject);
+        float y = MapUtils.getY(mockMapObject);
+        float width = MapUtils.getWidth(mockMapObject);
+        float height = MapUtils.getHeight(mockMapObject);
 
-        verify(mockBatch).draw(mockTexture, x - width / 2, y - height / 2, width, height);
+        verify(mockBatch).draw(mockTexture, x, y, width, height);
     }
 
     @Test

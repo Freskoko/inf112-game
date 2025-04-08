@@ -2,10 +2,12 @@ package inf112.firegirlwaterboy.model.maps;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.firegirlwaterboy.model.managers.CollectableSet;
 import inf112.firegirlwaterboy.model.managers.EntitySet;
+import inf112.firegirlwaterboy.model.entity.Collectable;
+import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Platform;
 
 public interface IMapsFactory {
@@ -32,20 +34,6 @@ public interface IMapsFactory {
    */
   MapLayer getLayer(String mapName, String layerName);
 
-  /**
-   * Gets the player's spawn position from the "Spawn" object layer in the
-   * specified
-   * map.
-   * Returns a default position if the layer or objects are missing.
-   * 
-   * @param mapName The name of the map to get the spawn position from.
-   *
-   * @return The spawn position as a {@link Vector2}, or {@code DEFAULT_SPAWN_POS}
-   *         if missing.
-   * @throws NullPointerException If the "Spawn" object lacks valid X/Y
-   *                              properties.
-   */
-  Vector2 getSpawnPos(String mapName);
 
   /**
    * Creates physics objects in the given Box2D world from all object layers in
@@ -64,4 +52,8 @@ public interface IMapsFactory {
    *         or {@code null} if no platforms exist for the specified map
    */
   EntitySet<Platform> getPlatforms(String mapName);
+
+  CollectableSet getCollectables(String mapName);
+
+  EntitySet<Element> getElements(String mapName);
 }
