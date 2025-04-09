@@ -7,7 +7,7 @@ Følgende skal med i team/prosjekt-rapporten, enten ved at det går frem fra ref
 
 Hvordan fungerer rollene i teamet? Trenger dere å oppdatere hvem som er teamlead eller kundekontakt?
 - Rollene fungere veldig godt. Etter forrige sprint fikk vi mer avklarte og spesifikke roller, noe som har funket veldig bra. Det har gjort at alle har fått mer definerte arbeidsroller. 
-- Vi har heller ikke opplevd behov for å innføre nye roller, ettersom de eksisterende rollene dekker  det meste av det som må gjøres. 
+- Vi har heller ikke opplevd behov for å innføre nye roller, ettersom de eksisterende rollene dekker  det som må gjøres. 
 
 
 Trenger dere andre roller? Skriv ned noen linjer om hva de ulike rollene faktisk innebærer for dere.
@@ -39,10 +39,11 @@ Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva
 - Vi har klart å vært konsistente ved å opprettholde faste møter hver mandag og torsdag. Det har vært unntak hvor vi har avlyst møter fordi mange har vært bortreist etc. 
 - Vi har klart å opprettholde motivasjon og jevn jobbing gjennom hele perioden. 
 - Vi har klart å ha et fint og motiverende arbeidsmiljø, hvor alle hjelper og bistår hverandre. 
+
 Forbedringer:
-- Oppgavene kunne vært mer delt opp i mindre tasks, for å gjøre det lettere å komme i gang og fordele arbeid jevnere.
-- Noen ganger så har vi samlet mange oppgaver i en issue, som gjør at det tar lang tid og gjennomføre og blir en stor merge request når den skal merges til main. Derfor kan det være lurt å dele opp i mindre issues slik at vi kan pushe oftere til main og unngå merge conflicter. 
-- Vi kan bli flinkere til å lage tydelige mål for hva som skal være ferdig innen neste sprint starter, slik at vi har god oversikt og tydelige mål og forfallsdatoer å jobbe mot. 
+- Vi kunne ha delt opp oppgavene i mindre tasks, for å gjøre det lettere å komme i gang og fordele arbeid jevnere.
+- Noen ganger så har vi samlet mange oppgaver i en issue, som gjør at det tar lang tid og gjennomføre og blir en stor merge request når den skal merges til main. Derfor kan det være lurt å dele opp i mindre issues slik at vi kan pushe oftere til main og unngå merge conflicter. Dette vil også kanskje føre til en jevnere fremgang i prosjektet. 
+- Vi kan bli flinkere til å lage tydelige mål for hva som skal være ferdig innen neste sprint, slik at vi har god oversikt og tydelige mål og forfallsdatoer å jobbe mot. 
 
 Under vurdering vil det vektlegges at alle bidrar til kodebasen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også designfiler)
 
@@ -76,6 +77,12 @@ Har dere gjort justeringer på kravene som er med i MVP? Forklar i så fall hvor
 - Vi er forbi MVP, vi har dekket alle de kravene. 
 
 Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang.
+
+Siden forrige gang:
+- Implementert bevegende plattformer
+- Implementert diamanter man kan samle
+- Spillet har nå mål og flere maps. 
+
 
 Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs).
 
