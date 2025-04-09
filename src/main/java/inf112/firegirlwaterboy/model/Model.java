@@ -20,6 +20,7 @@ import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.maps.MapsFactory;
 import inf112.firegirlwaterboy.model.maps.factories.StandardGameObjectsFactory;
 import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.sound.SoundManager;
 import inf112.firegirlwaterboy.view.IViewModel;
 
 /**
@@ -37,6 +38,7 @@ public class Model implements IControllableModel, IViewModel {
   private String mapName;
   private World world;
   private HashSet<String> completedMaps;
+  private SoundManager soundManager;
 
   public Model() {
     this.players = new PlayerSet();
@@ -77,6 +79,8 @@ public class Model implements IControllableModel, IViewModel {
     for (Player player : players) {
       if (!player.isAlive()) {
         gameState = GameState.GAME_OVER;
+        soundManager.playDeathSound();
+        break;
       }
     }
     if (players.areFinished()) {
@@ -146,6 +150,11 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public boolean isComplete(String mapName) {
     return completedMaps.contains(mapName);
+  }
+
+  @Override
+  public void setSoundManager(SoundManager soundManager) {
+    this.soundManager = soundManager;
   }
 
 }
