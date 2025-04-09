@@ -52,6 +52,7 @@ public class HelpScreen implements Screen {
         String instructionsText = "How to play:\n\n" +
                 "Select which player is should use WASD, and which player should use the arrowkeys\n\n" +
                 "Collect all diamonds and guide both characters to the door.\n\n" +
+                "The white diamond gives one extra life.\n\n" +
                 "Avoid obstacles - FireGirl can't touch water, and WaterBoy can't touch fire!";
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.BLACK);
