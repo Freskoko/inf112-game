@@ -39,6 +39,7 @@ import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
+import inf112.firegirlwaterboy.model.maps.factories.StandardGameObjectsFactory;
 
 public class MapsFactoryTest {
     private MapsFactory maps;
@@ -61,7 +62,7 @@ public class MapsFactoryTest {
 
     @BeforeEach
     private void initTest() {
-        this.maps = new MapsFactory();
+        this.maps = new MapsFactory(new StandardGameObjectsFactory());
         // this.maps.init();
     }
 
@@ -167,25 +168,19 @@ public class MapsFactoryTest {
     }
 
     @Test
-    public void testGetSpawnPosWithEmptySpawnLayer() throws Exception {
-        MapsFactory mapsSpy = org.mockito.Mockito.spy(maps);
-
+    public void testGetSpawnPosWithEmptySpawnLayer() {
         MapLayer mockLayer = mock(MapLayer.class);
         MapObjects mockObjects = mock(MapObjects.class);
 
         when(mockLayer.getObjects()).thenReturn(mockObjects);
         when(mockObjects.getCount()).thenReturn(0);
 
-        doReturn(mockLayer).when(mapsSpy).getLayer(eq("test-map"), eq("Spawn"));
-
-        Vector2 result = mapsSpy.getSpawnPos("test-map");
+        Vector2 result = MapUtils.getSpawnPos(mockLayer);
         assertEquals(new Vector2(100, 100), result);
     }
 
     @Test
-    public void testGetSpawnPosWithMissingProperties() throws Exception {
-        MapsFactory mapsSpy = org.mockito.Mockito.spy(maps);
-
+    public void testGetSpawnPosWithMissingProperties() {
         MapLayer mockLayer = mock(MapLayer.class);
         MapObjects mockObjects = mock(MapObjects.class);
         MapObject mockObject = mock(MapObject.class);
@@ -196,12 +191,11 @@ public class MapsFactoryTest {
         when(mockObjects.get(0)).thenReturn(mockObject);
         when(mockObject.getProperties()).thenReturn(mockProperties);
 
-        when(mockProperties.get("x", Float.class)).thenReturn(null);
+        // Return 0 instead of null to avoid NullPointerException during float unboxing
+        when(mockProperties.get("x", Float.class)).thenReturn(0f);
         when(mockProperties.get("y", Float.class)).thenReturn(null);
 
-        doReturn(mockLayer).when(mapsSpy).getLayer(eq("test-map"), eq("Spawn"));
-
-        assertThrows(NullPointerException.class, () -> mapsSpy.getSpawnPos("test-map"));
+        assertThrows(NullPointerException.class, () -> MapUtils.getSpawnPos(mockLayer));
     }
 
     @Test
@@ -216,12 +210,12 @@ public class MapsFactoryTest {
         when(mockProperties.get("y", Float.class)).thenReturn(200f);
         when(mockProperties.get("testprop", String.class)).thenReturn("value");
 
-        assertEquals(2f, MapsFactory.getWidth(mockObject)); // 64/32
-        assertEquals(1f, MapsFactory.getHeight(mockObject)); // 32/32
-        assertEquals(3.125f, MapsFactory.getX(mockObject)); // 100/32
-        assertEquals(6.25f, MapsFactory.getY(mockObject)); // 200/32
-        assertEquals(4.125f, MapsFactory.getCX(mockObject)); // 3.125 + 2/2
-        assertEquals(6.75f, MapsFactory.getCY(mockObject)); // 6.25 + 1/2
-        assertEquals("VALUE", MapsFactory.getProperty(mockObject, "testprop"));
+        assertEquals(2f, MapUtils.getWidth(mockObject)); // 64/32
+        assertEquals(1f, MapUtils.getHeight(mockObject)); // 32/32
+        assertEquals(3.125f, MapUtils.getX(mockObject)); // 100/32
+        assertEquals(6.25f, MapUtils.getY(mockObject)); // 200/32
+        assertEquals(4.125f, MapUtils.getCX(mockObject)); // 3.125 + 2/2
+        assertEquals(6.75f, MapUtils.getCY(mockObject)); // 6.25 + 1/2
+        assertEquals("VALUE", MapUtils.getProperty(mockObject, "testprop"));
     }
 }

@@ -18,6 +18,7 @@ import inf112.firegirlwaterboy.model.managers.PlayerSet;
 import inf112.firegirlwaterboy.model.maps.IMapsFactory;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.maps.MapsFactory;
+import inf112.firegirlwaterboy.model.maps.factories.StandardGameObjectsFactory;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 import inf112.firegirlwaterboy.view.IViewModel;
 
@@ -40,7 +41,7 @@ public class Model implements IControllableModel, IViewModel {
   public Model() {
     this.players = new PlayerSet();
     this.mapName = "map1";
-    this.maps = new MapsFactory();
+    this.maps = new MapsFactory(new StandardGameObjectsFactory());
     this.gameState = GameState.WELCOME;
     this.completedMaps = new HashSet<>();
   }

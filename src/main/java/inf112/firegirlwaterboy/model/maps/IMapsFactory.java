@@ -53,7 +53,22 @@ public interface IMapsFactory {
    */
   EntitySet<Platform> getPlatforms(String mapName);
 
+
+  /**
+   * Retrieves the set of collectables associated with the specified map.
+   *
+   * @param mapName the name of the map for which collectables are requested
+   * @return an {@code CollectableSet} containing the collectables for the given map,
+   *         or {@code null} if no collectables exist for the specified map
+   */
   CollectableSet getCollectables(String mapName);
 
+    /**
+   * Retrieves the set of elements associated with the specified map.
+   *
+   * @param mapName the name of the map for which elements are requested
+   * @return an {@code EntitySet} containing the elements for the given map,
+   *         or {@code null} if no elements exist for the specified map
+   */
   EntitySet<Element> getElements(String mapName);
 }
