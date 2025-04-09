@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Model;
+import inf112.firegirlwaterboy.sound.SoundManager;
 import inf112.firegirlwaterboy.view.ChooseMapScreen;
 import inf112.firegirlwaterboy.view.GameOverScreen;
 import inf112.firegirlwaterboy.view.GameScreen;
@@ -27,6 +28,7 @@ public class FireGirlWaterBoy extends Game {
   private Controller controller;
   private GameState currentGameState;
   private WelcomeScreen welcomeScreen;
+  private SoundManager soundManager;
 
   public FireGirlWaterBoy() {
     this.model = new Model();
@@ -38,6 +40,8 @@ public class FireGirlWaterBoy extends Game {
   public void create() {
     setScreen(getScreen(currentGameState));
     Gdx.input.setInputProcessor(controller);
+    soundManager = new SoundManager();
+    model.setSoundManager(soundManager);
   }
 
   @Override
