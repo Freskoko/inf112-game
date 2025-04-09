@@ -103,11 +103,11 @@ public class ChooseMapScreen implements Screen {
         style.imageUp = drawable;
         style.imageDown = drawable;
 
-        ImageButton button = new ImageButton(style);
-        button.setSize(360, 120); // 20 % større
+    ImageButton button = new ImageButton(style);
+    button.setSize(360,120); 
 
-        return button;
-    }
+    return button;
+}
 
     @Override
     public void show() {
@@ -116,7 +116,8 @@ public class ChooseMapScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.373f, 0.290f, 0.067f, 1); // Bakgrunnsfarge: #5f4a11
+        Gdx.gl.glClearColor(107 / 255f, 89 / 255f, 59 / 255f, 1f);  // hsl(24, 23.90%, 30.40%)
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
