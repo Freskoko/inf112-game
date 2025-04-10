@@ -10,14 +10,15 @@
 Spillet handler om firegirl and waterboy som må jobbe sammen for å komme seg ut av templet de er fanget i. På veien møter de på hindringer og feinder som prøver å stoppe de.
 
 ## Kjøring
-* Kompileres med `mvn package`.
-* Kjøres med `java -jar target/kurt-mario-1.0-SNAPSHOT-fat.jar`
+* Kompileres med `mvn clean package`.
+* Kjøres med `java -jar target/firegirl-and-waterboy-1.0-fat.jar`
 * Krever Java 17 eller senere
 
 ## Kjente feil
 
-# TODO
+Å bli presset mot bakken av en platform gjør at man kan bli stuck til bakken.
 
 ## Credits
 Tatt utgangspunkt ifra https://en.wikipedia.org/wiki/Fireboy_and_Watergirl
+Sprites er hentet fra https://www.spriters-resource.com/fullview/217382/
 Credit: Oslo Albet
