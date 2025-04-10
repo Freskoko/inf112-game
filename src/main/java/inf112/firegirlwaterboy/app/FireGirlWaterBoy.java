@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Model;
+import inf112.firegirlwaterboy.sound.SoundManager;
 import inf112.firegirlwaterboy.view.screens.ChooseMapScreen;
 import inf112.firegirlwaterboy.view.screens.CompletedMapScreen;
 import inf112.firegirlwaterboy.view.screens.GameOverScreen;
