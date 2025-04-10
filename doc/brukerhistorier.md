@@ -9,6 +9,18 @@
 
 # UI brukerhistorier
 
+## HUD
+
+**Brukerhistorier:**
+- Som spiller ønsker jeg å se et HeadsUpDisplay i toppen av skjermen som inneholder en timer og poeng. 
+
+**Akseptansekriterer:**
+- Spilleren ser en HUD på toppen av activeGameScreen.
+
+**Arbeidsoppgave:**
+- Implementere HUD
+- Oppdatere Score når spillerene fanger diamanter. 
+
 ## Velkomstskjerm
 
 **Brukerhistorier:**
@@ -31,9 +43,9 @@
 -	Som bruker ønsker jeg å velge hvilken level jeg vil spille før spillet starter og se hvor mange levler jeg har fullført.
 
 **Akseptansekriterer:**
--	Etter brukeren har valgt spillere i WelcomeScreen og trykket «start» så kommer de til ChooseMap screen. Der kan de velge level/Screen.
--	Bruker ser en liste med baner/level de kan velge. 
--	Må ha fullført bane 1 for og ta bane 2 osv. 
+-	Etter brukeren har valgt spillere i WelcomeScreen og trykket «start» så kommer de til ChooseMap screen. Der kan de velge map.
+-	Bruker ser en liste med maps de kan velge. 
+-	Må ha fullført map 1 for og ta map 2 osv. 
 
 **Arbeidsoppgaver:**
 -	Lage en egen klasse ChooseMapScreen.
@@ -63,16 +75,43 @@
 
 **Akseptansekriterier:**
 -	Brukeren ser en game over screen når de dør.
--	Spiller kan velge å restarte level eller tilbake til WelcomeScreen.
--	Skjermen skal vise poengsum
+-	Spiller kan velge å restarte level eller tilbake til ChooseMapsScreen.
+
 
 **Arbeidsoppgaver:**
 -	Lage en GameOverScreen-klasse som implementerer Screen.
 -	Implementere logikk for å restarte nivået eller gå til hovedmenyen.
--	Legge til en poengteller/statistikk for spillerens siste runde
+
 
 # Spillogikk brukerhistorier
 
+## Lydeffekt
+**Brukerhistorier:**
+- Som spiller ønsker jeg å høre en lydeffekt når karakteren min dør. 
+
+**Akseptansekriterer:**
+- En passende lydeffekt spilles av umiddelbart når en spiller dør.
+
+**Arbeidsoppgave:**
+- Finne eller lage en passende lydeffekt for spillerdød.
+- Implementere funksjonalitet for å trigge lyden når en spiller dør.
+
+
+## Bevegende plattform
+
+**Brukerhistorier:**
+- Som spiller ønsker jeg å kunne hoppe på en plattform som beveger seg, slik at jeg kan komme meg høyere opp og nå ellers utilgjengelige områder. 
+
+**Akseptansekriterer:**
+- Bevegelige plattformer skal være implementert i spillet.
+- Spilleren skal kunne stå på plattformen mens den beveger seg.
+- Plattformen skal bevege seg jevnt innenfor definerte grenser uten å krasje i vegger eller andre objekter.
+
+**Arbeidsoppgave:**
+- Implementere bevegelsesmønster for plattformene (f.eks. horisontal eller vertikal bevegelse).
+- Sørge for at plattformer stopper eller snur når de møter hindringer.
+- Håndtere kollisjon mellom plattformer og vegger.
+- Sørge for at spilleren følger plattformens bevegelse mens vedkommende står på den. 
 
 ## Kollisjon 
 
@@ -187,15 +226,6 @@
 - Sjekk kollisjon med spiller.
 - Implementere overgang til en skjerm/vindu som viser at spillet er beseiret og evt poengscore. 
 
-# Tekniske brukerhistorier/utvikler pov
-
-**Brukerhistorier:** 
-- Som utvikler ønsker jeg å bruke objektfabrikker for å opprette spillobjekter
-
-**Akseptansekriterer:**
-- Spillobjekter lages gjennom en felles fabrikk.
-
-**Arbeidsoppgave:**
 
 
 
