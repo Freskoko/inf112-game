@@ -17,7 +17,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.ElementType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
@@ -235,7 +234,8 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
    * Initializes the animations for the player.
    */
   private void initializeAnimations() {
-    standingTexture = new TextureRegion(new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
+    standingTexture = new TextureRegion(
+        new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
 
     Array<TextureRegion> runningFrames = new Array<>();
     for (int i = 1; i <= 8; i++) {
@@ -246,14 +246,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     runningAnimation = new Animation<>(0.1f, runningFrames, Animation.PlayMode.LOOP);
     stateTime = 0f;
   }
-
-  /**
-   * Loads the head texture for the player.
-   */
-  private void loadHeadTexture() {
-    headTexture = new TextureRegion(new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-head.png")));
-  }
-
+  
   /**
    * Returns the current frame of the player based on their state (moving or standing).
    * If the player is not alive, returns an empty TextureRegion.
@@ -271,33 +264,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
    */
   private boolean isMoving() {
     return Math.abs(body.getLinearVelocity().x) > 0.01 || Math.abs(body.getLinearVelocity().y) > 0.01;
-  }
-
-  /**
-   * Returns the texture for the player based on its type.
-   * 
-   * @param type The type of the player.
-   * @return The texture region for the player type.
-   */
-  private static TextureRegion getTextureForType(PlayerType type) {
-    Texture texture;
-    try {
-      switch (type) {
-        case FIREGIRL:
-          texture = new Texture(Gdx.files.internal("assets/maps/mapassets/players/FIREGIRL.png"));
-          break;
-        case WATERBOY:
-          texture = new Texture(Gdx.files.internal("assets/maps/mapassets/players/WATERBOY.png"));
-          break;
-        default:
-          texture = new Texture(Gdx.files.internal("/default.png"));
-          break;
-      }
-      return new TextureRegion(texture);
-    } catch (Exception e) {
-      Gdx.app.log("Texture Loading Error", "Could not load texture: " + e.getMessage());
-      return null;
-    }
   }
 
   /**
