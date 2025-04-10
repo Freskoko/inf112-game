@@ -6,7 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 
 /**
  * SoundManager class for the game FireGirl & WaterBoy.
- * Handles loading, playing and disposing of game sounds.
+ * Handles loading, playing and disposing of game sounds. Diamond sound is not used yet. 
  */
 public class SoundManager {
 
