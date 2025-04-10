@@ -21,4 +21,9 @@ Spillet handler om firegirl and waterboy som må jobbe sammen for å komme seg u
 ## Credits
 Tatt utgangspunkt ifra https://en.wikipedia.org/wiki/Fireboy_and_Watergirl
 Sprites er hentet fra https://www.spriters-resource.com/fullview/217382/
+Musikk og lyd er hentet fra: https://downloads.khinsider.com/game-soundtracks/album/fireboy-and-watergirl 
 Credit: Oslo Albet
+
+
+ 
+

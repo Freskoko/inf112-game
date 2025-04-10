@@ -2,6 +2,7 @@ package inf112.firegirlwaterboy.controller;
 
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.sound.SoundManager;
 
 /**
  * Interface for the controllable model.
@@ -64,5 +65,12 @@ public interface IControllableModel {
    * @return {@code true} if the map has been completed; {@code false} otherwise
    */
   boolean isComplete(String string);
+
+  /**
+   * Sets the sound manager for the model.
+   *
+   * @param soundManager the sound manager to set
+   */
+  public void setSoundManager(SoundManager soundManager);
 
 }
