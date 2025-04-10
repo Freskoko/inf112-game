@@ -8,12 +8,12 @@ import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Model;
 import inf112.firegirlwaterboy.sound.SoundManager;
-import inf112.firegirlwaterboy.view.ChooseMapScreen;
-import inf112.firegirlwaterboy.view.GameOverScreen;
-import inf112.firegirlwaterboy.view.GameScreen;
-import inf112.firegirlwaterboy.view.HelpScreen;
-import inf112.firegirlwaterboy.view.WelcomeScreen;
-import inf112.firegirlwaterboy.view.CompletedMapScreen;
+import inf112.firegirlwaterboy.view.screens.ChooseMapScreen;
+import inf112.firegirlwaterboy.view.screens.CompletedMapScreen;
+import inf112.firegirlwaterboy.view.screens.GameOverScreen;
+import inf112.firegirlwaterboy.view.screens.GameScreen;
+import inf112.firegirlwaterboy.view.screens.HelpScreen;
+import inf112.firegirlwaterboy.view.screens.WelcomeScreen;
 
 /**
  * FireGirlWaterBoy is a game where the player controls two characters, FireGirl

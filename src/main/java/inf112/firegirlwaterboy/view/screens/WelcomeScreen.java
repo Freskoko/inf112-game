@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.view;
+package inf112.firegirlwaterboy.view.screens;
 
 import javax.annotation.processing.Generated;
 
@@ -39,7 +39,7 @@ public class WelcomeScreen implements Screen {
         viewport = new ScreenViewport();
 
         stage = new Stage(viewport);
-        logo = new Texture("assets/pages/logo.png");
+        logo = new Texture("assets/pages/logo2.png");
 
         backgroundTexture = new Texture("assets/pages/background.png");
         batch = new SpriteBatch();

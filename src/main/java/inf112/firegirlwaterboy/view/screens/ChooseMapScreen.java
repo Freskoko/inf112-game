@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.view;
+package inf112.firegirlwaterboy.view.screens;
 
 import javax.annotation.processing.Generated;
 
@@ -103,11 +103,11 @@ public class ChooseMapScreen implements Screen {
         style.imageUp = drawable;
         style.imageDown = drawable;
 
-        ImageButton button = new ImageButton(style);
-        button.setSize(360, 120); // 20 % større
+    ImageButton button = new ImageButton(style);
+    button.setSize(360,120); 
 
-        return button;
-    }
+    return button;
+}
 
     @Override
     public void show() {
@@ -116,7 +116,8 @@ public class ChooseMapScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.373f, 0.290f, 0.067f, 1); // Bakgrunnsfarge: #5f4a11
+        Gdx.gl.glClearColor(0x91 / 255f, 0x8b / 255f, 0x75 / 255f, 1f);  // Hex color #918b75
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
