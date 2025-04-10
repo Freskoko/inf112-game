@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 import inf112.firegirlwaterboy.controller.MovementType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
@@ -38,12 +40,21 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private Platform currentPlatform;
   private boolean powerUp;
 
+  private Animation<TextureRegion> runningAnimation;
+  private TextureRegion standingTexture, headTexture;
+  private float stateTime;
+
+
   /**
    * Initalizes a player, giving them a type and texture
    */
   public Player(PlayerType playerType) {
     super(getTextureForType(playerType));
     this.playerType = playerType;
+
+    initializeAnimations();
+    loadHeadTexture();
+
   }
 
   @Override
@@ -78,10 +89,16 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   @Override
   public void draw(Batch batch) {
     super.draw(batch);
+    Vector2 position = body.getPosition();
+    batch.draw(headTexture, position.x - 0.94f, position.y, headTexture.getRegionWidth() / 38,
+        headTexture.getRegionHeight() / 38);
   }
 
   @Override
   public void update() {
+    stateTime += Gdx.graphics.getDeltaTime();
+    TextureRegion currentFrame = getCurrentFrame();
+    setRegion(currentFrame);
 
     Vector2 position = body.getPosition();
     setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2);
@@ -185,6 +202,35 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   //////////////////////////
   //// PRIVATE METHODS /////
   //////////////////////////
+
+  private void initializeAnimations() {
+    standingTexture = new TextureRegion(new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
+
+    Array<TextureRegion> runningFrames = new Array<>();
+    for (int i = 1; i <= 8; i++) {
+      Texture texture = new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-run" + i + ".png"));
+      TextureRegion region = new TextureRegion(texture);
+      runningFrames.add(new TextureRegion(region));
+    }
+    runningAnimation = new Animation<>(0.1f, runningFrames, Animation.PlayMode.LOOP);
+    stateTime = 0f;
+  }
+
+  private void loadHeadTexture() {
+    headTexture = new TextureRegion(new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-head.png")));
+  }
+
+  private TextureRegion getCurrentFrame() {
+    if (!isAlive) {
+      return new TextureRegion();
+    }
+
+    return isMoving() ? runningAnimation.getKeyFrame(stateTime, true) : standingTexture;
+  }
+
+  private boolean isMoving() {
+    return Math.abs(body.getLinearVelocity().x) > 0.01 || Math.abs(body.getLinearVelocity().y) > 0.01;
+  }
 
   private static TextureRegion getTextureForType(PlayerType type) {
     Texture texture;
