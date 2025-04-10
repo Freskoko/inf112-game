@@ -99,6 +99,12 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     stateTime += Gdx.graphics.getDeltaTime();
     TextureRegion currentFrame = getCurrentFrame();
     setRegion(currentFrame);
+    
+    if (body.getLinearVelocity().x < 0 && !currentFrame.isFlipX()) {
+      currentFrame.flip(true, false);
+    } else if (body.getLinearVelocity().x > 0 && currentFrame.isFlipX()) {
+      currentFrame.flip(true, false);
+    }
 
     Vector2 position = body.getPosition();
     setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2);
