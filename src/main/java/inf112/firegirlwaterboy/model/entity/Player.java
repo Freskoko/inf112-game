@@ -124,6 +124,10 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     this.onGround = groundStatus;
   }
 
+  public void setOnPlatform(Platform platform) {
+    this.currentPlatform = platform;
+  }
+
   @Override
   public void setTouchingEdge(boolean edgeStatus) {
     this.touchingEdge = edgeStatus;
@@ -203,6 +207,9 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   //// PRIVATE METHODS /////
   //////////////////////////
 
+  /**
+   * Initializes the animations for the player.
+   */
   private void initializeAnimations() {
     standingTexture = new TextureRegion(new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
 
@@ -216,10 +223,17 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     stateTime = 0f;
   }
 
+  /**
+   * Loads the head texture for the player.
+   */
   private void loadHeadTexture() {
     headTexture = new TextureRegion(new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-head.png")));
   }
 
+  /**
+   * Returns the current frame of the player based on their state (moving or standing).
+   * If the player is not alive, returns an empty TextureRegion.
+   */
   private TextureRegion getCurrentFrame() {
     if (!isAlive) {
       return new TextureRegion();
@@ -228,10 +242,19 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     return isMoving() ? runningAnimation.getKeyFrame(stateTime, true) : standingTexture;
   }
 
+  /**
+   * Checks if the player is moving based on their linear velocity.
+   */
   private boolean isMoving() {
     return Math.abs(body.getLinearVelocity().x) > 0.01 || Math.abs(body.getLinearVelocity().y) > 0.01;
   }
 
+  /**
+   * Returns the texture for the player based on its type.
+   * 
+   * @param type The type of the player.
+   * @return The texture region for the player type.
+   */
   private static TextureRegion getTextureForType(PlayerType type) {
     Texture texture;
     try {
@@ -253,6 +276,12 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     }
   }
 
+  /**
+   * Creates the body for the player in the Box2D world.
+   * 
+   * @param world The Box2D world where the player will be created.
+   * @param pos   The position where the player will be created.
+   */
   private void createBody(World world, Vector2 pos) {
     Float width = getWidth();
     Float height = getHeight();
@@ -276,15 +305,15 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     bodyShape.dispose();
   }
 
+  /**
+   * Applies a jump impulse to the player if they are on the ground or on a
+   * platform.  
+   */
   private void jump() {
     if (!touchingEdge)
       if (onGround || currentPlatform != null) {
         body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
         currentPlatform = null;
       }
-  }
-
-  public void setOnPlatform(Platform platform) {
-    this.currentPlatform = platform;
   }
 }
