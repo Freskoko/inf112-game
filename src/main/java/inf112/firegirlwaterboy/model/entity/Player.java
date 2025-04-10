@@ -44,6 +44,8 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private TextureRegion standingTexture, headTexture;
   private float stateTime;
 
+  private final float bodyHeightPlacement = - getHeight() / 5 - 0.15f;
+  private final float headHeightPlacement = - getHeight() / 4 - 0.1f;
 
   /**
    * Initalizes a player, giving them a type and texture
@@ -90,7 +92,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   public void draw(Batch batch) {
     super.draw(batch);
     Vector2 position = body.getPosition();
-    batch.draw(headTexture, position.x - 0.94f, position.y, headTexture.getRegionWidth() / 38,
+    batch.draw(headTexture, position.x - getWidth(), position.y - headHeightPlacement, headTexture.getRegionWidth() / 38,
         headTexture.getRegionHeight() / 38);
   }
 
@@ -99,7 +101,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     stateTime += Gdx.graphics.getDeltaTime();
     TextureRegion currentFrame = getCurrentFrame();
     setRegion(currentFrame);
-    
+
     if (body.getLinearVelocity().x < 0 && !currentFrame.isFlipX()) {
       currentFrame.flip(true, false);
     } else if (body.getLinearVelocity().x > 0 && currentFrame.isFlipX()) {
@@ -107,7 +109,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     }
 
     Vector2 position = body.getPosition();
-    setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2);
+    setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2 + bodyHeightPlacement);
   }
 
   //////////////////////////
