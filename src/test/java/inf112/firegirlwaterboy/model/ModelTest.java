@@ -1,6 +1,8 @@
 package inf112.firegirlwaterboy.model;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -16,6 +18,8 @@ import inf112.firegirlwaterboy.model.managers.EntitySet;
 import inf112.firegirlwaterboy.model.managers.PlayerSet;
 import inf112.firegirlwaterboy.model.maps.MapsFactory;
 import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.sound.SoundManager;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,6 +64,7 @@ public class ModelTest {
         mockCollectables = mock(CollectableSet.class);
         addedPlayers = new HashSet<>();
         mockElements = mock(EntitySet.class);
+        SoundManager mockSoundManager = mock(SoundManager.class);
 
         try {
             java.lang.reflect.Field worldField = Model.class.getDeclaredField("world");
@@ -85,6 +90,10 @@ public class ModelTest {
             java.lang.reflect.Field elementsField = Model.class.getDeclaredField("elements");
             elementsField.setAccessible(true);
             elementsField.set(testModel, mockElements);
+
+            java.lang.reflect.Field soundManagerField = Model.class.getDeclaredField("soundManager");
+            soundManagerField.setAccessible(true);
+            soundManagerField.set(testModel, mockSoundManager);
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
             fail("Failed to set mock dependencies: " + e.getMessage());
