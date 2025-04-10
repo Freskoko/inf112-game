@@ -52,8 +52,8 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
    */
   public Player(PlayerType playerType) {
     super(new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
-    this.playerType = playerType;
 
+    this.playerType = playerType;
     this.standingTexture = new TextureRegion(
         new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
     this.headTexture = new TextureRegion(
@@ -212,12 +212,12 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
    * It also flips the texture if the player is moving left or right.
    */
   private void setCurrentTexture() {
+    if (!isAlive) {
+      return;
+    }
     stateTime += Gdx.graphics.getDeltaTime();
     TextureRegion currentFrame = getCurrentFrame();
 
-    if (currentFrame == null) {
-      return;
-    }
     setRegion(currentFrame);
 
     if (body.getLinearVelocity().x < 0 && !currentFrame.isFlipX()) {
