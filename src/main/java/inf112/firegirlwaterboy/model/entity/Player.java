@@ -44,18 +44,23 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private TextureRegion standingTexture, headTexture;
   private float stateTime;
 
+  private final float bodyWidth = 1.0f;
+  private final float bodyHeight = 2.0f;
   private final float bodyHeightPlacement = -0.45f;
 
   /**
    * Initalizes a player, giving them a type and texture
    */
   public Player(PlayerType playerType) {
-    super(getTextureForType(playerType));
+    super(new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
     this.playerType = playerType;
 
+    this.standingTexture = new TextureRegion(
+        new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
+    this.headTexture = new TextureRegion(
+        new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-head.png")));
+    
     initializeAnimations();
-    loadHeadTexture();
-
   }
 
   @Override
@@ -91,24 +96,13 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   public void draw(Batch batch) {
     super.draw(batch);
     Vector2 position = body.getPosition();
-    batch.draw(headTexture, position.x - getWidth(), position.y + bodyHeightPlacement, headTexture.getRegionWidth() / 38,
+    batch.draw(headTexture, position.x - bodyWidth, position.y + bodyHeightPlacement, headTexture.getRegionWidth() / 38,
         headTexture.getRegionHeight() / 38);
   }
 
   @Override
   public void update() {
-    stateTime += Gdx.graphics.getDeltaTime();
-    TextureRegion currentFrame = getCurrentFrame();
-    setRegion(currentFrame);
-
-    if (body.getLinearVelocity().x < 0 && !currentFrame.isFlipX()) {
-      currentFrame.flip(true, false);
-    } else if (body.getLinearVelocity().x > 0 && currentFrame.isFlipX()) {
-      currentFrame.flip(true, false);
-    }
-
-    Vector2 position = body.getPosition();
-    setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2 + bodyHeightPlacement);
+    setCurrentTexture();
   }
 
   //////////////////////////
@@ -152,7 +146,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   @Override
   public void spawn(World world, Vector2 pos) {
-    setSize(getTexture().getWidth() / MapUtils.PPM, getTexture().getHeight() / MapUtils.PPM);
+    setSize(bodyWidth, bodyHeight);
     onGround = true;
     touchingEdge = false;
     isAlive = true;
@@ -213,6 +207,29 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   //////////////////////////
   //// PRIVATE METHODS /////
   //////////////////////////
+
+  /**
+   * Sets the current texture of the player based on its state (running or standing).
+   * It also flips the texture if the player is moving left or right.
+   */
+  private void setCurrentTexture() {
+    stateTime += Gdx.graphics.getDeltaTime();
+    TextureRegion currentFrame = getCurrentFrame();
+
+    if (currentFrame == null) {
+      return;
+    }
+    setRegion(currentFrame);
+
+    if (body.getLinearVelocity().x < 0 && !currentFrame.isFlipX()) {
+      currentFrame.flip(true, false);
+    } else if (body.getLinearVelocity().x > 0 && currentFrame.isFlipX()) {
+      currentFrame.flip(true, false);
+    }
+
+    Vector2 position = body.getPosition();
+    setPosition(position.x - bodyWidth / 2, position.y - bodyHeight / 2 + bodyHeightPlacement);
+  }
 
   /**
    * Initializes the animations for the player.
