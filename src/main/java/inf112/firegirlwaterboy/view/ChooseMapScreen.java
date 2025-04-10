@@ -116,7 +116,7 @@ public class ChooseMapScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(107 / 255f, 89 / 255f, 59 / 255f, 1f);  // hsl(24, 23.90%, 30.40%)
+        Gdx.gl.glClearColor(0x91 / 255f, 0x8b / 255f, 0x75 / 255f, 1f);  // Hex color #918b75
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
