@@ -12,7 +12,7 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
  * Controller class for the game FireGirl & WaterBoy.
  * Handles keyboard input and delegates button logic via ScreenButtonHandler.
  */
-public class Controller extends InputAdapter implements IController  {
+public class Controller extends InputAdapter implements IController {
 
   private IControllableModel model;
   private PlayerType playerOne; // Controlled by Arrow keys

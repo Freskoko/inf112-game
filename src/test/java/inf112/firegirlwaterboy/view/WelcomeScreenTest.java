@@ -2,7 +2,6 @@ package inf112.firegirlwaterboy.view;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class WelcomeScreenTest {
@@ -18,7 +17,6 @@ public class WelcomeScreenTest {
 
     @Test
     @ManualTest
-    @Disabled // TODO IMPLEMENT ME, The image moves unsually.
     void testResize() {
         /*
          * Resizing the WelcomeScreen causes on screen widgets move accordingly, nicely taking up place.

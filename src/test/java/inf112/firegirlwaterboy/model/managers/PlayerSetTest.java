@@ -27,7 +27,6 @@ public class PlayerSetTest {
     private static void setUp() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
         new HeadlessApplication(new FireGirlWaterBoy(), config);
-  
 
         // mocking
         GL20 gl20 = mock(GL20.class);

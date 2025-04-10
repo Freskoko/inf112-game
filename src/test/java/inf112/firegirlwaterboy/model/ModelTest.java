@@ -1,4 +1,5 @@
 package inf112.firegirlwaterboy.model;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -40,7 +41,7 @@ public class ModelTest {
     static void setUpHeadless() {
         // Set up headless application for tests
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-     
+
         new HeadlessApplication(new FireGirlWaterBoy(), config);
         // Mock GL context
         GL20 gl20 = mock(GL20.class);
@@ -83,8 +84,7 @@ public class ModelTest {
 
             java.lang.reflect.Field elementsField = Model.class.getDeclaredField("elements");
             elementsField.setAccessible(true);
-            elementsField .set(testModel, mockElements);
-
+            elementsField.set(testModel, mockElements);
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
             fail("Failed to set mock dependencies: " + e.getMessage());
@@ -156,7 +156,7 @@ public class ModelTest {
         verify(mockMaps).getPlatforms("map1");
         verify(mockMaps).getCollectables("map1");
         verify(mockMaps).getElements("map1");
-    
+
     }
 
     @Test

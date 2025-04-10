@@ -101,7 +101,6 @@ public class MyContactListenerTest {
         verify(mockPlayer).setOnPlatform(mockPlatform);
     }
 
-
     @Test
     void beginContact_platformAndHorizontal_callsPlatformCollision() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlatform);

@@ -20,9 +20,8 @@ import com.badlogic.gdx.graphics.Color;
 
 import inf112.firegirlwaterboy.controller.Controller;
 
+public class CompletedMapScreen implements Screen {
 
-public class CompletedMapScreen implements Screen{
-  
   private Controller controller;
   private SpriteBatch batch;
   private BitmapFont font;
@@ -50,7 +49,6 @@ public class CompletedMapScreen implements Screen{
     table.setFillParent(true);
     table.bottom().padBottom(200);
     table.center();
-
 
     controller.attachToChooseMapsListener(welcomeScreenButton);
 
@@ -81,10 +79,9 @@ public class CompletedMapScreen implements Screen{
     pixmapUp.dispose();
 
     TextButton button = new TextButton(text, style);
-    button.pad(10); 
+    button.pad(10);
     return button;
-}
-
+  }
 
   @Override
   public void show() {

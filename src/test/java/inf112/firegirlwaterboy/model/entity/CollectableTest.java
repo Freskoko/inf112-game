@@ -81,7 +81,7 @@ public class CollectableTest {
     @Test
     void testGetRequiredPlayer() {
         assertTrue(collectable.getRequiredPlayer().contains(PlayerType.FIREGIRL));
-    
+
         // Test with a different collectable type
         when(mockProperties.get("type", String.class)).thenReturn("blue");
         Collectable waterboyCollectable = new Collectable(world, mockMapObject);
@@ -94,11 +94,5 @@ public class CollectableTest {
     @Test
     void testToString() {
         assertEquals("Collectable for [FIREGIRL]", collectable.toString());
-    }
-
-    @Test
-    void testUnsupportedMethods() {
-        //assertThrows(UnsupportedOperationException.class, () -> collectable.update());
-        //assertThrows(UnsupportedOperationException.class, () -> collectable.draw(null));
     }
 }

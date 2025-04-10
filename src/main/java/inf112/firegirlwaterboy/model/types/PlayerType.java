@@ -11,10 +11,10 @@ public enum PlayerType {
   private final ElementType immuneTo;
 
   PlayerType(ElementType immuneTo) {
-      this.immuneTo = immuneTo;
+    this.immuneTo = immuneTo;
   }
 
   public ElementType getImmunity() {
-      return immuneTo;
+    return immuneTo;
   }
 }

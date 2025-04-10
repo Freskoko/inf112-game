@@ -46,8 +46,9 @@ public class Hud {
         timerLabel = new Label("Time: 0", labelStyle);
 
         Table hudTable = new Table();
-        // Usikker på farge på tekst og evt bakgrunnsfarge på HUD, så kommenterer ut for nå
-        //hudTable.setBackground(createBackgroundDrawable(Color.LIGHT_GRAY, 0.5f));
+        // Usikker på farge på tekst og evt bakgrunnsfarge på HUD, så kommenterer ut for
+        // nå
+        // hudTable.setBackground(createBackgroundDrawable(Color.LIGHT_GRAY, 0.5f));
         hudTable.pad(10);
 
         hudTable.add(timerLabel).expandX().padRight(20);
@@ -121,13 +122,13 @@ public class Hud {
     }
 
     // private Drawable createBackgroundDrawable(Color color, float alpha) {
-    //     Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-    //     color.a = alpha;
-    //     pixmap.setColor(color);
-    //     pixmap.fill();
-    //     Texture texture = new Texture(pixmap);
-    //     pixmap.dispose();
-    //     return new TextureRegionDrawable(texture);
+    // Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+    // color.a = alpha;
+    // pixmap.setColor(color);
+    // pixmap.fill();
+    // Texture texture = new Texture(pixmap);
+    // pixmap.dispose();
+    // return new TextureRegionDrawable(texture);
     // }
 
 }

@@ -50,7 +50,7 @@ public class HelpScreen implements Screen {
         TextureRegionDrawable whiteBackground = new TextureRegionDrawable(new TextureRegion(boxTexture));
 
         String instructionsText = "How to play:\n\n" +
-                "Player 1 uses the arrow keys and Player 2 uses WASD\n\n" +
+                "Select which player is should use WASD, and which player should use the arrowkeys\n\n" +
                 "Collect all diamonds and guide both characters to the door.\n\n" +
                 "Avoid obstacles - FireGirl can't touch water, and WaterBoy can't touch fire!";
 

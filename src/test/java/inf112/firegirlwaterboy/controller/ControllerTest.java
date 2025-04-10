@@ -31,7 +31,7 @@ public class ControllerTest {
     @BeforeAll
     private static void setUp() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-        //HeadlessApplication application = 
+        // HeadlessApplication application =
         new HeadlessApplication(new FireGirlWaterBoy(), config);
 
         GL20 gl20 = mock(GL20.class);
@@ -82,12 +82,12 @@ public class ControllerTest {
     void testWelcomeScreenButtonSelection() {
         ClickListener mockClickListener = mock(ClickListener.class);
         when(buttonHandler.getSelectPlayerListener(true, PlayerType.FIREGIRL))
-            .thenReturn(mockClickListener);
+                .thenReturn(mockClickListener);
 
         Button fgP1 = mock(Button.class);
 
         controller.attachSelectPlayerListener(fgP1, true, PlayerType.FIREGIRL);
-      
+
         verify(fgP1).addListener(mockClickListener);
     }
 
@@ -95,12 +95,12 @@ public class ControllerTest {
     void testStartButtonTriggersGameStart() {
         ClickListener mockClickListener = mock(ClickListener.class);
         when(buttonHandler.getToChooseMapListener())
-            .thenReturn(mockClickListener);
+                .thenReturn(mockClickListener);
 
         Button start = mock(Button.class);
 
         controller.attachToChooseMapsListener(start);
-   
+
         verify(start).addListener(mockClickListener);
     }
 
@@ -190,7 +190,6 @@ public class ControllerTest {
         Button backToWelcomeScreenButton = mock(Button.class);
         ClickListener mockClickListener = mock(ClickListener.class);
         when(buttonHandler.getToChooseMapListener()).thenReturn(mockClickListener);
-    
 
         controller.attachToChooseMapsListener(backToWelcomeScreenButton);
 

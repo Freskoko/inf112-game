@@ -22,7 +22,6 @@ import inf112.firegirlwaterboy.controller.Controller;
 
 public class GameOverScreen implements Screen {
 
-
   private Controller controller;
 
   private SpriteBatch batch;
@@ -30,7 +29,6 @@ public class GameOverScreen implements Screen {
   private Stage stage;
   private Viewport viewport;
   private Button chooseMapScreenButton = createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
-
 
   public GameOverScreen(Controller controller) {
     this.controller = controller;
@@ -52,7 +50,6 @@ public class GameOverScreen implements Screen {
     table.setFillParent(true);
     table.bottom().padBottom(200);
     table.center();
-
 
     controller.attachToChooseMapsListener(chooseMapScreenButton);
 
@@ -80,15 +77,12 @@ public class GameOverScreen implements Screen {
 
     style.up = new TextureRegionDrawable(new Texture(pixmapUp));
 
-
     pixmapUp.dispose();
 
-
     TextButton button = new TextButton(text, style);
-    button.pad(10); 
+    button.pad(10);
     return button;
-}
-
+  }
 
   @Override
   public void show() {

@@ -16,7 +16,8 @@ public enum CollectableType {
   private final Set<PlayerType> requiredPlayers;
 
   CollectableType(String path, boolean powerUp, Set<PlayerType> requiredPlayers) {
-    this.texture = new Texture(Gdx.files.internal(path));;
+    this.texture = new Texture(Gdx.files.internal(path));
+    ;
     this.powerUp = powerUp;
     this.requiredPlayers = requiredPlayers;
   }

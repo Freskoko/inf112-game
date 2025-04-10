@@ -2,7 +2,6 @@ package inf112.firegirlwaterboy.view;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class GameOverScreenTest {
@@ -29,10 +28,10 @@ public class GameOverScreenTest {
 
     @Test
     @ManualTest
-    @Disabled // TODO IMPLEMENT ME, Widgets move unsually.
     void testResize() {
         /*
-         * Upon dying, try to "Resize" the GameOverScreen. The widgets on screen move accordingly
+         * Upon dying, try to "Resize" the GameOverScreen. The widgets on screen move
+         * accordingly
          */
         assertTrue(true);
     }
