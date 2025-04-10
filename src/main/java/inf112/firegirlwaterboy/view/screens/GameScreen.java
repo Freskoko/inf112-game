@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.view;
+package inf112.firegirlwaterboy.view.screens;
 
 import javax.annotation.processing.Generated;
 
@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
+import inf112.firegirlwaterboy.view.Hud;
+import inf112.firegirlwaterboy.view.IViewModel;
 
 /**
  * GameScreen class represents the game screen.

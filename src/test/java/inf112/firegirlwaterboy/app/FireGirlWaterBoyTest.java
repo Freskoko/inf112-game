@@ -10,6 +10,8 @@ import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.Model;
 import inf112.firegirlwaterboy.view.*;
+import inf112.firegirlwaterboy.view.screens.GameScreen;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

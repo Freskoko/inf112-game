@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.view;
+package inf112.firegirlwaterboy.view.screens;
 
 import javax.annotation.processing.Generated;
 
