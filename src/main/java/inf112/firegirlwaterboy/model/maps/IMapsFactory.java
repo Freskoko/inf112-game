@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.managers.CollectableSet;
 import inf112.firegirlwaterboy.model.managers.EntitySet;
-import inf112.firegirlwaterboy.model.entity.Collectable;
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Platform;
 
@@ -34,7 +33,6 @@ public interface IMapsFactory {
    */
   MapLayer getLayer(String mapName, String layerName);
 
-
   /**
    * Creates physics objects in the given Box2D world from all object layers in
    * specified map, excluding the "Spawn" layer.
@@ -53,17 +51,17 @@ public interface IMapsFactory {
    */
   EntitySet<Platform> getPlatforms(String mapName);
 
-
   /**
    * Retrieves the set of collectables associated with the specified map.
    *
    * @param mapName the name of the map for which collectables are requested
-   * @return an {@code CollectableSet} containing the collectables for the given map,
+   * @return an {@code CollectableSet} containing the collectables for the given
+   *         map,
    *         or {@code null} if no collectables exist for the specified map
    */
   CollectableSet getCollectables(String mapName);
 
-    /**
+  /**
    * Retrieves the set of elements associated with the specified map.
    *
    * @param mapName the name of the map for which elements are requested

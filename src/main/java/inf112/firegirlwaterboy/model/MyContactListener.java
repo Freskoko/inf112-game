@@ -75,7 +75,7 @@ public class MyContactListener implements ContactListener {
       }
 
       Collectable collectable = getEntity(a, b, Collectable.class);
-      if (collectable != null  && contactStatus) {
+      if (collectable != null && contactStatus) {
         player.interactWithCollectable(collectable);
       }
 

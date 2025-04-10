@@ -34,10 +34,9 @@ public class MapsFactory implements IMapsFactory {
   private HashMap<String, EntitySet<Element>> elementsMap = new HashMap<>();
   private GameObjectFactory gameObjectFactory;
 
-  public MapsFactory(GameObjectFactory gameObjectFactory){
+  public MapsFactory(GameObjectFactory gameObjectFactory) {
     this.gameObjectFactory = gameObjectFactory;
   }
-
 
   /**
    * Loads all Tiled maps (*.tmx) from the resources folder into a HashMap.
@@ -91,21 +90,21 @@ public class MapsFactory implements IMapsFactory {
       switch (layerName) {
         case "Collectable" -> createCollectablesFromLayer(world, layer, mapName);
         case "Elements" -> createElementsFromLayer(world, layer, mapName);
-        case "Spawn" -> {} // Ignore spawn layer;
+        case "Spawn" -> {
+        } // Ignore spawn layer;
         case "Platform" -> createPlatform(world, layer, mapName);
         case "Finish" -> createFinishFromLayer(world, layer);
-        default ->  createObjectsFromLayer(world, layer);
+        default -> createObjectsFromLayer(world, layer);
       }
     }
   }
 
-
-    /**
+  /**
    * Creates platfroms in the world from a given map layer.
    * Saves platforms in hashmap with the map name as key.
    * 
-   * @param world The Box2D world where platforms should be created.
-   * @param layer The map layer containing platforms.
+   * @param world   The Box2D world where platforms should be created.
+   * @param layer   The map layer containing platforms.
    * @param mapName The name of the map to save the platforms with.
    */
   private void createPlatform(World world, MapLayer layer, String mapName) {
@@ -153,10 +152,10 @@ public class MapsFactory implements IMapsFactory {
       elements.add(gameObjectFactory.createElement(world, object));
     }
     elementsMap.put(mapName, elements);
-    
+
   }
 
-   /**
+  /**
    * Creates collectable objects in the world from a given map layer.
    * 
    * @param world The Box2D world where elements should be created.
@@ -189,8 +188,8 @@ public class MapsFactory implements IMapsFactory {
   /**
    * Creates a polygon object in the world from a given map object.
    * 
-   * @param world The Box2D world where the object should be created.
-   * @param polygon The map object to create a polygon from.
+   * @param world     The Box2D world where the object should be created.
+   * @param polygon   The map object to create a polygon from.
    * @param layerName The name of the layer the object belongs to.
    */
   private void createPolygonObject(World world, PolygonMapObject polygon, String layerName) {
@@ -212,7 +211,7 @@ public class MapsFactory implements IMapsFactory {
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
     fdef.friction = 1f;
-    //fdef.restitution = 0f;
+    // fdef.restitution = 0f;
     Fixture fixture = body.createFixture(fdef);
 
     fixture.setUserData(layerName);
@@ -222,8 +221,8 @@ public class MapsFactory implements IMapsFactory {
   /**
    * Creates a rectangle object in the world from a given map object.
    * 
-   * @param world The Box2D world where the object should be created.
-   * @param object The map object to create a rectangle from.
+   * @param world     The Box2D world where the object should be created.
+   * @param object    The map object to create a rectangle from.
    * @param layerName The name of the layer the object belongs to.
    */
   private void createRectangleObject(World world, MapObject object, String layerName) {
@@ -263,6 +262,5 @@ public class MapsFactory implements IMapsFactory {
   public EntitySet<Element> getElements(String mapName) {
     return elementsMap.getOrDefault(mapName, new EntitySet<>());
   }
-  
 
 }

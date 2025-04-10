@@ -51,11 +51,10 @@ public interface IViewModel {
    */
   World getWorld();
 
-   /**
+  /**
    * Restart the game
    */
   void restartGame();
-
 
   /**
    * Get the total score collected by the players
@@ -63,7 +62,5 @@ public interface IViewModel {
    * @return the total score collected by the player
    */
   int getTotalCollectedScore();
-
-
 
 }

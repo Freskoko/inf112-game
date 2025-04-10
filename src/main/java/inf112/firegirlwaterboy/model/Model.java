@@ -141,7 +141,7 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public void setMap(String mapName) {
     this.mapName = mapName;
-}
+  }
 
   @Override
   public boolean isComplete(String mapName) {

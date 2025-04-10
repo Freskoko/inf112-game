@@ -7,7 +7,7 @@ import inf112.firegirlwaterboy.model.entity.Collectable;
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Platform;
 
-public class StandardGameObjectsFactory implements GameObjectFactory{
+public class StandardGameObjectsFactory implements GameObjectFactory {
 
     @Override
     public Platform createPlatform(World world, MapObject object) {

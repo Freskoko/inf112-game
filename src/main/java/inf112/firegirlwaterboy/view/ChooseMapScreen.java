@@ -21,7 +21,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.firegirlwaterboy.controller.Controller;
 
-
 /**
  * ChooseMapScreen class represents the screen where the player can choose a
  * map.
@@ -75,7 +74,6 @@ public class ChooseMapScreen implements Screen {
         // Play-knappen under
         table.add(playButton).colspan(2).size(360, 120).center();
 
-
         stage.addActor(table);
     }
 
@@ -98,18 +96,18 @@ public class ChooseMapScreen implements Screen {
     }
 
     private Button createImageButton(String imagePath, int width, int height) {
-    Texture texture = new Texture(Gdx.files.internal(imagePath));
-    TextureRegionDrawable drawable = new TextureRegionDrawable(texture);
+        Texture texture = new Texture(Gdx.files.internal(imagePath));
+        TextureRegionDrawable drawable = new TextureRegionDrawable(texture);
 
-    ImageButtonStyle style = new ImageButtonStyle();
-    style.imageUp = drawable;
-    style.imageDown = drawable;
+        ImageButtonStyle style = new ImageButtonStyle();
+        style.imageUp = drawable;
+        style.imageDown = drawable;
 
-    ImageButton button = new ImageButton(style);
-    button.setSize(360,120); // 20 % større
+        ImageButton button = new ImageButton(style);
+        button.setSize(360, 120); // 20 % større
 
-    return button;
-}
+        return button;
+    }
 
     @Override
     public void show() {

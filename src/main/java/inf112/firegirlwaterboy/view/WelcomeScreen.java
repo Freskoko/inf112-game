@@ -61,7 +61,6 @@ public class WelcomeScreen implements Screen {
         controller.attachToChooseMapsListener(startButton);
         controller.attachToHelpListener(helpButton);
 
-
         Table playerSelectionTable = new Table();
 
         playerSelectionTable.top().padTop(20);

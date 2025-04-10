@@ -66,7 +66,7 @@ public class GameScreen implements Screen {
     camera.update();
 
     batch = new SpriteBatch();
-    hud = new Hud(batch, model); 
+    hud = new Hud(batch, model);
 
     // Load map
     map = model.getMap();
@@ -105,9 +105,7 @@ public class GameScreen implements Screen {
     hud.update(delta);
     hud.draw();
 
-
-    }
-  
+  }
 
   @Override
   @Generated("interface-stub")

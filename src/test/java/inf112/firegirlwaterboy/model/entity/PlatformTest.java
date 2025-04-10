@@ -168,7 +168,7 @@ public class PlatformTest {
         platform.draw(mockBatch);
         MapUtils.getX(mockMapObject);
 
-        float x =  MapUtils.getX(mockMapObject);
+        float x = MapUtils.getX(mockMapObject);
         float y = MapUtils.getY(mockMapObject);
         float width = MapUtils.getWidth(mockMapObject);
         float height = MapUtils.getHeight(mockMapObject);

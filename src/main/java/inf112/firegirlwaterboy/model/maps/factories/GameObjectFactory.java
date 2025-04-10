@@ -12,7 +12,7 @@ public interface GameObjectFactory {
     /**
      * Creates a new plaform based on {@code object} in the {@code world}
      *
-     * @param world the game world
+     * @param world  the game world
      * @param object the representation of the platform
      * @return a plaform object
      */
@@ -21,17 +21,16 @@ public interface GameObjectFactory {
     /**
      * Creates a new element based on {@code object} in the {@code world}
      *
-     * @param world the game world
+     * @param world  the game world
      * @param object the representation of the element
      * @return an element object
      */
     Element createElement(World world, MapObject object);
 
-
     /**
      * Creates a new collectable based on {@code object} in the {@code world}
      *
-     * @param world the game world
+     * @param world  the game world
      * @param object the representation of the collectable
      * @return a collectable object
      */

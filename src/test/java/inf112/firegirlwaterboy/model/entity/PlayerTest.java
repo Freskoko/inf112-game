@@ -49,7 +49,7 @@ public class PlayerTest {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
 
         new HeadlessApplication(new FireGirlWaterBoy(), config);
-     
+
         // mocking
         GL20 gl20 = mock(GL20.class);
         Gdx.gl = gl20;
@@ -141,7 +141,6 @@ public class PlayerTest {
         Set<PlayerType> requiredPlayer = new HashSet<>();
         requiredPlayer.add(player.getType());
 
-       
         when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayer);
         when(mockCollectable.isPowerUp()).thenReturn(true);
 
@@ -224,7 +223,7 @@ public class PlayerTest {
         assertEquals(0, player.getCollectedCount());
         Collectable mockCollectable = mock(Collectable.class);
         Set<PlayerType> requiredPlayerSet = new HashSet<>();
-        requiredPlayerSet.add(player.getType()); 
+        requiredPlayerSet.add(player.getType());
         when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayerSet);
         player.interactWithCollectable(mockCollectable);
         assertEquals(1, player.getCollectedCount());
@@ -237,7 +236,7 @@ public class PlayerTest {
         player.spawn(mockWorld, new Vector2(0, 0));
         Collectable mockCollectable = mock(Collectable.class);
         Set<PlayerType> requiredPlayerSet = new HashSet<>();
-        requiredPlayerSet.add(player.getType()); 
+        requiredPlayerSet.add(player.getType());
         when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayerSet);
         player.interactWithCollectable(mockCollectable);
         player.update();
