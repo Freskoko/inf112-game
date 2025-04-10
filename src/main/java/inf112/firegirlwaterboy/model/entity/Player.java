@@ -44,8 +44,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private TextureRegion standingTexture, headTexture;
   private float stateTime;
 
-  private final float bodyHeightPlacement = - getHeight() / 5 - 0.15f;
-  private final float headHeightPlacement = - getHeight() / 4 - 0.1f;
+  private final float bodyHeightPlacement = -0.45f;
 
   /**
    * Initalizes a player, giving them a type and texture
@@ -92,7 +91,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   public void draw(Batch batch) {
     super.draw(batch);
     Vector2 position = body.getPosition();
-    batch.draw(headTexture, position.x - getWidth(), position.y - headHeightPlacement, headTexture.getRegionWidth() / 38,
+    batch.draw(headTexture, position.x - getWidth(), position.y + bodyHeightPlacement, headTexture.getRegionWidth() / 38,
         headTexture.getRegionHeight() / 38);
   }
 
