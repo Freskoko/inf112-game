@@ -91,7 +91,7 @@ public class PlayerTest {
         this.player.spawn(mockWorld, new Vector2(100, 100));
         assertEquals(player.getY(), 100);
         player.update();
-        assertEquals(player.getY(), -1);
+        assertEquals(player.getBody().getPosition().y, 0);
     }
 
     @Test

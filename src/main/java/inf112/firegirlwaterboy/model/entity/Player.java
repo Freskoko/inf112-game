@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,9 +14,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.ElementType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
@@ -38,12 +39,27 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private Platform currentPlatform;
   private boolean powerUp;
 
+  private Animation<TextureRegion> runningAnimation;
+  private TextureRegion standingTexture, headTexture;
+  private float stateTime;
+
+  private final float bodyWidth = 1.0f;
+  private final float bodyHeight = 2.0f;
+  private final float bodyHeightPlacement = -0.45f;
+
   /**
    * Initalizes a player, giving them a type and texture
    */
   public Player(PlayerType playerType) {
-    super(getTextureForType(playerType));
+    super(new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
     this.playerType = playerType;
+
+    this.standingTexture = new TextureRegion(
+        new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
+    this.headTexture = new TextureRegion(
+        new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-head.png")));
+    
+    initializeAnimations();
   }
 
   @Override
@@ -78,13 +94,14 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   @Override
   public void draw(Batch batch) {
     super.draw(batch);
+    Vector2 position = body.getPosition();
+    batch.draw(headTexture, position.x - bodyWidth, position.y + bodyHeightPlacement, headTexture.getRegionWidth() / 38,
+        headTexture.getRegionHeight() / 38);
   }
 
   @Override
   public void update() {
-
-    Vector2 position = body.getPosition();
-    setPosition(position.x - getWidth() / 2, position.y - getHeight() / 2);
+    setCurrentTexture();
   }
 
   //////////////////////////
@@ -107,6 +124,10 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     this.onGround = groundStatus;
   }
 
+  public void setOnPlatform(Platform platform) {
+    this.currentPlatform = platform;
+  }
+
   @Override
   public void setTouchingEdge(boolean edgeStatus) {
     this.touchingEdge = edgeStatus;
@@ -124,7 +145,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   @Override
   public void spawn(World world, Vector2 pos) {
-    setSize(getTexture().getWidth() / MapUtils.PPM, getTexture().getHeight() / MapUtils.PPM);
+    setSize(bodyWidth, bodyHeight);
     onGround = true;
     touchingEdge = false;
     isAlive = true;
@@ -186,27 +207,71 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   //// PRIVATE METHODS /////
   //////////////////////////
 
-  private static TextureRegion getTextureForType(PlayerType type) {
-    Texture texture;
-    try {
-      switch (type) {
-        case FIREGIRL:
-          texture = new Texture(Gdx.files.internal("assets/maps/mapassets/players/FIREGIRL.png"));
-          break;
-        case WATERBOY:
-          texture = new Texture(Gdx.files.internal("assets/maps/mapassets/players/WATERBOY.png"));
-          break;
-        default:
-          texture = new Texture(Gdx.files.internal("/default.png"));
-          break;
-      }
-      return new TextureRegion(texture);
-    } catch (Exception e) {
-      Gdx.app.log("Texture Loading Error", "Could not load texture: " + e.getMessage());
-      return null;
+  /**
+   * Sets the current texture of the player based on its state (running or standing).
+   * It also flips the texture if the player is moving left or right.
+   */
+  private void setCurrentTexture() {
+    stateTime += Gdx.graphics.getDeltaTime();
+    TextureRegion currentFrame = getCurrentFrame();
+
+    if (currentFrame == null) {
+      return;
     }
+    setRegion(currentFrame);
+
+    if (body.getLinearVelocity().x < 0 && !currentFrame.isFlipX()) {
+      currentFrame.flip(true, false);
+    } else if (body.getLinearVelocity().x > 0 && currentFrame.isFlipX()) {
+      currentFrame.flip(true, false);
+    }
+
+    Vector2 position = body.getPosition();
+    setPosition(position.x - bodyWidth / 2, position.y - bodyHeight / 2 + bodyHeightPlacement);
   }
 
+  /**
+   * Initializes the animations for the player.
+   */
+  private void initializeAnimations() {
+    standingTexture = new TextureRegion(
+        new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
+
+    Array<TextureRegion> runningFrames = new Array<>();
+    for (int i = 1; i <= 8; i++) {
+      Texture texture = new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-run" + i + ".png"));
+      TextureRegion region = new TextureRegion(texture);
+      runningFrames.add(new TextureRegion(region));
+    }
+    runningAnimation = new Animation<>(0.1f, runningFrames, Animation.PlayMode.LOOP);
+    stateTime = 0f;
+  }
+  
+  /**
+   * Returns the current frame of the player based on their state (moving or standing).
+   * If the player is not alive, returns an empty TextureRegion.
+   */
+  private TextureRegion getCurrentFrame() {
+    if (!isAlive) {
+      return new TextureRegion();
+    }
+
+    return isMoving() ? runningAnimation.getKeyFrame(stateTime, true) : standingTexture;
+  }
+
+  /**
+   * Checks if the player is moving based on their linear velocity.
+   */
+  private boolean isMoving() {
+    return Math.abs(body.getLinearVelocity().x) > 0.01 || Math.abs(body.getLinearVelocity().y) > 0.01;
+  }
+
+  /**
+   * Creates the body for the player in the Box2D world.
+   * 
+   * @param world The Box2D world where the player will be created.
+   * @param pos   The position where the player will be created.
+   */
   private void createBody(World world, Vector2 pos) {
     Float width = getWidth();
     Float height = getHeight();
@@ -230,15 +295,15 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     bodyShape.dispose();
   }
 
+  /**
+   * Applies a jump impulse to the player if they are on the ground or on a
+   * platform.  
+   */
   private void jump() {
     if (!touchingEdge)
       if (onGround || currentPlatform != null) {
         body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
         currentPlatform = null;
       }
-  }
-
-  public void setOnPlatform(Platform platform) {
-    this.currentPlatform = platform;
   }
 }
