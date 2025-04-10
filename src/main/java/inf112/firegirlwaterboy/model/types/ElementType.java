@@ -6,7 +6,7 @@ package inf112.firegirlwaterboy.model.types;
 public enum ElementType {
   LAVA("assets/element/lava.png"),
   WATER("assets/element/water.png"),
-  NEUTRAL("assets/element/platform.png"); // Legg inn bilde senere
+  NEUTRAL("assets/element/platform.png");
 
   private final String texturePath;
 
