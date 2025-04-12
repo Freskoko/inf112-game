@@ -210,7 +210,7 @@ public class MapsFactory implements IMapsFactory {
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
-    fdef.friction = 1f;
+    fdef.friction = 0f;
     // fdef.restitution = 0f;
     Fixture fixture = body.createFixture(fdef);
 
@@ -242,6 +242,7 @@ public class MapsFactory implements IMapsFactory {
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
+    fdef.friction = 0f;
     Fixture fixture = body.createFixture(fdef);
 
     fixture.setUserData(layerName);
