@@ -43,7 +43,7 @@ public class Platform implements IEntity<ElementType> {
     shape.setAsBox(width / 2, height / 2);
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
-    fdef.friction = 0.1f;
+    fdef.friction = 1f;
     body.createFixture(fdef).setUserData(this);
     shape.dispose();
   }
