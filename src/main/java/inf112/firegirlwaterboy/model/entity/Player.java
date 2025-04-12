@@ -95,8 +95,14 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   public void draw(Batch batch) {
     super.draw(batch);
     Vector2 position = body.getPosition();
-    batch.draw(headTexture, position.x - bodyWidth, position.y + bodyHeightPlacement, headTexture.getRegionWidth() / 38,
-        headTexture.getRegionHeight() / 38);
+
+    if (body.getLinearVelocity().x < 0 && !headTexture.isFlipX()) {
+      headTexture.flip(true, false);
+    } else if (body.getLinearVelocity().x > 0 && headTexture.isFlipX()) {
+      headTexture.flip(true, false);
+    }
+
+    batch.draw(headTexture, position.x - 1.5f, position.y - 1.1f, 3, 3);
   }
 
   @Override
@@ -289,7 +295,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     FixtureDef fdef = new FixtureDef();
     fdef.shape = bodyShape;
     fdef.density = 0.5f;
-    // fdef.friction = 0.1f;
+    fdef.friction = 0f;
     fdef.restitution = 0f;
     body.createFixture(fdef).setUserData(this);
     bodyShape.dispose();
