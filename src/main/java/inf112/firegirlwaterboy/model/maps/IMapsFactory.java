@@ -35,7 +35,7 @@ public interface IMapsFactory {
 
   /**
    * Creates physics objects in the given Box2D world from all object layers in
-   * specified map, excluding the "Spawn" layer.
+   * specified map, excluding the SPAWN layerType
    * 
    * @param world   The Box2D world to create objects in
    * @param mapName The name of the map with object layers
