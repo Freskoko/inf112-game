@@ -16,7 +16,5 @@ public class CollectableSet extends EntitySet<Collectable> {
       }
       collectable.update();
     }
-
   }
-
 }

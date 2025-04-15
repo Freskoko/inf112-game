@@ -77,35 +77,22 @@ public class PlayerTest {
     void testPlayerTouchesDeadly() {
         // spawn in a empty world
         this.player.spawn(mockWorld, new Vector2(0, 0));
-
+        Element mockElement = mock(Element.class);
+        when(mockElement.getType()).thenReturn(ElementType.LAVA);
         assertTrue(player.isAlive());
-        player.interactWithElement(ElementType.LAVA);
+        player.interactWithElement(mockElement);
         assertTrue(player.isAlive());
-        player.interactWithElement(ElementType.WATER);
+        when(mockElement.getType()).thenReturn(ElementType.WATER);
+        player.interactWithElement(mockElement);
         assertFalse(player.isAlive());
     }
 
     @Test
     void testPlayerSpawns() {
-        // spawn in a empty world
         this.player.spawn(mockWorld, new Vector2(100, 100));
-        assertEquals(player.getY(), 100);
+        assertEquals(100, player.getY());
         player.update();
-        assertEquals(player.getBody().getPosition().y, 0);
-    }
-
-    @Test
-    void testEdge() {
-        assertFalse(player.isTouchingEdge());
-        player.setTouchingEdge(true);
-        assertTrue(player.isTouchingEdge());
-    }
-
-    @Test
-    void testGround() {
-        assertFalse(player.isOnGround());
-        player.setOnGround(true);
-        assertTrue(player.isOnGround());
+        assertEquals(-1, player.getY());
     }
 
     @Test
@@ -181,7 +168,7 @@ public class PlayerTest {
     @Test
     void testMoveJumpOnGround() {
         player.spawn(mockWorld, new Vector2(0, 0));
-        player.setOnGround(true);
+        player.setGroundStatus(true);
         player.move(MovementType.UP);
         ArgumentCaptor<Vector2> impulseCaptor = ArgumentCaptor.forClass(Vector2.class);
         verify(mockBody).applyLinearImpulse(impulseCaptor.capture(), any(), eq(true));
@@ -189,30 +176,20 @@ public class PlayerTest {
         assertEquals(10.5f, impulseCaptor.getValue().y);
     }
 
-    @Test
-    void testMoveJumpOnPlatform() {
-        player.spawn(mockWorld, new Vector2(0, 0));
-        player.setOnPlatform(mockPlatform);
-        player.move(MovementType.UP);
-        ArgumentCaptor<Vector2> impulseCaptor = ArgumentCaptor.forClass(Vector2.class);
-        verify(mockBody).applyLinearImpulse(impulseCaptor.capture(), any(), eq(true));
-        assertEquals(0, impulseCaptor.getValue().x);
-        assertEquals(10.5f, impulseCaptor.getValue().y);
-    }
+
 
     @Test
-    void testMoveJumpTouchingEdge() {
+    void testMoveJumpTouchingLayerTypeStatic() {
         player.spawn(mockWorld, new Vector2(0, 0));
-        player.setOnGround(true);
-        player.setTouchingEdge(true);
+        player.setGroundStatus(true);
         player.move(MovementType.UP);
-        verify(mockBody, never()).applyLinearImpulse(any(), any(), anyBoolean());
+        verify(mockBody).applyLinearImpulse(any(), any(), anyBoolean());
     }
 
     @Test
     void testMoveJumpNotInAirOrGroundOrPlatform() {
         player.spawn(mockWorld, new Vector2(0, 0));
-        player.setOnGround(false);
+        player.setGroundStatus(false);
         player.move(MovementType.UP);
         verify(mockBody, never()).applyLinearImpulse(any(), any(), anyBoolean());
     }

@@ -1,7 +1,5 @@
 package inf112.firegirlwaterboy.model.entity;
 
-import java.util.Objects;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -17,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.types.ElementType;
+import inf112.firegirlwaterboy.model.LayerType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
 /**
@@ -30,14 +28,12 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private float speed = 7;
   private float jumpSpeed = 10.5f;
   private Body body;
-  private boolean onGround;
   private PlayerType playerType;
   private boolean isAlive;
   private int collectedCount;
-  private boolean touchingEdge;
   private boolean finished;
-  private Platform currentPlatform;
   private boolean powerUp;
+  private boolean onGround;
 
   private Animation<TextureRegion> runningAnimation;
   private TextureRegion standingTexture, headTexture;
@@ -74,7 +70,12 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   @Override
   public int hashCode() {
-    return Objects.hash(playerType);
+    return playerType.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return playerType.toString();
   }
 
   //////////////////////////
@@ -104,6 +105,11 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     setCurrentTexture();
   }
 
+  @Override
+  public PlayerType getType() {
+    return playerType;
+  }
+
   //////////////////////////
   //// IPLAYER INTERFACE ///
   //////////////////////////
@@ -120,36 +126,12 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   }
 
   @Override
-  public void setOnGround(boolean groundStatus) {
-    this.onGround = groundStatus;
-  }
-
-  public void setOnPlatform(Platform platform) {
-    this.currentPlatform = platform;
-  }
-
-  @Override
-  public void setTouchingEdge(boolean edgeStatus) {
-    this.touchingEdge = edgeStatus;
-  }
-
-  @Override
-  public PlayerType getType() {
-    return playerType;
-  }
-
-  @Override
-  public String toString() {
-    return playerType.toString();
-  }
-
-  @Override
   public void spawn(World world, Vector2 pos) {
     setSize(bodyWidth, bodyHeight);
     onGround = true;
-    touchingEdge = false;
     isAlive = true;
     finished = false;
+    onGround = true;
     collectedCount = 0;
     createBody(world, pos);
     setPosition(pos.x, pos.y);
@@ -161,8 +143,8 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   }
 
   @Override
-  public void interactWithElement(ElementType elementType) {
-    isAlive = playerType.getImmunity().equals(elementType);
+  public void interactWithElement(Element element) {
+    isAlive = playerType.getImmunity().equals(element.getType());
     if (!isAlive && powerUp) {
       isAlive = true;
       powerUp = false;
@@ -181,16 +163,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   @Override
   public boolean isAlive() {
     return isAlive;
-  }
-
-  @Override
-  public boolean isOnGround() {
-    return onGround;
-  }
-
-  @Override
-  public boolean isTouchingEdge() {
-    return touchingEdge;
   }
 
   @Override
@@ -285,13 +257,14 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
     PolygonShape bodyShape = new PolygonShape();
     bodyShape.setAsBox(width / 2, height / 2);
-
-    FixtureDef fdef = new FixtureDef();
-    fdef.shape = bodyShape;
-    fdef.density = 0.5f;
-    // fdef.friction = 0.1f;
-    fdef.restitution = 0f;
-    body.createFixture(fdef).setUserData(this);
+    FixtureDef bodyfDef = new FixtureDef();
+    bodyfDef.shape = bodyShape;
+    bodyfDef.density = 0.5f;
+    bodyfDef.restitution = 0f;
+    bodyfDef.friction = 0f;
+    bodyfDef.filter.categoryBits = LayerType.PLAYER.getBit();
+    bodyfDef.filter.maskBits = (short) (LayerType.PLATFORM.getBit() | LayerType.STATIC.getBit());
+    body.createFixture(bodyfDef).setUserData("BodyOutline");
     bodyShape.dispose();
   }
 
@@ -300,10 +273,12 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
    * platform.  
    */
   private void jump() {
-    if (!touchingEdge)
-      if (onGround || currentPlatform != null) {
-        body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
-        currentPlatform = null;
-      }
+    if (onGround) {
+      body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
+    }
+  }
+
+  public void setGroundStatus(boolean onGround) {
+    this.onGround = onGround;
   }
 }
