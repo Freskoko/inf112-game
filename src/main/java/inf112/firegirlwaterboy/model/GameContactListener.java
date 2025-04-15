@@ -7,28 +7,26 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
-import inf112.firegirlwaterboy.model.entity.IEntity;
-import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Collectable;
 import inf112.firegirlwaterboy.model.entity.Element;
+import inf112.firegirlwaterboy.model.entity.IEntity;
+import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Player;
 
 /**
- * MyContactListener is a class that listens for contacts between fixtures in
- * the game world.
+ * MyContactListener listens for contacts events in the physics world.
  */
-public class MyContactListener implements ContactListener {
+public class GameContactListener implements ContactListener {
 
   @Override
   public void beginContact(Contact contact) {
-    playerCollision(contact, true);
-    platformCollision(contact);
-
+    hanldePlayerContact(contact, true);
+    handleplatformCollision(contact);
   }
 
   @Override
   public void endContact(Contact contact) {
-    playerCollision(contact, false);
+    hanldePlayerContact(contact, false);
   }
 
   /**
@@ -36,15 +34,13 @@ public class MyContactListener implements ContactListener {
    * 
    * @param contact the contact between two fixtures
    */
-  private void platformCollision(Contact contact) {
+  private void handleplatformCollision(Contact contact) {
     Object a = contact.getFixtureA().getUserData();
     Object b = contact.getFixtureB().getUserData();
 
     Platform platform = getEntity(a, b, Platform.class);
-    if (platform != null) {
-      if (isTarget(a, b, "Verticle") || isTarget(a, b, "Horizontal")) {
-        platform.collision();
-      }
+    if (platform != null && isLayerType(a, b, LayerType.STATIC)) {
+      platform.collision();
     }
   }
 
@@ -54,53 +50,38 @@ public class MyContactListener implements ContactListener {
    * @param contact       the contact between two fixtures
    * @param contactStatus true if the contact is beginning, false if it is ending
    */
-  private void playerCollision(Contact contact, Boolean contactStatus) {
+  private void hanldePlayerContact(Contact contact, Boolean contactStatus) {
     Object a = contact.getFixtureA().getUserData();
     Object b = contact.getFixtureB().getUserData();
 
     Player player = getEntity(a, b, Player.class);
+    if (player == null)
+      return;
 
-    // TODO: Use enum for target
-    if (player != null) {
-      if (isTarget(a, b, "Horizontal")) {
-        player.setOnGround(contactStatus);
-      }
+    Collectable collectable = getEntity(a, b, Collectable.class);
+    if (collectable != null && contactStatus) {
+      player.interactWithCollectable(collectable);
+      return;
+    }
 
-      if (isTarget(a, b, "Edges")) {
-        player.setTouchingEdge(contactStatus);
-      }
+    Element element = getEntity(a, b, Element.class);
+    if (element != null && contactStatus) {
+      player.interactWithElement(element);
+      return;
+    }
 
-      if (isTarget(a, b, "Finish")) {
-        player.setFinished(contactStatus);
-      }
+    if (isLayerType(a, b, LayerType.FINISH)) {
+      player.setFinished(contactStatus);
+    }
 
-      Collectable collectable = getEntity(a, b, Collectable.class);
-      if (collectable != null && contactStatus) {
-        player.interactWithCollectable(collectable);
-      }
-
-      Element element = getEntity(a, b, Element.class);
-      if (element != null && contactStatus) {
-        player.interactWithElement(element.getType());
-      }
-
-      Platform platform = getEntity(a, b, Platform.class);
-      if (platform != null && contactStatus) {
-        player.setOnPlatform(platform);
-      }
+    boolean isGround = isLayerType(a, b, LayerType.STATIC) || getEntity(a, b, Platform.class) != null;
+    if (isGround) {
+      player.setGroundStatus(contactStatus);
     }
   }
 
-  /**
-   * Checks if either of the given objects matches the specified target string.
-   *
-   * @param a      the first object
-   * @param b      the second object
-   * @param target the string to compare against
-   * @return true if either object matches the target string
-   */
-  private boolean isTarget(Object a, Object b, String target) {
-    return target.equals(a) || target.equals(b);
+  private boolean isLayerType(Object a, Object b, LayerType layerType) {
+    return a == layerType || b == layerType;
   }
 
   @Override
@@ -135,5 +116,4 @@ public class MyContactListener implements ContactListener {
     }
     return null;
   }
-
 }
