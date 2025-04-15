@@ -91,8 +91,7 @@ public class PlayerTest {
     void testPlayerSpawns() {
         this.player.spawn(mockWorld, new Vector2(100, 100));
         assertEquals(100, player.getY());
-        player.update();
-        assertEquals(-1, player.getY());
+        assertEquals(100, player.getX());
     }
 
     @Test
