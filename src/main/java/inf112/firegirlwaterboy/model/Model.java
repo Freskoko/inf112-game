@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Timer;
 
 import inf112.firegirlwaterboy.controller.IControllableModel;
 import inf112.firegirlwaterboy.controller.MovementType;
@@ -51,7 +52,7 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public void restartGame() {
     world = new World(new Vector2(0, -9.8f), true);
-    world.setContactListener(new MyContactListener());
+    world.setContactListener(new GameContactListener());
     maps.createObjectsInWorld(world, mapName);
     platforms = maps.getPlatforms(mapName);
     collectables = maps.getCollectables(mapName);
@@ -84,7 +85,12 @@ public class Model implements IControllableModel, IViewModel {
       }
     }
     if (players.areFinished()) {
-      gameState = GameState.COMPLETED_MAP;
+      Timer.schedule(new Timer.Task() {
+        @Override
+        public void run() {
+            gameState = GameState.COMPLETED_MAP;
+        }
+    }, 1);
       completedMaps.add(mapName);
     }
   }

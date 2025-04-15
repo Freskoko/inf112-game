@@ -90,7 +90,7 @@ public class PlatformTest {
         assertNotNull(fixture);
         assertTrue(fixture.getShape() instanceof PolygonShape);
         assertEquals(platform, fixture.getUserData());
-        assertEquals(0.1f, fixture.getFriction());
+        assertEquals(0.5f, fixture.getFriction());
     }
 
     @Test
