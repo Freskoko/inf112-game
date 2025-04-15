@@ -266,6 +266,26 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     bodyfDef.filter.maskBits = (short) (LayerType.PLATFORM.getBit() | LayerType.STATIC.getBit());
     body.createFixture(bodyfDef).setUserData("BodyOutline");
     bodyShape.dispose();
+
+    PolygonShape coreShape = new PolygonShape();
+    coreShape.setAsBox(
+        width * 0.45f,
+        height * 0.425f,
+        new Vector2(0, -height * 0.075f),
+        0);
+    FixtureDef corefDef = new FixtureDef();
+    corefDef.shape = coreShape;
+    corefDef.restitution = 0f;
+
+    corefDef.filter.categoryBits = LayerType.PLAYER.getBit();
+    corefDef.filter.maskBits = (short) (LayerType.COLLECTABLE.getBit() |
+        LayerType.ELEMENT.getBit() |
+        LayerType.FINISH.getBit() |
+        LayerType.PLATFORM.getBit() |
+        LayerType.STATIC.getBit());
+
+    body.createFixture(corefDef).setUserData(this);
+    coreShape.dispose();
   }
 
   /**
