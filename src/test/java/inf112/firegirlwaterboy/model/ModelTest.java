@@ -177,11 +177,7 @@ public class ModelTest {
 
     @Test
     void testUpdate() {
-        Player mockPlayer1 = mock(Player.class);
-        Player mockPlayer2 = mock(Player.class);
-        when(mockPlayers.iterator()).thenReturn(java.util.Arrays.asList(mockPlayer1, mockPlayer2).iterator());
-        when(mockPlayer1.isAlive()).thenReturn(true);
-        when(mockPlayer2.isAlive()).thenReturn(true);
+        when(mockPlayers.areAlive()).thenReturn(true);
         when(mockPlayers.areFinished()).thenReturn(false);
 
         testModel.update();

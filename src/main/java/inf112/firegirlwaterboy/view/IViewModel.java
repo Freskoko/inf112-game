@@ -61,6 +61,6 @@ public interface IViewModel {
    * 
    * @return the total score collected by the player
    */
-  int getTotalCollectedScore();
+  int getScore();
 
 }

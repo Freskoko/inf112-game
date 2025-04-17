@@ -12,7 +12,7 @@ public interface ICollectable {
   Set<PlayerType> getRequiredPlayers();
 
   /**
-   * @return sets collected status to true.
+   * @return true if the item has been collected, false otherwise.
    */
   boolean isCollected();
 }

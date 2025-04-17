@@ -3,6 +3,12 @@ package inf112.firegirlwaterboy.model.managers;
 import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
+/**
+ * A specialized set for managing Player entities in the game.
+ * 
+ * Enforces a maximum of two players, and provides utility methods
+ * for querying player status and score.
+ */
 public class PlayerSet extends EntitySet<Player> implements IPlayerSet {
 
   public static final int MAX_PLAYERS = 2;
@@ -15,8 +21,9 @@ public class PlayerSet extends EntitySet<Player> implements IPlayerSet {
     super.add(entity);
   }
 
+  @Override
   public Player getPlayer(PlayerType playerType) {
-    for (Player player : entities) {
+    for (Player player : this) {
       if (player.getType().equals(playerType)) {
         return player;
       }
@@ -24,25 +31,23 @@ public class PlayerSet extends EntitySet<Player> implements IPlayerSet {
     throw new IllegalArgumentException("PlayerSet does not contain a Player of type: " + playerType);
   }
 
+  @Override
   public boolean contains(PlayerType playerType) {
     return super.contains(new Player(playerType));
   }
 
+  @Override
   public boolean areFinished() {
-    for (Player player : entities) {
-      if (!player.isFinished()) {
-        return false;
-      }
-    }
-    return true;
+    return entities.stream().allMatch(Player::isFinished);
   }
 
   @Override
-  public int getTotalCollectedScore() {
-    int total = 0;
-    for (Player player : this) {
-      total += player.getCollectedCount();
-    }
-    return total;
+  public int getScore() {
+    return entities.stream().mapToInt(Player::getCollectedCount).sum();
+  }
+
+  @Override
+  public boolean areAlive() {
+    return entities.stream().allMatch(Player::isAlive);
   }
 }

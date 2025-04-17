@@ -70,10 +70,8 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
 
   @Override
   public void update() {
-    if (isCollected) {
+    if (isCollected)
       world.destroyBody(body);
-      body.setUserData(null);
-    }
   }
 
   @Override

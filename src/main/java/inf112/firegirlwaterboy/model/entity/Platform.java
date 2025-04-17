@@ -40,8 +40,7 @@ public class Platform implements IEntity<ElementType> {
     bdef.fixedRotation = true;
     body = world.createBody(bdef);
     body.setGravityScale(0);
-  
-  
+
     PolygonShape shape = new PolygonShape();
     shape.setAsBox(width / 2, height / 2);
     FixtureDef fdef = new FixtureDef();

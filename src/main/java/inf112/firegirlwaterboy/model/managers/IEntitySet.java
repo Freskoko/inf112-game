@@ -7,7 +7,7 @@ import inf112.firegirlwaterboy.model.entity.IEntity;
 public interface IEntitySet<E extends IEntity<?>> {
 
   /**
-   * Add antity to collection
+   * Add entity to collection
    * 
    * @param entity The entity to be added
    * @throws IllegalArgumentException if player already exists
@@ -15,26 +15,26 @@ public interface IEntitySet<E extends IEntity<?>> {
   void add(E entity);
 
   /**
-   * Draws all players contained in the list using the given batch
+   * Draws all entities contained in the set using the given batch
    * 
    * @param batch The batch used for rendering
    */
   void draw(Batch batch);
 
   /**
-   * Disposes of all textures used by the players
+   * Disposes of all textures used by the entities in the set.
    */
   void dispose();
 
   /**
-   * @return true if this entutySet contains no entities
+   * @return true if this entitySet is empty, false otherwise
    */
   boolean isEmpty();
 
   /**
    * 
-   * @param entity
-   * @return true if entitySet contains enitity
+   * @param entity The entity to be checked
+   * @return true if entitySet contains enitity, false otherwise
    */
   boolean contains(E entity);
 

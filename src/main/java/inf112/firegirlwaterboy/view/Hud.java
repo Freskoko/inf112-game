@@ -100,7 +100,7 @@ public class Hud {
     public void update(float deltaTime) {
         time += deltaTime;
         timerLabel.setText("Time: " + (int) time);
-        scoreLabel.setText("Score: " + model.getTotalCollectedScore());
+        scoreLabel.setText("Score: " + model.getScore());
     }
 
     /**
