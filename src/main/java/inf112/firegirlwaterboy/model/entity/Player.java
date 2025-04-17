@@ -96,8 +96,14 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   public void draw(Batch batch) {
     super.draw(batch);
     Vector2 position = body.getPosition();
-    batch.draw(headTexture, position.x - bodyWidth, position.y + bodyHeightPlacement, headTexture.getRegionWidth() / 38,
-        headTexture.getRegionHeight() / 38);
+
+    if (body.getLinearVelocity().x < 0 && !headTexture.isFlipX()) {
+      headTexture.flip(true, false);
+    } else if (body.getLinearVelocity().x > 0 && headTexture.isFlipX()) {
+      headTexture.flip(true, false);
+    }
+
+    batch.draw(headTexture, position.x - 1.5f, position.y - 1.1f, 3, 3);
   }
 
   @Override
