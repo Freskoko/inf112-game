@@ -39,7 +39,7 @@ public interface IEntitySet<E extends IEntity<?>> {
   boolean contains(E entity);
 
   /**
-   * Updates all entities in the set. Used for updatating entity state.
+   * Updates all entities in the set. Used for updating entity state.
    */
   void update();
 }

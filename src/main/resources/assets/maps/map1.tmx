@@ -37,30 +37,19 @@
 44,44,44,44,44,44,36,36,36,44,44,44,44,44,44,36,36,36,44,44,44,44,44,44,44,44,44,44,44,44
 </data>
  </layer>
- <objectgroup id="3" name="Horizontal" locked="1">
+ <objectgroup id="3" name="Static" locked="1">
   <object id="433" x="800" y="160" width="128" height="32"/>
   <object id="434" x="160" y="288" width="768" height="32"/>
   <object id="435" x="32" y="448" width="128" height="32"/>
   <object id="436" x="320" y="448" width="320" height="32"/>
   <object id="437" x="32" y="608" width="768" height="32"/>
+  <object id="439" x="448" y="768" width="160" height="32"/>
   <object id="440" x="800" y="768" width="128" height="32"/>
-  <object id="496" x="0" y="928">
-   <polygon points="0,0 0,32 384,32 384,0 288,0 288,16 192,16 192,0"/>
-  </object>
-  <object id="497" x="384" y="928">
-   <polygon points="0,0 0,32 544,32 544,0 192,0 192,16 96,16 96,0"/>
-  </object>
-  <object id="498" x="448" y="768">
-   <polygon points="0,0 0,32 160,32 160,0 128,0 128,16 32,16 32,0"/>
-  </object>
-  <object id="499" x="160" y="768">
-   <polygon points="0,0 0,32 160,32 160,0 128,0 128,16 32,16 32,0"/>
-  </object>
- </objectgroup>
- <objectgroup id="13" name="Outline" locked="1">
+  <object id="465" x="0" y="928" width="928" height="32"/>
   <object id="412" x="928" y="0" width="32" height="960"/>
   <object id="414" x="0" y="0" width="32" height="928"/>
   <object id="415" x="32" y="0" width="896" height="32"/>
+  <object id="499" x="156.5" y="766.833" width="160" height="32"/>
  </objectgroup>
  <objectgroup id="15" name="Platform" locked="1">
   <object id="466" x="650" y="858" width="106.667" height="38">
@@ -76,29 +65,16 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Edges" locked="1">
-  <object id="446" x="160" y="769" width="1" height="30"/>
-  <object id="448" x="319" y="769" width="1" height="30"/>
-  <object id="450" x="448" y="769" width="1" height="30"/>
-  <object id="451" x="607" y="769" width="1" height="30"/>
-  <object id="452" x="800" y="769" width="1" height="30"/>
-  <object id="453" x="799" y="609" width="1" height="30"/>
-  <object id="455" x="639" y="449" width="1" height="30"/>
-  <object id="456" x="320" y="449" width="1" height="30"/>
-  <object id="457" x="159" y="449" width="1" height="30"/>
-  <object id="458" x="160" y="289" width="1" height="30"/>
-  <object id="459" x="800" y="161" width="1" height="30"/>
+ <objectgroup id="4" name="Spawn" locked="1">
+  <object id="221" name="Spawn" gid="49" x="64" y="896" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="Spawn">
-  <object id="500" x="64" y="864" width="32" height="32"/>
- </objectgroup>
- <objectgroup id="6" name="Elements" locked="1">
+ <objectgroup id="6" name="Element" locked="1">
   <object id="369" x="480" y="320" width="32" height="128">
    <properties>
     <property name="type" value="water"/>
    </properties>
   </object>
-  <object id="371" x="192" y="752" width="96" height="32">
+  <object id="371" x="191" y="753.5" width="96" height="32">
    <properties>
     <property name="type" value="water"/>
    </properties>
@@ -124,8 +100,8 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="11" name="Collectable">
-  <object id="397" x="216" y="672" width="48" height="48">
+ <objectgroup id="11" name="Collectable" locked="1">
+  <object id="397" x="205.667" y="667.167" width="68.5" height="49">
    <properties>
     <property name="type" value="blue"/>
    </properties>
@@ -156,11 +132,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="8" name="Finish" locked="1">
-  <object id="381" x="848" y="144" width="32" height="16">
-   <properties>
-    <property name="Finish" value="Finish"/>
-   </properties>
-  </object>
+ <objectgroup id="16" name="Finish" locked="1">
+  <object id="381" x="815" y="60.5" width="92" height="99.5"/>
  </objectgroup>
 </map>
