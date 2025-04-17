@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="502">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="507">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="64" columns="8">
   <image source="tileset.png" width="256" height="256"/>
  </tileset>
@@ -43,13 +43,22 @@
   <object id="435" x="32" y="448" width="128" height="32"/>
   <object id="436" x="320" y="448" width="320" height="32"/>
   <object id="437" x="32" y="608" width="768" height="32"/>
-  <object id="439" x="448" y="768" width="160" height="32"/>
   <object id="440" x="800" y="768" width="128" height="32"/>
-  <object id="465" x="0" y="928" width="928" height="32"/>
   <object id="412" x="928" y="0" width="32" height="960"/>
   <object id="414" x="0" y="0" width="32" height="928"/>
   <object id="415" x="32" y="0" width="896" height="32"/>
-  <object id="499" x="156.5" y="766.833" width="160" height="32"/>
+  <object id="502" x="160" y="768">
+   <polygon points="0,0 0,32 160,32 160,0 128,0 128,16 32,16 32,0"/>
+  </object>
+  <object id="503" x="448" y="768">
+   <polygon points="0,0 0,32 160,32 160,0 128,0 128,16 32,16 32,0"/>
+  </object>
+  <object id="504" x="0" y="928">
+   <polygon points="0,0 0,32 384,32 384,0 288,0 288,16 192,16 192,0"/>
+  </object>
+  <object id="506" x="384" y="928">
+   <polygon points="0,0 0,32 544,32 544,0 192,0 192,16 96,16 96,0"/>
+  </object>
  </objectgroup>
  <objectgroup id="15" name="Platform" locked="1">
   <object id="466" x="650" y="858" width="106.667" height="38">
