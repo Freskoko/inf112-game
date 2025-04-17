@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -199,16 +200,15 @@ public class MapsFactory implements IMapsFactory {
 
     Body body = world.createBody(bdef);
 
-    PolygonShape shape = new PolygonShape();
-    float[] vertices = polygon.getPolygon().getTransformedVertices();
-
+     float[] vertices = polygon.getPolygon().getTransformedVertices();
     Vector2[] worldVertices = new Vector2[vertices.length / 2];
-    System.out.println(vertices.length );
+
     for (int i = 0; i < worldVertices.length; i++) {
       worldVertices[i] = new Vector2(vertices[i * 2] / MapUtils.PPM, vertices[i * 2 + 1] / MapUtils.PPM);
     }
 
-    shape.set(worldVertices);
+    ChainShape shape = new ChainShape();
+    shape.createLoop(worldVertices);
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
