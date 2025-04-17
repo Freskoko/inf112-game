@@ -109,7 +109,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="11" name="Collectable">
+ <objectgroup id="11" name="Collectable" locked="1">
   <object id="397" x="216" y="672" width="48" height="48">
    <properties>
     <property name="type" value="blue"/>
