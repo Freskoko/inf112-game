@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.MovementType;
+import inf112.firegirlwaterboy.model.LayerType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.ElementType;
 
@@ -36,14 +37,19 @@ public class Platform implements IEntity<ElementType> {
     BodyDef bdef = new BodyDef();
     bdef.position.set(MapUtils.getCX(platform), MapUtils.getCY(platform));
     bdef.type = BodyDef.BodyType.DynamicBody;
+    bdef.fixedRotation = true;
     body = world.createBody(bdef);
     body.setGravityScale(0);
+  
+    
 
     PolygonShape shape = new PolygonShape();
     shape.setAsBox(width / 2, height / 2);
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
-    fdef.friction = 0.1f;
+    fdef.filter.categoryBits = LayerType.PLATFORM.getBit();
+    fdef.filter.maskBits = (short) (LayerType.STATIC.getBit() | LayerType.PLAYER.getBit());
+    fdef.friction = 0.5f;
     body.createFixture(fdef).setUserData(this);
     shape.dispose();
   }

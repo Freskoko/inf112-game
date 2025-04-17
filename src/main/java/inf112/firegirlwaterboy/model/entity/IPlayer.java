@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.types.ElementType;
 
 public interface IPlayer {
 
@@ -21,14 +20,7 @@ public interface IPlayer {
    *
    * @param groundStatus true if the player is on the ground; false otherwise.
    */
-  void setOnGround(boolean groundStatus);
-
-  /**
-   * Sets whether the player is touching an edge.
-   *
-   * @param edgeStatus true if the player is touching an edge; false otherwise.
-   */
-  void setTouchingEdge(boolean edgeStatus);
+  void setGroundStatus(boolean groundStatus);
 
   /**
    * Sets whether the player has finished the map.
@@ -77,21 +69,10 @@ public interface IPlayer {
 
   /**
    * Determines the player's alive status based on interaction with a specific
-   * element type.
-   * The player survives only if its immunity matches the given element type.
+   * element.
+   * The player survives only if its immunity matches the given element.
    *
-   * @param elementType The type of element the player interacts with.
+   * @param element The element the player interacts with.
    */
-  void interactWithElement(ElementType elementType);
-
-  /**
-   * @return true if the player is on the ground; false otherwise.
-   */
-  boolean isOnGround();
-
-  /**
-   * @return true if the player is touching an edge; false otherwise.
-   */
-  boolean isTouchingEdge();
-
+  void interactWithElement(Element element);
 }

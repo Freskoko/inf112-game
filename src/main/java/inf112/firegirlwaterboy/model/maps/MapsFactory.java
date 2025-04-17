@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.firegirlwaterboy.model.LayerType;
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.managers.CollectableSet;
 import inf112.firegirlwaterboy.model.managers.EntitySet;
@@ -86,15 +87,13 @@ public class MapsFactory implements IMapsFactory {
   @Override
   public void createObjectsInWorld(World world, String mapName) {
     for (MapLayer layer : getMap(mapName).getLayers()) {
-      String layerName = layer.getName();
-      switch (layerName) {
-        case "Collectable" -> createCollectablesFromLayer(world, layer, mapName);
-        case "Elements" -> createElementsFromLayer(world, layer, mapName);
-        case "Spawn" -> {
-        } // Ignore spawn layer;
-        case "Platform" -> createPlatform(world, layer, mapName);
-        case "Finish" -> createFinishFromLayer(world, layer);
-        default -> createObjectsFromLayer(world, layer);
+      switch (LayerType.valueOf(layer.getName().toUpperCase())) {
+        case COLLECTABLE -> createCollectablesFromLayer(world, layer, mapName);
+        case ELEMENT -> createElementsFromLayer(world, layer, mapName);
+        case PLATFORM -> createPlatform(world, layer, mapName);
+        case FINISH -> createFinishFromLayer(world, layer);
+        case STATIC -> createObjectsFromLayer(world, layer);
+        default ->  {}
       }
     }
   }
@@ -133,9 +132,11 @@ public class MapsFactory implements IMapsFactory {
 
       FixtureDef fdef = new FixtureDef();
       fdef.shape = shape;
+      fdef.filter.categoryBits = LayerType.FINISH.getBit();
+      fdef.filter.maskBits = LayerType.PLAYER.getBit();
       Fixture fixture = body.createFixture(fdef);
       fixture.setSensor(true);
-      fixture.setUserData(layer.getName());
+      fixture.setUserData(LayerType.valueOf(layer.getName().toUpperCase()));
       shape.dispose();
     }
   }
@@ -200,8 +201,9 @@ public class MapsFactory implements IMapsFactory {
 
     PolygonShape shape = new PolygonShape();
     float[] vertices = polygon.getPolygon().getTransformedVertices();
-    Vector2[] worldVertices = new Vector2[vertices.length / 2];
 
+    Vector2[] worldVertices = new Vector2[vertices.length / 2];
+    System.out.println(vertices.length );
     for (int i = 0; i < worldVertices.length; i++) {
       worldVertices[i] = new Vector2(vertices[i * 2] / MapUtils.PPM, vertices[i * 2 + 1] / MapUtils.PPM);
     }
@@ -210,8 +212,10 @@ public class MapsFactory implements IMapsFactory {
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
-    fdef.friction = 1f;
-    // fdef.restitution = 0f;
+    fdef.filter.categoryBits = LayerType.STATIC.getBit();
+    fdef.filter.maskBits = (short) (LayerType.PLAYER.getBit() | LayerType.PLATFORM.getBit());
+    fdef.friction = 0f;
+    
     Fixture fixture = body.createFixture(fdef);
 
     fixture.setUserData(layerName);
@@ -242,9 +246,12 @@ public class MapsFactory implements IMapsFactory {
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
+    fdef.friction = 0f;
+    fdef.filter.categoryBits = LayerType.STATIC.getBit();
+    fdef.filter.maskBits = (short) (LayerType.PLAYER.getBit() | LayerType.PLATFORM.getBit());
     Fixture fixture = body.createFixture(fdef);
 
-    fixture.setUserData(layerName);
+    fixture.setUserData(LayerType.valueOf(layerName.toUpperCase()));
     shape.dispose();
   }
 
@@ -262,5 +269,6 @@ public class MapsFactory implements IMapsFactory {
   public EntitySet<Element> getElements(String mapName) {
     return elementsMap.getOrDefault(mapName, new EntitySet<>());
   }
+  
 
 }

@@ -15,11 +15,7 @@ import inf112.firegirlwaterboy.model.entity.IEntity;
  */
 public class EntitySet<E extends IEntity<?>> implements Iterable<E>, IEntitySet<E> {
 
-  protected HashSet<E> entities;
-
-  public EntitySet() {
-    entities = new HashSet<>();
-  }
+  protected HashSet<E> entities = new HashSet<>();
 
   @Override
   public void add(E entity) {

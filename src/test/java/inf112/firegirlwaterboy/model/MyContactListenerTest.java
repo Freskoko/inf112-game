@@ -9,14 +9,13 @@ import inf112.firegirlwaterboy.model.entity.Collectable;
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.entity.Platform;
-import inf112.firegirlwaterboy.model.types.ElementType;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MyContactListenerTest {
 
-    private MyContactListener contactListener;
+    private GameContactListener contactListener;
     private Contact mockContact;
     private Fixture mockFixtureA;
     private Fixture mockFixtureB;
@@ -27,7 +26,7 @@ public class MyContactListenerTest {
 
     @BeforeEach
     void setUp() {
-        contactListener = new MyContactListener();
+        contactListener = new GameContactListener();
         mockContact = mock(Contact.class);
         mockFixtureA = mock(Fixture.class);
         mockFixtureB = mock(Fixture.class);
@@ -41,29 +40,21 @@ public class MyContactListenerTest {
     }
 
     @Test
-    void beginContact_playerAndHorizontal_setsOnGroundTrue() {
+    void beginContact_playerAndLayerTypeStatic_setsOnGroundTrue() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
-        when(mockFixtureB.getUserData()).thenReturn("Horizontal");
+        when(mockFixtureB.getUserData()).thenReturn(LayerType.STATIC);
 
         contactListener.beginContact(mockContact);
 
-        verify(mockPlayer).setOnGround(true);
+        verify(mockPlayer).setGroundStatus(true);
     }
 
-    @Test
-    void beginContact_playerAndEdge_setsTouchingEdgeTrue() {
-        when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
-        when(mockFixtureB.getUserData()).thenReturn("Edges");
 
-        contactListener.beginContact(mockContact);
-
-        verify(mockPlayer).setTouchingEdge(true);
-    }
 
     @Test
     void beginContact_playerAndFinish_setsFinishedTrue() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
-        when(mockFixtureB.getUserData()).thenReturn("Finish");
+        when(mockFixtureB.getUserData()).thenReturn(LayerType.FINISH);
 
         contactListener.beginContact(mockContact);
 
@@ -84,27 +75,16 @@ public class MyContactListenerTest {
     void beginContact_playerAndElement_interactsWithElement() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
         when(mockFixtureB.getUserData()).thenReturn(mockElement);
-        when(mockElement.getType()).thenReturn(ElementType.LAVA);
 
         contactListener.beginContact(mockContact);
 
-        verify(mockPlayer).interactWithElement(ElementType.LAVA);
+        verify(mockPlayer).interactWithElement(mockElement);
     }
 
     @Test
-    void beginContact_playerAndPlatform_setsOnPlatform() {
-        when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
-        when(mockFixtureB.getUserData()).thenReturn(mockPlatform);
-
-        contactListener.beginContact(mockContact);
-
-        verify(mockPlayer).setOnPlatform(mockPlatform);
-    }
-
-    @Test
-    void beginContact_platformAndHorizontal_callsPlatformCollision() {
+    void beginContact_platformAndLayerTypeStatic_callsPlatformCollision() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlatform);
-        when(mockFixtureB.getUserData()).thenReturn("Horizontal");
+        when(mockFixtureB.getUserData()).thenReturn(LayerType.STATIC);
 
         contactListener.beginContact(mockContact);
 
@@ -112,29 +92,19 @@ public class MyContactListenerTest {
     }
 
     @Test
-    void endContact_playerAndHorizontal_setsOnGroundFalse() {
+    void endContact_playerAndLayerTypeStatic_setsOnGroundFalse() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
-        when(mockFixtureB.getUserData()).thenReturn("Horizontal");
+        when(mockFixtureB.getUserData()).thenReturn(LayerType.STATIC);
 
         contactListener.endContact(mockContact);
 
-        verify(mockPlayer).setOnGround(false);
-    }
-
-    @Test
-    void endContact_playerAndEdge_setsTouchingEdgeFalse() {
-        when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
-        when(mockFixtureB.getUserData()).thenReturn("Edges");
-
-        contactListener.endContact(mockContact);
-
-        verify(mockPlayer).setTouchingEdge(false);
+        verify(mockPlayer).setGroundStatus(false);
     }
 
     @Test
     void endContact_playerAndFinish_setsFinishedFalse() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
-        when(mockFixtureB.getUserData()).thenReturn("Finish");
+        when(mockFixtureB.getUserData()).thenReturn(LayerType.FINISH);
 
         contactListener.endContact(mockContact);
 
@@ -142,29 +112,20 @@ public class MyContactListenerTest {
     }
 
     @Test
-    void endContact_platformAndEdge_doesNotCallPlatformCollision() {
+    void endContact_platformAndLayerTypeStatic_doesNotCallPlatformCollision() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlatform);
-        when(mockFixtureB.getUserData()).thenReturn("Edges");
+        when(mockFixtureB.getUserData()).thenReturn(LayerType.STATIC);
 
         contactListener.endContact(mockContact);
 
         verify(mockPlatform, never()).collision();
     }
 
-    @Test
-    void endContact_platformAndHorizontal_doesNotCallPlatformCollision() {
-        when(mockFixtureA.getUserData()).thenReturn(mockPlatform);
-        when(mockFixtureB.getUserData()).thenReturn("Horizontal");
-
-        contactListener.endContact(mockContact);
-
-        verify(mockPlatform, never()).collision();
-    }
 
     @Test
-    void platformCollision_withHorizontal_callsCollision() {
+    void platformCollision_withLayerTypeStatic_callsCollision() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlatform);
-        when(mockFixtureB.getUserData()).thenReturn("Horizontal");
+        when(mockFixtureB.getUserData()).thenReturn(LayerType.STATIC);
 
         contactListener.beginContact(mockContact); // Trigger platformCollision through beginContact
 
@@ -172,12 +133,14 @@ public class MyContactListenerTest {
     }
 
     @Test
-    void platformCollision_withoutEdgeOrHorizontal_doesNotCallCollision() {
+    void platformCollision_withoutLayerTypeStaticOrLayerTypeStatic_doesNotCallCollision() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlatform);
-        when(mockFixtureB.getUserData()).thenReturn("SomeOtherObject");
-
-        contactListener.beginContact(mockContact); // Trigger platformCollision through beginContact
-
-        verify(mockPlatform, never()).collision();
+        for (LayerType layerType : LayerType.values()) {
+            if (layerType != LayerType.STATIC) {
+                when(mockFixtureB.getUserData()).thenReturn(layerType);
+                contactListener.beginContact(mockContact); // Trigger platformCollision through beginContact
+                verify(mockPlatform, never()).collision();
+            }
+        }
     }
 }

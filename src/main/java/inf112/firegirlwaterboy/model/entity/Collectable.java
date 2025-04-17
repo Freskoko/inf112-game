@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.firegirlwaterboy.model.LayerType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.CollectableType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
@@ -49,6 +50,8 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
 
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
+    fdef.filter.categoryBits = LayerType.COLLECTABLE.getBit();
+    fdef.filter.maskBits = LayerType.PLAYER.getBit();
     Fixture fixture = body.createFixture(fdef);
     fixture.setSensor(true);
     fixture.setUserData(this);
