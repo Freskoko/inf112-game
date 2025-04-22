@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.model;
+package inf112.firegirlwaterboy.model.maps;
 
 public enum LayerType {
   PLAYER(0x0001),
@@ -10,14 +10,13 @@ public enum LayerType {
   BACKGROUND(null),
   SPAWN(null);
 
-
   private final Integer bit;
 
   LayerType(Integer bit) {
-      this.bit = bit;
+    this.bit = bit;
   }
 
   public short getBit() {
-      return (short) (int) this.bit;
+    return (short) (int) this.bit;
   }
 }
