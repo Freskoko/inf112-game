@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.LayerType;
+import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.ElementType;
 
@@ -41,8 +41,7 @@ public class Platform implements IEntity<ElementType> {
     body = world.createBody(bdef);
     body.setGravityScale(0);
   
-    
-
+  
     PolygonShape shape = new PolygonShape();
     shape.setAsBox(width / 2, height / 2);
     FixtureDef fdef = new FixtureDef();
