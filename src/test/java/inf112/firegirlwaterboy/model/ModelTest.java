@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.controller.MovementType;
@@ -80,7 +81,6 @@ public class ModelTest {
             java.lang.reflect.Field factoryField = Model.class.getDeclaredField("worldFactory");
             factoryField.setAccessible(true);
             factoryField.set(testModel, mockFactory);
-
 
             java.lang.reflect.Field playersField = Model.class.getDeclaredField("players");
             playersField.setAccessible(true);
@@ -167,12 +167,12 @@ public class ModelTest {
 
     @Test
     void testRestartGame() {
-        testModel.restartGame();
-
-        // verify(mockMaps).getPlatforms("map1");
-        // verify(mockMaps).getCollectables("map1");
-        // verify(mockMaps).getElements("map1");
-
+        // TiledMap mockMap = mock(TiledMap.class);
+        // when(mockManager.getMap("map1")).thenReturn(mockMap);
+        // testModel.restartGame();
+        // verify(mockFactory).createCollectables(mockWorld, mockMap);
+        // verify(mockFactory).createPlatforms(mockWorld, mockMap);
+        // verify(mockFactory).createElements(mockWorld, mockMap);       
     }
 
     @Test
@@ -247,10 +247,10 @@ public class ModelTest {
 
     @Test
     void testGetMap() {
-        //TiledMap mockTiledMap = mock(TiledMap.class);
-        // when(mockMaps.getMap("map1")).thenReturn(mockTiledMap);
-        // assertEquals(mockTiledMap, testModel.getMap());
-        // verify(mockMaps).getMap("map1");
+        TiledMap mockTiledMap = mock(TiledMap.class);
+        when(mockManager.getMap("map1")).thenReturn(mockTiledMap);
+        assertEquals(mockTiledMap, testModel.getMap());
+        verify(mockManager).getMap("map1");
     }
 
     @Test
