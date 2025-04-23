@@ -78,10 +78,10 @@ public class MapManager implements IMapManager {
 
   @Override
   public Vector2 getSpawnPos(TiledMap map, PlayerType playerType) {
-    MapLayer layer = map.getLayers().get(LayerType.SPAWN.toString());
+    MapLayer layer = getLayer(map, LayerType.SPAWN);
 
     if (layer == null || layer.getObjects().getCount() == 0 || playerType == null) {
-      System.err.println("Warning: no objects in map layer");
+      System.err.println("Warning returning default spawn position");
       return DEFAULT_SPAWN_POS;
     }
 
