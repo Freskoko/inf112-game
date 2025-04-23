@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import inf112.firegirlwaterboy.model.LayerType;
+import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.CollectableType;
 import inf112.firegirlwaterboy.model.types.PlayerType;

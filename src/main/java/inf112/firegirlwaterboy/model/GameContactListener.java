@@ -12,6 +12,7 @@ import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.IEntity;
 import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Player;
+import inf112.firegirlwaterboy.model.maps.LayerType;
 
 /**
  * MyContactListener listens for contacts events in the physics world.
@@ -59,14 +60,18 @@ public class GameContactListener implements ContactListener {
       return;
 
     Collectable collectable = getEntity(a, b, Collectable.class);
-    if (collectable != null && contactStatus) {
-      player.interactWithCollectable(collectable);
+    if (collectable != null) {
+      if (contactStatus) {
+        player.interactWithCollectable(collectable);
+      }
       return;
     }
 
     Element element = getEntity(a, b, Element.class);
-    if (element != null && contactStatus) {
-      player.interactWithElement(element);
+    if (element != null) {
+      if (contactStatus) {
+        player.interactWithElement(element);
+      }
       return;
     }
 

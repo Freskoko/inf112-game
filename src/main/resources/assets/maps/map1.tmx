@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="64" columns="8">
   <image source="tileset.png" width="256" height="256"/>
  </tileset>
- <layer id="1" name="Background" width="30" height="30">
+ <layer id="1" name="BACKGROUND" width="30" height="30">
   <data encoding="csv">
 44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,
 44,5,20,20,20,4,20,20,20,20,20,20,20,20,20,20,20,20,4,20,20,20,20,20,20,20,20,20,8,44,
@@ -37,7 +37,7 @@
 44,44,44,44,44,44,36,36,36,44,44,44,44,44,44,36,36,36,44,44,44,44,44,44,44,44,44,44,44,44
 </data>
  </layer>
- <objectgroup id="3" name="Static" locked="1">
+ <objectgroup id="3" name="STATIC" locked="1">
   <object id="433" x="800" y="160" width="128" height="32"/>
   <object id="434" x="160" y="288" width="768" height="32"/>
   <object id="435" x="32" y="448" width="128" height="32"/>
@@ -51,7 +51,7 @@
   <object id="415" x="32" y="0" width="896" height="32"/>
   <object id="499" x="156.5" y="766.833" width="160" height="32"/>
  </objectgroup>
- <objectgroup id="15" name="Platform" locked="1">
+ <objectgroup id="15" name="PLATFORM" locked="1">
   <object id="466" x="650" y="858" width="106.667" height="38">
    <properties>
     <property name="dir" value="up"/>
@@ -65,10 +65,10 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Spawn" locked="1">
+ <objectgroup id="4" name="SPAWN" locked="1">
   <object id="221" name="Spawn" gid="49" x="64" y="896" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="6" name="Element" locked="1">
+ <objectgroup id="6" name="ELEMENT" locked="1">
   <object id="369" x="480" y="320" width="32" height="128">
    <properties>
     <property name="type" value="water"/>
@@ -100,7 +100,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="11" name="Collectable" locked="1">
+ <objectgroup id="11" name="COLLECTABLE" locked="1">
   <object id="397" x="205.667" y="667.167" width="68.5" height="49">
    <properties>
     <property name="type" value="blue"/>
@@ -132,7 +132,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="16" name="Finish" locked="1">
+ <objectgroup id="16" name="FINISH" locked="1">
   <object id="381" x="815" y="60.5" width="92" height="99.5"/>
  </objectgroup>
 </map>

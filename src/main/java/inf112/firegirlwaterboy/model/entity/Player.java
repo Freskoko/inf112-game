@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.LayerType;
+import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
 /**
@@ -137,7 +137,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     onGround = true;
     isAlive = true;
     finished = false;
-    onGround = true;
     collectedCount = 0;
     createBody(world, pos);
     setPosition(pos.x, pos.y);
@@ -275,7 +274,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
     PolygonShape coreShape = new PolygonShape();
     coreShape.setAsBox(
-        width * 0.45f,
+        width * 0.4f,
         height * 0.425f,
         new Vector2(0, -height * 0.075f),
         0);
@@ -284,7 +283,8 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     corefDef.restitution = 0f;
 
     corefDef.filter.categoryBits = LayerType.PLAYER.getBit();
-    corefDef.filter.maskBits = (short) (LayerType.COLLECTABLE.getBit() |
+    corefDef.filter.maskBits = (short) (
+        LayerType.COLLECTABLE.getBit() |
         LayerType.ELEMENT.getBit() |
         LayerType.FINISH.getBit() |
         LayerType.PLATFORM.getBit() |

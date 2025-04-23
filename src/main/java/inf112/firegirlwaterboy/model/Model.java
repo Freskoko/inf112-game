@@ -1,10 +1,7 @@
 package inf112.firegirlwaterboy.model;
 
-import java.util.HashSet;
-
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Timer;
 
@@ -16,9 +13,10 @@ import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.managers.PlayerSet;
-import inf112.firegirlwaterboy.model.maps.IMapsFactory;
-import inf112.firegirlwaterboy.model.maps.MapUtils;
-import inf112.firegirlwaterboy.model.maps.MapsFactory;
+import inf112.firegirlwaterboy.model.maps.IMapManager;
+import inf112.firegirlwaterboy.model.maps.MapManager;
+import inf112.firegirlwaterboy.model.maps.factories.WorldFactory;
+import inf112.firegirlwaterboy.model.maps.factories.IWorldFactory;
 import inf112.firegirlwaterboy.model.maps.factories.StandardGameObjectsFactory;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 import inf112.firegirlwaterboy.sound.SoundManager;
@@ -35,29 +33,28 @@ public class Model implements IControllableModel, IViewModel {
   private CollectableSet collectables;
   private EntitySet<Element> elements;
   private GameState gameState;
-  private IMapsFactory maps;
+  private IWorldFactory worldFactory;
   private String mapName;
   private World world;
-  private HashSet<String> completedMaps;
   private SoundManager soundManager;
+  private IMapManager mapManager;
 
   public Model() {
     this.players = new PlayerSet();
     this.mapName = "map1";
-    this.maps = new MapsFactory(new StandardGameObjectsFactory());
+    this.mapManager = new MapManager();
+    this.worldFactory = new WorldFactory(new StandardGameObjectsFactory(), mapManager);
     this.gameState = GameState.WELCOME;
-    this.completedMaps = new HashSet<>();
   }
 
   @Override
   public void restartGame() {
-    world = new World(new Vector2(0, -9.8f), true);
-    world.setContactListener(new GameContactListener());
-    maps.createObjectsInWorld(world, mapName);
-    platforms = maps.getPlatforms(mapName);
-    collectables = maps.getCollectables(mapName);
-    elements = maps.getElements(mapName);
-    players.forEach(player -> player.spawn(world, MapUtils.getSpawnPos(maps.getLayer(mapName, "Spawn"))));
+    TiledMap map = mapManager.getMap(mapName);
+    world = worldFactory.createWorld(map);
+    platforms = worldFactory.createPlatforms(world, map);
+    collectables = worldFactory.createCollectables(world, map);
+    elements = worldFactory.createElements(world, map);
+    players.forEach(player -> player.spawn(world, mapManager.getSpawnPos(map)));
   }
 
   @Override
@@ -88,10 +85,10 @@ public class Model implements IControllableModel, IViewModel {
       Timer.schedule(new Timer.Task() {
         @Override
         public void run() {
-            gameState = GameState.COMPLETED_MAP;
+          gameState = GameState.COMPLETED_MAP;
         }
-    }, 1);
-      completedMaps.add(mapName);
+      }, 1);
+      mapManager.complete(mapName);
     }
   }
 
@@ -120,7 +117,7 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public TiledMap getMap() {
-    return maps.getMap(mapName);
+    return mapManager.getMap(mapName);
   }
 
   @Override
@@ -155,7 +152,7 @@ public class Model implements IControllableModel, IViewModel {
 
   @Override
   public boolean isComplete(String mapName) {
-    return completedMaps.contains(mapName);
+    return mapManager.isComplete(mapName);
   }
 
   @Override
