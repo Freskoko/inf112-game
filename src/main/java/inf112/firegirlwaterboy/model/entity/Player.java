@@ -137,6 +137,8 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     onGround = true;
     isAlive = true;
     finished = false;
+    onGround = true;
+    powerUp = false;
     collectedCount = 0;
     createBody(world, pos);
     setPosition(pos.x, pos.y);
@@ -158,7 +160,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   @Override
   public void interactWithCollectable(Collectable collectable) {
-    if (collectable.getRequiredPlayer().contains(playerType)) {
+    if (collectable.getRequiredPlayers().contains(playerType)) {
       collectedCount++;
       collectable.collect();
     }
