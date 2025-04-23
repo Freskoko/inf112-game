@@ -24,6 +24,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.GL20;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 public class MapManagerTest {
 
@@ -96,8 +97,8 @@ public class MapManagerTest {
     when(mockLayer.getObjects()).thenReturn(mockObjects);
     when(mockObjects.getCount()).thenReturn(0);
 
-    Vector2 result = mapManager.getSpawnPos(mockMap);
-    assertEquals(new Vector2(100, 100), result);
+    Vector2 result = mapManager.getSpawnPos(mockMap, null);
+    assertEquals(new Vector2(2, 2), result);
   }
 
   @Test
@@ -120,12 +121,13 @@ public class MapManagerTest {
     when(mockProperties.get("x", Float.class)).thenReturn(0f);
     when(mockProperties.get("y", Float.class)).thenReturn(null);
 
-    assertThrows(NullPointerException.class, () -> mapManager.getSpawnPos(mockMap));
+    assertThrows(NullPointerException.class, () -> mapManager.getSpawnPos(mockMap, PlayerType.FIREGIRL));
   }
 
   @Test
   void testGetPlayerSpawn() {
-    assertEquals(mapManager.getSpawnPos(map), new Vector2(2, 2));
+    assertEquals(mapManager.getSpawnPos(map, PlayerType.FIREGIRL), new Vector2(2f, 2.5f));
+    assertEquals(mapManager.getSpawnPos(map, PlayerType.WATERBOY), new Vector2(2f, 2.5f));
   }
 
 }
