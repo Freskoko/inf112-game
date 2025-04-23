@@ -8,7 +8,7 @@ public final class MapUtils {
   private MapUtils() {
   }
 
-  static final Vector2 DEFAULT_SPAWN_POS = new Vector2(100, 100);
+  static final Vector2 DEFAULT_SPAWN_POS = new Vector2(2, 2);
   public static final float PPM = 32;
 
   public static float getY(MapObject object) {
