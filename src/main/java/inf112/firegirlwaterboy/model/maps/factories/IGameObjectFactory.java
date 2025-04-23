@@ -7,7 +7,7 @@ import inf112.firegirlwaterboy.model.entity.Collectable;
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Platform;
 
-public interface GameObjectFactory {
+public interface IGameObjectFactory {
 
     /**
      * Creates a new plaform based on {@code object} in the {@code world}

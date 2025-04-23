@@ -12,14 +12,14 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import inf112.firegirlwaterboy.model.LayerType;
+import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.CollectableType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
 public class Collectable implements IEntity<CollectableType>, ICollectable {
 
-  private Set<PlayerType> requiredPlayer;
+  private Set<PlayerType> requiredPlayers;
   private Body body;
   private World world;
   private boolean powerUp;
@@ -31,7 +31,7 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
   public Collectable(World world, MapObject collectable) {
     this.type = CollectableType.valueOf(MapUtils.getProperty(collectable, "type"));
     this.powerUp = type.isPowerUp();
-    this.requiredPlayer = type.getRequiredPlayers();
+    this.requiredPlayers = type.getRequiredPlayers();
     this.texture = type.getTexture();
     this.world = world;
     this.isCollected = false;
@@ -59,13 +59,13 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
   }
 
   @Override
-  public Set<PlayerType> getRequiredPlayer() {
-    return requiredPlayer;
+  public Set<PlayerType> getRequiredPlayers() {
+    return requiredPlayers;
   }
 
   @Override
   public String toString() {
-    return "Collectable for " + requiredPlayer;
+    return "Collectable for " + requiredPlayers;
   }
 
   @Override

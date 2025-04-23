@@ -127,7 +127,7 @@ public class PlayerTest {
         Set<PlayerType> requiredPlayer = new HashSet<>();
         requiredPlayer.add(player.getType());
 
-        when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayer);
+        when(mockCollectable.getRequiredPlayers()).thenReturn(requiredPlayer);
         when(mockCollectable.isPowerUp()).thenReturn(true);
 
         player.interactWithCollectable(mockCollectable);
@@ -200,7 +200,7 @@ public class PlayerTest {
         Collectable mockCollectable = mock(Collectable.class);
         Set<PlayerType> requiredPlayerSet = new HashSet<>();
         requiredPlayerSet.add(player.getType());
-        when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayerSet);
+        when(mockCollectable.getRequiredPlayers()).thenReturn(requiredPlayerSet);
         player.interactWithCollectable(mockCollectable);
         assertEquals(1, player.getCollectedCount());
         player.update();
@@ -213,7 +213,7 @@ public class PlayerTest {
         Collectable mockCollectable = mock(Collectable.class);
         Set<PlayerType> requiredPlayerSet = new HashSet<>();
         requiredPlayerSet.add(player.getType());
-        when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayerSet);
+        when(mockCollectable.getRequiredPlayers()).thenReturn(requiredPlayerSet);
         player.interactWithCollectable(mockCollectable);
         player.update();
         assertEquals(1, player.getCollectedCount());
@@ -224,7 +224,7 @@ public class PlayerTest {
         player.spawn(mockWorld, new Vector2(0, 0));
         Collectable mockCollectable = mock(Collectable.class);
         Set<PlayerType> requiredPlayerSet = new HashSet<>();
-        when(mockCollectable.getRequiredPlayer()).thenReturn(requiredPlayerSet);
+        when(mockCollectable.getRequiredPlayers()).thenReturn(requiredPlayerSet);
         player.interactWithCollectable(mockCollectable);
         player.update();
         assertEquals(0, player.getCollectedCount());

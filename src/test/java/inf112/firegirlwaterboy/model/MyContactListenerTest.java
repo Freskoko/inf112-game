@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import inf112.firegirlwaterboy.model.entity.Collectable;
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Player;
+import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.entity.Platform;
 
 import org.junit.jupiter.api.BeforeEach;
