@@ -52,8 +52,6 @@ public interface IMapManager {
    * @param playerType The type of player (Firegirl or Waterboy).
    * @return The spawn position as a {@link Vector2}, or {@code DEFAULT_SPAWN_POS}
    *         if missing.
-   * @throws NullPointerException If the "Spawn" object lacks valid X/Y
-   *                              properties.
    */
   Vector2 getSpawnPos(TiledMap map, PlayerType playerType);
 }
