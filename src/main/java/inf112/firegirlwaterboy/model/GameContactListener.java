@@ -64,7 +64,6 @@ public class GameContactListener implements ContactListener {
       if (contactStatus) {
         player.interactWithCollectable(collectable);
       }
-      return;
     }
 
     Element element = getEntity(a, b, Element.class);
@@ -72,16 +71,10 @@ public class GameContactListener implements ContactListener {
       if (contactStatus) {
         player.interactWithElement(element);
       }
-      return;
     }
 
     if (isLayerType(a, b, LayerType.FINISH)) {
       player.setFinished(contactStatus);
-    }
-
-    boolean isGround = isLayerType(a, b, LayerType.STATIC) || getEntity(a, b, Platform.class) != null;
-    if (isGround) {
-      player.setGroundStatus(contactStatus);
     }
   }
 

@@ -41,18 +41,6 @@ public class MyContactListenerTest {
     }
 
     @Test
-    void beginContact_playerAndLayerTypeStatic_setsOnGroundTrue() {
-        when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
-        when(mockFixtureB.getUserData()).thenReturn(LayerType.STATIC);
-
-        contactListener.beginContact(mockContact);
-
-        verify(mockPlayer).setGroundStatus(true);
-    }
-
-
-
-    @Test
     void beginContact_playerAndFinish_setsFinishedTrue() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
         when(mockFixtureB.getUserData()).thenReturn(LayerType.FINISH);
@@ -93,16 +81,6 @@ public class MyContactListenerTest {
     }
 
     @Test
-    void endContact_playerAndLayerTypeStatic_setsOnGroundFalse() {
-        when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
-        when(mockFixtureB.getUserData()).thenReturn(LayerType.STATIC);
-
-        contactListener.endContact(mockContact);
-
-        verify(mockPlayer).setGroundStatus(false);
-    }
-
-    @Test
     void endContact_playerAndFinish_setsFinishedFalse() {
         when(mockFixtureA.getUserData()).thenReturn(mockPlayer);
         when(mockFixtureB.getUserData()).thenReturn(LayerType.FINISH);
@@ -121,7 +99,6 @@ public class MyContactListenerTest {
 
         verify(mockPlatform, never()).collision();
     }
-
 
     @Test
     void platformCollision_withLayerTypeStatic_callsCollision() {

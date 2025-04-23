@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -33,7 +35,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private int collectedCount;
   private boolean finished;
   private boolean powerUp;
-  private boolean onGround;
+  private World world;
 
   private Animation<TextureRegion> runningAnimation;
   private TextureRegion standingTexture, headTexture;
@@ -75,11 +77,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   @Override
   public void dispose() {
     super.getTexture().dispose();
-  }
-
-  @Override
-  public Body getBody() {
-    return body;
   }
 
   @Override
@@ -127,12 +124,11 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
   @Override
   public void spawn(World world, Vector2 pos) {
-    onGround = true;
     isAlive = true;
     finished = false;
-    onGround = true;
     powerUp = false;
     collectedCount = 0;
+    this.world = world;
     setSize(width, height);
     createBody(world, pos);
     setPosition(pos.x, pos.y);
@@ -158,7 +154,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
       collectedCount++;
       collectable.collect();
     }
-    powerUp |= collectable.isPowerUp();
+    powerUp |= collectable.getType().isPowerUp();
   }
 
   @Override
@@ -174,11 +170,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   @Override
   public boolean isFinished() {
     return finished;
-  }
-
-  @Override
-  public void setGroundStatus(boolean onGround) {
-    this.onGround = onGround;
   }
 
   /**
@@ -253,8 +244,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     corefDef.restitution = 0f;
 
     corefDef.filter.categoryBits = LayerType.PLAYER.getBit();
-    corefDef.filter.maskBits = (short) (
-        LayerType.COLLECTABLE.getBit() |
+    corefDef.filter.maskBits = (short) (LayerType.COLLECTABLE.getBit() |
         LayerType.ELEMENT.getBit() |
         LayerType.FINISH.getBit() |
         LayerType.PLATFORM.getBit() |
@@ -267,8 +257,21 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   /**
    * Applies a linear impulse upwards to body if on ground.
    */
-  private void jump() {
-    if (onGround)
-      body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
+  private void jump() {    
+    short groundBits = (short) (LayerType.PLATFORM.getBit() | LayerType.STATIC.getBit());
+    for (Contact c : world.getContactList()) {
+      if (!c.isTouching())
+        continue;
+
+      Fixture a = c.getFixtureA(), b = c.getFixtureB();
+      boolean aIsMe = a.getUserData() == this, bIsMe = b.getUserData() == this;
+      if (!aIsMe && !bIsMe)
+        continue;
+
+      Fixture other = aIsMe ? b : a;
+      if ((other.getFilterData().categoryBits & groundBits) != 0) {
+        body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
+      }
+    }
   }
 }
