@@ -13,7 +13,7 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
  * the game.
  */
 
-public class ButtonHandler {
+public class ButtonHandler implements IButtonHandler {
 
   private final Controller controller;
   private final IControllableModel model;
@@ -24,9 +24,7 @@ public class ButtonHandler {
     this.model = model;
   }
 
-  /**
-   * Returns a ClickListener for selecting a player
-   */
+  @Override
   public ClickListener getSelectPlayerListener(boolean isPlayerOne, PlayerType type) {
     return new ClickListener() {
       @Override
@@ -38,9 +36,7 @@ public class ButtonHandler {
     };
   }
 
-  /**
-   * Returns a ClickListener that changes gameState to CHOOSE_MAP
-   */
+  @Override
   public ClickListener getToChooseMapListener() {
     return new ClickListener() {
       @Override
@@ -50,9 +46,7 @@ public class ButtonHandler {
     };
   }
 
-  /**
-   * Returns a ClickListener that changes gameStare to HELP
-   */
+  @Override
   public ClickListener getToHelpListener() {
     return new ClickListener() {
       @Override
@@ -62,9 +56,7 @@ public class ButtonHandler {
     };
   }
 
-  /**
-   * Returns a ClickListener that changes gameState to WELCOME
-   */
+  @Override
   public ClickListener getToWelcomeListener() {
     return new ClickListener() {
       @Override
@@ -74,9 +66,7 @@ public class ButtonHandler {
     };
   }
 
-  /**
-   * Returns a ClickListener for selecting a map
-   */
+  @Override
   public ClickListener getSelectMapListener(String mapName, Button map1button, Button map2button) {
     return new ClickListener() {
       @Override
@@ -93,10 +83,7 @@ public class ButtonHandler {
     };
   }
 
-  /**
-   * Returns a ClickListener that changes gameState to ACTIVE_GAME if a map is
-   * selected
-   */
+  @Override
   public ClickListener getToActiveListener() {
     return new ClickListener() {
       @Override
