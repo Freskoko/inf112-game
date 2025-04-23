@@ -64,7 +64,7 @@ public interface IController {
    * Attaches listeners to the buttons on the WelcomeScreen where you can choose
    * playerType.
    * 
-   * @param button      The button for choosing either firegirl or waterboy
+   * @param button      The button for choosing either FIREGIRL or WATERBOY
    * @param isPlayerOne Boolean that is true for player one and false for player
    *                    two.
    * @param type        the PlayerType, FIREGIRL or WATERBOY

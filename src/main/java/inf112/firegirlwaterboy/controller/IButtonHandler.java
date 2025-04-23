@@ -12,33 +12,54 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
 public interface IButtonHandler {
 
     /**
-     * Returns a ClickListener for selecting a player
+     * Creates a ClickListener for selecting a player.
+     * If the selection is valid (not already taken), the button is marked as
+     * selected.
+     * 
+     * @param isPlayerOne Boolean indicating if the player is player one or two
+     * @param type        The type of player (FIREGIRL or WATERBOY)
+     * @return a clicklistener for handling player selection
      */
     public ClickListener getSelectPlayerListener(boolean isPlayerOne, PlayerType type);
 
     /**
-     * Returns a ClickListener that changes gameState to CHOOSE_MAP
+     * If both players have selected a playerType, gamestate will change to
+     * CHOOSE_MAP
+     * 
+     * @return a clicklistener for handlig map selection
      */
     public ClickListener getToChooseMapListener();
 
     /**
-     * Returns a ClickListener that changes gameState to HELP
+     * Changes the gamestate to HELP
+     * 
+     * @return a clicklistener that changes the gamestate to HELP
      */
     public ClickListener getToHelpListener();
 
     /**
-     * Returns a ClickListener that changes gameState to WELCOME
+     * Changes the gamestate to WELCOME
+     * 
+     * @return a clicklistener that changes the gamestate to WELCOME
      */
     public ClickListener getToWelcomeListener();
 
     /**
-     * Returns a ClickListener for selecting a map
+     * Buttons used to select map
+     * Updates the button visuals to reflect which map is selected.
+     * 
+     * @param mapName    The name of the map to set
+     * @param map1button The button used to select map 1
+     * @param map2button The button used to select map 2
+     * @return the clicklistener for the buttons
      */
     public ClickListener getSelectMapListener(String mapName, Button map1button, Button map2button);
 
     /**
-     * Returns a ClickListener that changes gameState to ACTIVE_GAME if a map is
-     * selected
+     * Sets the gamestate to ACTIVE_GAME and starts the game (only if a map has been
+     * selected).
+     * 
+     * @return a clicklistener that starts the game
      */
     public ClickListener getToActiveListener();
 }
