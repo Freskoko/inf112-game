@@ -19,6 +19,7 @@ public class MapManager implements IMapManager {
 
   private HashMap<String, TiledMap> maps;
   private HashMap<String, Boolean> completedMap = new HashMap<>();
+  static final Vector2 DEFAULT_SPAWN_POS = new Vector2(2, 2);
 
   /**
    * Loads all Tiled maps (*.tmx) from the resources folder into a HashMap.
@@ -81,7 +82,7 @@ public class MapManager implements IMapManager {
 
     if (layer == null || layer.getObjects().getCount() == 0 || playerType == null) {
       System.err.println("Warning: no objects in map layer");
-      return MapUtils.DEFAULT_SPAWN_POS;
+      return DEFAULT_SPAWN_POS;
     }
 
     for (MapObject object : layer.getObjects()) {
@@ -101,6 +102,6 @@ public class MapManager implements IMapManager {
       }
     }
 
-    return MapUtils.DEFAULT_SPAWN_POS;
+    return DEFAULT_SPAWN_POS;
   }
 }
