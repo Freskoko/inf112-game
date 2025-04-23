@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
+import inf112.firegirlwaterboy.model.types.PlayerType;
+
 /**
  * Manages loading and interacting with tiled maps in the game.
  * Handles map retrieval, layer access and overview over completed maps.
@@ -74,21 +76,25 @@ public class MapManager implements IMapManager {
   }
 
   @Override
-  public Vector2 getSpawnPos(TiledMap map) {
+  public Vector2 getSpawnPos(TiledMap map, PlayerType playerType) {
     MapLayer layer = map.getLayers().get(LayerType.SPAWN.toString());
 
-    if (layer.getObjects().getCount() == 0) {
+    if (layer == null || layer.getObjects().getCount() == 0) {
       System.err.println("Warning: no objects in map layer");
       return MapUtils.DEFAULT_SPAWN_POS;
     }
 
-    MapObject object = layer.getObjects().get(0);
-    Float x = MapUtils.getX(object);
-    Float y = MapUtils.getY(object);
-
-    if (x != null && y != null) {
-      return new Vector2(x, y);
+    for (MapObject object : layer.getObjects()) {
+      String type = (String) object.getProperties().get("type");
+      if (playerType.name().equals(type)) {
+        Float x = MapUtils.getX(object);
+        Float y = MapUtils.getY(object);
+        if (x != null && y != null) {
+          return new Vector2(x, y);
+        }
+      }
     }
-    throw new NullPointerException("Unknown error with object layer");
+
+    return MapUtils.DEFAULT_SPAWN_POS;
   }
 }
