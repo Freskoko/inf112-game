@@ -5,21 +5,18 @@ import javax.annotation.processing.Generated;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.Color;
 
 import inf112.firegirlwaterboy.controller.Controller;
+import inf112.firegirlwaterboy.view.ButtonFactory;
 
 /**
  * GameOverScreen class represents the screen displayed when the game is over.
@@ -35,7 +32,7 @@ public class GameOverScreen implements Screen {
 
   private Stage stage;
   private Viewport viewport;
-  private Button chooseMapScreenButton = createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
+  private Button chooseMapScreenButton = ButtonFactory.createButton("Back", Color.GRAY);
 
   public GameOverScreen(Controller controller) {
     this.controller = controller;
@@ -63,33 +60,6 @@ public class GameOverScreen implements Screen {
     table.add(chooseMapScreenButton).center();
 
     stage.addActor(table);
-  }
-
-  // Method to create buttons with text and color
-  private Button createButton(String text, Color color) {
-    TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-
-    // Font
-    BitmapFont buttonFont = new BitmapFont();
-    buttonFont.getData().setScale(2);
-    style.font = buttonFont;
-    style.fontColor = Color.WHITE;
-
-    // Background
-    int width = 300;
-    int height = 80;
-    Pixmap pixmapUp = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-    pixmapUp.setColor(color);
-    pixmapUp.fill();
-
-    style.up = new TextureRegionDrawable(new Texture(pixmapUp));
-
-    pixmapUp.dispose();
-
-    TextButton button = new TextButton(text, style);
-    button.pad(10);
-    button.pad(10);
-    return button;
   }
 
   @Override

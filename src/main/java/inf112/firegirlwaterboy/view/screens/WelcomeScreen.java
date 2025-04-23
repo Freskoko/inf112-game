@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.*;
 
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.view.ButtonFactory;
 
 /**
  * WelcomeScreen class represents the welcome screen.
@@ -24,12 +25,12 @@ public class WelcomeScreen implements Screen {
     private final Viewport viewport;
     private final Texture logo;
     private final Controller controller;
-    private Button fireGirlButtonP1 = createButton("FireGirl", Color.valueOf("#f23800"));
-    private Button waterBoyButtonP1 = createButton("WaterBoy", Color.valueOf("#18beeb"));
-    private Button fireGirlButtonP2 = createButton("FireGirl", Color.valueOf("f23800"));
-    private Button waterBoyButtonP2 = createButton("WaterBoy", Color.valueOf("#18beeb"));
-    private Button startButton = createButton("Start", Color.valueOf("#cab558"));
-    private Button helpButton = createButton("Help", Color.valueOf("#cab558"));
+    private Button fireGirlButtonP1 = ButtonFactory.createButton("FireGirl", Color.valueOf("#f23800"));
+    private Button waterBoyButtonP1 = ButtonFactory.createButton("WaterBoy", Color.valueOf("#18beeb"));
+    private Button fireGirlButtonP2 = ButtonFactory.createButton("FireGirl", Color.valueOf("f23800"));
+    private Button waterBoyButtonP2 = ButtonFactory.createButton("WaterBoy", Color.valueOf("#18beeb"));
+    private Button startButton = ButtonFactory.createButton("Start", Color.valueOf("#cab558"));
+    private Button helpButton = ButtonFactory.createButton("Help", Color.valueOf("#cab558"));
 
     private Texture backgroundTexture;
     private SpriteBatch batch;
@@ -111,35 +112,6 @@ public class WelcomeScreen implements Screen {
         helpTable.top().right().pad(20);
         helpTable.add(helpButton).size(100, 50);
         stage.addActor(helpTable);
-    }
-
-    private Button createButton(String text, Color fillColor) {
-        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.font = new BitmapFont();
-        style.fontColor = Color.BLACK;
-
-        // Knappestørrelse for bakgrunnspixmap
-        int width = 150;
-        int height = 50;
-        int borderWidth = 3;
-
-        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-
-        // Tegn svart ramme først
-        pixmap.setColor(Color.BLACK);
-        pixmap.fillRectangle(0, 0, width, height);
-
-        // Tegn fyll (inni rammen)
-        pixmap.setColor(fillColor);
-        pixmap.fillRectangle(borderWidth, borderWidth, width - 2 * borderWidth, height - 2 * borderWidth);
-
-        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new Texture(pixmap));
-        pixmap.dispose();
-
-        style.up = backgroundDrawable;
-        style.down = backgroundDrawable.tint(Color.GRAY);
-
-        return new TextButton(text, style);
     }
 
     @Override

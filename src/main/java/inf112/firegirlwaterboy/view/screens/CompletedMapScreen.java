@@ -5,21 +5,23 @@ import javax.annotation.processing.Generated;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.Color;
 
 import inf112.firegirlwaterboy.controller.Controller;
+import inf112.firegirlwaterboy.view.ButtonFactory;
 
+/**
+ * CompletedMapScreen class represents the screen displayed when a map is
+ * completed. It shows a message indicating that the map is completed and a
+ * button to return to the Choose Maps screen.
+ */
 public class CompletedMapScreen implements Screen {
 
   private Controller controller;
@@ -27,7 +29,7 @@ public class CompletedMapScreen implements Screen {
   private BitmapFont font;
   private Stage stage;
   private Viewport viewport;
-  private Button welcomeScreenButton = createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
+  private Button welcomeScreenButton = ButtonFactory.createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
 
   public CompletedMapScreen(Controller controller) {
     this.controller = controller;
@@ -55,32 +57,6 @@ public class CompletedMapScreen implements Screen {
     table.add(welcomeScreenButton);
     stage.addActor(table);
 
-  }
-
-  // Method to create buttons with text and color
-  private Button createButton(String text, Color color) {
-    TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-
-    // Font
-    BitmapFont buttonFont = new BitmapFont();
-    buttonFont.getData().setScale(2);
-    style.font = buttonFont;
-    style.fontColor = Color.WHITE;
-
-    // Background
-    int width = 300;
-    int height = 80;
-    Pixmap pixmapUp = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-    pixmapUp.setColor(color);
-    pixmapUp.fill();
-
-    style.up = new TextureRegionDrawable(new Texture(pixmapUp));
-
-    pixmapUp.dispose();
-
-    TextButton button = new TextButton(text, style);
-    button.pad(10);
-    return button;
   }
 
   @Override

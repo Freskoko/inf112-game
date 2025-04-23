@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.*;
 
 import inf112.firegirlwaterboy.controller.Controller;
+import inf112.firegirlwaterboy.view.ButtonFactory;
 
 /**
  * HelpScreen class represents the help screen.
@@ -31,7 +32,7 @@ public class HelpScreen implements Screen {
 
         backgroundTexture = new Texture("assets/pages/background.png");
 
-        backButton = createButton("Back", Color.valueOf("#cab558"));
+        backButton = ButtonFactory.createButton("Back", Color.valueOf("#cab558"));
 
         setupUI();
         controller.attachToWelcomeListeners(backButton);
@@ -76,32 +77,6 @@ public class HelpScreen implements Screen {
         backTable.top().right().pad(20);
         backTable.add(backButton).size(100, 50);
         stage.addActor(backTable);
-    }
-
-    // Method for creating a button with a given text and color
-    private Button createButton(String text, Color fillColor) {
-        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.font = new BitmapFont();
-        style.fontColor = Color.BLACK;
-
-        int width = 150;
-        int height = 50;
-        int borderWidth = 3;
-
-        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-
-        pixmap.setColor(Color.BLACK);
-        pixmap.fillRectangle(0, 0, width, height);
-        pixmap.setColor(fillColor);
-        pixmap.fillRectangle(borderWidth, borderWidth, width - 2 * borderWidth, height - 2 * borderWidth);
-
-        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new Texture(pixmap));
-        pixmap.dispose();
-
-        style.up = backgroundDrawable;
-        style.down = backgroundDrawable.tint(Color.GRAY);
-
-        return new TextButton(text, style);
     }
 
     @Override
