@@ -22,7 +22,6 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
   private Set<PlayerType> requiredPlayers;
   private Body body;
   private World world;
-  private boolean powerUp;
   private CollectableType type;
   private Texture texture;
   private float x, y, width, height;
@@ -30,7 +29,6 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
 
   public Collectable(World world, MapObject collectable) {
     this.type = CollectableType.valueOf(MapUtils.getProperty(collectable, "type"));
-    this.powerUp = type.isPowerUp();
     this.requiredPlayers = type.getRequiredPlayers();
     this.texture = type.getTexture();
     this.world = world;
@@ -71,7 +69,7 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
   @Override
   public void update() {
     if (isCollected)
-      world.destroyBody(body);
+      world.destroyBody(body);      
   }
 
   @Override
@@ -85,17 +83,8 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
   }
 
   @Override
-  public Body getBody() {
-    return body;
-  }
-
-  @Override
   public CollectableType getType() {
     return type;
-  }
-
-  public boolean isPowerUp() {
-    return powerUp;
   }
 
   public boolean isCollected() {

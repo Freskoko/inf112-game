@@ -1,7 +1,6 @@
 package inf112.firegirlwaterboy.model.entity;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.physics.box2d.Body;
 
 /**
  * Interface that represents an entity in the game.
@@ -27,13 +26,6 @@ public interface IEntity<T> {
    * dispose the texture of entity
    */
   void dispose();
-
-  /**
-   * Retrieves the physics body associated with this entity.
-   *
-   * @return The Box2D body of the entity.
-   */
-  Body getBody();
 
   /**
    * @return the type of the entity
