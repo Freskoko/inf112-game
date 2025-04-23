@@ -87,10 +87,12 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
     return type;
   }
 
+  @Override
   public boolean isCollected() {
     return isCollected;
   }
 
+  @Override
   public void collect() {
     this.isCollected = true;
   }

@@ -15,4 +15,9 @@ public interface ICollectable {
    * @return true if the item has been collected, false otherwise.
    */
   boolean isCollected();
+
+  /**
+   * Sets the item as collected.
+   */
+  void collect();
 }
