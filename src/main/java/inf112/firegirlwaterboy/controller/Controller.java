@@ -26,12 +26,6 @@ public class Controller extends InputAdapter implements IController {
     this.bh = new ButtonHandler(this, model);
   }
 
-  public Controller(IControllableModel model, ButtonHandler buttonHandler) {
-    this.model = model;
-    this.playerOne = null;
-    this.playerTwo = null;
-    this.bh = buttonHandler;
-  }
 
   @Override
   public boolean selectPlayer(PlayerType playerType, boolean isPlayerOne) {
