@@ -54,7 +54,7 @@ public class Model implements IControllableModel, IViewModel {
     platforms = worldFactory.createPlatforms(world, map);
     collectables = worldFactory.createCollectables(world, map);
     elements = worldFactory.createElements(world, map);
-    players.forEach(player -> player.spawn(world, mapManager.getSpawnPos(map)));
+    players.forEach(player -> player.spawn(world, mapManager.getSpawnPos(map, player.getType())));
   }
 
   @Override
