@@ -3,6 +3,7 @@ package inf112.firegirlwaterboy.model.maps;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 /**
  * Interface for managing tiled maps in the game.
@@ -48,10 +49,11 @@ public interface IMapManager {
    * Returns a default position if objects are missing.
    * 
    * @param map The map to get the spawn position from.
+   * @param playerType The type of player (Firegirl or Waterboy).
    * @return The spawn position as a {@link Vector2}, or {@code DEFAULT_SPAWN_POS}
    *         if missing.
    * @throws NullPointerException If the "Spawn" object lacks valid X/Y
    *                              properties.
    */
-  Vector2 getSpawnPos(TiledMap map);
+  Vector2 getSpawnPos(TiledMap map, PlayerType playerType);
 }
