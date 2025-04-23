@@ -79,16 +79,22 @@ public class MapManager implements IMapManager {
   public Vector2 getSpawnPos(TiledMap map, PlayerType playerType) {
     MapLayer layer = map.getLayers().get(LayerType.SPAWN.toString());
 
-    if (layer == null || layer.getObjects().getCount() == 0) {
+    if (layer == null || layer.getObjects().getCount() == 0 || playerType == null) {
       System.err.println("Warning: no objects in map layer");
       return MapUtils.DEFAULT_SPAWN_POS;
     }
 
     for (MapObject object : layer.getObjects()) {
-      String type = (String) object.getProperties().get("type");
+      if (object.getProperties().getValues() == null) {
+        break;
+      }
+
+      String type = MapUtils.getProperty(object, "type");
+
       if (playerType.name().equals(type)) {
         Float x = MapUtils.getX(object);
         Float y = MapUtils.getY(object);
+
         if (x != null && y != null) {
           return new Vector2(x, y);
         }
