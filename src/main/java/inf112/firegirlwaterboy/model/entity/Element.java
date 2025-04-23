@@ -66,11 +66,6 @@ public class Element implements IEntity<ElementType> {
   }
 
   @Override
-  public Body getBody() {
-    return body;
-  }
-
-  @Override
   public ElementType getType() {
     return type;
   }

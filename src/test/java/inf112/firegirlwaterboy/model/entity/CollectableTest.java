@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.model.types.PlayerType;
@@ -62,7 +61,6 @@ public class CollectableTest {
     @Test
     void testCollectableCreation() {
         assertNotNull(collectable);
-        assertNotNull(collectable.getBody());
     }
 
     /*
@@ -70,9 +68,9 @@ public class CollectableTest {
      */
     @Test
     void testCollect() {
-        Body body = collectable.getBody();
+        assertFalse(collectable.isCollected());
         collectable.collect();
-        assertNull(body.getUserData());
+        assertTrue(collectable.isCollected());
     }
 
     /*

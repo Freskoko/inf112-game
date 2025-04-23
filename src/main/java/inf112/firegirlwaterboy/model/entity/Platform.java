@@ -79,7 +79,6 @@ public class Platform implements IEntity<ElementType> {
     world.destroyBody(body);
   }
 
-  @Override
   public Body getBody() {
     return body;
   }

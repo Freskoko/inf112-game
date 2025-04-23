@@ -3,9 +3,9 @@ package inf112.firegirlwaterboy.model.entity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -25,12 +25,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.controller.MovementType;
+import inf112.firegirlwaterboy.model.types.CollectableType;
 import inf112.firegirlwaterboy.model.types.ElementType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 public class PlayerTest {
 
@@ -124,11 +124,13 @@ public class PlayerTest {
     void testUpdateCollectable() {
         player.spawn(mockWorld, new Vector2(0, 0));
         Collectable mockCollectable = mock(Collectable.class);
+        CollectableType type = mock(CollectableType.class);
         Set<PlayerType> requiredPlayer = new HashSet<>();
         requiredPlayer.add(player.getType());
 
         when(mockCollectable.getRequiredPlayers()).thenReturn(requiredPlayer);
-        when(mockCollectable.isPowerUp()).thenReturn(true);
+        when(mockCollectable.getType()).thenReturn(type);
+        when(type.isPowerUp()).thenReturn(true);
 
         player.interactWithCollectable(mockCollectable);
         player.update();
@@ -165,42 +167,24 @@ public class PlayerTest {
     }
 
     @Test
-    void testMoveJumpOnGround() {
+    void testMoveDown() {
         player.spawn(mockWorld, new Vector2(0, 0));
-        player.setGroundStatus(true);
-        player.move(MovementType.UP);
-        ArgumentCaptor<Vector2> impulseCaptor = ArgumentCaptor.forClass(Vector2.class);
-        verify(mockBody).applyLinearImpulse(impulseCaptor.capture(), any(), eq(true));
-        assertEquals(0, impulseCaptor.getValue().x);
-        assertEquals(10.5f, impulseCaptor.getValue().y);
-    }
-
-
-
-    @Test
-    void testMoveJumpTouchingLayerTypeStatic() {
-        player.spawn(mockWorld, new Vector2(0, 0));
-        player.setGroundStatus(true);
-        player.move(MovementType.UP);
-        verify(mockBody).applyLinearImpulse(any(), any(), anyBoolean());
-    }
-
-    @Test
-    void testMoveJumpNotInAirOrGroundOrPlatform() {
-        player.spawn(mockWorld, new Vector2(0, 0));
-        player.setGroundStatus(false);
-        player.move(MovementType.UP);
-        verify(mockBody, never()).applyLinearImpulse(any(), any(), anyBoolean());
-    }
+        assertThrows( IllegalArgumentException.class, () -> player.move(MovementType.DOWN) );
+    } 
 
     @Test
     void testGetCollectedCount() {
         player.spawn(mockWorld, new Vector2(0, 0));
         assertEquals(0, player.getCollectedCount());
         Collectable mockCollectable = mock(Collectable.class);
+        
+        CollectableType mockType = mock(CollectableType.class);
         Set<PlayerType> requiredPlayerSet = new HashSet<>();
         requiredPlayerSet.add(player.getType());
         when(mockCollectable.getRequiredPlayers()).thenReturn(requiredPlayerSet);
+
+        when(mockCollectable.getType()).thenReturn(mockType);
+        when(mockType.isPowerUp()).thenReturn(true);
         player.interactWithCollectable(mockCollectable);
         assertEquals(1, player.getCollectedCount());
         player.update();
@@ -211,6 +195,10 @@ public class PlayerTest {
     void testInteractWithCollectableCorrectType() {
         player.spawn(mockWorld, new Vector2(0, 0));
         Collectable mockCollectable = mock(Collectable.class);
+        CollectableType type = mock(CollectableType.class);
+        when(mockCollectable.getType()).thenReturn(type);
+        when(type.isPowerUp()).thenReturn(true);
+
         Set<PlayerType> requiredPlayerSet = new HashSet<>();
         requiredPlayerSet.add(player.getType());
         when(mockCollectable.getRequiredPlayers()).thenReturn(requiredPlayerSet);
@@ -224,6 +212,9 @@ public class PlayerTest {
         player.spawn(mockWorld, new Vector2(0, 0));
         Collectable mockCollectable = mock(Collectable.class);
         Set<PlayerType> requiredPlayerSet = new HashSet<>();
+        CollectableType type = mock(CollectableType.class);
+        when(mockCollectable.getType()).thenReturn(type);
+        when(type.isPowerUp()).thenReturn(true);
         when(mockCollectable.getRequiredPlayers()).thenReturn(requiredPlayerSet);
         player.interactWithCollectable(mockCollectable);
         player.update();

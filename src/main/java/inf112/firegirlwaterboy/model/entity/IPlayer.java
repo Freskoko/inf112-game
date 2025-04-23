@@ -16,13 +16,6 @@ public interface IPlayer {
   void interactWithCollectable(Collectable collectable);
 
   /**
-   * Sets whether the player is currently on the ground.
-   *
-   * @param groundStatus true if the player is on the ground; false otherwise.
-   */
-  void setGroundStatus(boolean groundStatus);
-
-  /**
    * Sets whether the player has finished the map.
    *
    * @param finished true if the player has finished; false otherwise.
