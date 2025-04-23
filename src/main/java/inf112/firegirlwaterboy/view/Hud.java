@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * Hud class represents the heads-up display for the game.
  * The HUD displays the score and time of the game.
  */
-public class Hud {
+public class Hud implements IHud {
     private Stage stage;
     private Viewport viewport;
     private Label scoreLabel;
@@ -39,16 +39,13 @@ public class Hud {
         mainTable.setFillParent(true);
 
         BitmapFont font = new BitmapFont();
-        Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.BLACK);
+        Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
 
         scoreLabel = new Label("Score: " + score, labelStyle);
         time = 0f;
         timerLabel = new Label("Time: 0", labelStyle);
 
         Table hudTable = new Table();
-        // Usikker på farge på tekst og evt bakgrunnsfarge på HUD, så kommenterer ut for
-        // nå
-        // hudTable.setBackground(createBackgroundDrawable(Color.LIGHT_GRAY, 0.5f));
         hudTable.pad(10);
 
         hudTable.add(timerLabel).expandX().padRight(20);
@@ -59,76 +56,38 @@ public class Hud {
         stage.addActor(mainTable);
     }
 
-    /**
-     * Draw the stage.
-     */
+    @Override
     public void draw() {
         stage.draw();
     }
 
-    /**
-     * Resize the viewport.
-     * 
-     * @param width
-     * @param height
-     */
-    public void resize(int width, int height) {
-        viewport.update(width, height, true);
-    }
-
-    /**
-     * Dispose of the stage.
-     */
+    @Override
     public void dispose() {
         stage.dispose();
     }
 
-    /**
-     * Get the stage.
-     * 
-     * @return stage
-     */
+    @Override
     public Stage getStage() {
         return stage;
     }
 
-    /**
-     * Update the score and time.
-     * 
-     * @param deltaTime
-     */
+    @Override
     public void update(float deltaTime) {
         time += deltaTime;
         timerLabel.setText("Time: " + (int) time);
         scoreLabel.setText("Score: " + model.getScore());
     }
 
-    /**
-     * Reset the time to 0 and update the timerLabel
-     */
+    @Override
     public void resetTime() {
         time = 0;
         timerLabel.setText("Time: 0");
     }
 
-    /**
-     * Update the score and scoreLabel.
-     * 
-     * @param newScore
-     */
+    @Override
     public void updateScore(int newScore) {
         score = newScore;
         scoreLabel.setText("Score: " + score);
     }
-
-    // private Drawable createBackgroundDrawable(Color color, float alpha) {
-    // Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-    // color.a = alpha;
-    // pixmap.setColor(color);
-    // pixmap.fill();
-    // Texture texture = new Texture(pixmap);
-    // pixmap.dispose();
-    // return new TextureRegionDrawable(texture);
-    // }
 
 }
