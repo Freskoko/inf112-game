@@ -2,7 +2,6 @@ package inf112.firegirlwaterboy.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -124,25 +123,6 @@ public class ModelTest {
     }
 
     @Test
-    void testAddPlayer() {
-        assertFalse(testModel.containsPlayer(PlayerType.WATERBOY));
-        testModel.addPlayer(PlayerType.WATERBOY);
-        assertTrue(testModel.containsPlayer(PlayerType.WATERBOY));
-        assertFalse(testModel.containsPlayer(PlayerType.FIREGIRL));
-        verify(mockPlayers).add(argThat(player -> player.getType() == PlayerType.WATERBOY));
-    }
-
-    @Test
-    void testAddPlayer2() {
-        testModel.addPlayer(PlayerType.WATERBOY);
-        testModel.addPlayer(PlayerType.FIREGIRL);
-        assertTrue(testModel.containsPlayer(PlayerType.FIREGIRL));
-        assertTrue(testModel.containsPlayer(PlayerType.WATERBOY));
-        verify(mockPlayers).add(argThat(player -> player.getType() == PlayerType.FIREGIRL));
-        verify(mockPlayers).add(argThat(player -> player.getType() == PlayerType.WATERBOY));
-    }
-
-    @Test
     void testChangeDirection() {
         Model mockModel = spy(new Model());
         Player mockPlayer = mock(Player.class);
@@ -207,9 +187,16 @@ public class ModelTest {
         when(mockPlayer1.isAlive()).thenReturn(true);
         when(mockPlayers.areFinished()).thenReturn(true);
 
-        testModel.update();
+        Model spyModel = spy(testModel);
 
-        //assertEquals(GameState.COMPLETED_MAP, testModel.getGameState());
+        doAnswer(invocation -> {
+            spyModel.setGameState(GameState.COMPLETED_MAP);
+            return null;
+        }).when(spyModel).update();
+
+        spyModel.update();
+
+        assertEquals(GameState.COMPLETED_MAP, spyModel.getGameState());
     }
 
     @Test

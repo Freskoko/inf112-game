@@ -137,11 +137,6 @@ public class Model implements IControllableModel, IViewModel {
   }
 
   @Override
-  public boolean containsPlayer(PlayerType playerType) {
-    return players.contains(playerType);
-  }
-
-  @Override
   public int getScore() {
     return players.getScore();
   }
