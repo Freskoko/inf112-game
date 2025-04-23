@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
+import inf112.firegirlwaterboy.model.types.PlayerType;
+
 /**
  * Manages loading and interacting with tiled maps in the game.
  * Handles map retrieval, layer access and overview over completed maps.
@@ -17,6 +19,7 @@ public class MapManager implements IMapManager {
 
   private HashMap<String, TiledMap> maps;
   private HashMap<String, Boolean> completedMap = new HashMap<>();
+  static final Vector2 DEFAULT_SPAWN_POS = new Vector2(2, 2);
 
   /**
    * Loads all Tiled maps (*.tmx) from the resources folder into a HashMap.
@@ -74,21 +77,31 @@ public class MapManager implements IMapManager {
   }
 
   @Override
-  public Vector2 getSpawnPos(TiledMap map) {
-    MapLayer layer = map.getLayers().get(LayerType.SPAWN.toString());
+  public Vector2 getSpawnPos(TiledMap map, PlayerType playerType) {
+    MapLayer layer = getLayer(map, LayerType.SPAWN);
 
-    if (layer.getObjects().getCount() == 0) {
-      System.err.println("Warning: no objects in map layer");
-      return MapUtils.DEFAULT_SPAWN_POS;
+    if (layer == null || layer.getObjects().getCount() == 0 || playerType == null) {
+      System.err.println("Warning returning default spawn position");
+      return DEFAULT_SPAWN_POS;
     }
 
-    MapObject object = layer.getObjects().get(0);
-    Float x = MapUtils.getX(object);
-    Float y = MapUtils.getY(object);
+    for (MapObject object : layer.getObjects()) {
+      if (object.getProperties().getValues() == null) {
+        break;
+      }
 
-    if (x != null && y != null) {
-      return new Vector2(x, y);
+      String type = MapUtils.getProperty(object, "type");
+
+      if (playerType.name().equals(type)) {
+        Float x = MapUtils.getX(object);
+        Float y = MapUtils.getY(object);
+
+        if (x != null && y != null) {
+          return new Vector2(x, y);
+        }
+      }
     }
-    throw new NullPointerException("Unknown error with object layer");
+
+    return DEFAULT_SPAWN_POS;
   }
 }

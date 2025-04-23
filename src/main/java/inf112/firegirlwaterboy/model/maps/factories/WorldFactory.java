@@ -174,7 +174,6 @@ public class WorldFactory implements IWorldFactory {
    * @param layerType The type of the layer the object belongs to.
    */
   private void createRectangleObject(World world, MapObject object, LayerType layerType) {
-    System.out.println(layerType);
     BodyDef bdef = new BodyDef();
     bdef.type = BodyDef.BodyType.StaticBody;
 
