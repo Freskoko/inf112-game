@@ -38,7 +38,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private World world;
 
   private Animation<TextureRegion> runningAnimation;
-  private TextureRegion standingTexture, headTexture;
+  private TextureRegion standingTexture, headTexture, haloTexture;
   private float stateTime;
 
   private final float width = 1.0f;
@@ -84,6 +84,9 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     super.draw(batch);
     Vector2 position = body.getPosition();
     batch.draw(headTexture, position.x - 1.5f, position.y - 1.1f, 3, 3);
+    if (powerUp) {
+      batch.draw(haloTexture, position.x - 1.5f, position.y - 1.1f, 3, 3);
+    }
   }
 
   @Override
@@ -181,6 +184,9 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
     headTexture = new TextureRegion(
         new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-head.png")));
+      
+    haloTexture = new TextureRegion(
+        new Texture(Gdx.files.internal("assets/players/Halo.png")));
 
     Array<TextureRegion> runningFrames = new Array<>();
     for (int i = 1; i < 9; i++) {

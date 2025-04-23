@@ -79,6 +79,11 @@ public class Platform implements IEntity<ElementType> {
     world.destroyBody(body);
   }
 
+  /**
+   * Returns the body of the platform.
+   * 
+   * @return The body of the platform.
+   */
   public Body getBody() {
     return body;
   }
