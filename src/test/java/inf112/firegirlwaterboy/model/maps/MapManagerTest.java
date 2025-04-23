@@ -126,8 +126,8 @@ public class MapManagerTest {
 
   @Test
   void testGetPlayerSpawn() {
-    assertEquals(mapManager.getSpawnPos(map, PlayerType.FIREGIRL), new Vector2(2f, 2.5f));
-    assertEquals(mapManager.getSpawnPos(map, PlayerType.WATERBOY), new Vector2(2f, 2.5f));
+    assertEquals(mapManager.getSpawnPos(map, PlayerType.FIREGIRL), new Vector2(2f, 2f));
+    assertEquals(mapManager.getSpawnPos(map, PlayerType.WATERBOY), new Vector2(2f, 2f));
   }
 
 }
