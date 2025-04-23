@@ -74,13 +74,11 @@ public class Model implements IControllableModel, IViewModel {
     players.update();
     platforms.update();
 
-    for (Player player : players) {
-      if (!player.isAlive()) {
-        gameState = GameState.GAME_OVER;
-        soundManager.playDeathSound();
-        break;
-      }
+    if (!players.areAlive()) {
+      gameState = GameState.GAME_OVER;
+      soundManager.playDeathSound();
     }
+
     if (players.areFinished()) {
       Timer.schedule(new Timer.Task() {
         @Override
@@ -113,6 +111,9 @@ public class Model implements IControllableModel, IViewModel {
   @Override
   public void dispose() {
     players.dispose();
+    platforms.dispose();
+    elements.dispose();
+    collectables.dispose();
   }
 
   @Override
@@ -141,8 +142,8 @@ public class Model implements IControllableModel, IViewModel {
   }
 
   @Override
-  public int getTotalCollectedScore() {
-    return players.getTotalCollectedScore();
+  public int getScore() {
+    return players.getScore();
   }
 
   @Override

@@ -1,6 +1,7 @@
 package inf112.firegirlwaterboy.model.managers;
 
 import inf112.firegirlwaterboy.model.entity.Player;
+import inf112.firegirlwaterboy.model.types.PlayerType;
 
 /**
  * Interface for a set of players.
@@ -14,5 +15,29 @@ public interface IPlayerSet extends IEntitySet<Player> {
      * 
      * @return
      */
-    public int getTotalCollectedScore();
+    public int getScore();
+
+    /**
+     * @return true if all players are finished, false otherwise
+     */
+    boolean areFinished();
+
+    /**
+     * @param playerType the type of player to check
+     * @return true playerSer contains playerType, false otherwise
+     */
+    boolean contains(PlayerType playerType);
+
+    /**
+     * @param playerType the type of player to get
+     * @return the player of the given type
+     * @throws IllegalArgumentException if the playerSet does not contain a player
+     *                                  of the given type
+     */
+    Player getPlayer(PlayerType playerType);
+
+    /**
+     * @return true if all players are alive, false otherwise
+     */
+    boolean areAlive();
 }

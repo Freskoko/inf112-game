@@ -46,14 +46,7 @@ public class EntitySet<E extends IEntity<?>> implements Iterable<E>, IEntitySet<
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    entities.forEach(entity -> sb.append(entity).append(", "));
-
-    if (sb.length() > 0) {
-      sb.setLength(sb.length() - 2);
-    }
-
-    return sb.toString();
+    return entities.toString().substring(1, entities.toString().length() - 1);
   }
 
   @Override
@@ -65,5 +58,4 @@ public class EntitySet<E extends IEntity<?>> implements Iterable<E>, IEntitySet<
   public void update() {
     entities.forEach(entity -> entity.update());
   }
-
 }
