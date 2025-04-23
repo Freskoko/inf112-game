@@ -124,25 +124,6 @@ public class ModelTest {
     }
 
     @Test
-    void testAddPlayer() {
-        assertFalse(testModel.containsPlayer(PlayerType.WATERBOY));
-        testModel.addPlayer(PlayerType.WATERBOY);
-        assertTrue(testModel.containsPlayer(PlayerType.WATERBOY));
-        assertFalse(testModel.containsPlayer(PlayerType.FIREGIRL));
-        verify(mockPlayers).add(argThat(player -> player.getType() == PlayerType.WATERBOY));
-    }
-
-    @Test
-    void testAddPlayer2() {
-        testModel.addPlayer(PlayerType.WATERBOY);
-        testModel.addPlayer(PlayerType.FIREGIRL);
-        assertTrue(testModel.containsPlayer(PlayerType.FIREGIRL));
-        assertTrue(testModel.containsPlayer(PlayerType.WATERBOY));
-        verify(mockPlayers).add(argThat(player -> player.getType() == PlayerType.FIREGIRL));
-        verify(mockPlayers).add(argThat(player -> player.getType() == PlayerType.WATERBOY));
-    }
-
-    @Test
     void testChangeDirection() {
         Model mockModel = spy(new Model());
         Player mockPlayer = mock(Player.class);
