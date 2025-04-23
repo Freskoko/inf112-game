@@ -11,12 +11,12 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
 public interface IController {
 
   /**
-   * This method assigns a player type to either
+   * This method assigns a PlayerType to either
    * Player One or Player Two.
    * A player type can only be assigned if it is not already taken by the other
    * player.
    * 
-   * @param playerType  The type of player to assign (FireGirl or WaterBoy).
+   * @param playerType  The type of player to assign.
    * @param isPlayerOne A boolean indicating whether the player is Player One
    *                    (true) or Player Two (false).
    * @return {@code true} if the player type was successfully assigned;
@@ -64,10 +64,10 @@ public interface IController {
    * Attaches listeners to the buttons on the WelcomeScreen where you can choose
    * playerType.
    * 
-   * @param button      The button for choosing either FIREGIRL or WATERBOY
+   * @param button      The button for choosing PlayerType
    * @param isPlayerOne Boolean that is true for player one and false for player
    *                    two.
-   * @param type        the PlayerType, FIREGIRL or WATERBOY
+   * @param type        the PlayerType to be assigned to the player.
    */
   void attachSelectPlayerListener(Button button, boolean isPlayerOne, PlayerType type);
 
