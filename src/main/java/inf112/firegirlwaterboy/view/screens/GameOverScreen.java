@@ -28,11 +28,10 @@ public class GameOverScreen implements Screen {
   private Controller controller;
 
   private SpriteBatch batch;
-  private Texture gameOverImage;
-
+  private Texture backgroundTexture;
   private Stage stage;
   private Viewport viewport;
-  private Button chooseMapScreenButton = ButtonDesigner.createButton("Back", Color.GRAY);
+  private Button chooseMapScreenButton = ButtonDesigner.createButton("Return", Color.GRAY);
 
   public GameOverScreen(Controller controller) {
     this.controller = controller;
@@ -40,8 +39,7 @@ public class GameOverScreen implements Screen {
     stage = new Stage(viewport);
     Gdx.input.setInputProcessor(stage);
     batch = new SpriteBatch();
-
-    gameOverImage = new Texture("assets/pages/GameOverText.png");
+    backgroundTexture = new Texture(Gdx.files.internal("assets/pages/GameOverScreen.png"));
 
     setupUI();
   }
@@ -49,18 +47,14 @@ public class GameOverScreen implements Screen {
   private void setupUI() {
     Table table = new Table();
     table.setFillParent(true);
-    table.top().padTop(50);
-
-    Image gameOverImgActor = new Image(gameOverImage);
-    table.add(gameOverImgActor).center().padBottom(50);
-    table.row();
+    table.bottom().padBottom(50); 
 
     controller.attachToChooseMapsListener(chooseMapScreenButton);
-    table.row();
     table.add(chooseMapScreenButton).center();
 
     stage.addActor(table);
-  }
+}
+
 
   @Override
   public void show() {
@@ -72,6 +66,10 @@ public class GameOverScreen implements Screen {
   public void render(float delta) {
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+    batch.begin();
+    batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    batch.end();
 
     stage.act(delta);
     stage.draw();
@@ -101,7 +99,6 @@ public class GameOverScreen implements Screen {
   public void dispose() {
     batch.dispose();
     stage.dispose();
-    gameOverImage.dispose();
 
   }
 
