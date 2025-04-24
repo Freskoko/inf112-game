@@ -77,14 +77,13 @@ public class ElementTest {
     }
 
     @Test
-    void constructorShouldInitializeElementType() {
-        assertEquals(ElementType.LAVA, element.getType());
+    void constructorShouldLoadTextureBasedOnElementType() {
+        verify(Gdx.files, times(2)).internal(ElementType.LAVA.getTexturePath());
     }
 
     @Test
-    void constructorShouldLoadTextureBasedOnElementType() {
-        // verify(Gdx.files, times(3)).internal(ElementType.LAVA.getTexturePath());
-        // assertNotNull(element.getTexture()); draw method kan evt brukes her
+    void constructorShouldInitializeElementType() {
+        assertEquals(ElementType.LAVA, element.getType());
     }
 
     @Test
