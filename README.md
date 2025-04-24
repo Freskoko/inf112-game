@@ -4,10 +4,9 @@
 
 * Git issues: https://git.app.uib.no/inf112/25v/proj/stein/-/issues
 
-
 ## Om spillet
 
-Spillet handler om firegirl and waterboy som må jobbe sammen for å komme seg ut av templet de er fanget i. På veien møter de på hindringer og feinder som prøver å stoppe de.
+Firegirl og Waterboy må samarbeide for å komme seg trygt gjennom spennende og utfordrende nivåer. Sammen må de nå målet og samle diamanter underveis!
 
 ## Kjøring
 * Kompileres med `mvn clean package`.
@@ -16,13 +15,15 @@ Spillet handler om firegirl and waterboy som må jobbe sammen for å komme seg u
 
 ## Kjente feil
 
-Å bli presset mot bakken av en platform gjør at man kan bli stuck til bakken.
+Ingen kjente feil til dags dato.
 
 ## Credits
-Tatt utgangspunkt ifra https://en.wikipedia.org/wiki/Fireboy_and_Watergirl
-Sprites er hentet fra https://www.spriters-resource.com/fullview/217382/
-Musikk og lyd er hentet fra: https://downloads.khinsider.com/game-soundtracks/album/fireboy-and-watergirl 
-Credit: Oslo Albet
+* Tatt utgangspunkt ifra https://en.wikipedia.org/wiki/Fireboy_and_Watergirl
+* Sprites kroppene er hentet fra https://www.spriters-resource.com/fullview/217382/
+* Musikk og lyd er hentet fra: https://downloads.khinsider.com/game-soundtracks/album/fireboy-and-watergirl 
+* Sprite hode / elementer / glorie tegnet av Ingvild Hope.
+* Logo på fremsiden og tileset laget av chatGPT.
+* Credit: Oslo Albet
 
 
  
