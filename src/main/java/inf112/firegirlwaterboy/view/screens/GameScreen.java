@@ -25,7 +25,7 @@ import inf112.firegirlwaterboy.view.IViewModel;
 public class GameScreen implements Screen {
   private OrthographicCamera camera;
   private OrthogonalTiledMapRenderer renderer;
-  private Box2DDebugRenderer debugRenderer;
+  private Box2DDebugRenderer debugRenderer; // TODO TURN OFF DEBUG !!!
   private TiledMap map;
   private IViewModel model;
   private Controller controller; // Må være her
