@@ -73,6 +73,7 @@ public class Model implements IControllableModel, IViewModel {
     collectables.update();
     players.update();
     platforms.update();
+    elements.update();
 
     if (!players.areAlive()) {
       gameState = GameState.GAME_OVER;
@@ -155,5 +156,4 @@ public class Model implements IControllableModel, IViewModel {
   public void setSoundManager(SoundManager soundManager) {
     this.soundManager = soundManager;
   }
-
 }
