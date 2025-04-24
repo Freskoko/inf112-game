@@ -11,14 +11,18 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.firegirlwaterboy.controller.Controller;
-import inf112.firegirlwaterboy.view.ButtonFactory;
+import inf112.firegirlwaterboy.view.ButtonDesigner;
+
+/**
+ * Text:"Begin Your Adventure"
+Work together to complete each challenge. As you progress, the next level will light up, welcoming you to continue your journey.
+
+Change to level instead of map
+ */
 
 /**
  * ChooseMapScreen class represents the screen where the player can choose a
@@ -31,8 +35,8 @@ public class ChooseMapScreen implements Screen {
     private Viewport viewport;
     private BitmapFont font;
     private SpriteBatch batch;
-    private Texture chooseMapTextTexture;
     private Button playButton;
+    private Texture backgroundTexture;
 
     public ChooseMapScreen(Controller controller) {
         this.controller = controller;
@@ -44,8 +48,7 @@ public class ChooseMapScreen implements Screen {
         font.setColor(Color.WHITE);
         font.getData().setScale(2f);
 
-        chooseMapTextTexture = new Texture(
-                Gdx.files.internal("assets/pages/ChooseMapText.png"));
+        backgroundTexture = new Texture(Gdx.files.internal("assets/pages/background.png"));
 
         setupUI();
     }
@@ -55,12 +58,11 @@ public class ChooseMapScreen implements Screen {
         table.setFillParent(true);
         table.center().top().padTop(300);
 
-        Button map1Button = ButtonFactory.createButton("Map 1", Color.valueOf("#696553"));
-        Button map2Button = ButtonFactory.createButton("Map 2", Color.valueOf("#696553"));
+        Button map1Button = ButtonDesigner.createButton("Map 1", Color.valueOf("#696553"));
+        Button map2Button = ButtonDesigner.createButton("Map 2", Color.valueOf("#696553"));
         map1Button.setName("Map1");
-        playButton = createImageButton("assets/pages/PlayButton.png", 300, 100);
+        playButton = ButtonDesigner.createButton("Play", Color.valueOf("#607d4d"));
         playButton.setDisabled(true);
-
 
         // Attach buttons to controller
         controller.attachChooseMapListeners(map1Button, map2Button);
@@ -72,23 +74,9 @@ public class ChooseMapScreen implements Screen {
         table.row().padTop(300);
 
         // Add play button to the table
-        table.add(playButton).colspan(2).size(360, 120).center();
+        table.add(playButton).colspan(2).size(210, 60).center();
 
         stage.addActor(table);
-    }
-
-    private Button createImageButton(String imagePath, int width, int height) {
-        Texture texture = new Texture(Gdx.files.internal(imagePath));
-        TextureRegionDrawable drawable = new TextureRegionDrawable(texture);
-
-        ImageButtonStyle style = new ImageButtonStyle();
-        style.imageUp = drawable;
-        style.imageDown = drawable;
-
-        ImageButton button = new ImageButton(style);
-        button.setSize(360, 120);
-
-        return button;
     }
 
     @Override
@@ -99,20 +87,16 @@ public class ChooseMapScreen implements Screen {
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0x91 / 255f, 0x8b / 255f, 0x75 / 255f, 1f); // Hex color #918b75
-
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+    
         batch.begin();
-
-        batch.draw(
-                chooseMapTextTexture,
-                Gdx.graphics.getWidth() / 2f - chooseMapTextTexture.getWidth() / 2f,
-                Gdx.graphics.getHeight() - chooseMapTextTexture.getHeight() - 20);
-        batch.end();
-
+        batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end(); 
+    
         stage.act(delta);
-        stage.draw();
+        stage.draw(); 
     }
+    
 
     @Override
     public void resize(int width, int height) {
@@ -139,7 +123,6 @@ public class ChooseMapScreen implements Screen {
         stage.dispose();
         font.dispose();
         batch.dispose();
-        chooseMapTextTexture.dispose();
 
     }
 }
