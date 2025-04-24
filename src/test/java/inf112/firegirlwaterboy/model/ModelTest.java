@@ -242,4 +242,29 @@ public class ModelTest {
     void testGetWorld() {
         assertEquals(mockWorld, testModel.getWorld());
     }
+
+    @Test
+    void testGetScore() {
+        when(mockPlayers.getScore()).thenReturn(9);
+        int score = testModel.getScore();
+        assertEquals(9, score);
+        verify(mockPlayers).getScore();
+    }
+
+    @Test
+    void testIsComplete() {
+        when(mockManager.isComplete("map1")).thenReturn(true);
+        assertTrue(testModel.isComplete("map1"));
+        when(mockManager.isComplete("map2")).thenReturn(false);
+        assertFalse(testModel.isComplete("map2"));
+    }
+
+    @Test
+    void testSetMap() {
+        TiledMap mockTiledMap = mock(TiledMap.class);
+        when(mockManager.getMap("map2")).thenReturn(mockTiledMap);
+        testModel.setMap("map2");
+        assertEquals(mockTiledMap, testModel.getMap());
+    }
+
 }
