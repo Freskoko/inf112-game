@@ -75,7 +75,7 @@ public class Hud implements IHud {
     public void update(float deltaTime) {
         time += deltaTime;
         timerLabel.setText("Time: " + (int) time);
-        scoreLabel.setText("Score: " + model.getScore());
+        scoreLabel.setText("Diamonds collected: " + model.getScore());
     }
 
     @Override
