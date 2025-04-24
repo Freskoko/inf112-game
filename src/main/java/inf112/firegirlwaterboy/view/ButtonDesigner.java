@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 /**
  * ButtonFactory creates reusable buttons with consistent styling.
  */
-public class ButtonFactory {
+public class ButtonDesigner {
 
     /**
      * Creates a TextButton with custom text and fill color.
