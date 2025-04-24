@@ -4,6 +4,10 @@ import java.util.Set;
 
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
+/**
+ * Interface for collectable items in the game.
+ * Collectable items can be collected by players and have a set of required player types.
+ */
 public interface ICollectable {
 
   /**

@@ -5,6 +5,10 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.controller.MovementType;
 
+/**
+ * Interface representing a player in the game.
+ * Provides methods for player interaction, movement, and state management.
+ */
 public interface IPlayer {
 
   /**
