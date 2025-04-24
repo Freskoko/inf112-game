@@ -47,7 +47,7 @@ public class GameOverScreen implements Screen {
   private void setupUI() {
     Table table = new Table();
     table.setFillParent(true);
-    table.bottom().padBottom(50); 
+    table.bottom().padBottom(90); 
 
     controller.attachToChooseMapsListener(chooseMapScreenButton);
     table.add(chooseMapScreenButton).center();
