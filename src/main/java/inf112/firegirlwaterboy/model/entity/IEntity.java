@@ -1,6 +1,8 @@
 package inf112.firegirlwaterboy.model.entity;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Interface that represents an entity in the game.
@@ -31,5 +33,13 @@ public interface IEntity<T> {
    * @return the type of the entity
    */
   T getType();
+
+  /**
+   * Creates the body of the entity in the given world.
+   * 
+   * @param world The world in which the entity will be created
+   * @param pos The position of the entity in the world
+   */
+  void createBody(World world, Vector2 pos);
 
 }

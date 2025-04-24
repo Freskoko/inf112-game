@@ -16,6 +16,10 @@ import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.ElementType;
 
+/**
+ * Platform class represents a moving platform in the game.
+ * The platform is a dynamic body that moves in a specified direction.
+ */
 public class Platform implements IEntity<ElementType> {
 
   private ElementType type;
@@ -25,29 +29,39 @@ public class Platform implements IEntity<ElementType> {
   private MovementType dir;
   private Texture texture;
   private float width, height;
+  private Vector2 pos;
 
   public Platform(World world, MapObject platform) {
-    this.width = MapUtils.getWidth(platform);
-    this.height = MapUtils.getHeight(platform);
     this.type = ElementType.valueOf(MapUtils.getProperty(platform, "type"));
-    this.texture = new Texture(Gdx.files.internal(type.getTexturePath()));
+    this.texture = new Texture(Gdx.files.internal(type.getTexturePaths()[0]));
     this.dir = MovementType.valueOf(MapUtils.getProperty(platform, "dir"));
     this.world = world;
 
+    this.width = MapUtils.getWidth(platform);
+    this.height = MapUtils.getHeight(platform);
+    this.pos = new Vector2(MapUtils.getCX(platform), MapUtils.getCY(platform));
+    
+    createBody(world, pos);
+  }
+
+  @Override
+  public void createBody(World world, Vector2 pos) {
     BodyDef bdef = new BodyDef();
-    bdef.position.set(MapUtils.getCX(platform), MapUtils.getCY(platform));
+    bdef.position.set(pos);
     bdef.type = BodyDef.BodyType.DynamicBody;
     bdef.fixedRotation = true;
-    body = world.createBody(bdef);
+    this.body = world.createBody(bdef);
     body.setGravityScale(0);
 
     PolygonShape shape = new PolygonShape();
     shape.setAsBox(width / 2, height / 2);
+
     FixtureDef fdef = new FixtureDef();
     fdef.shape = shape;
     fdef.filter.categoryBits = LayerType.PLATFORM.getBit();
     fdef.filter.maskBits = (short) (LayerType.STATIC.getBit() | LayerType.PLAYER.getBit());
     fdef.friction = 0.5f;
+
     body.createFixture(fdef).setUserData(this);
     shape.dispose();
   }

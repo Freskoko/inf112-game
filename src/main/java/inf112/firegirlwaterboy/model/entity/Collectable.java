@@ -5,6 +5,7 @@ import java.util.Set;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -17,6 +18,10 @@ import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.CollectableType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
 
+/**
+ * Collectable class represents a collectable item in the game.
+ * The collectable is a static body that can be collected by players.
+ */
 public class Collectable implements IEntity<CollectableType>, ICollectable {
 
   private Set<PlayerType> requiredPlayers;
@@ -26,6 +31,7 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
   private Texture texture;
   private float x, y, width, height;
   private boolean isCollected;
+  private Vector2 pos;
 
   public Collectable(World world, MapObject collectable) {
     this.type = CollectableType.valueOf(MapUtils.getProperty(collectable, "type"));
@@ -38,11 +44,18 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
     this.height = MapUtils.getHeight(collectable);
     this.x = MapUtils.getX(collectable);
     this.y = MapUtils.getY(collectable);
+    this.pos = new Vector2(MapUtils.getCX(collectable), MapUtils.getCY(collectable));
 
+    createBody(world, pos);
+  }
+
+  @Override
+  public void createBody(World world, Vector2 pos) {
     BodyDef bdef = new BodyDef();
-    bdef.position.set(MapUtils.getCX(collectable), MapUtils.getCY(collectable));
+    bdef.position.set(pos);
     bdef.type = BodyDef.BodyType.StaticBody;
-    body = world.createBody(bdef);
+    this.body = world.createBody(bdef);
+
     PolygonShape shape = new PolygonShape();
     shape.setAsBox(width / 2, height / 2);
 
@@ -50,9 +63,11 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
     fdef.shape = shape;
     fdef.filter.categoryBits = LayerType.COLLECTABLE.getBit();
     fdef.filter.maskBits = LayerType.PLAYER.getBit();
+
     Fixture fixture = body.createFixture(fdef);
     fixture.setSensor(true);
     fixture.setUserData(this);
+
     shape.dispose();
   }
 
