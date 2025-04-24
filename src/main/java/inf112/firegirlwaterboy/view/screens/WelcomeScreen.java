@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.*;
 
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.types.PlayerType;
-import inf112.firegirlwaterboy.view.ButtonFactory;
+import inf112.firegirlwaterboy.view.ButtonDesigner;
 
 /**
  * WelcomeScreen class represents the welcome screen.
@@ -25,12 +25,12 @@ public class WelcomeScreen implements Screen {
     private final Viewport viewport;
     private final Texture logo;
     private final Controller controller;
-    private Button fireGirlButtonP1 = ButtonFactory.createButton("FireGirl", Color.valueOf("#f23800"));
-    private Button waterBoyButtonP1 = ButtonFactory.createButton("WaterBoy", Color.valueOf("#18beeb"));
-    private Button fireGirlButtonP2 = ButtonFactory.createButton("FireGirl", Color.valueOf("f23800"));
-    private Button waterBoyButtonP2 = ButtonFactory.createButton("WaterBoy", Color.valueOf("#18beeb"));
-    private Button startButton = ButtonFactory.createButton("Start", Color.valueOf("#cab558"));
-    private Button helpButton = ButtonFactory.createButton("Help", Color.valueOf("#cab558"));
+    private Button fireGirlButtonP1 = ButtonDesigner.createButton("FireGirl", Color.valueOf("#f23800"));
+    private Button waterBoyButtonP1 = ButtonDesigner.createButton("WaterBoy", Color.valueOf("#18beeb"));
+    private Button fireGirlButtonP2 = ButtonDesigner.createButton("FireGirl", Color.valueOf("f23800"));
+    private Button waterBoyButtonP2 = ButtonDesigner.createButton("WaterBoy", Color.valueOf("#18beeb"));
+    private Button startButton = ButtonDesigner.createButton("Start", Color.valueOf("#607d4d"));
+    private Button helpButton = ButtonDesigner.createButton("Help", Color.valueOf("#607d4d"));
 
     private Texture backgroundTexture;
     private SpriteBatch batch;
@@ -80,8 +80,8 @@ public class WelcomeScreen implements Screen {
 
         // Player 1 selection
         Table p1Table = new Table();
-        Label player1Label = new Label("Player 1 (uses arrows) choose your character:",
-                new Label.LabelStyle(new BitmapFont(), Color.BLACK));
+        Label player1Label = new Label("Player 1 choose your character:",
+                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         p1Table.add(player1Label).colspan(2).center().padBottom(10);
         p1Table.row();
         p1Table.add(fireGirlButtonP1).size(150, 50).pad(10);
@@ -90,8 +90,8 @@ public class WelcomeScreen implements Screen {
 
         // Player 2 selection
         Table p2Table = new Table();
-        Label player2Label = new Label("Player 2 (uses WASD) choose your character:",
-                new Label.LabelStyle(new BitmapFont(), Color.BLACK));
+        Label player2Label = new Label("Player 2 choose your character:",
+                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         p2Table.add(player2Label).colspan(2).center().padBottom(10);
         p2Table.row();
         p2Table.add(fireGirlButtonP2).size(150, 50).pad(10);
