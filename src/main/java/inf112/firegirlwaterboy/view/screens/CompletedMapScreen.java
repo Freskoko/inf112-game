@@ -15,12 +15,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.Color;
 
 import inf112.firegirlwaterboy.controller.Controller;
-import inf112.firegirlwaterboy.view.ButtonFactory;
+import inf112.firegirlwaterboy.view.ButtonDesigner;
 
 /**
  * CompletedMapScreen class represents the screen displayed when a map is
  * completed. It shows a message indicating that the map is completed and a
  * button to return to the Choose Maps screen.
+ * 
  */
 public class CompletedMapScreen implements Screen {
 
@@ -29,7 +30,7 @@ public class CompletedMapScreen implements Screen {
   private BitmapFont font;
   private Stage stage;
   private Viewport viewport;
-  private Button welcomeScreenButton = ButtonFactory.createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
+  private Button welcomeScreenButton = ButtonDesigner.createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
 
   public CompletedMapScreen(Controller controller) {
     this.controller = controller;

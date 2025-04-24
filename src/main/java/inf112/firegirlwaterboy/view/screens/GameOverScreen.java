@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.Color;
 
 import inf112.firegirlwaterboy.controller.Controller;
-import inf112.firegirlwaterboy.view.ButtonFactory;
+import inf112.firegirlwaterboy.view.ButtonDesigner;
 
 /**
  * GameOverScreen class represents the screen displayed when the game is over.
@@ -32,7 +32,7 @@ public class GameOverScreen implements Screen {
 
   private Stage stage;
   private Viewport viewport;
-  private Button chooseMapScreenButton = ButtonFactory.createButton("Back", Color.GRAY);
+  private Button chooseMapScreenButton = ButtonDesigner.createButton("Back", Color.GRAY);
 
   public GameOverScreen(Controller controller) {
     this.controller = controller;
