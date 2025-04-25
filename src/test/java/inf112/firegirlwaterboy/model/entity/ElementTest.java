@@ -88,16 +88,15 @@ public class ElementTest {
     }
   }
 
-  @Test
-  void constructorShouldInitializeElementType() {
-    assertEquals(ElementType.LAVA, element.getType());
-  }
+    @Test
+    void constructorShouldLoadTextureBasedOnElementType() {
+        verify(Gdx.files, times(2)).internal(ElementType.LAVA.getTexturePath());
+    }
 
-  @Test
-  void constructorShouldCreateStaticBodyInWorld() {
-    ArgumentCaptor<BodyDef> bodyDefCaptor = ArgumentCaptor.forClass(BodyDef.class);
-    verify(mockWorld).createBody(bodyDefCaptor.capture());
-    BodyDef bodyDef = bodyDefCaptor.getValue();
+    @Test
+    void constructorShouldInitializeElementType() {
+        assertEquals(ElementType.LAVA, element.getType());
+    }
 
     assertEquals(BodyDef.BodyType.StaticBody, bodyDef.type);
     assertEquals(3.625, bodyDef.position.x);
