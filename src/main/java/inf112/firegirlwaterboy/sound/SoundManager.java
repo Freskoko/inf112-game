@@ -4,11 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
-/**
- * SoundManager class for the game FireGirl & WaterBoy.
- * Handles loading, playing and disposing of game sounds. Diamond sound is not used yet. 
- */
-public class SoundManager {
+public class SoundManager implements ISoundManager {
 
     private Sound deathSound;
     private Sound diamondSound;
@@ -26,31 +22,22 @@ public class SoundManager {
         backgroundMusic.play();
     }
 
-    /**
-     * Plays the death sound.
-     */
+    @Override
     public void playDeathSound() {
         deathSound.play(1.0f);
     }
 
-    /**
-     * Plays the diamond collection sound.
-     */
+    @Override
     public void playDiamondSound() {
         diamondSound.play(1.0f);
     }
 
-    /**
-     * Plays the map complete sound.
-     */
+    @Override
     public void playMapCompleteSound() {
         mapCompleteSound.play(1.0f);
     }
 
-
-    /**
-     * Disposes all sound resources.
-     */
+    @Override
     public void dispose() {
         deathSound.dispose();
         diamondSound.dispose();

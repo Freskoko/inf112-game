@@ -2,7 +2,7 @@ package inf112.firegirlwaterboy.controller;
 
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.types.PlayerType;
-import inf112.firegirlwaterboy.sound.SoundManager;
+import inf112.firegirlwaterboy.sound.ISoundManager;
 
 /**
  * Interface for the controllable model.
@@ -63,6 +63,6 @@ public interface IControllableModel {
    *
    * @param soundManager the sound manager to set
    */
-  public void setSoundManager(SoundManager soundManager);
+  public void setSoundManager(ISoundManager soundManager);
 
 }

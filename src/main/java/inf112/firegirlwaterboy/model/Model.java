@@ -19,7 +19,7 @@ import inf112.firegirlwaterboy.model.maps.factories.WorldFactory;
 import inf112.firegirlwaterboy.model.maps.factories.IWorldFactory;
 import inf112.firegirlwaterboy.model.maps.factories.StandardGameObjectsFactory;
 import inf112.firegirlwaterboy.model.types.PlayerType;
-import inf112.firegirlwaterboy.sound.SoundManager;
+import inf112.firegirlwaterboy.sound.ISoundManager;
 import inf112.firegirlwaterboy.view.IViewModel;
 
 /**
@@ -36,7 +36,7 @@ public class Model implements IControllableModel, IViewModel {
   private IWorldFactory worldFactory;
   private String mapName;
   private World world;
-  private SoundManager soundManager;
+  private ISoundManager soundManager;
   private IMapManager mapManager;
 
   public Model() {
@@ -154,7 +154,7 @@ public class Model implements IControllableModel, IViewModel {
   }
 
   @Override
-  public void setSoundManager(SoundManager soundManager) {
+  public void setSoundManager(ISoundManager soundManager) {
     this.soundManager = soundManager;
   }
 }
