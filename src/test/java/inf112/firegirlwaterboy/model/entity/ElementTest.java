@@ -2,9 +2,12 @@ package inf112.firegirlwaterboy.model.entity;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
+
+import java.lang.reflect.Field;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
@@ -12,6 +15,7 @@ import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
@@ -119,12 +123,6 @@ public class ElementTest {
   }
 
   @Test
-  void disposeShouldDisposeTexture() {
-    element.dispose();
-    verify(mockTexture, atLeastOnce()).dispose();
-  }
-
-  @Test
   void getTypeShouldReturnCorrectType() {
     assertEquals(ElementType.LAVA, element.getType());
   }
@@ -135,4 +133,21 @@ public class ElementTest {
     element.draw(mockBatch);
     verify(mockBatch).draw(any(TextureRegion.class), anyFloat(), anyFloat(), eq(1f), eq(1f));
   }
+
+  @Test
+  void disposeShouldDisposeTexture() throws Exception {
+    Animation<TextureRegion> mockAnimation = mock(Animation.class);
+    TextureRegion mockRegion = mock(TextureRegion.class);
+    when(mockRegion.getTexture()).thenReturn(mockTexture);
+    TextureRegion[] regions = new TextureRegion[]{mockRegion};
+    when(mockAnimation.getKeyFrames()).thenReturn(regions);
+
+    // reflection to grab animation
+    Field animationField = Element.class.getDeclaredField("animation");
+    animationField.setAccessible(true);
+    animationField.set(element, mockAnimation);
+
+    element.dispose();
+    verify(mockTexture, atLeastOnce()).dispose();
+}
 }
