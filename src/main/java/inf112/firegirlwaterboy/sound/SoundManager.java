@@ -11,12 +11,14 @@ import com.badlogic.gdx.audio.Sound;
 public class SoundManager {
 
     private Sound deathSound;
-    private Music backgroundMusic;
     private Sound diamondSound;
+    private Sound mapCompleteSound;
+    private Music backgroundMusic;
 
     public SoundManager() {
         deathSound = Gdx.audio.newSound(Gdx.files.internal("assets/sound/Death.ogg"));
         diamondSound = Gdx.audio.newSound(Gdx.files.internal("assets/sound/Diamond.ogg"));
+        mapCompleteSound = Gdx.audio.newSound(Gdx.files.internal("assets/sound/GameWin.ogg"));
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/sound/BackgroundMusic.ogg"));
 
         backgroundMusic.setLooping(true);
@@ -39,11 +41,20 @@ public class SoundManager {
     }
 
     /**
+     * Plays the map complete sound.
+     */
+    public void playMapCompleteSound() {
+        mapCompleteSound.play(1.0f);
+    }
+
+
+    /**
      * Disposes all sound resources.
      */
     public void dispose() {
         deathSound.dispose();
         diamondSound.dispose();
         backgroundMusic.dispose();
+        mapCompleteSound.dispose();
     }
 }
