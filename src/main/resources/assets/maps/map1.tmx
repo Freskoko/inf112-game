@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="64" columns="8">
   <image source="tileset.png" width="256" height="256"/>
  </tileset>
- <layer id="1" name="BACKGROUND" width="30" height="30">
+ <layer id="1" name="BACKGROUND" width="30" height="30" locked="1">
   <data encoding="csv">
 44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,
 44,5,20,20,20,4,20,20,20,20,20,20,20,20,20,20,20,20,4,20,20,20,20,20,20,20,20,20,8,44,
@@ -37,7 +37,7 @@
 44,44,44,44,44,44,36,36,36,44,44,44,44,44,44,36,36,36,44,44,44,44,44,44,44,44,44,44,44,44
 </data>
  </layer>
- <objectgroup id="3" name="STATIC">
+ <objectgroup id="3" name="STATIC" locked="1">
   <object id="433" x="800" y="160" width="128" height="32"/>
   <object id="435" x="32" y="448" width="128" height="32"/>
   <object id="436" x="320" y="448" width="320" height="32"/>
@@ -70,7 +70,7 @@
    <polygon points="0,0 0,32 128,32 128,0"/>
   </object>
  </objectgroup>
- <objectgroup id="15" name="PLATFORM">
+ <objectgroup id="15" name="PLATFORM" locked="1">
   <object id="466" x="824" y="832" width="96" height="32">
    <properties>
     <property name="dir" value="up"/>
@@ -91,7 +91,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="ELEMENT">
+ <objectgroup id="6" name="ELEMENT" locked="1">
   <object id="369" x="480" y="320" width="32" height="128">
    <properties>
     <property name="type" value="water"/>
