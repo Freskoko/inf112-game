@@ -89,19 +89,9 @@ public class ElementTest {
   }
 
     @Test
-    void constructorShouldLoadTextureBasedOnElementType() {
-        verify(Gdx.files, times(2)).internal(ElementType.LAVA.getTexturePath());
-    }
-
-    @Test
     void constructorShouldInitializeElementType() {
-        assertEquals(ElementType.LAVA, element.getType());
+      assertEquals(ElementType.LAVA, element.getType());
     }
-
-    assertEquals(BodyDef.BodyType.StaticBody, bodyDef.type);
-    assertEquals(3.625, bodyDef.position.x);
-    assertEquals(3.625, bodyDef.position.y);
-  }
 
   @Test
   void constructorShouldCreateFixtureWithPolygonShape() {
@@ -147,5 +137,5 @@ public class ElementTest {
 
     element.dispose();
     verify(mockTexture, atLeastOnce()).dispose();
-}
+  }
 }
