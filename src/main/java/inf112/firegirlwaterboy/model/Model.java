@@ -116,6 +116,7 @@ public class Model implements IControllableModel, IViewModel {
     platforms.dispose();
     elements.dispose();
     collectables.dispose();
+    soundManager.dispose();
   }
 
   @Override
