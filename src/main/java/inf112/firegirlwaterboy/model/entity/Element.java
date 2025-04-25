@@ -43,28 +43,6 @@ public class Element implements IEntity<ElementType> {
 
     createBody(world, pos);
   }
-  
-  @Override
-  public void createBody(World world, Vector2 pos) {
-    BodyDef bdef = new BodyDef();
-    bdef.position.set(pos);
-    bdef.type = BodyDef.BodyType.StaticBody;
-    this.body = world.createBody(bdef);
-
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(width / 2, height / 2);
-
-    FixtureDef fdef = new FixtureDef();
-    fdef.shape = shape;
-    fdef.filter.categoryBits = LayerType.ELEMENT.getBit();
-    fdef.filter.maskBits = LayerType.PLAYER.getBit();
-
-    Fixture fixture = body.createFixture(fdef);
-    fixture.setSensor(true);
-    fixture.setUserData(this);
-
-    shape.dispose();
-  }
 
   @Override
   public void update() {
@@ -104,5 +82,32 @@ public class Element implements IEntity<ElementType> {
       frames.add(new TextureRegion(region));
     }
     return new Animation<TextureRegion>(0.3f, frames, Animation.PlayMode.LOOP);
+  }
+
+  /**
+   * Creates the body of the element in the given world.
+   * 
+   * @param world The world in which the element will be created
+   * @param pos The position of the element in the world
+   */
+  private void createBody(World world, Vector2 pos) {
+    BodyDef bdef = new BodyDef();
+    bdef.position.set(pos);
+    bdef.type = BodyDef.BodyType.StaticBody;
+    this.body = world.createBody(bdef);
+
+    PolygonShape shape = new PolygonShape();
+    shape.setAsBox(width / 2, height / 2);
+
+    FixtureDef fdef = new FixtureDef();
+    fdef.shape = shape;
+    fdef.filter.categoryBits = LayerType.ELEMENT.getBit();
+    fdef.filter.maskBits = LayerType.PLAYER.getBit();
+
+    Fixture fixture = body.createFixture(fdef);
+    fixture.setSensor(true);
+    fixture.setUserData(this);
+
+    shape.dispose();
   }
 }

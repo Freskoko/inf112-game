@@ -115,48 +115,6 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   }
 
   @Override
-  public void createBody(World world, Vector2 pos) {
-    BodyDef bdef = new BodyDef();
-    bdef.position.set(pos);
-    bdef.type = BodyDef.BodyType.DynamicBody;
-    bdef.fixedRotation = true;
-    bdef.linearDamping = 0;
-    this.body = world.createBody(bdef);
-
-    PolygonShape bodyShape = new PolygonShape();
-    bodyShape.setAsBox(width / 2, height / 2);
-    FixtureDef bodyfDef = new FixtureDef();
-    bodyfDef.shape = bodyShape;
-    bodyfDef.density = 0.5f;
-    bodyfDef.restitution = 0f;
-    bodyfDef.friction = 0f;
-    bodyfDef.filter.categoryBits = LayerType.PLAYER.getBit();
-    bodyfDef.filter.maskBits = (short) (LayerType.PLATFORM.getBit() | LayerType.STATIC.getBit());
-    body.createFixture(bodyfDef).setUserData("BodyOutline");
-    bodyShape.dispose();
-
-    PolygonShape coreShape = new PolygonShape();
-    coreShape.setAsBox(
-        width * 0.4f,
-        height * 0.425f,
-        new Vector2(0, -height * 0.075f),
-        0);
-    FixtureDef corefDef = new FixtureDef();
-    corefDef.shape = coreShape;
-    corefDef.restitution = 0f;
-
-    corefDef.filter.categoryBits = LayerType.PLAYER.getBit();
-    corefDef.filter.maskBits = (short) (LayerType.COLLECTABLE.getBit() |
-        LayerType.ELEMENT.getBit() |
-        LayerType.FINISH.getBit() |
-        LayerType.PLATFORM.getBit() |
-        LayerType.STATIC.getBit());
-
-    body.createFixture(corefDef).setUserData(this);
-    coreShape.dispose();
-  }
-
-  @Override
   public void move(MovementType dir) {
     switch (dir) {
       case UP -> jump();
@@ -258,7 +216,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   /**
    * Applies a linear impulse upwards to body if on ground.
    */
-  private void jump() {    
+  private void jump() {
     short groundBits = (short) (LayerType.PLATFORM.getBit() | LayerType.STATIC.getBit());
     for (Contact c : world.getContactList()) {
       if (!c.isTouching())
@@ -274,5 +232,52 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
         body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
       }
     }
+  }
+  
+   /**
+   * Creates the body of the player in the given world.
+   * 
+   * @param world The world in which the player will be created
+   * @param pos The position of the player in the world
+   */
+  private void createBody(World world, Vector2 pos) {
+    BodyDef bdef = new BodyDef();
+    bdef.position.set(pos);
+    bdef.type = BodyDef.BodyType.DynamicBody;
+    bdef.fixedRotation = true;
+    bdef.linearDamping = 0;
+    this.body = world.createBody(bdef);
+
+    PolygonShape bodyShape = new PolygonShape();
+    bodyShape.setAsBox(width / 2, height / 2);
+    FixtureDef bodyfDef = new FixtureDef();
+    bodyfDef.shape = bodyShape;
+    bodyfDef.density = 0.5f;
+    bodyfDef.restitution = 0f;
+    bodyfDef.friction = 0f;
+    bodyfDef.filter.categoryBits = LayerType.PLAYER.getBit();
+    bodyfDef.filter.maskBits = (short) (LayerType.PLATFORM.getBit() | LayerType.STATIC.getBit());
+    body.createFixture(bodyfDef).setUserData("BodyOutline");
+    bodyShape.dispose();
+
+    PolygonShape coreShape = new PolygonShape();
+    coreShape.setAsBox(
+        width * 0.4f,
+        height * 0.425f,
+        new Vector2(0, -height * 0.075f),
+        0);
+    FixtureDef corefDef = new FixtureDef();
+    corefDef.shape = coreShape;
+    corefDef.restitution = 0f;
+
+    corefDef.filter.categoryBits = LayerType.PLAYER.getBit();
+    corefDef.filter.maskBits = (short) (LayerType.COLLECTABLE.getBit() |
+        LayerType.ELEMENT.getBit() |
+        LayerType.FINISH.getBit() |
+        LayerType.PLATFORM.getBit() |
+        LayerType.STATIC.getBit());
+
+    body.createFixture(corefDef).setUserData(this);
+    coreShape.dispose();
   }
 }

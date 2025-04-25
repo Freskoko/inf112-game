@@ -45,28 +45,6 @@ public class Platform implements IEntity<ElementType>, IPlatform {
   }
 
   @Override
-  public void createBody(World world, Vector2 pos) {
-    BodyDef bdef = new BodyDef();
-    bdef.position.set(pos);
-    bdef.type = BodyDef.BodyType.DynamicBody;
-    bdef.fixedRotation = true;
-    this.body = world.createBody(bdef);
-    body.setGravityScale(0);
-
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(width / 2, height / 2);
-
-    FixtureDef fdef = new FixtureDef();
-    fdef.shape = shape;
-    fdef.filter.categoryBits = LayerType.PLATFORM.getBit();
-    fdef.filter.maskBits = (short) (LayerType.STATIC.getBit() | LayerType.PLAYER.getBit());
-    fdef.friction = 0.5f;
-
-    body.createFixture(fdef).setUserData(this);
-    shape.dispose();
-  }
-
-  @Override
   public void update() {
 
     if (body.getLinearVelocity().equals(new Vector2(0, 0))) {
@@ -106,5 +84,32 @@ public class Platform implements IEntity<ElementType>, IPlatform {
   @Override
   public void collision() {
     dir = MovementType.getOppositeDir(dir);
+  }
+
+  /**
+   * Creates the body of the platform in the given world.
+   * 
+   * @param world The world in which the platform will be created
+   * @param pos The position of the platform in the world
+   */
+  private void createBody(World world, Vector2 pos) {
+    BodyDef bdef = new BodyDef();
+    bdef.position.set(pos);
+    bdef.type = BodyDef.BodyType.DynamicBody;
+    bdef.fixedRotation = true;
+    this.body = world.createBody(bdef);
+    body.setGravityScale(0);
+
+    PolygonShape shape = new PolygonShape();
+    shape.setAsBox(width / 2, height / 2);
+
+    FixtureDef fdef = new FixtureDef();
+    fdef.shape = shape;
+    fdef.filter.categoryBits = LayerType.PLATFORM.getBit();
+    fdef.filter.maskBits = (short) (LayerType.STATIC.getBit() | LayerType.PLAYER.getBit());
+    fdef.friction = 0.5f;
+
+    body.createFixture(fdef).setUserData(this);
+    shape.dispose();
   }
 }

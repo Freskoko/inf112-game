@@ -50,28 +50,6 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
   }
 
   @Override
-  public void createBody(World world, Vector2 pos) {
-    BodyDef bdef = new BodyDef();
-    bdef.position.set(pos);
-    bdef.type = BodyDef.BodyType.StaticBody;
-    this.body = world.createBody(bdef);
-
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(width / 2, height / 2);
-
-    FixtureDef fdef = new FixtureDef();
-    fdef.shape = shape;
-    fdef.filter.categoryBits = LayerType.COLLECTABLE.getBit();
-    fdef.filter.maskBits = LayerType.PLAYER.getBit();
-
-    Fixture fixture = body.createFixture(fdef);
-    fixture.setSensor(true);
-    fixture.setUserData(this);
-
-    shape.dispose();
-  }
-
-  @Override
   public Set<PlayerType> getRequiredPlayers() {
     return requiredPlayers;
   }
@@ -110,5 +88,32 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
   @Override
   public void collect() {
     this.isCollected = true;
+  }
+
+  /**
+   * Creates the body of the collectable in the given world.
+   * 
+   * @param world The world in which the collectable will be created
+   * @param pos The position of the collectable in the world
+   */
+  private void createBody(World world, Vector2 pos) {
+    BodyDef bdef = new BodyDef();
+    bdef.position.set(pos);
+    bdef.type = BodyDef.BodyType.StaticBody;
+    this.body = world.createBody(bdef);
+
+    PolygonShape shape = new PolygonShape();
+    shape.setAsBox(width / 2, height / 2);
+
+    FixtureDef fdef = new FixtureDef();
+    fdef.shape = shape;
+    fdef.filter.categoryBits = LayerType.COLLECTABLE.getBit();
+    fdef.filter.maskBits = LayerType.PLAYER.getBit();
+
+    Fixture fixture = body.createFixture(fdef);
+    fixture.setSensor(true);
+    fixture.setUserData(this);
+
+    shape.dispose();
   }
 }
