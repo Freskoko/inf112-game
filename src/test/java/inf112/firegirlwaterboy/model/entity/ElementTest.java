@@ -136,13 +136,12 @@ public class ElementTest {
 
   @Test
   void disposeShouldDisposeTexture() throws Exception {
+    @SuppressWarnings("unchecked")
     Animation<TextureRegion> mockAnimation = mock(Animation.class);
     TextureRegion mockRegion = mock(TextureRegion.class);
     when(mockRegion.getTexture()).thenReturn(mockTexture);
     TextureRegion[] regions = new TextureRegion[]{mockRegion};
     when(mockAnimation.getKeyFrames()).thenReturn(regions);
-
-    // reflection to grab animation
     Field animationField = Element.class.getDeclaredField("animation");
     animationField.setAccessible(true);
     animationField.set(element, mockAnimation);
