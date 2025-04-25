@@ -39,7 +39,7 @@ public class PlayerTest {
     Body mockBody;
     Batch mockBatch;
     Texture mockTexture;
-    Platform mockPlatform;
+    IPlatform mockPlatform;
 
     /*
      * Sets up a headless version of the app, required to load map/ images files

@@ -20,7 +20,7 @@ import inf112.firegirlwaterboy.model.types.ElementType;
  * Platform class represents a moving platform in the game.
  * The platform is a dynamic body that moves in a specified direction.
  */
-public class Platform implements IEntity<ElementType> {
+public class Platform implements IEntity<ElementType>, IPlatform {
 
   private ElementType type;
   private int speed = 3;
@@ -93,25 +93,18 @@ public class Platform implements IEntity<ElementType> {
     world.destroyBody(body);
   }
 
-  /**
-   * Returns the body of the platform.
-   * 
-   * @return The body of the platform.
-   */
-  public Body getBody() {
-    return body;
-  }
-
   @Override
   public ElementType getType() {
     return type;
   }
 
-  /**
-   * Handles collision by changing the movement direction of the platform.
-   */
+  @Override
+  public Body getBody() {
+    return body;
+  }
+
+  @Override
   public void collision() {
     dir = MovementType.getOppositeDir(dir);
   }
-
 }
