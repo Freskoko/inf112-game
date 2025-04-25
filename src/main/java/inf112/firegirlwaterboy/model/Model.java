@@ -88,6 +88,7 @@ public class Model implements IControllableModel, IViewModel {
         }
       }, 1);
       mapManager.complete(mapName);
+      soundManager.playMapCompleteSound();
     }
   }
 
