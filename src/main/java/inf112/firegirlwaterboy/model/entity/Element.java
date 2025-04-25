@@ -79,8 +79,13 @@ public class Element implements IEntity<ElementType> {
 
   @Override
   public void dispose() {
-    for (TextureRegion frame : animation.getKeyFrames()) {
-      frame.getTexture().dispose();
+    for (Object frame : animation.getKeyFrames()) {
+      if (frame instanceof TextureRegion) {
+        Texture texture = ((TextureRegion) frame).getTexture();
+        if (texture != null) {
+          texture.dispose();
+        }
+      }
     }
   }
 
