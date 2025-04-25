@@ -95,7 +95,7 @@ public class GameScreen implements Screen {
     renderer.setView(camera);
     renderer.render();
 
-    debugRenderer.render(model.getWorld(), camera.combined);
+    //debugRenderer.render(model.getWorld(), camera.combined);
 
     renderer.getBatch().setProjectionMatrix(camera.combined);
     renderer.getBatch().begin();
