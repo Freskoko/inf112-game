@@ -4,15 +4,15 @@ package inf112.firegirlwaterboy.model.types;
  * Enum for the different element types in the game.
  */
 public enum ElementType {
-  LAVA("assets/element/lava.png"),
-  WATER("assets/element/water.png"),
-  ACID("assets/element/acid.png"),
-  NEUTRAL("assets/element/platform.png");
+  LAVA(new String[] {"assets/element/lava1.png", "assets/element/lava2.png"}),
+  WATER(new String[] {"assets/element/water1.png", "assets/element/water2.png"}),
+  ACID(new String[] {"assets/element/acid1.png", "assets/element/acid2.png"}),
+  NEUTRAL(new String[] {"assets/element/platform.png"});
 
-  private final String texturePath;
+  private final String[] texturePaths;
 
-  ElementType(String texturePath) {
-    this.texturePath = texturePath;
+  ElementType(String[] texturePaths) {
+    this.texturePaths = texturePaths;
   }
 
   /**
@@ -20,8 +20,8 @@ public enum ElementType {
    * 
    * @return the path to the texture
    */
-  public String getTexturePath() {
-    return texturePath;
+  public String[] getTexturePaths() {
+    return texturePaths;
   }
 
 }

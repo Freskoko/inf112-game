@@ -16,7 +16,11 @@ import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.types.ElementType;
 
-public class Platform implements IEntity<ElementType> {
+/**
+ * Platform class represents a moving platform in the game.
+ * The platform is a dynamic body that moves in a specified direction.
+ */
+public class Platform implements IEntity<ElementType>, IPlatform {
 
   private ElementType type;
   private int speed = 3;
@@ -25,31 +29,19 @@ public class Platform implements IEntity<ElementType> {
   private MovementType dir;
   private Texture texture;
   private float width, height;
+  private Vector2 pos;
 
   public Platform(World world, MapObject platform) {
-    this.width = MapUtils.getWidth(platform);
-    this.height = MapUtils.getHeight(platform);
     this.type = ElementType.valueOf(MapUtils.getProperty(platform, "type"));
-    this.texture = new Texture(Gdx.files.internal(type.getTexturePath()));
+    this.texture = new Texture(Gdx.files.internal(type.getTexturePaths()[0]));
     this.dir = MovementType.valueOf(MapUtils.getProperty(platform, "dir"));
     this.world = world;
 
-    BodyDef bdef = new BodyDef();
-    bdef.position.set(MapUtils.getCX(platform), MapUtils.getCY(platform));
-    bdef.type = BodyDef.BodyType.DynamicBody;
-    bdef.fixedRotation = true;
-    body = world.createBody(bdef);
-    body.setGravityScale(0);
-
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(width / 2, height / 2);
-    FixtureDef fdef = new FixtureDef();
-    fdef.shape = shape;
-    fdef.filter.categoryBits = LayerType.PLATFORM.getBit();
-    fdef.filter.maskBits = (short) (LayerType.STATIC.getBit() | LayerType.PLAYER.getBit());
-    fdef.friction = 0.5f;
-    body.createFixture(fdef).setUserData(this);
-    shape.dispose();
+    this.width = MapUtils.getWidth(platform);
+    this.height = MapUtils.getHeight(platform);
+    this.pos = new Vector2(MapUtils.getCX(platform), MapUtils.getCY(platform));
+    
+    createBody(world, pos);
   }
 
   @Override
@@ -79,25 +71,45 @@ public class Platform implements IEntity<ElementType> {
     world.destroyBody(body);
   }
 
-  /**
-   * Returns the body of the platform.
-   * 
-   * @return The body of the platform.
-   */
-  public Body getBody() {
-    return body;
-  }
-
   @Override
   public ElementType getType() {
     return type;
   }
 
-  /**
-   * Handles collision by changing the movement direction of the platform.
-   */
+  @Override
+  public Body getBody() {
+    return body;
+  }
+
+  @Override
   public void collision() {
     dir = MovementType.getOppositeDir(dir);
   }
 
+  /**
+   * Creates the body of the platform in the given world.
+   * 
+   * @param world The world in which the platform will be created
+   * @param pos The position of the platform in the world
+   */
+  private void createBody(World world, Vector2 pos) {
+    BodyDef bdef = new BodyDef();
+    bdef.position.set(pos);
+    bdef.type = BodyDef.BodyType.DynamicBody;
+    bdef.fixedRotation = true;
+    this.body = world.createBody(bdef);
+    body.setGravityScale(0);
+
+    PolygonShape shape = new PolygonShape();
+    shape.setAsBox(width / 2, height / 2);
+
+    FixtureDef fdef = new FixtureDef();
+    fdef.shape = shape;
+    fdef.filter.categoryBits = LayerType.PLATFORM.getBit();
+    fdef.filter.maskBits = (short) (LayerType.STATIC.getBit() | LayerType.PLAYER.getBit());
+    fdef.friction = 0.5f;
+
+    body.createFixture(fdef).setUserData(this);
+    shape.dispose();
+  }
 }

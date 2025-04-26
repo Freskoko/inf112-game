@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import inf112.firegirlwaterboy.model.entity.Collectable;
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.IEntity;
+import inf112.firegirlwaterboy.model.entity.IPlatform;
 import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.maps.LayerType;
@@ -39,7 +40,7 @@ public class GameContactListener implements ContactListener {
     Object a = contact.getFixtureA().getUserData();
     Object b = contact.getFixtureB().getUserData();
 
-    Platform platform = getEntity(a, b, Platform.class);
+    IPlatform platform = getEntity(a, b, Platform.class);
     if (platform != null && isLayerType(a, b, LayerType.STATIC)) {
       platform.collision();
     }

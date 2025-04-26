@@ -31,5 +31,4 @@ public interface IEntity<T> {
    * @return the type of the entity
    */
   T getType();
-
 }

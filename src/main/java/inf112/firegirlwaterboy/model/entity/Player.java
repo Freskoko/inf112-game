@@ -214,10 +214,31 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   }
 
   /**
-   * Creates the body for the player in the Box2D world at given pos.
+   * Applies a linear impulse upwards to body if on ground.
+   */
+  private void jump() {
+    short groundBits = (short) (LayerType.PLATFORM.getBit() | LayerType.STATIC.getBit());
+    for (Contact c : world.getContactList()) {
+      if (!c.isTouching())
+        continue;
+
+      Fixture a = c.getFixtureA(), b = c.getFixtureB();
+      boolean aIsMe = a.getUserData() == this, bIsMe = b.getUserData() == this;
+      if (!aIsMe && !bIsMe)
+        continue;
+
+      Fixture other = aIsMe ? b : a;
+      if ((other.getFilterData().categoryBits & groundBits) != 0) {
+        body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
+      }
+    }
+  }
+  
+   /**
+   * Creates the body of the player in the given world.
    * 
-   * @param world The Box2D world where the player will be created.
-   * @param pos   The position where the player will be positioned
+   * @param world The world in which the player will be created
+   * @param pos The position of the player in the world
    */
   private void createBody(World world, Vector2 pos) {
     BodyDef bdef = new BodyDef();
@@ -258,26 +279,5 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
     body.createFixture(corefDef).setUserData(this);
     coreShape.dispose();
-  }
-
-  /**
-   * Applies a linear impulse upwards to body if on ground.
-   */
-  private void jump() {    
-    short groundBits = (short) (LayerType.PLATFORM.getBit() | LayerType.STATIC.getBit());
-    for (Contact c : world.getContactList()) {
-      if (!c.isTouching())
-        continue;
-
-      Fixture a = c.getFixtureA(), b = c.getFixtureB();
-      boolean aIsMe = a.getUserData() == this, bIsMe = b.getUserData() == this;
-      if (!aIsMe && !bIsMe)
-        continue;
-
-      Fixture other = aIsMe ? b : a;
-      if ((other.getFilterData().categoryBits & groundBits) != 0) {
-        body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
-      }
-    }
   }
 }
