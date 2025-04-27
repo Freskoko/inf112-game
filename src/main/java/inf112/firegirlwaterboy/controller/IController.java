@@ -58,7 +58,7 @@ public interface IController {
    * @param back The button uesd to go to the
    *             ChooseMapScreen.
    */
-  void attachToChooseMapsListener(Button back);
+  void attachReturnToChooseMapsListener(Button back);
 
   /**
    * Attaches listeners to the buttons on the WelcomeScreen where you can choose
@@ -77,5 +77,12 @@ public interface IController {
    * @param help The button used to go to the help screen.
    */
   void attachToHelpListener(Button help);
+
+  /**
+   * 
+   * @param mapName The name of the map to check.
+   * @return Boolean if the map is complete or not.
+   */
+  boolean isMapComplete(String mapName);
 
 }

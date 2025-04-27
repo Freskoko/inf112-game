@@ -73,7 +73,7 @@ public class Controller extends InputAdapter implements IController {
   }
 
   @Override
-  public void attachToChooseMapsListener(Button button) {
+  public void attachReturnToChooseMapsListener(Button button) {
     button.addListener(bh.getToChooseMapListener());
   }
 
@@ -128,5 +128,11 @@ public class Controller extends InputAdapter implements IController {
       case Keys.UP, Keys.LEFT, Keys.RIGHT -> playerOne;
       default -> null;
     };
+  }
+
+
+  @Override
+  public boolean isMapComplete(String mapName) {
+    return model.isComplete(mapName);
   }
 }
