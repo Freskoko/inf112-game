@@ -54,12 +54,11 @@ public class WelcomeScreen implements Screen {
         table.bottom().padBottom(200);
 
         // Button listeners sent to controller
-
         controller.attachSelectPlayerListener(fireGirlButtonP1, true, PlayerType.FIREGIRL);
         controller.attachSelectPlayerListener(waterBoyButtonP1, true, PlayerType.WATERBOY);
         controller.attachSelectPlayerListener(fireGirlButtonP2, false, PlayerType.FIREGIRL);
         controller.attachSelectPlayerListener(waterBoyButtonP2, false, PlayerType.WATERBOY);
-        controller.attachToChooseMapsListener(startButton);
+        controller.attachReturnToChooseMapsListener(startButton);
         controller.attachToHelpListener(helpButton);
 
         Table playerSelectionTable = new Table();
