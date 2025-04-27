@@ -1,12 +1,5 @@
 # Brukerhistorier
 
-## Mal
-**Brukerhistorier:**
-
-**Akseptansekriterer:**
-
-**Arbeidsoppgave:**
-
 # UI brukerhistorier
 
 ## HUD
@@ -15,16 +8,17 @@
 - Som spiller ønsker jeg å se et HeadsUpDisplay i toppen av skjermen som inneholder en timer og poeng. 
 
 **Akseptansekriterer:**
-- Spilleren ser en HUD på toppen av activeGameScreen.
+- Spilleren ser en HUD på toppen av GameScreen.
 
 **Arbeidsoppgave:**
 - Implementere HUD
 - Oppdatere Score når spillerene fanger diamanter. 
+- Implementere timer
 
 ## Velkomstskjerm
 
 **Brukerhistorier:**
--	Som en ny bruker ønsker jeg å se en velkomstskjerm når jeg åpner appen slik at jeg forstår hva appen handler om og enkelt kan navigere videre til spillstart og help-skjerm. 
+-  Som en ny bruker ønsker jeg å se en velkomstskjerm når jeg åpner appen slik at jeg forstår hva appen handler om og enkelt kan navigere videre til spillstart og help-skjerm. 
 
 
 **Akseptansekriterer:**
@@ -71,7 +65,7 @@
 ## Game over skjerm
 
 **Brukerhistorie:**
--	Som en spiller ønsker jeg å se en Game Over-skjerm når jeg mister alle liv eller feiler et nivå slik at jeg kan velge om jeg vil prøve igjen eller gå tilbake til hovedmenyen.
+-	Som en spiller ønsker jeg å se en Game Over-skjerm når jeg mister alle liv eller feiler et nivå slik at jeg kan gå tilbake til hovedmenyen.
 
 **Akseptansekriterier:**
 -	Brukeren ser en game over screen når de dør.
@@ -85,7 +79,25 @@
 
 # Spillogikk brukerhistorier
 
-## Lydeffekt
+## Two-player
+**Brukerhistorier:**
+- Som spiller ønsker jeg å spille sammen med en annen spiller samtidig, fordi spillet krever samarbeid mellom to karakterer for å løse nivåene.
+
+**Akseptansekriterer:**
+- Spillet kan ikke startes uten at begge spillere har valgt hver sin karakter. 
+- To spillere kan kontrollere hver sin karakter samtidig på samme tastatur.
+- Firegirl og Waterboy må kunne bevege seg uavhengig av hverandre.
+- Spillere må samarbeide for å samle diamanter, unngå hindringer og nå målpunktet sammen.
+- Begge spillere må nå målpunktet for å fullføre nivået.
+
+**Arbeidsoppgave:**
+- Implementere controller-logikk for begge spillere. Den ene styres av WASD og den andre av piltastene. 
+- Hindre spillstart før begge spillere har valgt karakter.
+- Sørge for at begge spillere kan bevege seg, hoppe og samhandle med spillobjekter samtidig.
+
+
+
+## Lydeffekt: game over
 **Brukerhistorier:**
 - Som spiller ønsker jeg å høre en lydeffekt når karakteren min dør. 
 
@@ -95,6 +107,17 @@
 **Arbeidsoppgave:**
 - Finne eller lage en passende lydeffekt for spillerdød.
 - Implementere funksjonalitet for å trigge lyden når en spiller dør.
+
+## Lydeffekt: complete level
+**Brukerhistorier:**
+- Som spiller ønsker jeg å høre en lydeffekt når karakterene fullfører en level.
+
+**Akseptansekriterer:**
+- En passende lydeffekt spilles av umiddelbart når spillerene fullfører en level. 
+
+**Arbeidsoppgave:**
+- Finne eller lage en passende lydeffekt for fullført level. 
+- Implementere funksjonalitet for å trigge lyden en level er fullført. 
 
 
 ## Bevegende plattform
@@ -121,7 +144,7 @@
 **Akseptansekriterier:**
 -	Karakteren skal ikke kunne bevege seg gjennom vegger. 
 -	Karakteren skal kunne stå på plattformer uten å falle gjennom. 
--	Hvis karakteren kolliderer med en fiende (vann eller lava), så dør den. 
+-	Hvis karakteren kolliderer med en fiende (vann, lava eller acid), så dør den. 
 
 **Arbeidsoppgave:**
 -	Implementere kollisjonssystem mellom karakterer, hindringer og omgivelser 
@@ -157,13 +180,15 @@
 ## Powerups
 
 **Brukerhistorier:**
-- Som spiller vil jeg få powerup når jeg samler inn en diamant med en spesiell egenskap. 
+- Som spiller vil jeg få powerup (ekstra liv) når jeg samler inn en diamant med en spesiell egenskap. Denne vil jeg at skal være synlig som en glorie.
 
 **Akseptansekriterer:**
-- Å samle en diamant gir en fordel, feks at man blir immun mot fiender. 
+- Å samle en diamant gjør at man får et ekstra liv. 
+- Glorie er synlig tegn på et ekstra liv. 
 
 **Arbeidsoppgave:**
 - Implementere immunitet mot fiender. 
+- Tegne en glorie over hodet til spilleren når den får et ekstra liv. Denne må fjernes igjen når spilleren mister det ekstra livet. 
 
 
 ## Game Over
@@ -185,7 +210,7 @@
 
 ## Fiender
 **Brukerhistorier:**
--	Som spiller så dør jeg når jeg kommer i kontakt med en fiende, som er vann eller lava.  
+-	Som spiller så dør jeg når jeg kommer i kontakt med en fiende, som er vann, lava eller acid.  
 
 **Akseptansekriterer:**
 - Firegirl dør i kontakt med vann. 
@@ -220,12 +245,12 @@
 **Akseptansekriterer:**
 - Spilleren kan nå et synlig mål, som ser ut som en dør. 
 - Når målpunktet nås er spillet vunnet. 
+- Begge spillere må nå målet for at level er fullført. 
 
 **Arbeidsoppgave:**
 - Lage målobjekt som kan detekteres.
 - Sjekk kollisjon med spiller.
-- Implementere overgang til en skjerm/vindu som viser at spillet er beseiret og evt poengscore. 
-
+- Implementere overgang til en skjerm/vindu som viser at spillet er beseiret. 
 
 
 
