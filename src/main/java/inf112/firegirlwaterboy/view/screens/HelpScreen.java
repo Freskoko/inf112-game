@@ -26,7 +26,8 @@ public class HelpScreen implements Screen {
     private Texture boxTexture;
 
     public HelpScreen(Controller controller) {
-        viewport = new ScreenViewport();
+        viewport = new ExtendViewport(960, 960);
+
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 

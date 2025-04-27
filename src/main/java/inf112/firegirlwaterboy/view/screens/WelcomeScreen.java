@@ -27,7 +27,7 @@ public class WelcomeScreen implements Screen {
     private final Controller controller;
     private Button fireGirlButtonP1 = ButtonDesigner.createButton("FireGirl", Color.valueOf("#f23800"));
     private Button waterBoyButtonP1 = ButtonDesigner.createButton("WaterBoy", Color.valueOf("#18beeb"));
-    private Button fireGirlButtonP2 = ButtonDesigner.createButton("FireGirl", Color.valueOf("f23800"));
+    private Button fireGirlButtonP2 = ButtonDesigner.createButton("FireGirl", Color.valueOf("#f23800"));
     private Button waterBoyButtonP2 = ButtonDesigner.createButton("WaterBoy", Color.valueOf("#18beeb"));
     private Button startButton = ButtonDesigner.createButton("Start", Color.valueOf("#607d4d"));
     private Button helpButton = ButtonDesigner.createButton("Help", Color.valueOf("#607d4d"));
@@ -37,7 +37,8 @@ public class WelcomeScreen implements Screen {
 
     public WelcomeScreen(Controller controller) {
         this.controller = controller;
-        viewport = new ScreenViewport();
+
+        viewport = new ExtendViewport(960, 960);
 
         stage = new Stage(viewport);
         logo = new Texture("assets/pages/logo.png");
@@ -67,13 +68,9 @@ public class WelcomeScreen implements Screen {
 
         // Logo image
         Image logoImage = new Image(new TextureRegionDrawable(new TextureRegion(logo)));
-
-        // Set logo size
         float logoWidth = logo.getWidth();
         float logoHeight = logo.getHeight();
         logoImage.setSize(logoWidth, logoHeight);
-
-        // Add logo to the top of the player selection table
         playerSelectionTable.add(logoImage).colspan(2).center().padBottom(30);
         playerSelectionTable.row();
 
@@ -124,9 +121,10 @@ public class WelcomeScreen implements Screen {
             Gdx.input.setInputProcessor(stage);
         }
 
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.setProjectionMatrix(viewport.getCamera().combined);
+        batch.setProjectionMatrix(stage.getCamera().combined); 
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         batch.end();

@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.Color;
 
@@ -34,7 +34,7 @@ public class CompletedMapScreen implements Screen {
 
   public CompletedMapScreen(Controller controller) {
     this.controller = controller;
-    viewport = new ScreenViewport();
+    viewport = new ExtendViewport(960, 960);
     stage = new Stage(viewport);
     Gdx.input.setInputProcessor(stage);
     batch = new SpriteBatch();
@@ -70,9 +70,9 @@ public class CompletedMapScreen implements Screen {
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+    batch.setProjectionMatrix(stage.getCamera().combined);
     batch.begin();
-    font.draw(batch, "Map completed!", Gdx.graphics.getWidth() / 2f - 150, Gdx.graphics.getHeight() / 2f + 20);
-
+    font.draw(batch, "Map completed!", viewport.getWorldWidth() / 2f - 150, viewport.getWorldHeight() / 2f + 20);
     batch.end();
 
     stage.act(delta);
