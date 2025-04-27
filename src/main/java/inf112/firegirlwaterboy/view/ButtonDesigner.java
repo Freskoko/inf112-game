@@ -4,11 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
@@ -25,34 +22,47 @@ public class ButtonDesigner {
      * @return A styled TextButton
      */
     public static Button createButton(String text, Color fillColor) {
-        TextButtonStyle style = new TextButtonStyle();
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = new BitmapFont();
         style.fontColor = Color.BLACK;
-    
-        int width = 200;
+
+        int width = 150;
         int height = 50;
+        int borderWidth = 3;
         int radius = 10;
-    
+
         Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-        pixmap.setColor(fillColor);
-    
-        // This is to get rounded corners, asked ChatGPT on how to do that. 
+
+        pixmap.setColor(Color.BLACK);
         pixmap.fillRectangle(radius, 0, width - 2 * radius, height);
         pixmap.fillRectangle(0, radius, width, height - 2 * radius);
         pixmap.fillCircle(radius, radius, radius);
         pixmap.fillCircle(width - radius - 1, radius, radius);
         pixmap.fillCircle(radius, height - radius - 1, radius);
         pixmap.fillCircle(width - radius - 1, height - radius - 1, radius);
-    
-        Texture texture = new Texture(pixmap);
+
+        // Fill the inner area with the specified fill color and round of the corners,
+        // asked ChatGPT with help to do this
+        pixmap.setColor(fillColor);
+        int innerX = borderWidth;
+        int innerY = borderWidth;
+        int innerWidth = width - 2 * borderWidth;
+        int innerHeight = height - 2 * borderWidth;
+
+        pixmap.fillRectangle(innerX + radius, innerY, innerWidth - 2 * radius, innerHeight);
+        pixmap.fillRectangle(innerX, innerY + radius, innerWidth, innerHeight - 2 * radius);
+        pixmap.fillCircle(innerX + radius, innerY + radius, radius);
+        pixmap.fillCircle(innerX + innerWidth - radius - 1, innerY + radius, radius);
+        pixmap.fillCircle(innerX + radius, innerY + innerHeight - radius - 1, radius);
+        pixmap.fillCircle(innerX + innerWidth - radius - 1, innerY + innerHeight - radius - 1, radius);
+
+        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new Texture(pixmap));
         pixmap.dispose();
-    
-        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(texture));
+
         style.up = backgroundDrawable;
         style.down = backgroundDrawable.tint(Color.GRAY);
-    
+
         return new TextButton(text, style);
     }
-    
 
 }

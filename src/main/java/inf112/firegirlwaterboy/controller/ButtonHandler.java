@@ -28,6 +28,7 @@ public class ButtonHandler implements IButtonHandler {
   public ClickListener getSelectPlayerListener(boolean isPlayerOne, PlayerType type) {
     return new ClickListener() {
       @Override
+
       public void clicked(InputEvent e, float x, float y) {
         if (controller.selectPlayer(type, isPlayerOne)) {
           e.getListenerActor().setColor(Color.GRAY);
@@ -73,12 +74,9 @@ public class ButtonHandler implements IButtonHandler {
       public void clicked(InputEvent e, float x, float y) {
         selectedMapName = mapName;
 
-        // Reset color
         map1button.setColor(Color.WHITE);
         map2button.setColor(Color.WHITE);
 
-        // Mark the selected button
-        e.getListenerActor().setColor(Color.GRAY);
       }
     };
   }
