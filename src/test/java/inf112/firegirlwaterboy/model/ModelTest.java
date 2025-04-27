@@ -147,17 +147,6 @@ public class ModelTest {
     }
 
     @Test
-    void testRestartGame() {
-        // TODO FIX ME
-        // TiledMap mockMap = mock(TiledMap.class);
-        // when(mockManager.getMap("map1")).thenReturn(mockMap);
-        // testModel.restartGame();
-        // verify(mockFactory).createCollectables(mockWorld, mockMap);
-        // verify(mockFactory).createPlatforms(mockWorld, mockMap);
-        // verify(mockFactory).createElements(mockWorld, mockMap);
-    }
-
-    @Test
     void testUpdate() {
         when(mockPlayers.areAlive()).thenReturn(true);
         when(mockPlayers.areFinished()).thenReturn(false);
