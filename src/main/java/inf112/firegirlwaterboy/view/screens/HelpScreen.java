@@ -116,5 +116,6 @@ public class HelpScreen implements Screen {
     public void dispose() {
         stage.dispose();
         backgroundTexture.dispose();
+        boxTexture.dispose();
     }
 }

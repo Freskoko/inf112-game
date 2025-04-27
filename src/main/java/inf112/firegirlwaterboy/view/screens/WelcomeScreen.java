@@ -124,7 +124,7 @@ public class WelcomeScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.setProjectionMatrix(stage.getCamera().combined); 
+        batch.setProjectionMatrix(stage.getCamera().combined);
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         batch.end();
@@ -147,6 +147,8 @@ public class WelcomeScreen implements Screen {
     public void dispose() {
         stage.dispose();
         logo.dispose();
+        backgroundTexture.dispose();
+        batch.dispose();
     }
 
     @Override
