@@ -18,6 +18,7 @@ import inf112.firegirlwaterboy.model.managers.PlayerSet;
 import inf112.firegirlwaterboy.model.maps.MapManager;
 import inf112.firegirlwaterboy.model.maps.factories.WorldFactory;
 import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.sound.ISoundManager;
 import inf112.firegirlwaterboy.sound.SoundManager;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -64,7 +65,7 @@ public class ModelTest {
         mockCollectables = mock(CollectableSet.class);
         addedPlayers = new HashSet<>();
         mockElements = mock(EntitySet.class);
-        SoundManager mockSoundManager = mock(SoundManager.class);
+        ISoundManager mockSoundManager = mock(SoundManager.class);
         mockManager = mock(MapManager.class);
         mockFactory = mock(WorldFactory.class);
 

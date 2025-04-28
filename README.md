@@ -24,7 +24,6 @@ Ingen kjente feil til dags dato.
 * Sprite hode / elementer / glorie tegnet av Ingvild Hope.
 * Logo på fremsiden og tileset laget av chatGPT.
 * Credit: Oslo Albet
+* Game win sound fra : https://pixabay.com/sound-effects/yippee-147032/
 
-
- 
 
