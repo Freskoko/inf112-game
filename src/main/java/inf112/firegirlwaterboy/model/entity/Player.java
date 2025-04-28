@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Array;
 import inf112.firegirlwaterboy.controller.MovementType;
 import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.sound.SoundManager;
 
 /**
  * Player class represents a player character in the game.
@@ -156,6 +157,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     if (collectable.getRequiredPlayers().contains(playerType)) {
       collectedCount++;
       collectable.collect();
+      SoundManager.playDiamondSound();
     }
     powerUp |= collectable.getType().isPowerUp();
   }

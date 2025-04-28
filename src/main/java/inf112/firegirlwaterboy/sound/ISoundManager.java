@@ -12,11 +12,6 @@ public interface ISoundManager {
     void playDeathSound();
 
     /**
-     * Plays the diamond collection sound.
-     */
-    void playDiamondSound();
-
-    /**
      * Plays the map complete sound.
      */
     void playMapCompleteSound();

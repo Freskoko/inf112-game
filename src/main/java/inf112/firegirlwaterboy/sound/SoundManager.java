@@ -7,15 +7,17 @@ import com.badlogic.gdx.audio.Sound;
 public class SoundManager implements ISoundManager {
 
     private Sound deathSound;
-    private Sound diamondSound;
     private Sound mapCompleteSound;
     private Music backgroundMusic;
 
+    private static Sound diamondSound;
+
     public SoundManager() {
         deathSound = Gdx.audio.newSound(Gdx.files.internal("assets/sound/Death.ogg"));
-        diamondSound = Gdx.audio.newSound(Gdx.files.internal("assets/sound/Diamond.ogg"));
         mapCompleteSound = Gdx.audio.newSound(Gdx.files.internal("assets/sound/GameWin.ogg"));
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/sound/BackgroundMusic.ogg"));
+
+        diamondSound = Gdx.audio.newSound(Gdx.files.internal("assets/sound/Diamond.ogg"));
 
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(0.3f);
@@ -27,8 +29,7 @@ public class SoundManager implements ISoundManager {
         deathSound.play(1.0f);
     }
 
-    @Override
-    public void playDiamondSound() {
+    public static void playDiamondSound() {
         diamondSound.play(1.0f);
     }
 
