@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.view.ButtonDesigner;
@@ -36,7 +37,7 @@ public class ChooseMapScreen implements Screen {
 
     public ChooseMapScreen(Controller controller) {
         this.controller = controller;
-        viewport = new ScreenViewport();
+        viewport = new ExtendViewport(960, 960);
         stage = new Stage(viewport);
 
         batch = new SpriteBatch();
@@ -44,7 +45,7 @@ public class ChooseMapScreen implements Screen {
         font.setColor(Color.WHITE);
         font.getData().setScale(2f);
 
-        backgroundTexture = new Texture(Gdx.files.internal("assets/pages/ChooseMap.png"));
+        backgroundTexture = new Texture(Gdx.files.internal("assets/pages/ChooseMapBackground.png"));
 
         setupUI();
     }
@@ -54,18 +55,16 @@ public class ChooseMapScreen implements Screen {
         table.setFillParent(true);
         table.center().top().padTop(350);
 
-        Button map1Button = createImageButton("assets/pages/map1button.png", 350, 210);
-        map1Button.setName("map1");
-
+        Button map1Button = createImageButton("map1", "assets/pages/map1button.png", 350, 210);
         Button map2Button;
+
         if (controller.isMapComplete("map1")) {
-            map2Button = createImageButton("assets/pages/map2button.png", 350, 210);
+            map2Button = createImageButton("map2", "assets/pages/map2button.png", 350, 210);
             map2Button.setDisabled(false);
         } else {
-            map2Button = createImageButton("assets/pages/map2ButtonDark.png", 350, 210);
+            map2Button = createImageButton("map2", "assets/pages/map2ButtonDark.png", 350, 210);
             map2Button.setDisabled(true);
         }
-        map2Button.setName("map2");
 
         playButton = ButtonDesigner.createButton("Play", Color.valueOf("#607d4d"));
         playButton.setDisabled(true);
@@ -77,7 +76,6 @@ public class ChooseMapScreen implements Screen {
         table.add(map2Button).size(350, 210).padLeft(20);
 
         table.row().padTop(10);
-        BitmapFont font = new BitmapFont();
         font.getData().setScale(2f);
         font.setColor(Color.WHITE);
 
@@ -97,9 +95,12 @@ public class ChooseMapScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.setProjectionMatrix(stage.getCamera().combined);
         batch.begin();
-        batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.draw(backgroundTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         batch.end();
 
         stage.act(delta);
@@ -131,28 +132,36 @@ public class ChooseMapScreen implements Screen {
         stage.dispose();
         font.dispose();
         batch.dispose();
+        backgroundTexture.dispose();
 
     }
 
-    private Button createImageButton(String imagePath, int width, int height) {
+    // Method to create an ImageButton with a texture and a pressed state
+    private ImageButton createImageButton(String mapName, String imagePath, int width, int height) {
         Texture upTexture = new Texture(Gdx.files.internal(imagePath));
         TextureRegionDrawable drawableUp = new TextureRegionDrawable(upTexture);
 
-        ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle();
-        style.imageUp = drawableUp;
-
         String pressedImagePath = imagePath.replace(".png", "_Pressed.png");
-        FileHandle pressedHandle = Gdx.files.internal(pressedImagePath);
+        TextureRegionDrawable drawableDown;
 
+        FileHandle pressedHandle = Gdx.files.internal(pressedImagePath);
         if (pressedHandle.exists()) {
             Texture downTexture = new Texture(Gdx.files.internal(pressedImagePath));
-            TextureRegionDrawable drawableDown = new TextureRegionDrawable(downTexture);
-            style.imageDown = drawableDown;
+            drawableDown = new TextureRegionDrawable(downTexture);
+        } else {
+            drawableDown = drawableUp;
         }
+
+        ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle();
+        style.imageUp = drawableUp;
+        style.imageDown = drawableDown;
 
         ImageButton button = new ImageButton(style);
         button.setSize(width, height);
-        button.setName(imagePath);
+        button.setName(mapName);
+
+        button.setUserObject(new TextureRegionDrawable[] { drawableUp, drawableDown });
+
         return button;
     }
 
