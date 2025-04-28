@@ -25,10 +25,10 @@ import inf112.firegirlwaterboy.view.IViewModel;
 public class GameScreen implements Screen {
   private OrthographicCamera camera;
   private OrthogonalTiledMapRenderer renderer;
-  private Box2DDebugRenderer debugRenderer; // TODO TURN OFF DEBUG !!!
+  private Box2DDebugRenderer debugRenderer;
   private TiledMap map;
   private IViewModel model;
-  private Controller controller; // Må være her
+  private Controller controller; 
   private Viewport viewport;
   private Hud hud;
   private SpriteBatch batch;
@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
   /**
    * Constructs a GameScreen with a given view model and controller.
    * 
-   * @param model      The view model of the game
+   * @param model      The model of the game
    * @param controller The controller of the game
    */
   public GameScreen(IViewModel model, Controller controller) {
@@ -46,12 +46,16 @@ public class GameScreen implements Screen {
 
   @Override
   public void resize(int width, int height) {
-    float scale = 1.0f;
+    float mapWidth = map.getProperties().get("width", Integer.class);
+    float mapHeight = map.getProperties().get("height", Integer.class);
 
-    float newWorldWidth = (width / MapUtils.PPM) * scale;
-    float newWorldHeight = (height / MapUtils.PPM) * scale;
+    camera.viewportHeight = mapHeight;
+    camera.viewportWidth = mapWidth;
 
-    viewport.setWorldSize(newWorldWidth, newWorldHeight);
+    camera.position.set(mapWidth / 2, mapHeight / 2, 0);
+    camera.update();
+
+    viewport.setWorldSize(camera.viewportWidth, camera.viewportHeight);
     viewport.update(width, height, true);
   }
 
@@ -64,13 +68,9 @@ public class GameScreen implements Screen {
     viewport = new FitViewport(w / MapUtils.PPM, h / MapUtils.PPM, camera);
     viewport.apply(true);
 
-    camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
-    camera.update();
-
     batch = new SpriteBatch();
     hud = new Hud(batch, model);
 
-    // Load map
     map = model.getMap();
     renderer = new OrthogonalTiledMapRenderer(map, 1 / MapUtils.PPM);
     debugRenderer = new Box2DDebugRenderer();
@@ -80,18 +80,9 @@ public class GameScreen implements Screen {
 
   @Override
   public void render(float delta) {
-    // Added background color (usikker på om dette er nødvendig)
-    // Gdx.gl.glClearColor(0, 0, 0, 1);
-    // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    ////////////////////////////////////////
-
-    // Om vi senere vil at kamera skal flytte seg etter spilleren:
-    // camera.position = model.getPlayerPositions();
-
+    Gdx.gl.glClearColor(31 / 255f, 58 / 255f, 26 / 255f, 1f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    camera.update();
 
-    // Render the map
     renderer.setView(camera);
     renderer.render();
 
@@ -106,26 +97,19 @@ public class GameScreen implements Screen {
     batch.setProjectionMatrix(hud.getStage().getCamera().combined);
     hud.update(delta);
     hud.draw();
-
   }
 
   @Override
   @Generated("interface-stub")
-  public void resume() {
-
-  }
+  public void resume() {}
 
   @Override
   @Generated("interface-stub")
-  public void pause() {
-
-  }
+  public void pause() {}
 
   @Override
   @Generated("interface-stub")
-  public void hide() {
-
-  }
+  public void hide() {}
 
   @Override
   public void dispose() {
