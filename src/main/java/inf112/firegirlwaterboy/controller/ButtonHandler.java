@@ -3,7 +3,9 @@ package inf112.firegirlwaterboy.controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.types.PlayerType;
@@ -18,6 +20,7 @@ public class ButtonHandler implements IButtonHandler {
   private final Controller controller;
   private final IControllableModel model;
   private String selectedMapName = null;
+  private ImageButton selectedButton = null;
 
   public ButtonHandler(Controller controller, IControllableModel model) {
     this.controller = controller;
@@ -28,6 +31,7 @@ public class ButtonHandler implements IButtonHandler {
   public ClickListener getSelectPlayerListener(boolean isPlayerOne, PlayerType type) {
     return new ClickListener() {
       @Override
+
       public void clicked(InputEvent e, float x, float y) {
         if (controller.selectPlayer(type, isPlayerOne)) {
           e.getListenerActor().setColor(Color.GRAY);
@@ -73,12 +77,17 @@ public class ButtonHandler implements IButtonHandler {
       public void clicked(InputEvent e, float x, float y) {
         selectedMapName = mapName;
 
-        // Reset color
-        map1button.setColor(Color.WHITE);
-        map2button.setColor(Color.WHITE);
+        ImageButton clickedButton = (ImageButton) e.getListenerActor();
 
-        // Mark the selected button
-        e.getListenerActor().setColor(Color.GRAY);
+        if (selectedButton != null && selectedButton != clickedButton) {
+          TextureRegionDrawable[] textures = (TextureRegionDrawable[]) selectedButton.getUserObject();
+          ((ImageButton.ImageButtonStyle) selectedButton.getStyle()).imageUp = textures[0];
+        }
+
+        TextureRegionDrawable[] clickedTextures = (TextureRegionDrawable[]) clickedButton.getUserObject();
+        ((ImageButton.ImageButtonStyle) clickedButton.getStyle()).imageUp = clickedTextures[1];
+
+        selectedButton = clickedButton;
       }
     };
   }

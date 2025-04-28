@@ -5,21 +5,17 @@ import javax.annotation.processing.Generated;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.Color;
 
 import inf112.firegirlwaterboy.controller.Controller;
+import inf112.firegirlwaterboy.view.ButtonDesigner;
 
 /**
  * GameOverScreen class represents the screen displayed when the game is over.
@@ -31,20 +27,18 @@ public class GameOverScreen implements Screen {
   private Controller controller;
 
   private SpriteBatch batch;
-  private Texture gameOverImage;
-
+  private Texture backgroundTexture;
   private Stage stage;
   private Viewport viewport;
-  private Button chooseMapScreenButton = createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
+  private Button chooseMapScreenButton = ButtonDesigner.createButton("Return", Color.GRAY);
 
   public GameOverScreen(Controller controller) {
     this.controller = controller;
-    viewport = new ScreenViewport();
+    viewport = new ExtendViewport(960, 960);
     stage = new Stage(viewport);
     Gdx.input.setInputProcessor(stage);
     batch = new SpriteBatch();
-
-    gameOverImage = new Texture("assets/pages/GameOverText.png");
+    backgroundTexture = new Texture(Gdx.files.internal("assets/pages/GameOverScreen.png"));
 
     setupUI();
   }
@@ -52,44 +46,12 @@ public class GameOverScreen implements Screen {
   private void setupUI() {
     Table table = new Table();
     table.setFillParent(true);
-    table.top().padTop(50);
+    table.bottom().padBottom(90);
 
-    Image gameOverImgActor = new Image(gameOverImage);
-    table.add(gameOverImgActor).center().padBottom(50);
-    table.row();
-
-    controller.attachToChooseMapsListener(chooseMapScreenButton);
-    table.row();
+    controller.attachReturnToChooseMapsListener(chooseMapScreenButton);
     table.add(chooseMapScreenButton).center();
 
     stage.addActor(table);
-  }
-
-  // Method to create buttons with text and color
-  private Button createButton(String text, Color color) {
-    TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-
-    // Font
-    BitmapFont buttonFont = new BitmapFont();
-    buttonFont.getData().setScale(2);
-    style.font = buttonFont;
-    style.fontColor = Color.WHITE;
-
-    // Background
-    int width = 300;
-    int height = 80;
-    Pixmap pixmapUp = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-    pixmapUp.setColor(color);
-    pixmapUp.fill();
-
-    style.up = new TextureRegionDrawable(new Texture(pixmapUp));
-
-    pixmapUp.dispose();
-
-    TextButton button = new TextButton(text, style);
-    button.pad(10);
-    button.pad(10);
-    return button;
   }
 
   @Override
@@ -102,6 +64,11 @@ public class GameOverScreen implements Screen {
   public void render(float delta) {
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+    batch.setProjectionMatrix(stage.getCamera().combined);
+    batch.begin();
+    batch.draw(backgroundTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+    batch.end();
 
     stage.act(delta);
     stage.draw();
@@ -131,7 +98,7 @@ public class GameOverScreen implements Screen {
   public void dispose() {
     batch.dispose();
     stage.dispose();
-    gameOverImage.dispose();
+    backgroundTexture.dispose();
 
   }
 

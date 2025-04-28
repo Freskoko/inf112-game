@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.*;
 
 import inf112.firegirlwaterboy.controller.Controller;
+import inf112.firegirlwaterboy.view.ButtonDesigner;
 
 /**
  * HelpScreen class represents the help screen.
@@ -25,13 +26,14 @@ public class HelpScreen implements Screen {
     private Texture boxTexture;
 
     public HelpScreen(Controller controller) {
-        viewport = new ScreenViewport();
+        viewport = new ExtendViewport(960, 960);
+
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
         backgroundTexture = new Texture("assets/pages/background.png");
 
-        backButton = createButton("Back", Color.valueOf("#cab558"));
+        backButton = ButtonDesigner.createButton("Back", Color.valueOf("#607d4d"));
 
         setupUI();
         controller.attachToWelcomeListeners(backButton);
@@ -43,17 +45,17 @@ public class HelpScreen implements Screen {
         stage.addActor(backgroundImage);
 
         Pixmap whitePixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        whitePixmap.setColor(Color.valueOf("#cab558"));
+        whitePixmap.setColor(Color.valueOf("#607d4d"));
         whitePixmap.fill();
         boxTexture = new Texture(whitePixmap);
         whitePixmap.dispose();
         TextureRegionDrawable whiteBackground = new TextureRegionDrawable(new TextureRegion(boxTexture));
 
-        String instructionsText = "How to play:\n\n" +
-                "Select which player is should use WASD, and which player should use the arrowkeys\n\n" +
-                "Collect all diamonds and guide both characters to the door.\n\n" +
-                "The white diamond gives one extra life.\n\n" +
-                "Avoid obstacles - FireGirl can't touch water, and WaterBoy can't touch fire!";
+        String instructionsText = "How to Play:\n\n" +
+                "Choose character for player 1 and player 2. Player 1 uses arrow keys and player 2 uses WASD.\n\n" +
+                "Work together to collect all the diamonds and lead both characters to the exit door.\n\n" +
+                "White diamonds grant an extra life - grab them when you can!\n\n" +
+                "Avoid hazards: FireGirl can't touch water, WaterBoy can't touch fire, and no one can touch acid!";
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.BLACK);
         Label instructionsLabel = new Label(instructionsText, labelStyle);
@@ -76,32 +78,6 @@ public class HelpScreen implements Screen {
         backTable.top().right().pad(20);
         backTable.add(backButton).size(100, 50);
         stage.addActor(backTable);
-    }
-
-    // Method for creating a button with a given text and color
-    private Button createButton(String text, Color fillColor) {
-        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.font = new BitmapFont();
-        style.fontColor = Color.BLACK;
-
-        int width = 150;
-        int height = 50;
-        int borderWidth = 3;
-
-        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-
-        pixmap.setColor(Color.BLACK);
-        pixmap.fillRectangle(0, 0, width, height);
-        pixmap.setColor(fillColor);
-        pixmap.fillRectangle(borderWidth, borderWidth, width - 2 * borderWidth, height - 2 * borderWidth);
-
-        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new Texture(pixmap));
-        pixmap.dispose();
-
-        style.up = backgroundDrawable;
-        style.down = backgroundDrawable.tint(Color.GRAY);
-
-        return new TextButton(text, style);
     }
 
     @Override
@@ -140,5 +116,6 @@ public class HelpScreen implements Screen {
     public void dispose() {
         stage.dispose();
         backgroundTexture.dispose();
+        boxTexture.dispose();
     }
 }

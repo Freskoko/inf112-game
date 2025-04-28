@@ -88,7 +88,7 @@ public class ControllerTest {
         controller.attachToHelpListener(button);
         controller.attachToWelcomeListeners(button);
         controller.attachToActiveListener(button);
-        controller.attachToChooseMapsListener(button);
+        controller.attachReturnToChooseMapsListener(button);
 
         assertTrue(button.getListeners().size > 0);
     }

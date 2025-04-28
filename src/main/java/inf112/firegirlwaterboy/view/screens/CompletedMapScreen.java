@@ -5,40 +5,40 @@ import javax.annotation.processing.Generated;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.Color;
 
 import inf112.firegirlwaterboy.controller.Controller;
+import inf112.firegirlwaterboy.view.ButtonDesigner;
 
+/**
+ * CompletedMapScreen class represents the screen displayed when a map is
+ * completed. It shows a message indicating that the map is completed and a
+ * button to return to the Choose Maps screen.
+ * 
+ */
 public class CompletedMapScreen implements Screen {
 
   private Controller controller;
   private SpriteBatch batch;
-  private BitmapFont font;
   private Stage stage;
   private Viewport viewport;
-  private Button welcomeScreenButton = createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
+  private Button ToChooseMapScreenButton = ButtonDesigner.createButton("Return", Color.valueOf("#0583f2"));
+  private Texture backgroundTexture;
 
   public CompletedMapScreen(Controller controller) {
     this.controller = controller;
-    viewport = new ScreenViewport();
+    viewport = new ExtendViewport(960, 960);
     stage = new Stage(viewport);
     Gdx.input.setInputProcessor(stage);
     batch = new SpriteBatch();
-
-    font = new BitmapFont();
-    font.setColor(Color.BLUE);
-    font.getData().setScale(3);
+    backgroundTexture = new Texture(Gdx.files.internal("assets/pages/LevelCompletedScreen.png"));
 
     setupUI();
   }
@@ -47,40 +47,16 @@ public class CompletedMapScreen implements Screen {
   private void setupUI() {
     Table table = new Table();
     table.setFillParent(true);
-    table.bottom().padBottom(200);
-    table.center();
+    table.bottom().padBottom(90);
 
-    controller.attachToChooseMapsListener(welcomeScreenButton);
+    controller.attachReturnToChooseMapsListener(ToChooseMapScreenButton);
 
-    table.add(welcomeScreenButton);
+    table.add(ToChooseMapScreenButton).width(300)
+        .height(100)
+        .center();
+    ;
     stage.addActor(table);
 
-  }
-
-  // Method to create buttons with text and color
-  private Button createButton(String text, Color color) {
-    TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-
-    // Font
-    BitmapFont buttonFont = new BitmapFont();
-    buttonFont.getData().setScale(2);
-    style.font = buttonFont;
-    style.fontColor = Color.WHITE;
-
-    // Background
-    int width = 300;
-    int height = 80;
-    Pixmap pixmapUp = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-    pixmapUp.setColor(color);
-    pixmapUp.fill();
-
-    style.up = new TextureRegionDrawable(new Texture(pixmapUp));
-
-    pixmapUp.dispose();
-
-    TextButton button = new TextButton(text, style);
-    button.pad(10);
-    return button;
   }
 
   @Override
@@ -93,9 +69,9 @@ public class CompletedMapScreen implements Screen {
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+    batch.setProjectionMatrix(stage.getCamera().combined);
     batch.begin();
-    font.draw(batch, "Map completed!", Gdx.graphics.getWidth() / 2f - 150, Gdx.graphics.getHeight() / 2f + 20);
-
+    batch.draw(backgroundTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
     batch.end();
 
     stage.act(delta);
@@ -125,7 +101,7 @@ public class CompletedMapScreen implements Screen {
   @Override
   public void dispose() {
     batch.dispose();
-    font.dispose();
     stage.dispose();
+    backgroundTexture.dispose();
   }
 }

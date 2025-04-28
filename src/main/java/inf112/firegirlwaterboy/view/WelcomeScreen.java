@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.view.screens;
+package inf112.firegirlwaterboy.view;
 
 import javax.annotation.processing.Generated;
 
@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.*;
 
 import inf112.firegirlwaterboy.controller.Controller;
 import inf112.firegirlwaterboy.model.types.PlayerType;
-import inf112.firegirlwaterboy.view.ButtonDesigner;
 
 /**
  * WelcomeScreen class represents the welcome screen.
@@ -25,20 +24,19 @@ public class WelcomeScreen implements Screen {
     private final Viewport viewport;
     private final Texture logo;
     private final Controller controller;
-    private Button fireGirlButtonP1 = ButtonDesigner.createButton("FireGirl", Color.valueOf("#f23800"));
-    private Button waterBoyButtonP1 = ButtonDesigner.createButton("WaterBoy", Color.valueOf("#18beeb"));
-    private Button fireGirlButtonP2 = ButtonDesigner.createButton("FireGirl", Color.valueOf("#f23800"));
-    private Button waterBoyButtonP2 = ButtonDesigner.createButton("WaterBoy", Color.valueOf("#18beeb"));
-    private Button startButton = ButtonDesigner.createButton("Start", Color.valueOf("#607d4d"));
-    private Button helpButton = ButtonDesigner.createButton("Help", Color.valueOf("#607d4d"));
+    private Button fireGirlButtonP1 = createButton("FireGirl", Color.valueOf("#f23800"));
+    private Button waterBoyButtonP1 = createButton("WaterBoy", Color.valueOf("#18beeb"));
+    private Button fireGirlButtonP2 = createButton("FireGirl", Color.valueOf("f23800"));
+    private Button waterBoyButtonP2 = createButton("WaterBoy", Color.valueOf("#18beeb"));
+    private Button startButton = createButton("Start", Color.valueOf("#cab558"));
+    private Button helpButton = createButton("Help", Color.valueOf("#cab558"));
 
     private Texture backgroundTexture;
     private SpriteBatch batch;
 
     public WelcomeScreen(Controller controller) {
         this.controller = controller;
-
-        viewport = new ExtendViewport(960, 960);
+        viewport = new ScreenViewport();
 
         stage = new Stage(viewport);
         logo = new Texture("assets/pages/logo.png");
@@ -55,6 +53,7 @@ public class WelcomeScreen implements Screen {
         table.bottom().padBottom(200);
 
         // Button listeners sent to controller
+
         controller.attachSelectPlayerListener(fireGirlButtonP1, true, PlayerType.FIREGIRL);
         controller.attachSelectPlayerListener(waterBoyButtonP1, true, PlayerType.WATERBOY);
         controller.attachSelectPlayerListener(fireGirlButtonP2, false, PlayerType.FIREGIRL);
@@ -68,16 +67,20 @@ public class WelcomeScreen implements Screen {
 
         // Logo image
         Image logoImage = new Image(new TextureRegionDrawable(new TextureRegion(logo)));
+
+        // Set logo size
         float logoWidth = logo.getWidth();
         float logoHeight = logo.getHeight();
         logoImage.setSize(logoWidth, logoHeight);
+
+        // Add logo to the top of the player selection table
         playerSelectionTable.add(logoImage).colspan(2).center().padBottom(30);
         playerSelectionTable.row();
 
         // Player 1 selection
         Table p1Table = new Table();
-        Label player1Label = new Label("Player 1 choose your character:",
-                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label player1Label = new Label("Player 1 (uses arrows) choose your character:",
+                new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         p1Table.add(player1Label).colspan(2).center().padBottom(10);
         p1Table.row();
         p1Table.add(fireGirlButtonP1).size(150, 50).pad(10);
@@ -86,8 +89,8 @@ public class WelcomeScreen implements Screen {
 
         // Player 2 selection
         Table p2Table = new Table();
-        Label player2Label = new Label("Player 2 choose your character:",
-                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label player2Label = new Label("Player 2 (uses WASD) choose your character:",
+                new Label.LabelStyle(new BitmapFont(), Color.BLACK));
         p2Table.add(player2Label).colspan(2).center().padBottom(10);
         p2Table.row();
         p2Table.add(fireGirlButtonP2).size(150, 50).pad(10);
@@ -110,6 +113,35 @@ public class WelcomeScreen implements Screen {
         stage.addActor(helpTable);
     }
 
+    private Button createButton(String text, Color fillColor) {
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style.font = new BitmapFont();
+        style.fontColor = Color.BLACK;
+
+        // Knappestørrelse for bakgrunnspixmap
+        int width = 150;
+        int height = 50;
+        int borderWidth = 3;
+
+        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+
+        // Tegn svart ramme først
+        pixmap.setColor(Color.BLACK);
+        pixmap.fillRectangle(0, 0, width, height);
+
+        // Tegn fyll (inni rammen)
+        pixmap.setColor(fillColor);
+        pixmap.fillRectangle(borderWidth, borderWidth, width - 2 * borderWidth, height - 2 * borderWidth);
+
+        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new Texture(pixmap));
+        pixmap.dispose();
+
+        style.up = backgroundDrawable;
+        style.down = backgroundDrawable.tint(Color.GRAY);
+
+        return new TextButton(text, style);
+    }
+
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -121,10 +153,9 @@ public class WelcomeScreen implements Screen {
             Gdx.input.setInputProcessor(stage);
         }
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.setProjectionMatrix(stage.getCamera().combined);
+        batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         batch.end();
@@ -147,8 +178,6 @@ public class WelcomeScreen implements Screen {
     public void dispose() {
         stage.dispose();
         logo.dispose();
-        backgroundTexture.dispose();
-        batch.dispose();
     }
 
     @Override
