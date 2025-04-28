@@ -193,7 +193,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
 
     headTexture = new TextureRegion(
         new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-head.png")));
-      
+
     haloTexture = new TextureRegion(
         new Texture(Gdx.files.internal("assets/players/Halo.png")));
 
