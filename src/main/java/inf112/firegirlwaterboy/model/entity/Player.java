@@ -19,7 +19,8 @@ import com.badlogic.gdx.utils.Array;
 import inf112.firegirlwaterboy.controller.MovementType;
 import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.types.PlayerType;
-import inf112.firegirlwaterboy.sound.SoundManager;
+import inf112.firegirlwaterboy.sound.IPlayerSoundManager;
+import inf112.firegirlwaterboy.sound.PlayerSoundManager;
 
 /**
  * Player class represents a player character in the game.
@@ -41,6 +42,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   private Animation<TextureRegion> runningAnimation;
   private TextureRegion standingTexture, headTexture, haloTexture;
   private float stateTime;
+  private IPlayerSoundManager soundManager;
 
   private final float width = 1.0f;
   private final float height = 2.0f;
@@ -53,6 +55,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     super(new Texture(Gdx.files.internal("assets/players/" + playerType.name() + "-body.png")));
     this.playerType = playerType;
     initializeAnimations();
+    this.soundManager = new PlayerSoundManager();
   }
 
   @Override
@@ -78,6 +81,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   @Override
   public void dispose() {
     super.getTexture().dispose();
+    soundManager.dispose();
   }
 
   @Override
@@ -150,6 +154,9 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
       isAlive = true;
       powerUp = false;
     }
+    if (!isAlive) {
+      soundManager.playDeathSound();
+    }
   }
 
   @Override
@@ -157,7 +164,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
     if (collectable.getRequiredPlayers().contains(playerType)) {
       collectedCount++;
       collectable.collect();
-      SoundManager.playDiamondSound();
+      soundManager.playDiamondSound();
     }
     powerUp |= collectable.getType().isPowerUp();
   }

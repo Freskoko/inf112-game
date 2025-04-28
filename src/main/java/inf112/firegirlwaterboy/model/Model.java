@@ -77,7 +77,6 @@ public class Model implements IControllableModel, IViewModel {
 
     if (!players.areAlive()) {
       gameState = GameState.GAME_OVER;
-      soundManager.playDeathSound();
     }
 
     if (players.areFinished()) {
