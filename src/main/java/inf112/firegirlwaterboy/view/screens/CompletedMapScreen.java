@@ -5,7 +5,7 @@ import javax.annotation.processing.Generated;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -27,10 +27,10 @@ public class CompletedMapScreen implements Screen {
 
   private Controller controller;
   private SpriteBatch batch;
-  private BitmapFont font;
   private Stage stage;
   private Viewport viewport;
-  private Button welcomeScreenButton = ButtonDesigner.createButton("Back to Choose Maps Screen", Color.DARK_GRAY);
+  private Button ToChooseMapScreenButton = ButtonDesigner.createButton("Return", Color.valueOf("#0583f2"));
+  private Texture backgroundTexture;
 
   public CompletedMapScreen(Controller controller) {
     this.controller = controller;
@@ -38,10 +38,7 @@ public class CompletedMapScreen implements Screen {
     stage = new Stage(viewport);
     Gdx.input.setInputProcessor(stage);
     batch = new SpriteBatch();
-
-    font = new BitmapFont();
-    font.setColor(Color.BLUE);
-    font.getData().setScale(3);
+    backgroundTexture = new Texture(Gdx.files.internal("assets/pages/LevelCompletedScreen.png"));
 
     setupUI();
   }
@@ -50,12 +47,14 @@ public class CompletedMapScreen implements Screen {
   private void setupUI() {
     Table table = new Table();
     table.setFillParent(true);
-    table.bottom().padBottom(200);
-    table.center();
+    table.bottom().padBottom(90);
 
-    controller.attachReturnToChooseMapsListener(welcomeScreenButton);
+    controller.attachReturnToChooseMapsListener(ToChooseMapScreenButton);
 
-    table.add(welcomeScreenButton);
+    table.add(ToChooseMapScreenButton).width(300)
+        .height(100)
+        .center();
+    ;
     stage.addActor(table);
 
   }
@@ -72,7 +71,7 @@ public class CompletedMapScreen implements Screen {
 
     batch.setProjectionMatrix(stage.getCamera().combined);
     batch.begin();
-    font.draw(batch, "Map completed!", viewport.getWorldWidth() / 2f - 150, viewport.getWorldHeight() / 2f + 20);
+    batch.draw(backgroundTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
     batch.end();
 
     stage.act(delta);
@@ -102,7 +101,7 @@ public class CompletedMapScreen implements Screen {
   @Override
   public void dispose() {
     batch.dispose();
-    font.dispose();
     stage.dispose();
+    backgroundTexture.dispose();
   }
 }
