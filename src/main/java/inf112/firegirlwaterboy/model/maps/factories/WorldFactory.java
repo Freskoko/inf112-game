@@ -90,7 +90,7 @@ public class WorldFactory implements IWorldFactory {
 
   /**
    * Creates finish zone objects in the world from a given map layer.
-   * 
+   *
    * @param world The Box2D world where objects should be created.
    * @param layer The map layer containing finish zone objects.
    */
@@ -135,7 +135,7 @@ public class WorldFactory implements IWorldFactory {
 
   /**
    * Creates a polygon object in the world from a given map object.
-   * 
+   *
    * @param world     The Box2D world where the object should be created.
    * @param polygon   The map object to create a polygon from.
    * @param layerType The type of the layer the object belongs to.
@@ -168,7 +168,7 @@ public class WorldFactory implements IWorldFactory {
 
   /**
    * Creates a rectangle object in the world from a given map object.
-   * 
+   *
    * @param world     The Box2D world where the object should be created.
    * @param object    The map object to create a rectangle from.
    * @param layerType The type of the layer the object belongs to.

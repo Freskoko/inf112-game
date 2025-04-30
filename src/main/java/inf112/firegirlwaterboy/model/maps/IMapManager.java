@@ -47,7 +47,7 @@ public interface IMapManager {
   /**
    * Gets the player's spawn position from the map.
    * Returns a default position if objects are missing.
-   * 
+   *
    * @param map The map to get the spawn position from.
    * @param playerType The type of player (Firegirl or Waterboy).
    * @return The spawn position as a {@link Vector2}, or {@code DEFAULT_SPAWN_POS}

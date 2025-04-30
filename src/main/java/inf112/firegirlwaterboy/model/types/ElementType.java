@@ -17,7 +17,7 @@ public enum ElementType {
 
   /**
    * Returns the path to the texture for this element type.
-   * 
+   *
    * @return the path to the texture
    */
   public String[] getTexturePaths() {

@@ -16,7 +16,7 @@ public interface IWorldFactory {
   /**
    * Creates a new Box2D {@link World} and populates it with objects based on the
    * given Tiled map.
-   * 
+   *
    * @param map The {@link TiledMap} used to generate world objects.
    * @return A fully initialized {@link World} with objects added.
    */

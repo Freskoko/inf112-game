@@ -33,7 +33,7 @@ public class GameContactListener implements ContactListener {
 
   /**
    * Handles collision between platforms and other objects.
-   * 
+   *
    * @param contact the contact between two fixtures
    */
   private void handleplatformCollision(Contact contact) {
@@ -48,7 +48,7 @@ public class GameContactListener implements ContactListener {
 
   /**
    * Handles collision between player and other objects.
-   * 
+   *
    * @param contact       the contact between two fixtures
    * @param contactStatus true if the contact is beginning, false if it is ending
    */
