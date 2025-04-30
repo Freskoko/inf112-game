@@ -69,7 +69,7 @@ public class Element implements IEntity<ElementType> {
 
   /**
    * Creates an animation for the element based on its type.
-   * 
+   *
    * @param type The type of the element.
    * @return The animation for the element.
    */
@@ -86,7 +86,7 @@ public class Element implements IEntity<ElementType> {
 
   /**
    * Creates the body of the element in the given world.
-   * 
+   *
    * @param world The world in which the element will be created
    * @param pos The position of the element in the world
    */

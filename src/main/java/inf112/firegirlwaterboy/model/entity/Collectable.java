@@ -62,7 +62,7 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
   @Override
   public void update() {
     if (isCollected)
-      world.destroyBody(body);      
+      world.destroyBody(body);
   }
 
   @Override
@@ -92,9 +92,9 @@ public class Collectable implements IEntity<CollectableType>, ICollectable {
 
   /**
    * Creates the body of the collectable in the given world.
-   * 
+   *
    * @param world The world in which the collectable will be created
-   * @param pos The position of the collectable in the world
+   * @param pos   The position of the collectable in the world
    */
   private void createBody(World world, Vector2 pos) {
     BodyDef bdef = new BodyDef();

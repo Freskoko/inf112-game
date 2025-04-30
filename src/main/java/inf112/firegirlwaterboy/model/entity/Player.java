@@ -242,12 +242,12 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
       }
     }
   }
-  
-   /**
+
+  /**
    * Creates the body of the player in the given world.
-   * 
+   *
    * @param world The world in which the player will be created
-   * @param pos The position of the player in the world
+   * @param pos   The position of the player in the world
    */
   private void createBody(World world, Vector2 pos) {
     BodyDef bdef = new BodyDef();

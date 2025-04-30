@@ -40,7 +40,7 @@ public class Platform implements IEntity<ElementType>, IPlatform {
     this.width = MapUtils.getWidth(platform);
     this.height = MapUtils.getHeight(platform);
     this.pos = new Vector2(MapUtils.getCX(platform), MapUtils.getCY(platform));
-    
+
     createBody(world, pos);
   }
 
@@ -88,9 +88,9 @@ public class Platform implements IEntity<ElementType>, IPlatform {
 
   /**
    * Creates the body of the platform in the given world.
-   * 
+   *
    * @param world The world in which the platform will be created
-   * @param pos The position of the platform in the world
+   * @param pos   The position of the platform in the world
    */
   private void createBody(World world, Vector2 pos) {
     BodyDef bdef = new BodyDef();

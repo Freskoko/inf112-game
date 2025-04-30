@@ -6,7 +6,7 @@ public interface IPlatform {
 
   /**
    * Returns the body of the platform.
-   * 
+   *
    * @return The body of the platform.
    */
   Body getBody();
