@@ -1,7 +1,6 @@
 package inf112.firegirlwaterboy.app;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 import inf112.firegirlwaterboy.controller.Controller;
@@ -40,7 +39,6 @@ public class FireGirlWaterBoy extends Game {
   @Override
   public void create() {
     setScreen(getScreen(currentGameState));
-    Gdx.input.setInputProcessor(controller);
     soundManager = new SoundManager();
     model.setSoundManager(soundManager);
   }
@@ -89,5 +87,4 @@ public class FireGirlWaterBoy extends Game {
         throw new IllegalArgumentException("Unknown game state: " + gameState);
     }
   }
-
 }
