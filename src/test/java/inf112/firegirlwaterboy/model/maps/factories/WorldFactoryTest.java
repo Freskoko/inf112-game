@@ -194,7 +194,7 @@ public class WorldFactoryTest {
         Fixture mockFixture = mock(Fixture.class);
 
         when(mockPolygon.getPolygon()).thenReturn(mockPolygonShape);
-        float[] vertices = new float[]{0, 0, 10, 0, 10, 10, 0, 10};
+        float[] vertices = new float[] { 0, 0, 10, 0, 10, 10, 0, 10 };
         when(mockPolygonShape.getTransformedVertices()).thenReturn(vertices);
         when(mockWorld.createBody(any(BodyDef.class))).thenReturn(mockBody);
         when(mockBody.createFixture(any(FixtureDef.class))).thenReturn(mockFixture);

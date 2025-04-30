@@ -22,7 +22,8 @@ public class HelpScreenTest {
     @ManualTest
     void testResize() {
         /*
-         * Resizing the HelpScreen causes on screen widgets move accordingly, nicely taking up place.
+         * Resizing the HelpScreen causes on screen widgets move accordingly, nicely
+         * taking up place.
          */
         assertTrue(true);
     }
