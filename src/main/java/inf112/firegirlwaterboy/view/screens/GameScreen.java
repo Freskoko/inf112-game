@@ -49,23 +49,20 @@ public class GameScreen implements Screen {
     float mapWidth = map.getProperties().get("width", Integer.class);
     float mapHeight = map.getProperties().get("height", Integer.class);
 
-    camera.viewportHeight = mapHeight;
     camera.viewportWidth = mapWidth;
+    camera.viewportHeight = mapHeight;
 
     camera.position.set(mapWidth / 2, mapHeight / 2, 0);
     camera.update();
 
-    viewport.setWorldSize(camera.viewportWidth, camera.viewportHeight);
+    viewport.setWorldSize(mapWidth, mapHeight);
     viewport.update(width, height, true);
   }
 
   @Override
   public void show() {
-    float w = Gdx.graphics.getWidth();
-    float h = Gdx.graphics.getHeight();
-
     camera = new OrthographicCamera();
-    viewport = new FitViewport(w / MapUtils.PPM, h / MapUtils.PPM, camera);
+    viewport = new FitViewport(Gdx.graphics.getWidth() / MapUtils.PPM, Gdx.graphics.getHeight() / MapUtils.PPM, camera);
     viewport.apply(true);
 
     batch = new SpriteBatch();
