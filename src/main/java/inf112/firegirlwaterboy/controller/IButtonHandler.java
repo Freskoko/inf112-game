@@ -15,7 +15,7 @@ public interface IButtonHandler {
      * Creates a ClickListener for selecting a player.
      * If the selection is valid (not already taken), the button is marked as
      * selected.
-     * 
+     *
      * @param isPlayerOne Boolean indicating if the player is player one or two
      * @param type        The type of player (FIREGIRL or WATERBOY)
      * @return a clicklistener for handling player selection
@@ -25,21 +25,21 @@ public interface IButtonHandler {
     /**
      * If both players have selected a playerType, gamestate will change to
      * CHOOSE_MAP
-     * 
+     *
      * @return a clicklistener for handlig map selection
      */
     public ClickListener getToChooseMapListener();
 
     /**
      * Changes the gamestate to HELP
-     * 
+     *
      * @return a clicklistener that changes the gamestate to HELP
      */
     public ClickListener getToHelpListener();
 
     /**
      * Changes the gamestate to WELCOME
-     * 
+     *
      * @return a clicklistener that changes the gamestate to WELCOME
      */
     public ClickListener getToWelcomeListener();
@@ -47,7 +47,7 @@ public interface IButtonHandler {
     /**
      * Buttons used to select map
      * Updates the button visuals to reflect which map is selected.
-     * 
+     *
      * @param mapName    The name of the map to set
      * @param map1button The button used to select map 1
      * @param map2button The button used to select map 2
@@ -58,7 +58,7 @@ public interface IButtonHandler {
     /**
      * Sets the gamestate to ACTIVE_GAME and starts the game (only if a map has been
      * selected).
-     * 
+     *
      * @return a clicklistener that starts the game
      */
     public ClickListener getToActiveListener();
