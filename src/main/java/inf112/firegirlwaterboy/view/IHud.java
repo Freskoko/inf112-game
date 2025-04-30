@@ -20,14 +20,14 @@ public interface IHud {
 
     /**
      * Returns the stage.
-     * 
+     *
      * @return stage
      */
     public Stage getStage();
 
     /**
      * Update the score and time.
-     * 
+     *
      * @param deltaTime
      */
     public void update(float deltaTime);
@@ -39,7 +39,7 @@ public interface IHud {
 
     /**
      * Update the score and scoreLabel.
-     * 
+     *
      * @param newScore
      */
     public void updateScore(int newScore);
