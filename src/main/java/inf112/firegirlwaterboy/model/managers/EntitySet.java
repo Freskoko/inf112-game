@@ -10,7 +10,7 @@ import inf112.firegirlwaterboy.model.entity.IEntity;
 /**
  * EntitySet is a class that holds a collection of entities.
  * It is used to draw and dispose of entities.
- * 
+ *
  * @param <E> Entity
  */
 public class EntitySet<E extends IEntity<?>> implements Iterable<E>, IEntitySet<E> {
