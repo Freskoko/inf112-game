@@ -5,8 +5,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Platform;
-import inf112.firegirlwaterboy.model.managers.CollectableSet;
-import inf112.firegirlwaterboy.model.managers.EntitySet;
+import inf112.firegirlwaterboy.model.entity.managers.CollectableSet;
+import inf112.firegirlwaterboy.model.entity.managers.EntitySet;
 
 /**
  * Interface for creating and populating a Box2D world from a Tiled map.

@@ -15,12 +15,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.GameContactListener;
 import inf112.firegirlwaterboy.model.entity.Element;
-import inf112.firegirlwaterboy.model.managers.CollectableSet;
-import inf112.firegirlwaterboy.model.managers.EntitySet;
 import inf112.firegirlwaterboy.model.maps.IMapManager;
 import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.entity.Platform;
+import inf112.firegirlwaterboy.model.entity.managers.CollectableSet;
+import inf112.firegirlwaterboy.model.entity.managers.EntitySet;
 
 /**
  * Manages loading and interacting with tiled maps in the game.

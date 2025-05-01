@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.model.managers;
+package inf112.firegirlwaterboy.model.entity.managers;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 

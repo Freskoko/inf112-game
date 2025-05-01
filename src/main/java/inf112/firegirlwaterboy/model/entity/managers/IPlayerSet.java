@@ -1,7 +1,7 @@
-package inf112.firegirlwaterboy.model.managers;
+package inf112.firegirlwaterboy.model.entity.managers;
 
 import inf112.firegirlwaterboy.model.entity.Player;
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 
 /**
  * Interface for a set of players.

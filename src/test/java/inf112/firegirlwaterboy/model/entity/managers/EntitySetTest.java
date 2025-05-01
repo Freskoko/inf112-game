@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.model.managers;
+package inf112.firegirlwaterboy.model.entity.managers;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.IEntity;
-import inf112.firegirlwaterboy.model.entity.managers.EntitySet;
 import inf112.firegirlwaterboy.model.entity.types.ElementType;
 
 import org.junit.jupiter.api.BeforeEach;
