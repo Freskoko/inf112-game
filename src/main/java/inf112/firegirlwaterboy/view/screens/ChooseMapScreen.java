@@ -54,11 +54,11 @@ public class ChooseMapScreen implements Screen {
     table.setFillParent(true);
     table.center().top().padTop(350);
 
-    Button map1Button = createImageButton("map1", "assets/pages/buttons/map1button.png", 350, 210);
+    Button map1Button = createImageButton("map1", "assets/pages/buttons/map1Button.png", 350, 210);
     Button map2Button;
 
     if (controller.isMapComplete("map1")) {
-      map2Button = createImageButton("map2", "assets/pages/buttons/map2button.png", 350, 210);
+      map2Button = createImageButton("map2", "assets/pages/buttons/map2Button.png", 350, 210);
       map2Button.setDisabled(false);
     } else {
       map2Button = createImageButton("map2", "assets/pages/buttons/map2ButtonDark.png", 350, 210);
