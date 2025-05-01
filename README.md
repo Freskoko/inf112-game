@@ -17,6 +17,18 @@ Firegirl og Waterboy må samarbeide for å komme seg trygt gjennom spennende og 
 
 Ingen kjente feil til dags dato.
 
+## Brukerveiledning
+
+1. Åpne spillet
+2. Velg controls for spillerne, og trykk "Start"
+3. Velg map, og trykk "Play"
+4. Spill mappet med WASD eller pilene for å styre spillerne
+   1. Hold deg unna ditt motsatte element,
+   2. Firegirl dør til vann, Waterboy dør til fire. Begge dør til grønn syre!
+   3. Hent diamonds
+   4. Kom dere til slutten!
+5. Etter å ha spilt level 1, kan man velge level 2.
+
 ## Credits
 * Tatt utgangspunkt ifra https://en.wikipedia.org/wiki/Fireboy_and_Watergirl
 * Sprites kroppene er hentet fra https://www.spriters-resource.com/fullview/217382/
