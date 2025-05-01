@@ -23,12 +23,15 @@ public class ButtonDesigner {
      */
     public static Button createButton(String text, Color fillColor) {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.font = new BitmapFont();
+        BitmapFont font = new BitmapFont();
+        font.getData().setScale(1.5f); 
+
+        style.font = font;
         style.fontColor = Color.BLACK;
 
-        int width = 150;
-        int height = 50;
-        int borderWidth = 3;
+        int width = 200;
+        int height = 75;
+        int borderWidth = 4;
         int radius = 10;
 
         Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
