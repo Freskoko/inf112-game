@@ -97,22 +97,22 @@
     <property name="type" value="water"/>
    </properties>
   </object>
-  <object id="371" x="191" y="753.5" width="96" height="32">
+  <object id="371" x="192.25" y="767.5" width="96" height="16.75">
    <properties>
     <property name="type" value="water"/>
    </properties>
   </object>
-  <object id="372" x="480" y="912" width="96" height="32">
+  <object id="372" x="480" y="927.5" width="96" height="16.5">
    <properties>
     <property name="type" value="water"/>
    </properties>
   </object>
-  <object id="366" x="192" y="912" width="96" height="32">
+  <object id="366" x="192" y="928" width="96" height="16">
    <properties>
     <property name="type" value="lava"/>
    </properties>
   </object>
-  <object id="367" x="480" y="752" width="96" height="32">
+  <object id="367" x="480" y="768.25" width="96" height="15.75">
    <properties>
     <property name="type" value="lava"/>
    </properties>
@@ -122,12 +122,12 @@
     <property name="type" value="lava"/>
    </properties>
   </object>
-  <object id="535" x="288" y="272" width="192" height="32">
+  <object id="535" x="288" y="287" width="192" height="17">
    <properties>
     <property name="type" value="acid"/>
    </properties>
   </object>
-  <object id="536" x="576" y="272" width="224" height="32">
+  <object id="536" x="576" y="287.5" width="224" height="16.5">
    <properties>
     <property name="type" value="acid"/>
    </properties>
