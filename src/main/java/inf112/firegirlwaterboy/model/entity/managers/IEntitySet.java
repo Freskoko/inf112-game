@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 import inf112.firegirlwaterboy.model.entity.IEntity;
 
+/**
+ * Interface that defines a set of entities.
+ * 
+ * @param <E> Entity
+ */
 public interface IEntitySet<E extends IEntity<?>> {
 
   /**
@@ -27,14 +32,17 @@ public interface IEntitySet<E extends IEntity<?>> {
   void dispose();
 
   /**
-   * @return true if this entitySet is empty, false otherwise
+   * Checks if the entitySet is empty
+   * 
+   * @return True if this entitySet is empty, false otherwise
    */
   boolean isEmpty();
 
   /**
-   *
+   * Checks if the entitySet contains the given entity
+   * 
    * @param entity The entity to be checked
-   * @return true if entitySet contains enitity, false otherwise
+   * @return True if entitySet contains enitity, false otherwise
    */
   boolean contains(E entity);
 

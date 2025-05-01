@@ -77,6 +77,12 @@ public class WorldFactory implements IWorldFactory {
     return collectables;
   }
 
+  /**
+   * Creates objects in the world based on the map layers.
+   * 
+   * @param world The Box2D world where objects should be created.
+   * @param map  The TiledMap used to generate world objects.
+   */
   private void createObjectsInWorld(World world, TiledMap map) {
     for (MapLayer layer : map.getLayers()) {
       switch (LayerType.valueOf(layer.getName())) {
@@ -145,8 +151,7 @@ public class WorldFactory implements IWorldFactory {
     bdef.type = BodyDef.BodyType.StaticBody;
 
     Body body = world.createBody(bdef);
-
-     float[] vertices = polygon.getPolygon().getTransformedVertices();
+    float[] vertices = polygon.getPolygon().getTransformedVertices();
     Vector2[] worldVertices = new Vector2[vertices.length / 2];
 
     for (int i = 0; i < worldVertices.length; i++) {

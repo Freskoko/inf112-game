@@ -17,9 +17,9 @@ import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 import inf112.firegirlwaterboy.model.maps.IMapManager;
 import inf112.firegirlwaterboy.model.maps.MapManager;
 import inf112.firegirlwaterboy.model.maps.factories.WorldFactory;
+import inf112.firegirlwaterboy.model.sound.ISoundManager;
 import inf112.firegirlwaterboy.model.maps.factories.IWorldFactory;
 import inf112.firegirlwaterboy.model.maps.factories.StandardGameObjectsFactory;
-import inf112.firegirlwaterboy.sound.ISoundManager;
 import inf112.firegirlwaterboy.view.IViewModel;
 
 /**

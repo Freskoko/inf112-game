@@ -7,10 +7,10 @@ import com.badlogic.gdx.maps.MapObject;
  */
 public final class MapUtils {
 
+  public static final float PPM = 32;
+
   private MapUtils() {
   }
-
-  public static final float PPM = 32;
 
   /**
    * Retrieves the Y-coordinate of a map object, scaled by PPM to match to world units.

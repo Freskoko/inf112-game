@@ -12,10 +12,10 @@ import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 public interface IMapManager {
 
   /**
-   * Retrieves a {@link TiledMap} by its name.
+   * Retrieves a TiledMap by its name.
    *
    * @param mapName The name of the map (without file extension).
-   * @return The corresponding {@link TiledMap}.
+   * @return The corresponding TiledMap.
    * @throws IllegalArgumentException If the map is not found.
    */
   TiledMap getMap(String mapName);
@@ -25,7 +25,7 @@ public interface IMapManager {
    *
    * @param map       The map from which to retrieve the layer.
    * @param layerType The type of the layer to retrieve.
-   * @return The {@link MapLayer} corresponding to the given type.
+   * @return The MapLayer corresponding to the given type.
    * @throws IllegalArgumentException If the layer is not found in the map.
    */
   MapLayer getLayer(TiledMap map, LayerType layerType);
@@ -34,7 +34,7 @@ public interface IMapManager {
    * Checks whether the specified map has been completed.
    *
    * @param mapName The name of the map to check.
-   * @return {@code true} if the map is completed, {@code false} otherwise.
+   * @return True if the map is completed, false otherwise.
    */
   boolean isComplete(String mapName);
 
@@ -51,8 +51,7 @@ public interface IMapManager {
    *
    * @param map The map to get the spawn position from.
    * @param playerType The type of player (Firegirl or Waterboy).
-   * @return The spawn position as a {@link Vector2}, or {@code DEFAULT_SPAWN_POS}
-   *         if missing.
+   * @return The spawn position as a Vector2, or DEFAULT_SPAWN_POS if missing.
    */
   Vector2 getSpawnPos(TiledMap map, PlayerType playerType);
 }

@@ -16,7 +16,7 @@ import inf112.firegirlwaterboy.model.entity.Player;
 import inf112.firegirlwaterboy.model.maps.LayerType;
 
 /**
- * MyContactListener listens for contacts events in the physics world.
+ * GameContactListener listens for contact events in the physics world.
  */
 public class GameContactListener implements ContactListener {
 
@@ -33,8 +33,8 @@ public class GameContactListener implements ContactListener {
 
   /**
    * Handles collision between platforms and other objects.
-   *
-   * @param contact the contact between two fixtures
+   * 
+   * @param contact The contact between the two fixtures
    */
   private void handleplatformCollision(Contact contact) {
     Object a = contact.getFixtureA().getUserData();
@@ -48,9 +48,9 @@ public class GameContactListener implements ContactListener {
 
   /**
    * Handles collision between player and other objects.
-   *
-   * @param contact       the contact between two fixtures
-   * @param contactStatus true if the contact is beginning, false if it is ending
+   * 
+   * @param contact       The contact between the two fixtures
+   * @param contactStatus True if the contact is beginning, false if it is ending
    */
   private void hanldePlayerContact(Contact contact, Boolean contactStatus) {
     Object a = contact.getFixtureA().getUserData();
@@ -79,33 +79,22 @@ public class GameContactListener implements ContactListener {
     }
   }
 
+  /**
+   * Checks if either of the given objects is of the specified layer type.
+   */
   private boolean isLayerType(Object a, Object b, LayerType layerType) {
     return a == layerType || b == layerType;
   }
 
-  @Override
-  @Generated("interface-stub")
-  public void postSolve(Contact arg0, ContactImpulse arg1) {
-  }
-
-  @Override
-  @Generated("interface-stub")
-  public void preSolve(Contact arg0, Manifold arg1) {
-  }
-
   /**
    * Retrieves an entity of the specified type from two given objects.
-   * This method checks whether either of the objects is an instance of the given
-   * class and returns the first matching entity.
    *
-   * @param <T>   the type of entity to retrieve, extending {@code IEntity<?>}
-   * @param a     the first object to check
-   * @param b     the second object to check
-   * @param clazz the class type of the entity to retrieve
-   * @return an instance of {@code T} if one of the objects matches the specified
-   *         type, otherwise {@code null}
+   * @param <T>   The type of entity to retrieve, extending IEntity<?>
+   * @param a     The first object to check
+   * @param b     The second object to check
+   * @param clazz The class type of the entity to retrieve
+   * @return An instance of T if one of the objects matches the specified type, otherwise null
    */
-
   private <T extends IEntity<?>> T getEntity(Object a, Object b, Class<T> clazz) {
     if (clazz.isInstance(a)) {
       return clazz.cast(a);
@@ -115,4 +104,12 @@ public class GameContactListener implements ContactListener {
     }
     return null;
   }
+
+  @Override
+  @Generated("interface-stub")
+  public void postSolve(Contact arg0, ContactImpulse arg1) {}
+
+  @Override
+  @Generated("interface-stub")
+  public void preSolve(Contact arg0, Manifold arg1) {}
 }

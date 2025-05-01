@@ -24,6 +24,7 @@ import inf112.firegirlwaterboy.model.maps.MapUtils;
  * Elements are static objects that can be interacted with by players.
  */
 public class Element implements IEntity<ElementType> {
+
   private Animation<TextureRegion> animation;
   private float stateTime = 0f;
   private ElementType type;

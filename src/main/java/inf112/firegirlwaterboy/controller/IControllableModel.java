@@ -2,7 +2,7 @@ package inf112.firegirlwaterboy.controller;
 
 import inf112.firegirlwaterboy.model.GameState;
 import inf112.firegirlwaterboy.model.entity.types.PlayerType;
-import inf112.firegirlwaterboy.sound.ISoundManager;
+import inf112.firegirlwaterboy.model.sound.ISoundManager;
 
 /**
  * Interface for the controllable model.
@@ -18,23 +18,24 @@ public interface IControllableModel {
 
   /**
    * Set gamestate of model to given gamestate
-   *
-   * @param gameState
-   *
+   * 
+   * @param gameState The gamestate to set
    */
   void setGameState(GameState gameState);
 
   /**
+   * Change the direction of the player
+   * 
    * @param player to move
-   * @param dirX
+   * @param dirX the x direction to move
    * @return return true if move was done, if not false
    */
   boolean changeDir(PlayerType player, MovementType dir);
 
   /**
    * Add player to the game
-   *
-   * @param playerType
+   * 
+   * @param playerType The type of player to add
    */
   void addPlayer(PlayerType playerType);
 
@@ -45,24 +46,23 @@ public interface IControllableModel {
 
   /**
    * Set the map to the given map name
-   *
-   * @param mapName the name of the map to set
+   * 
+   * @param mapName The name of the map to set
    */
   void setMap(String mapName);
 
   /**
    * Checks whether the specified map is marked as completed.
    *
-   * @param mapName the name of the map to check
-   * @return {@code true} if the map has been completed; {@code false} otherwise
+   * @param mapName The name of the map to check
+   * @return true if the map has been completed, false otherwise
    */
   boolean isComplete(String string);
 
   /**
    * Sets the sound manager for the model.
    *
-   * @param soundManager the sound manager to set
+   * @param soundManager The sound manager to set
    */
   public void setSoundManager(ISoundManager soundManager);
-
 }

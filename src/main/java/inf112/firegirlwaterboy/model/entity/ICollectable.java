@@ -11,12 +11,16 @@ import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 public interface ICollectable {
 
   /**
+   * Returns the PlayerTypes that can collect this item.
+   * 
    * @return The set of PlayerTypes that can to collect this item.
    */
   Set<PlayerType> getRequiredPlayers();
 
   /**
-   * @return true if the item has been collected, false otherwise.
+   * Checks if the item has been collected.
+   * 
+   * @return True if the item has been collected, false otherwise.
    */
   boolean isCollected();
 

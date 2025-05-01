@@ -24,8 +24,7 @@ public class MapManager implements IMapManager {
   /**
    * Loads all Tiled maps (*.tmx) from the resources folder into a HashMap.
    *
-   * @return A {@link HashMap} mapping map names (file names without ".tmx") to
-   *         {@link TiledMap} objects.
+   * @return A HashMap mapping map names (file names without ".tmx") to TiledMap objects.
    */
   private HashMap<String, TiledMap> loadAllMaps() {
     HashMap<String, TiledMap> maps = new HashMap<>();

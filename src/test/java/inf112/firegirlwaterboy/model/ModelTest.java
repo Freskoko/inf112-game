@@ -18,8 +18,8 @@ import inf112.firegirlwaterboy.model.entity.managers.PlayerSet;
 import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 import inf112.firegirlwaterboy.model.maps.MapManager;
 import inf112.firegirlwaterboy.model.maps.factories.WorldFactory;
-import inf112.firegirlwaterboy.sound.ISoundManager;
-import inf112.firegirlwaterboy.sound.SoundManager;
+import inf112.firegirlwaterboy.model.sound.ISoundManager;
+import inf112.firegirlwaterboy.model.sound.SoundManager;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
