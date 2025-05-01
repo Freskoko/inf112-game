@@ -128,7 +128,7 @@ public class ChooseMapScreen implements Screen {
     Texture upTexture = new Texture(Gdx.files.internal(imagePath));
     TextureRegionDrawable drawableUp = new TextureRegionDrawable(upTexture);
 
-    String pressedImagePath = imagePath.replace(".png", "_Pressed.png");
+    String pressedImagePath = imagePath.replace(".png", "Pressed.png");
     TextureRegionDrawable drawableDown;
 
     FileHandle pressedHandle = Gdx.files.internal(pressedImagePath);
