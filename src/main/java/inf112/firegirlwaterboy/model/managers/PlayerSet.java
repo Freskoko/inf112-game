@@ -5,7 +5,7 @@ import inf112.firegirlwaterboy.model.types.PlayerType;
 
 /**
  * A specialized set for managing Player entities in the game.
- * 
+ *
  * Enforces a maximum of two players, and provides utility methods
  * for querying player status and score.
  */

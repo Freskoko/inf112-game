@@ -169,15 +169,15 @@ public class PlayerTest {
     @Test
     void testMoveDown() {
         player.spawn(mockWorld, new Vector2(0, 0));
-        assertThrows( IllegalArgumentException.class, () -> player.move(MovementType.DOWN) );
-    } 
+        assertThrows(IllegalArgumentException.class, () -> player.move(MovementType.DOWN));
+    }
 
     @Test
     void testGetCollectedCount() {
         player.spawn(mockWorld, new Vector2(0, 0));
         assertEquals(0, player.getCollectedCount());
         Collectable mockCollectable = mock(Collectable.class);
-        
+
         CollectableType mockType = mock(CollectableType.class);
         Set<PlayerType> requiredPlayerSet = new HashSet<>();
         requiredPlayerSet.add(player.getType());

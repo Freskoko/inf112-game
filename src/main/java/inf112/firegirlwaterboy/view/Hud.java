@@ -24,7 +24,7 @@ public class Hud implements IHud {
 
     /**
      * Constructor for the Hud class.
-     * 
+     *
      * @param batch
      */
     public Hud(SpriteBatch batch, IViewModel model) {

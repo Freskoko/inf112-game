@@ -26,7 +26,6 @@ public class Controller extends InputAdapter implements IController {
     this.bh = new ButtonHandler(this, model);
   }
 
-
   @Override
   public boolean selectPlayer(PlayerType playerType, boolean isPlayerOne) {
     if (isPlayerOne) {
@@ -129,7 +128,6 @@ public class Controller extends InputAdapter implements IController {
       default -> null;
     };
   }
-
 
   @Override
   public boolean isMapComplete(String mapName) {

@@ -27,7 +27,7 @@ public interface IViewModel {
 
   /**
    * Renders the game using the given batch.
-   * 
+   *
    * @param batch The batch used for rendering the game
    */
   void draw(Batch batch);
@@ -39,14 +39,14 @@ public interface IViewModel {
 
   /**
    * Retrieves the current map of the game.
-   * 
+   *
    * @return The active map of the game
    */
   TiledMap getMap();
 
   /**
    * Returns the current physics world associated with this game.
-   * 
+   *
    * @return the physics world used by this game instance
    */
   World getWorld();
@@ -58,7 +58,7 @@ public interface IViewModel {
 
   /**
    * Get the total score collected by the players
-   * 
+   *
    * @return the total score collected by the player
    */
   int getScore();

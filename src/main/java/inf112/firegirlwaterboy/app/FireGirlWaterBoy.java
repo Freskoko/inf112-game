@@ -55,9 +55,9 @@ public class FireGirlWaterBoy extends Game {
 
   /**
    * Returns appropriate screen based on the current game state.
-   * 
+   *
    * This method ensures that the correct screen is returned for each game state.
-   * 
+   *
    * @param gameState The current state of the game.
    * @return a new corresponding Screen instance for the given game state.
    */

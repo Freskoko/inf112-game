@@ -12,7 +12,7 @@ public interface IPlayerSet extends IEntitySet<Player> {
 
     /**
      * Returns the total score collected by all players.
-     * 
+     *
      * @return
      */
     public int getScore();

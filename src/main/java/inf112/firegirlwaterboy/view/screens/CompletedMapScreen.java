@@ -21,7 +21,6 @@ import inf112.firegirlwaterboy.view.ButtonDesigner;
  * CompletedMapScreen class represents the screen displayed when a map is
  * completed. It shows a message indicating that the map is completed and a
  * button to return to the Choose Maps screen.
- * 
  */
 public class CompletedMapScreen implements Screen {
 

@@ -8,7 +8,7 @@ public interface IEntitySet<E extends IEntity<?>> {
 
   /**
    * Add entity to collection
-   * 
+   *
    * @param entity The entity to be added
    * @throws IllegalArgumentException if player already exists
    */
@@ -16,7 +16,7 @@ public interface IEntitySet<E extends IEntity<?>> {
 
   /**
    * Draws all entities contained in the set using the given batch
-   * 
+   *
    * @param batch The batch used for rendering
    */
   void draw(Batch batch);
@@ -32,7 +32,7 @@ public interface IEntitySet<E extends IEntity<?>> {
   boolean isEmpty();
 
   /**
-   * 
+   *
    * @param entity The entity to be checked
    * @return true if entitySet contains enitity, false otherwise
    */

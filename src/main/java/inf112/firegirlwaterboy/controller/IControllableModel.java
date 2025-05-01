@@ -18,9 +18,9 @@ public interface IControllableModel {
 
   /**
    * Set gamestate of model to given gamestate
-   * 
+   *
    * @param gameState
-   * 
+   *
    */
   void setGameState(GameState gameState);
 
@@ -33,7 +33,7 @@ public interface IControllableModel {
 
   /**
    * Add player to the game
-   * 
+   *
    * @param playerType
    */
   void addPlayer(PlayerType playerType);
@@ -45,7 +45,7 @@ public interface IControllableModel {
 
   /**
    * Set the map to the given map name
-   * 
+   *
    * @param mapName the name of the map to set
    */
   void setMap(String mapName);

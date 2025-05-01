@@ -28,7 +28,7 @@ public interface IPlayer {
 
   /**
    * Checks if the player has finished the map.
-   * 
+   *
    * @return true if the player has finished; false otherwise.
    */
   boolean isFinished();

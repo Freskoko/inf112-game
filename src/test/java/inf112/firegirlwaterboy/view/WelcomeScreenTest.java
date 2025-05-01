@@ -19,7 +19,8 @@ public class WelcomeScreenTest {
     @ManualTest
     void testResize() {
         /*
-         * Resizing the WelcomeScreen causes on screen widgets move accordingly, nicely taking up place.
+         * Resizing the WelcomeScreen causes on screen widgets move accordingly, nicely
+         * taking up place.
          */
         assertTrue(true);
     }

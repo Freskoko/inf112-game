@@ -88,10 +88,10 @@ public class ElementTest {
     }
   }
 
-    @Test
-    void constructorShouldInitializeElementType() {
-      assertEquals(ElementType.LAVA, element.getType());
-    }
+  @Test
+  void constructorShouldInitializeElementType() {
+    assertEquals(ElementType.LAVA, element.getType());
+  }
 
   @Test
   void constructorShouldCreateFixtureWithPolygonShape() {
@@ -129,7 +129,7 @@ public class ElementTest {
     Animation<TextureRegion> mockAnimation = mock(Animation.class);
     TextureRegion mockRegion = mock(TextureRegion.class);
     when(mockRegion.getTexture()).thenReturn(mockTexture);
-    TextureRegion[] regions = new TextureRegion[]{mockRegion};
+    TextureRegion[] regions = new TextureRegion[] { mockRegion };
     when(mockAnimation.getKeyFrames()).thenReturn(regions);
     Field animationField = Element.class.getDeclaredField("animation");
     animationField.setAccessible(true);

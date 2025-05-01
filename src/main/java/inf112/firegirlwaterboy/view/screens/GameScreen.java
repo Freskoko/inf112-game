@@ -28,14 +28,14 @@ public class GameScreen implements Screen {
   private Box2DDebugRenderer debugRenderer;
   private TiledMap map;
   private IViewModel model;
-  private Controller controller; 
+  private Controller controller;
   private Viewport viewport;
   private Hud hud;
   private SpriteBatch batch;
 
   /**
    * Constructs a GameScreen with a given view model and controller.
-   * 
+   *
    * @param model      The model of the game
    * @param controller The controller of the game
    */
@@ -83,7 +83,7 @@ public class GameScreen implements Screen {
     renderer.setView(camera);
     renderer.render();
 
-    //debugRenderer.render(model.getWorld(), camera.combined);
+    // debugRenderer.render(model.getWorld(), camera.combined);
 
     renderer.getBatch().setProjectionMatrix(camera.combined);
     renderer.getBatch().begin();
@@ -98,15 +98,18 @@ public class GameScreen implements Screen {
 
   @Override
   @Generated("interface-stub")
-  public void resume() {}
+  public void resume() {
+  }
 
   @Override
   @Generated("interface-stub")
-  public void pause() {}
+  public void pause() {
+  }
 
   @Override
   @Generated("interface-stub")
-  public void hide() {}
+  public void hide() {
+  }
 
   @Override
   public void dispose() {
