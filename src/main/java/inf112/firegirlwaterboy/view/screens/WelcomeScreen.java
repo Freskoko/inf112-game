@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.*;
 
 import inf112.firegirlwaterboy.controller.Controller;
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 import inf112.firegirlwaterboy.view.ButtonDesigner;
 
 /**
