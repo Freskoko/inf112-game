@@ -74,32 +74,32 @@
 
 git shortlog:
 ```
-   197  Gedvyde Petkeviciute
-   162  gufla5085
-   146  Ingvild Hope
+   198  Gedvyde Petkeviciute
+   166  gufla5085
+   160  Ingvild Hope
     91  henrik
-    47  Gedvyde.Petkeviciute
+    52  Gedvyde.Petkeviciute
     34  henrikpopos
     29  Anya Helene Bagge
     23  Ingvild.H.Hope
+    13  henrik.brogger
     12  guro.flatas
-    11  henrik.brogger
 ...andre små commits fra admins
 ```
 Det vil si:
 
 | Commits | Navn     | Ansvarsområder                            |
 |-------|----------|-------------------------------------------|
-| 244   | Gedvyde  | Hovedansvar for utvikling og spillogikk  |
-| 174   | Guro     | Dokumentasjon, oblig, UI                 |
-| 169   | Ingvild  | Grafikk, design, utvikling               |
-| 136   | Henrik   | Testing, Git, utvikling                  |
+| 250   | Gedvyde  | Hovedansvar for utvikling og spillogikk  |
+| 183   | Ingvild  | Grafikk, design, utvikling               |
+| 178   | Guro     | Dokumentasjon, oblig, UI                 |
+| 138   | Henrik   | Testing, Git, utvikling                  |
 
 
 Det er litt skjeivhet i commit-fordelingen, men dette er naturlig, grunnet flere årsaker:
 
 - Hovedgrunnen er at vi har hatt ulike ansvarsområder og roller. Eksempelvis, så har noen jobbet mer med design og dokumentasjon, noen har hjulpet andre med git, mens andre har hatt hovedansvar for testing eller backend.
-- Denne skjevheten er noe som vi har forventet med tanke på at alle har ulike ansvarsområder og roller. Det blir ikke like mange linjer kode å skrive når man bruker tid på spill-design, grafikk, eller å skrive obliger. 
+- Denne skjevheten er noe som vi har forventet med tanke på at alle har ulike ansvarsområder og roller. Det blir ikke like mange linjer kode å skrive når man bruker tid på spill-design, grafikk, eller å skrive obliger.
 
 Ellers kan skjevhet forklares utifra:
 
