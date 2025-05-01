@@ -42,202 +42,202 @@ import java.util.Collections;
 import java.util.Iterator;
 
 public class WorldFactoryTest {
-    private WorldFactory worldFactory;
-    private IMapManager mapManager;
-    private IGameObjectFactory gameObjectFactory;
+  private WorldFactory worldFactory;
+  private IMapManager mapManager;
+  private IGameObjectFactory gameObjectFactory;
 
-    @BeforeAll
-    static void setUp() {
-        HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-        new HeadlessApplication(new FireGirlWaterBoy(), config);
-        GL20 gl20 = mock(GL20.class);
-        Gdx.gl = gl20;
-        Gdx.gl20 = gl20;
-    }
+  @BeforeAll
+  static void setUp() {
+    HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
+    new HeadlessApplication(new FireGirlWaterBoy(), config);
+    GL20 gl20 = mock(GL20.class);
+    Gdx.gl = gl20;
+    Gdx.gl20 = gl20;
+  }
 
-    @BeforeEach
-    private void initTest() {
-        mapManager = mock(IMapManager.class);
-        gameObjectFactory = mock(IGameObjectFactory.class);
-        this.worldFactory = new WorldFactory(gameObjectFactory, mapManager);
-    }
+  @BeforeEach
+  private void initTest() {
+    mapManager = mock(IMapManager.class);
+    gameObjectFactory = mock(IGameObjectFactory.class);
+    this.worldFactory = new WorldFactory(gameObjectFactory, mapManager);
+  }
 
-    @Test
-    public void testCreateWorld() {
-        TiledMap mockMap = mock(TiledMap.class);
-        MapLayers mockLayers = mock(MapLayers.class);
-        when(mockMap.getLayers()).thenReturn(mockLayers);
+  @Test
+  public void testCreateWorld() {
+    TiledMap mockMap = mock(TiledMap.class);
+    MapLayers mockLayers = mock(MapLayers.class);
+    when(mockMap.getLayers()).thenReturn(mockLayers);
 
-        Iterator<MapLayer> emptyIterator = Collections.emptyIterator();
-        when(mockLayers.iterator()).thenReturn(emptyIterator);
+    Iterator<MapLayer> emptyIterator = Collections.emptyIterator();
+    when(mockLayers.iterator()).thenReturn(emptyIterator);
 
-        World world = worldFactory.createWorld(mockMap);
+    World world = worldFactory.createWorld(mockMap);
 
-        assertNotNull(world);
-        assertEquals(new Vector2(0, -9.8f), world.getGravity());
-    }
+    assertNotNull(world);
+    assertEquals(new Vector2(0, -9.8f), world.getGravity());
+  }
 
-    @Test
-    public void testCreatePlatforms() {
-        TiledMap mockMap = mock(TiledMap.class);
-        World mockWorld = mock(World.class);
-        MapLayer mockLayer = mock(MapLayer.class);
-        MapObject mockObject = mock(MapObject.class);
-        Platform mockPlatform = mock(Platform.class);
+  @Test
+  public void testCreatePlatforms() {
+    TiledMap mockMap = mock(TiledMap.class);
+    World mockWorld = mock(World.class);
+    MapLayer mockLayer = mock(MapLayer.class);
+    MapObject mockObject = mock(MapObject.class);
+    Platform mockPlatform = mock(Platform.class);
 
-        when(mapManager.getLayer(mockMap, LayerType.PLATFORM)).thenReturn(mockLayer);
+    when(mapManager.getLayer(mockMap, LayerType.PLATFORM)).thenReturn(mockLayer);
 
-        MapObjects objects = mock(MapObjects.class);
-        ArrayList<MapObject> objectList = new ArrayList<>();
-        objectList.add(mockObject);
-        when(mockLayer.getObjects()).thenReturn(objects);
-        when(objects.iterator()).thenReturn(objectList.iterator());
+    MapObjects objects = mock(MapObjects.class);
+    ArrayList<MapObject> objectList = new ArrayList<>();
+    objectList.add(mockObject);
+    when(mockLayer.getObjects()).thenReturn(objects);
+    when(objects.iterator()).thenReturn(objectList.iterator());
 
-        when(gameObjectFactory.createPlatform(mockWorld, mockObject)).thenReturn(mockPlatform);
+    when(gameObjectFactory.createPlatform(mockWorld, mockObject)).thenReturn(mockPlatform);
 
-        EntitySet<Platform> platforms = worldFactory.createPlatforms(mockWorld, mockMap);
+    EntitySet<Platform> platforms = worldFactory.createPlatforms(mockWorld, mockMap);
 
-        assertNotNull(platforms);
-        verify(gameObjectFactory).createPlatform(mockWorld, mockObject);
-    }
+    assertNotNull(platforms);
+    verify(gameObjectFactory).createPlatform(mockWorld, mockObject);
+  }
 
-    @Test
-    public void testCreateElements() {
-        TiledMap mockMap = mock(TiledMap.class);
-        World mockWorld = mock(World.class);
-        MapLayer mockLayer = mock(MapLayer.class);
-        MapObject mockObject = mock(MapObject.class);
-        Element mockElement = mock(Element.class);
+  @Test
+  public void testCreateElements() {
+    TiledMap mockMap = mock(TiledMap.class);
+    World mockWorld = mock(World.class);
+    MapLayer mockLayer = mock(MapLayer.class);
+    MapObject mockObject = mock(MapObject.class);
+    Element mockElement = mock(Element.class);
 
-        when(mapManager.getLayer(mockMap, LayerType.ELEMENT)).thenReturn(mockLayer);
+    when(mapManager.getLayer(mockMap, LayerType.ELEMENT)).thenReturn(mockLayer);
 
-        MapObjects objects = mock(MapObjects.class);
-        ArrayList<MapObject> objectList = new ArrayList<>();
-        objectList.add(mockObject);
-        when(mockLayer.getObjects()).thenReturn(objects);
-        when(objects.iterator()).thenReturn(objectList.iterator());
+    MapObjects objects = mock(MapObjects.class);
+    ArrayList<MapObject> objectList = new ArrayList<>();
+    objectList.add(mockObject);
+    when(mockLayer.getObjects()).thenReturn(objects);
+    when(objects.iterator()).thenReturn(objectList.iterator());
 
-        when(gameObjectFactory.createElement(mockWorld, mockObject)).thenReturn(mockElement);
+    when(gameObjectFactory.createElement(mockWorld, mockObject)).thenReturn(mockElement);
 
-        EntitySet<Element> elements = worldFactory.createElements(mockWorld, mockMap);
+    EntitySet<Element> elements = worldFactory.createElements(mockWorld, mockMap);
 
-        assertNotNull(elements);
-        verify(gameObjectFactory).createElement(mockWorld, mockObject);
-    }
+    assertNotNull(elements);
+    verify(gameObjectFactory).createElement(mockWorld, mockObject);
+  }
 
-    @Test
-    public void testCreateCollectables() {
-        TiledMap mockMap = mock(TiledMap.class);
-        World mockWorld = mock(World.class);
-        MapLayer mockLayer = mock(MapLayer.class);
-        MapObject mockObject = mock(MapObject.class);
+  @Test
+  public void testCreateCollectables() {
+    TiledMap mockMap = mock(TiledMap.class);
+    World mockWorld = mock(World.class);
+    MapLayer mockLayer = mock(MapLayer.class);
+    MapObject mockObject = mock(MapObject.class);
 
-        when(mapManager.getLayer(mockMap, LayerType.COLLECTABLE)).thenReturn(mockLayer);
+    when(mapManager.getLayer(mockMap, LayerType.COLLECTABLE)).thenReturn(mockLayer);
 
-        MapObjects objects = mock(MapObjects.class);
-        ArrayList<MapObject> objectList = new ArrayList<>();
-        objectList.add(mockObject);
-        when(mockLayer.getObjects()).thenReturn(objects);
-        when(objects.iterator()).thenReturn(objectList.iterator());
+    MapObjects objects = mock(MapObjects.class);
+    ArrayList<MapObject> objectList = new ArrayList<>();
+    objectList.add(mockObject);
+    when(mockLayer.getObjects()).thenReturn(objects);
+    when(objects.iterator()).thenReturn(objectList.iterator());
 
-        CollectableSet collectables = worldFactory.createCollectables(mockWorld, mockMap);
+    CollectableSet collectables = worldFactory.createCollectables(mockWorld, mockMap);
 
-        assertNotNull(collectables);
-        verify(gameObjectFactory).createCollectable(mockWorld, mockObject);
-    }
+    assertNotNull(collectables);
+    verify(gameObjectFactory).createCollectable(mockWorld, mockObject);
+  }
 
-    @Test
-    public void testCreateStaticObjects() throws Exception {
-        Method method = WorldFactory.class.getDeclaredMethod(
-                "createStaticObjects", World.class, MapLayer.class);
-        method.setAccessible(true);
+  @Test
+  public void testCreateStaticObjects() throws Exception {
+    Method method = WorldFactory.class.getDeclaredMethod(
+        "createStaticObjects", World.class, MapLayer.class);
+    method.setAccessible(true);
 
-        World mockWorld = mock(World.class);
-        MapLayer mockLayer = mock(MapLayer.class);
-        MapObjects mockObjects = mock(MapObjects.class);
-        MapObject mockObject = mock(MapObject.class);
-        MapProperties mockProperties = mock(MapProperties.class);
-        Body mockBody = mock(Body.class);
-        Fixture mockFixture = mock(Fixture.class);
+    World mockWorld = mock(World.class);
+    MapLayer mockLayer = mock(MapLayer.class);
+    MapObjects mockObjects = mock(MapObjects.class);
+    MapObject mockObject = mock(MapObject.class);
+    MapProperties mockProperties = mock(MapProperties.class);
+    Body mockBody = mock(Body.class);
+    Fixture mockFixture = mock(Fixture.class);
 
-        when(mockObject.getProperties()).thenReturn(mockProperties);
-        when(mockProperties.get("x", Float.class)).thenReturn(100f);
-        when(mockProperties.get("y", Float.class)).thenReturn(200f);
-        when(mockProperties.get("width", Float.class)).thenReturn(50f);
-        when(mockProperties.get("height", Float.class)).thenReturn(30f);
+    when(mockObject.getProperties()).thenReturn(mockProperties);
+    when(mockProperties.get("x", Float.class)).thenReturn(100f);
+    when(mockProperties.get("y", Float.class)).thenReturn(200f);
+    when(mockProperties.get("width", Float.class)).thenReturn(50f);
+    when(mockProperties.get("height", Float.class)).thenReturn(30f);
 
-        when(mockLayer.getName()).thenReturn(LayerType.STATIC.name());
-        when(mockLayer.getObjects()).thenReturn(mockObjects);
-        ArrayList<MapObject> objectList = new ArrayList<>();
-        objectList.add(mockObject);
-        when(mockObjects.iterator()).thenReturn(objectList.iterator());
-        when(mockWorld.createBody(any(BodyDef.class))).thenReturn(mockBody);
-        when(mockBody.createFixture(any(FixtureDef.class))).thenReturn(mockFixture);
+    when(mockLayer.getName()).thenReturn(LayerType.STATIC.name());
+    when(mockLayer.getObjects()).thenReturn(mockObjects);
+    ArrayList<MapObject> objectList = new ArrayList<>();
+    objectList.add(mockObject);
+    when(mockObjects.iterator()).thenReturn(objectList.iterator());
+    when(mockWorld.createBody(any(BodyDef.class))).thenReturn(mockBody);
+    when(mockBody.createFixture(any(FixtureDef.class))).thenReturn(mockFixture);
 
-        method.invoke(worldFactory, mockWorld, mockLayer);
+    method.invoke(worldFactory, mockWorld, mockLayer);
 
-        verify(mockWorld).createBody(any(BodyDef.class));
-        verify(mockBody).createFixture(any(FixtureDef.class));
-        verify(mockFixture).setUserData(LayerType.STATIC);
-    }
+    verify(mockWorld).createBody(any(BodyDef.class));
+    verify(mockBody).createFixture(any(FixtureDef.class));
+    verify(mockFixture).setUserData(LayerType.STATIC);
+  }
 
-    @Test
-    public void testCreatePolygonObject() throws Exception {
-        Method method = WorldFactory.class.getDeclaredMethod(
-                "createPolygonObject", World.class, PolygonMapObject.class, LayerType.class);
-        method.setAccessible(true);
+  @Test
+  public void testCreatePolygonObject() throws Exception {
+    Method method = WorldFactory.class.getDeclaredMethod(
+        "createPolygonObject", World.class, PolygonMapObject.class, LayerType.class);
+    method.setAccessible(true);
 
-        World mockWorld = mock(World.class);
-        PolygonMapObject mockPolygon = mock(PolygonMapObject.class);
-        Polygon mockPolygonShape = mock(Polygon.class);
-        Body mockBody = mock(Body.class);
-        Fixture mockFixture = mock(Fixture.class);
+    World mockWorld = mock(World.class);
+    PolygonMapObject mockPolygon = mock(PolygonMapObject.class);
+    Polygon mockPolygonShape = mock(Polygon.class);
+    Body mockBody = mock(Body.class);
+    Fixture mockFixture = mock(Fixture.class);
 
-        when(mockPolygon.getPolygon()).thenReturn(mockPolygonShape);
-        float[] vertices = new float[] { 0, 0, 10, 0, 10, 10, 0, 10 };
-        when(mockPolygonShape.getTransformedVertices()).thenReturn(vertices);
-        when(mockWorld.createBody(any(BodyDef.class))).thenReturn(mockBody);
-        when(mockBody.createFixture(any(FixtureDef.class))).thenReturn(mockFixture);
+    when(mockPolygon.getPolygon()).thenReturn(mockPolygonShape);
+    float[] vertices = new float[] { 0, 0, 10, 0, 10, 10, 0, 10 };
+    when(mockPolygonShape.getTransformedVertices()).thenReturn(vertices);
+    when(mockWorld.createBody(any(BodyDef.class))).thenReturn(mockBody);
+    when(mockBody.createFixture(any(FixtureDef.class))).thenReturn(mockFixture);
 
-        method.invoke(worldFactory, mockWorld, mockPolygon, LayerType.STATIC);
+    method.invoke(worldFactory, mockWorld, mockPolygon, LayerType.STATIC);
 
-        verify(mockWorld).createBody(any(BodyDef.class));
-        verify(mockBody).createFixture(any(FixtureDef.class));
-        verify(mockFixture).setUserData(LayerType.STATIC);
-    }
+    verify(mockWorld).createBody(any(BodyDef.class));
+    verify(mockBody).createFixture(any(FixtureDef.class));
+    verify(mockFixture).setUserData(LayerType.STATIC);
+  }
 
-    @Test
-    public void testCreateFinishObjects() throws Exception {
-        Method method = WorldFactory.class.getDeclaredMethod(
-                "createFinishObjects", World.class, MapLayer.class);
-        method.setAccessible(true);
+  @Test
+  public void testCreateFinishObjects() throws Exception {
+    Method method = WorldFactory.class.getDeclaredMethod(
+        "createFinishObjects", World.class, MapLayer.class);
+    method.setAccessible(true);
 
-        World mockWorld = mock(World.class);
-        MapLayer mockLayer = mock(MapLayer.class);
-        MapObjects mockObjects = mock(MapObjects.class);
-        MapObject mockObject = mock(MapObject.class);
-        Body mockBody = mock(Body.class);
-        Fixture mockFixture = mock(Fixture.class);
-        MapProperties mockProperties = mock(MapProperties.class);
+    World mockWorld = mock(World.class);
+    MapLayer mockLayer = mock(MapLayer.class);
+    MapObjects mockObjects = mock(MapObjects.class);
+    MapObject mockObject = mock(MapObject.class);
+    Body mockBody = mock(Body.class);
+    Fixture mockFixture = mock(Fixture.class);
+    MapProperties mockProperties = mock(MapProperties.class);
 
-        when(mockLayer.getName()).thenReturn(LayerType.FINISH.name());
-        when(mockLayer.getObjects()).thenReturn(mockObjects);
-        ArrayList<MapObject> objectList = new ArrayList<>();
-        objectList.add(mockObject);
-        when(mockObjects.iterator()).thenReturn(objectList.iterator());
-        when(mockObject.getProperties()).thenReturn(mockProperties);
-        when(mockProperties.get("x", Float.class)).thenReturn(100f);
-        when(mockProperties.get("y", Float.class)).thenReturn(200f);
-        when(mockProperties.get("width", Float.class)).thenReturn(50f);
-        when(mockProperties.get("height", Float.class)).thenReturn(30f);
-        when(mockWorld.createBody(any(BodyDef.class))).thenReturn(mockBody);
-        when(mockBody.createFixture(any(FixtureDef.class))).thenReturn(mockFixture);
+    when(mockLayer.getName()).thenReturn(LayerType.FINISH.name());
+    when(mockLayer.getObjects()).thenReturn(mockObjects);
+    ArrayList<MapObject> objectList = new ArrayList<>();
+    objectList.add(mockObject);
+    when(mockObjects.iterator()).thenReturn(objectList.iterator());
+    when(mockObject.getProperties()).thenReturn(mockProperties);
+    when(mockProperties.get("x", Float.class)).thenReturn(100f);
+    when(mockProperties.get("y", Float.class)).thenReturn(200f);
+    when(mockProperties.get("width", Float.class)).thenReturn(50f);
+    when(mockProperties.get("height", Float.class)).thenReturn(30f);
+    when(mockWorld.createBody(any(BodyDef.class))).thenReturn(mockBody);
+    when(mockBody.createFixture(any(FixtureDef.class))).thenReturn(mockFixture);
 
-        method.invoke(worldFactory, mockWorld, mockLayer);
+    method.invoke(worldFactory, mockWorld, mockLayer);
 
-        verify(mockWorld).createBody(any(BodyDef.class));
-        verify(mockBody).createFixture(any(FixtureDef.class));
-        verify(mockFixture).setUserData(LayerType.FINISH);
-        verify(mockFixture).setSensor(true);
-    }
+    verify(mockWorld).createBody(any(BodyDef.class));
+    verify(mockBody).createFixture(any(FixtureDef.class));
+    verify(mockFixture).setUserData(LayerType.FINISH);
+    verify(mockFixture).setSensor(true);
+  }
 }

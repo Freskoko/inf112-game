@@ -49,8 +49,7 @@ public class MapManagerTest {
 
   @Test
   void testGetLayerFails() {
-    assertThrows(NullPointerException.class, () -> mapManager.getLayer(map,
-        null));
+    assertThrows(NullPointerException.class, () -> mapManager.getLayer(map, null));
   }
 
   @Test
@@ -116,8 +115,6 @@ public class MapManagerTest {
     when(mockObjects.getCount()).thenReturn(1);
     when(mockObjects.get(0)).thenReturn(mockObject);
     when(mockObject.getProperties()).thenReturn(mockProperties);
-
-    // Return 0 instead of null to avoid NullPointerException during float unboxing
     when(mockProperties.get("x", Float.class)).thenReturn(0f);
     when(mockProperties.get("y", Float.class)).thenReturn(null);
 
@@ -129,5 +126,4 @@ public class MapManagerTest {
     assertEquals(mapManager.getSpawnPos(map, PlayerType.FIREGIRL), new Vector2(2f, 2f));
     assertEquals(mapManager.getSpawnPos(map, PlayerType.WATERBOY), new Vector2(2f, 2f));
   }
-
 }
