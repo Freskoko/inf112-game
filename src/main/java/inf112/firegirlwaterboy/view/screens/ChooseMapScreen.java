@@ -40,7 +40,7 @@ public class ChooseMapScreen implements Screen {
     viewport = new ExtendViewport(960, 960);
     stage = new Stage(viewport);
     batch = new SpriteBatch();
-    backgroundTexture = new Texture(Gdx.files.internal("assets/pages/screens/ChooseMapBackground.png"));
+    backgroundTexture = new Texture(Gdx.files.internal("assets/pages/screens/ChooseMapScreen.png"));
     font = new BitmapFont();
 
     font.setColor(Color.WHITE);
