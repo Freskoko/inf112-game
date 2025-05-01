@@ -4,7 +4,7 @@
 
 # Prosjektrapport 
 
-Hvordan fungerer rollene i teamet? Trenger dere å oppdatere hvem som er teamlead eller kundekontakt? 
+**Hvordan fungerer rollene i teamet? Trenger dere å oppdatere hvem som er teamlead eller kundekontakt?**
 
 - Vi synes fremdeles rollene i teamet fungerer veldig bra. Alle tar hovedansvar på sitt ansvarsområde, samtidig som alle hjelper til der det trengs.  
 - Siden rollene fungerer fint så ser vi ikke noe behov for å oppdatere de, men vi har gjort små justeringer i løpet av prosjektet for å tilpasse rollene. 
@@ -12,7 +12,7 @@ Hvordan fungerer rollene i teamet? Trenger dere å oppdatere hvem som er teamlea
 
  
 
-Trenger dere andre roller? Skriv ned noen linjer om hva de ulike rollene faktisk innebærer for dere.  
+**Trenger dere andre roller? Skriv ned noen linjer om hva de ulike rollene faktisk innebærer for dere.** 
 
 - Vi føler ikke på behovet for å ha andre roller, da vi synes dagens fordeling fungerer veldig bra. 
 - Team Lead: Gedvyde. Tar ansvar for å få ting til og skje, holder oversikt over fremdrift i prosjektet, avtaler møter og tar et overordnet ansvar over prosjektet. 
@@ -22,7 +22,7 @@ Trenger dere andre roller? Skriv ned noen linjer om hva de ulike rollene faktisk
 
  
 
-Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på? 
+**Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?**
 
 - Vi opplever at teamet fungerer veldig bra. Dette gjelder både faglig, men også sosialt som gruppe.  
 - Vi ser fortsatt at innføringen av deadlines var noe som fungerte veldig bra for vår gruppe. Ved å sette bestemte deadlines på ulike issues så får vi sikret den fremgangen vi ønsker og trenger.  Det gjør det også enklere å fordele arbeidsmengden jevnt gjennom sprintene, slik at vi unngår veldig stress rett før innleveringsfrister. 
@@ -36,7 +36,7 @@ Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt
   
 
 
-Hvordan er gruppedynamikken? Er det uenigheter som bør løses? 
+**Hvordan er gruppedynamikken? Er det uenigheter som bør løses?**
 
 - Gruppedynamikken er veldig fin, det er høyt under taket og rom for diskusjon. Dette gjør at det er enkelt for oss å si hva vi mener og diskutere ideer og løsninger. 
 - Vi har ikke hatt noen uenigheter innad i gruppen. Er det noe vi er uenige i så diskuterer vi det med en gang og kommer frem til en løsning sammen. 
@@ -44,7 +44,7 @@ Hvordan er gruppedynamikken? Er det uenigheter som bør løses?
 
  
 
-Hvordan fungerer kommunikasjonen for dere? 
+**Hvordan fungerer kommunikasjonen for dere?** 
 
 - Kommunikasjonen fungerer veldig fint, og det synes vi den har gjort gjennom hele prosjektperioden. 
 - Vi bruker Discord som hovedkanal for kommunikasjon. 
@@ -53,7 +53,7 @@ Hvordan fungerer kommunikasjonen for dere?
 - Hver gang vi lager en merge request så sender vi den i Discord, så reagerer vi med en tankeboble om vi har noen spørsmål. Da legger vi inn en kommentar på MR på Git. Hvis vi approver MR så reagerer vi med en grønn checkmark.
 - Vi har også vært flinke til å informere hverandre om praktiske ting som kunne påvirket arbeidet, som for eksempel hvis noen skulle være bortreist eller bli syke eller. På den måten har vi unngått overraskelser, og vi har kunnet justere planene våre.
 
-Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva som kan forbedres. Dette skal handle om prosjektstruktur, ikke kode. Dere kan selvsagt diskutere kode, men dette handler ikke om feilretting, men om hvordan man jobber og kommuniserer. 
+**Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva som kan forbedres. Dette skal handle om prosjektstruktur, ikke kode. Dere kan selvsagt diskutere kode, men dette handler ikke om feilretting, men om hvordan man jobber og kommuniserer.**
 
 *Hva har vi klart?*
 
@@ -68,7 +68,7 @@ Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva
 
  
 
-Under vurdering vil det vektlegges at alle bidrar til kodebasen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også designfiler) 
+**Under vurdering vil det vektlegges at alle bidrar til kodebasen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også designfiler)** 
 
 - Her er `git shortlog` og en kombinert oppsummering av total mengde commits per bruker:
 
@@ -86,47 +86,48 @@ git shortlog:
     11  henrik.brogger
 ...andre små commits fra admins
 ```
-dvs, total commits per bruker:
-```
-244 Gedvyde
-174 Guro
-169 Ingvild
-136 Henrik
-```
+Det vil si:
+
+| Commits | Navn     | Ansvarsområder                            |
+|-------|----------|-------------------------------------------|
+| 244   | Gedvyde  | Hovedansvar for utvikling og spillogikk  |
+| 174   | Guro     | Dokumentasjon, oblig, UI                 |
+| 169   | Ingvild  | Grafikk, design, utvikling               |
+| 136   | Henrik   | Testing, Git, utvikling                  |
+
 
 Det er litt skjeivhet i commit-fordelingen, men dette er naturlig, grunnet flere årsaker:
 
 - Hovedgrunnen er at vi har hatt ulike ansvarsområder og roller. Eksempelvis, så har noen jobbet mer med design og dokumentasjon, noen har hjulpet andre med git, mens andre har hatt hovedansvar for testing eller backend.
-- Denne skjevheten er noe som vi har forventet med tanke på at alle har ulike ansvarsområder og roller. Det blir ikke like mange linjer kode å skrive når man bruker tid på spill-design, grafikk, eller å skrive obliger.
+- Denne skjevheten er noe som vi har forventet med tanke på at alle har ulike ansvarsområder og roller. Det blir ikke like mange linjer kode å skrive når man bruker tid på spill-design, grafikk, eller å skrive obliger. 
 
 Ellers kan skjevhet forklares utifra:
 
 - Vi har parprogrammert litt underveis, sånn at selv om navnet til en person står på commiten, er det flere som har vært med å lage den.
 - Innad i gruppen har "commit-stilen" variert fra person til person, dvs at noen commiter ofte og smått, og andre committer stort og sjeldnere.
 
-Referat fra møter siden forrige leveranse skal legges ved (mange av punktene over er typisk ting som havner i referat). 
+**Referat fra møter siden forrige leveranse skal legges ved (mange av punktene over er typisk ting som havner i referat).**
 - Referat fra alle møter ligger under “doc/meeting reports”. 
 - [Her er link til mappe med møtereferater:](MeetingReports)
 
 
-Bli enige om maks tre forbedringspunkter fra retrospektivet, som skal følges opp under neste sprint. 
+**Bli enige om maks tre forbedringspunkter fra retrospektivet, som skal følges opp under neste sprint.**
 - Hvis vi skulle fortsatt prosjektet og hatt flere sprinter, ville dette blitt fulgt opp under neste sprint:
 1. Dele opp store oppgaver i mindre tasks. 
 2. Lage Merge Requester oftere, for jevnere tilbakemelding fra de andre teammedlemmene.
 
  
 
-For siste innlevering (Oblig 4): Gjør et retrospektiv hvor dere vurderer hvordan hele prosjektet har gått. Hva har dere gjort bra, hva hadde dere gjort annerledes hvis dere begynte på nytt? 
+**For siste innlevering (Oblig 4): Gjør et retrospektiv hvor dere vurderer hvordan hele prosjektet har gått. Hva har dere gjort bra, hva hadde dere gjort annerledes hvis dere begynte på nytt?**
 
-***Hva var planlagt:***
+*Hva var planlagt:*
 - Vi planla å bruke Kanban som prosjektmetodikk, opprinnelig med Trello for å holde oversikt over oppgaver og fremdrift.  
 - Vi planla å ha faste møter to ganger i uken. 
 - Planla å bruke discord som kommunikasjonsplattform, for å oppdatere med Merge Request og reviews, og planlegge møter etc. 
 - Vi planla å parprogrammere hvis det var store tasks, eller der det var behov for parprogrammering. 
 - I starten ble vi enige om hvordan vi ønsket å bruke Git på best mulig måte, mtp commitmeldinger, reviews osv. 
 
-
-***Hva gjorde vi faktisk, og hvorfor:***
+*Hva gjorde vi faktisk, og hvorfor:*
 - Vi endret fra Trello til GitLab Issue Board. Etterhvert så synes vi det ble mange plattformer å holde styr på, så vi valgte å bruke GitLab Issue Board istedenfor. Dette synes vi har fungert veldig fint, det hjelper å ha mindre plattformer å forholde seg til og oppdatere.
 - Vi har hatt faste møter 2 ganger i uken, med noen unntak i ferier. 
 - Vi har brukt Discord jevnt gjennom hele prosjektet. Strategien med å sende link til Merge Request i Discord slik at alle får varsel om det og kan reviwe har fungert veldig bra. Har man noen spørsmål så reagerer man med en tankeboble i Discord og kommenterer på Merge Requesten på Git. Approver man så reagerer man med en checkmark på Discord og approver på Git. 
@@ -137,12 +138,9 @@ For siste innlevering (Oblig 4): Gjør et retrospektiv hvor dere vurderer hvorda
 - Her er bilde av alle kanalene vi har laget på discord: 
   
     <img src="images/discord_channels.png" alt="alt text" height="300">
-
-
 - Vi stresset litt i starten med clean Git historikk, men iløpet av prosjektet så har vi fått intrykk av at det ikke er det viktigste. Vi har derfor ikke stresset like mye med det mot slutten. Prøver fortsatt å ha fokus på gode commitmeldinger osv, men bruker ikke alt for mye tid på å rydde i Git historikk. 
 
-
-***Hva har vi gjort bra?***
+*Hva har vi gjort bra?*
 - Noe som har vært veldig bra under hele prosjektet er at vi har opprettholdt kontinuitet i arbeidet. Vi har møttes 2 ganger hver uke (bortsett fra ferie etc).  
 - Vi har klart å opprettholde en jevn progresjon, dette gjør at vi er godt i rute for siste innlevering og slipper å stresse inn mot siste innleveringsfrist.  
 - Vi har klart å opprettholde motivasjonen og hatt det gøy gjennom hele prosjektet, noe vi tror er viktig for å få til et bra sluttprodukt.  
@@ -155,22 +153,12 @@ For siste innlevering (Oblig 4): Gjør et retrospektiv hvor dere vurderer hvorda
 - Vi valgte bevisst å ikke fokusere på grafikk før mot slutten av prosjektet, og prioriterte i stedet spilllogikk frem til siste sprint. Dette synes vi var en bra strategi, da det gjorde at vi hadde et fungerende spill før vi brukte mye tid på det visuelle.
 - Vi klarte å unngå mye scope creep ved å sørge for at hver branch kun inneholdt det den skulle, uten å gjøre unødvendige endringer eller tillegg.
 
-*Vi har hatt fokus på å følge SOLID-prinsippene og opprettholde god kodekvalitet:*
-- Single Responsibility Principle: Alle klasser har ett ansvarsområde og gjør kun én ting. Som for eksempel individuelle klasser for alle ulike entity typer i spiller, men som alle felles implementerer IEntity interfacet. 
-- Open/Closed Principle: Vi har brukt arv og interfaces for å legge til ny funksjonalitet uten å endre eksisterende kode. For eksempel la vi til fienden Acid, som skader begge spillere, uten at det var behov for å endre noe i eksisterende logikk. 
-- Liskov Substitution Principle: Subklasser kan brukes på samme måte som sine superklasser. Et eksempel er PlayerSet, som utvider EntitySet og arver samme logikk, men utvider funksjonaliteten med noe ekstra. 
-- Interface Segregation Principle: Vi har delt opp funksjonalitet i flere mindre og spesifikke interfaces, slik at klassene kun implementerer det de faktisk trenger. For eksempel iControllable model og IViewable model, som skille model funksjonaliteten for å både opprettholde MVC når modellen blir brukt i view og controlleren og for å dele interfacene på en hensiktsmessig måte. 
-- Dependency Inversion Principle: Bruker interface som type istedenfor konkrete klasser. Vi har dokumentasjon på alle public metoder. Vi har laget interface for factory og soundManager. 
-- Dont repeat yourself: Vi har laget egne hjelpeklasser for å unngå mye duplikat kode, feks bruker vi MapUtils med statiske metoder for å hente verdier i kartet.
-
- 
-***Hva hadde vi gjort annerledes:***
+*Hva hadde vi gjort annerledes:*
 - Vi kunne hatt en tydeligere plan fra starten av for hvordan vi ønsket at sluttproduktet skulle se ut, inkludert hvilke funksjoner som skulle prioriteres. Det har fungert fint slik vi har gjort det med å legge til features osv etterhvert, men hadde vært fint å ha et tydelig mål for når produktet er ferdig. 
 - Det hadde kanskje vært lurt å lage en overordnet tidslinje tidlig i prosjektet, med tentative deadlines, slik at vi hadde hatt bedre oversikt over fremdrift. 
 - Vi kunne prøvd å komme i mål med MVP enda tidligere.
 - Det hadde vært en fordel å dele opp store oppgaver i mindre issues enda tidligere, slik at det var lettere å komme i gang med dem og fordele arbeidet.
 - Vi ser også at det kunne vært lurt å sette oss et mål for sluttproduktet allerede fra start. Selv om fleksibilitet underveis er viktig, tror vi at et mål fra starten av kunne gjort det lettere å vite hvor vi lå an og hva vi skulle prioritere når. 
-
 
 *Oppsummering:*
 - Alt i alt er vi veldig fornøyd med både sluttproduket og hele prossessen. Det har vært en veldig lærerrik og morsom prosses! 
@@ -179,37 +167,66 @@ For siste innlevering (Oblig 4): Gjør et retrospektiv hvor dere vurderer hvorda
 
 # Krav og spesifikasjon
 
-Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang. Er dere kommet forbi MVP? Forklar hvordan dere prioriterer ny funksjonalitet. 
-- Ja vi er forbi MVP, vi er ferdig med sluttproduktet og klar for siste innlevering. 
+**Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang. Er dere kommet forbi MVP? Forklar hvordan dere prioriterer ny funksjonalitet.** 
+- Ja vi er forbi MVP, vi er ferdig med sluttproduktet og klar for siste innlevering.
+
+Dette var vår MVP:
+1. Vise et spillebrett
+2. Vise spillere på spillebrett
+3. Flytte spillerne (vha taster e.l.)
+4. Spillerne interagerer med terreng
+5. Spillerne har *poeng* og interagerer med poenggjenstander
+6. Vise lava/vann; de skal interagere
+7. Spiller kan dø (ved kontakt med lava/vann)
+8. Mål for spillbrett er ett sted å gå
+9. Nytt spillbrett når forrige er ferdig
+10. Start-skjerm ved oppstart / game over
+
+I tillegg til MVP har vi nådd strecth goal som innebærer:
+1. To spillerbrett, hvor man må fullføre spilebrett 1 (level 1) for å få tilgang på neste. 
+2. Spillere kan interagere med bevegende plattformer
+3. Spillere har både spesifikke fiender og felles fiender, ikke bare fiender generelt. 
+4. Collectables som både gir poeng og powerups. 
+5. Collectables som bare en spiller kan interagere med, og som begge kan interagere med. 
+6. Vi har lagt til lyd og musikk. Spiller av bakgrunnsmusikk og lyd når en spiller plukker opp en diamant eller spiller er vunnet. 
+
+*Siden forrige gang har vi:*
 - Vi har prioritert god kodekvalitet, ryddet opp i koden og slettet gammel/ubrukt kode og filer. 
 - Har i siste sprint hatt fokus på å få høy test coverage, alle har skrevet tester. 
 - Vi har hatt stort fokus på det visuelle, med grafikk og design. Før siste sprint så var vi i hovedsak ferdig med det meste av spillogikk. 
 - Vi har sett over og oppdatert all dokumentasjon, inkludert README-filen og klassediagram. 
+- Se lenger ned for mer detaljer. 
+
+I hennhold til kravene for spesifikke egenskaper så har vi dekt alle de og i tillegg prioritert å videreforbedre noen av punktene, feks:
+- Testcoverage er på 81%
+- Vi har flere lyder koblet til hendelse
+- I tilleg til dokumentasjon på alle public metoder, så har vi laget interfaces for alle de. 
+- Vi har også laget flere skjermer. 
 
 
-
-For hvert krav dere jobber med, må dere lage 1: ordentlige brukerhistorier, 2: akseptansekriterier og 3: arbeidsoppgaver. Husk at akseptansekriterier ofte skrives mer eller mindre som tester 
+**For hvert krav dere jobber med, må dere lage 1: ordentlige brukerhistorier, 2: akseptansekriterier og 3: arbeidsoppgaver. Husk at akseptansekriterier ofte skrives mer eller mindre som tester** 
 - Brukerhistorier, akseptansekrav og arbeidsoppgaver ligger under "doc/brukerhistorier.md". 
 - [Her er link til dokument med brukerhistorier:](brukerhistorier.md)
 
  
-Dersom dere har oppgaver som dere skal til å starte med, hvor dere har oversikt over både brukerhistorie, akseptansekriterier og arbeidsoppgaver, kan dere ta med disse i innleveringen også. 
+**Dersom dere har oppgaver som dere skal til å starte med, hvor dere har oversikt over både brukerhistorie, akseptansekriterier og arbeidsoppgaver, kan dere ta med disse i innleveringen også.**
 - Nye oppgaver har vi oversikt over i Git Issue Board. 
 - Brukerhistorier, akseptansekrav og arbeidsoppgaver ligger under "doc/brukerhistorier.md". 
 - [Her er link til dokument med brukerhistorier:](brukerhistorier.md)
  
 
-Forklar kort hvordan dere har prioritert oppgavene fremover:
+**Forklar kort hvordan dere har prioritert oppgavene fremover:**
+- Fremover planlegger vi å forbrede oss til presentasjon av prosjektet og eksamen.
 
 
-Har dere gjort justeringer på kravene som er med i MVP? Forklar i så fall hvorfor. Hvis det er gjort endringer i rekkefølge utfra hva som er gitt fra kunde, hvorfor er dette gjort? 
+**Har dere gjort justeringer på kravene som er med i MVP? Forklar i så fall hvorfor. Hvis det er gjort endringer i rekkefølge utfra hva som er gitt fra kunde, hvorfor er dette gjort?**
 
 - Vi har ikke gjort noen endringer på kravene i MVP og produktet vårt dekker alle kravene til MVP. 
 - I vårt spill så er fiender lava, vann og syre. Vi har snakket med gruppeleder om at dette dekker kravene til fiende. 
 
  
 
-Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang. 
+**Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang.**
 
 - Vi har nå ferdigstilt prosjektet til siste innlevering. 
 - I siste sprint har vi hatt hovedfokus på å ferdigstille grafikk, design og detaljer for å levere et bra sluttprodukt. 
@@ -228,53 +245,84 @@ Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere
 - Vi har også endret slik at alle LayerType-verdier er representert som enums i stedet for strenger. 
 
 
-Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs). 
+**Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs).** 
 - Vi har ikke oppdaget noen bugs. 
 
 
-Kravlista er lang, men det er ikke nødvendig å levere på alle kravene hvis det ikke er realistisk. Det er viktigere at de oppgavene som er utført holder høy kvalitet. Utførte oppgaver skal være ferdige. 
+**Kravlista er lang, men det er ikke nødvendig å levere på alle kravene hvis det ikke er realistisk. Det er viktigere at de oppgavene som er utført holder høy kvalitet. Utførte oppgaver skal være ferdige.** 
 
 # Produkt og kode
-(Evt. tekst / kommentarer til koden kan dere putte i en egen ## Kode-seksjon i doc/obligX.md.)
+**(Evt. tekst / kommentarer til koden kan dere putte i en egen ## Kode-seksjon i doc/obligX.md.)**
+- Se egen kode-seksjon nederst i dokumentet. 
 
-Utbedring av feil: hvis dere har rettet / forbedret noe som er påpekt tidligere, lag en liste med «Dette har vi fikset siden sist», så det er lett for gruppelederne å få oversikt. 
+**Utbedring av feil: hvis dere har rettet / forbedret noe som er påpekt tidligere, lag en liste med «Dette har vi fikset siden sist», så det er lett for gruppelederne å få oversikt.**
 
 *Dette har vi fikset siden sist:*
 - Oppdatert url- feltet i pom.xml filen. 
 - Alle har skrevet tester og testscoren er over 75% (utenom view). 
+- Fikset bug "Å bli presset mot bakken av en plattform gjør at spilleren blir stuck i bakken". 
 
 
 
-I README.md: Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelederne å bygge, teste og kjøre koden deres. Under vurdering kommer koden også til å brukertestes. 
+**I README.md: Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelederne å bygge, teste og kjøre koden deres. Under vurdering kommer koden også til å brukertestes.** 
 - ([Se README](../README.md))
 
 
 
-Prosjektet skal kunne bygge, testes og kjøres på Linux, Windows og OS X – dere kan f.eks. spørre de andre teamene på gruppen om dere ikke har tilgang til alle platformene. OBS! Den vanligste grunnen til inkompatibilitet med Linux er at filnavn er case sensitive, mens store/små bokstaver ikke spiller noen rolle på Windows og OS X. Det er viktig å sjekke at stiene til grafikk og lyd og slikt matcher eksakt. Det samme vil antakelig også gjelde når man kjører fra JAR-fil. 
+**Prosjektet skal kunne bygge, testes og kjøres på Linux, Windows og OS X – dere kan f.eks. spørre de andre teamene på gruppen om dere ikke har tilgang til alle platformene. OBS! Den vanligste grunnen til inkompatibilitet med Linux er at filnavn er case sensitive, mens store/små bokstaver ikke spiller noen rolle på Windows og OS X. Det er viktig å sjekke at stiene til grafikk og lyd og slikt matcher eksakt. Det samme vil antakelig også gjelde når man kjører fra JAR-fil.**
 - Innad i gruppen så bruker vi både Mac, Windows og Linux slik at vi hele tiden får sjekket at prosjektet kan bygges, testes og kjøres på alle tre 
 
  
 
-Lag og lever et klassediagram. (Hvis det er veldig mange klasser, lager dere for de viktigste.) Det er ikke nødvendig å ta med alle metoder og feltvariabler med mindre dere anser dem som viktige for helheten. (Eclipse har forskjellige verktøy for dette.) 
+**Lag og lever et klassediagram. (Hvis det er veldig mange klasser, lager dere for de viktigste.) Det er ikke nødvendig å ta med alle metoder og feltvariabler med mindre dere anser dem som viktige for helheten. (Eclipse har forskjellige verktøy for dette.)**
 - Klassediagram ligger under “doc/ClassDiagram”. 
+- Vi har laget egne klassediagram for "model", "controller", "app" og "view", samt et for "main" som viser knytepunktet mellom MVC.
 - [Her er link til klassediagram:](classDiagram) 
 
 
-Kodekvalitet og testdekning vektlegges. Dersom dere ikke har automatiske tester for GUI-et, lager dere manuelle tester som gruppelederne kan kjøre basert på akseptansekriteriene. 
-
- 
-Statiske analyseverktøy som SpotBugs eller SonarQube kan hjelpe med å finne feil dere ikke tenker på. Hvis dere prøver det, skriv en kort oppsummering av hva dere fant / om det var nyttig. 
- 
-
-Automatiske tester skal dekke forretningslogikken i systemet (unit-tester). Coverage kan hjepe med å se hvor mye av koden som dekkes av testene – i Eclipse kan dette gjøres ved å installere EclEmma gjennom Eclipse Marketplace. 
-
- 
-Utførte oppgaver skal være ferdige. Slett filer/kode som ikke virker eller ikke er relevant (ennå) for prosjektet. (Så lenge dere har en egen git branch for innlevering, så er det ikke noe stress å fjerne ting fra / rydde den, selv om dere fortsetter utviklingen på en annen gren). 
-- Vi har slettet all kode og filer som ikke er i bruk. 
+*Kodekvalitet og testdekning vektlegges. Dersom dere ikke har automatiske tester for GUI-et, lager dere manuelle tester som gruppelederne kan kjøre basert på akseptansekriteriene.*
+*Statiske analyseverktøy som SpotBugs eller SonarQube kan hjelpe med å finne feil dere ikke tenker på. Hvis dere prøver det, skriv en kort oppsummering av hva dere fant / om det var nyttig.*
+*Automatiske tester skal dekke forretningslogikken i systemet (unit-tester). Coverage kan hjepe med å se hvor mye av koden som dekkes av testene – i Eclipse kan dette gjøres ved å installere EclEmma gjennom Eclipse Marketplace.*
+*Utførte oppgaver skal være ferdige. Slett filer/kode som ikke virker eller ikke er relevant (ennå) for prosjektet. (Så lenge dere har en egen git branch for innlevering, så er det ikke noe stress å fjerne ting fra / rydde den,* *selv om dere fortsetter utviklingen på en annen gren).*
+- Vi har sett over kriteriene. 
 
 # Teknisk beskrivelse av prosjektet og arkitekturen (inkl. klassediagram)
 - [Her er link til klassediagram:](classDiagram)
 
-Teknisk beskrivelse: 
+**Teknisk beskrivelse:**
 - Spillet er utviklet etter MVC-prinsippet med fokus på høy grad av kapsling for å sikre en modulær og lett vedlikeholdbar kodebase. Det benytter polymorfi aktivt for å oppnå en fleksibel og ryddig struktur i programflyten. Koden er veldokumentert, med klare beskrivelser av alle sentrale komponenter og deres ansvar. I tillegg er løsningen godt dekket av en omfattende testpakke, med både enhetstester og integrasjonstester, som sikrer stabilitet og gjør videre utvikling trygg og effektiv.
 
+# Overordnet beskrivelse av prosjektet
+To spillfigurer som kan styres, gå til høyre/venstre, hoppe oppover.
+
+Todimensjonal verden:
+
+  * Bakke / platform spillerne kan stå på.
+  * Vegg som spilleren ikke kan gå gjennom
+  * Spilleren må komme seg til slutten av spillebrettet *mål*
+  * Spillerne kan få "poeng" ved å plukke opp diamanter
+  * Utfordringen i spillet er å holde seg borte fra skadelige fiender 
+  * Plattformer som beveger seg
+  * «Power-up»-diamant som gir spilleren et ekstra liv
+  * Spillerne må også å "løse" levelet ved samarbeid.
+
+**MVP:**
+1. Vise et spillebrett
+2. Vise spillere på spillebrett
+3. Flytte spillerne (vha taster e.l.)
+4. Spillerne interagerer med terreng
+5. Spillerne har *poeng* og interagerer med poenggjenstander
+6. Vise lava/vann; de skal interagere
+7. Spiller kan dø (ved kontakt med lava/vann)
+8. Mål for spillbrett er ett sted å gå
+9. Nytt spillbrett når forrige er ferdig
+10. Start-skjerm ved oppstart / game over
+
+# Kode
+*Vi har hatt fokus på å følge SOLID-prinsippene og opprettholde god kodekvalitet:*
+- Single Responsibility Principle: Alle klasser har ett ansvarsområde og gjør kun én ting. Som for eksempel individuelle klasser for alle ulike entity typer i spiller, men som alle felles implementerer IEntity interfacet. 
+- Open/Closed Principle: Vi har brukt arv og interfaces for å legge til ny funksjonalitet uten å endre eksisterende kode. For eksempel la vi til fienden Acid, som skader begge spillere, uten at det var behov for å endre noe i eksisterende logikk. 
+- Liskov Substitution Principle: Subklasser kan brukes på samme måte som sine superklasser. Et eksempel er PlayerSet, som utvider EntitySet og arver samme logikk, men utvider funksjonaliteten med noe ekstra. 
+- Interface Segregation Principle: Vi har delt opp funksjonalitet i flere mindre og spesifikke interfaces, slik at klassene kun implementerer det de faktisk trenger. For eksempel iControllable model og IViewable model, som skille model funksjonaliteten for å både opprettholde MVC når modellen blir brukt i view og controlleren og for å dele interfacene på en hensiktsmessig måte. 
+- Dependency Inversion Principle: Bruker interface som type istedenfor konkrete klasser. Vi har dokumentasjon på alle public metoder. Vi har laget interface for factory og soundManager. 
+- Dont repeat yourself: Vi har laget egne hjelpeklasser for å unngå mye duplikat kode, feks bruker vi MapUtils med statiske metoder for å hente verdier i kartet.
