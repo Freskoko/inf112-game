@@ -105,27 +105,27 @@
   </object>
  </objectgroup>
  <objectgroup id="4" name="ELEMENT" locked="1">
-  <object id="26" x="352" y="912" width="256" height="32">
+  <object id="26" x="352" y="925.512" width="256" height="18.4877">
    <properties>
     <property name="type" value="acid"/>
    </properties>
   </object>
-  <object id="27" x="800" y="912" width="96" height="32">
+  <object id="27" x="800" y="925.512" width="96" height="18.4877">
    <properties>
     <property name="type" value="water"/>
    </properties>
   </object>
-  <object id="29" x="64" y="912" width="96" height="32">
+  <object id="29" x="64" y="925.512" width="96" height="18.4877">
    <properties>
     <property name="type" value="lava"/>
    </properties>
   </object>
-  <object id="31" x="608" y="656" width="96" height="32">
+  <object id="31" x="608" y="671.443" width="96" height="16.5574">
    <properties>
     <property name="type" value="water"/>
    </properties>
   </object>
-  <object id="32" x="256" y="656" width="96" height="32">
+  <object id="32" x="256" y="670.477" width="96" height="17.5225">
    <properties>
     <property name="type" value="lava"/>
    </properties>
