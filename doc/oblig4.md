@@ -26,8 +26,8 @@ Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt
 
 - Vi opplever at teamet fungerer veldig bra. Dette gjelder både faglig, men også sosialt som gruppe.  
 - Vi ser fortsatt at innføringen av deadlines var noe som fungerte veldig bra for vår gruppe. Ved å sette bestemte deadlines på ulike issues så får vi sikret den fremgangen vi ønsker og trenger.  Det gjør det også enklere å fordele arbeidsmengden jevnt gjennom sprintene, slik at vi unngår veldig stress rett før innleveringsfrister. 
-- Vi valgte å bruke KanBan som prosjektmetodikk, der vi bruker Git Issue board. Dette er noe vi synes har fungert veldig fint med tanke på å få visualisert arbeidsflyten. Dette gjør at vi har god oversikt over hvilke oppgaver som må utføres, hva som er under arbeid, hva som må reviews og hvilke oppgaver som er fullført til enhver tid.
-- Vi valgte en prosjektmetodikk som passet godt for oss. Med Kanban fikk vi en god oversikt over oppgaver og fremdrift i projsektet, samtidig som vi enkelt kunne justere og oppdatere issues etter hvert som nye behov dukket opp. Iløpet av prosjektet så har vi erfart at det ofte er ting som må endres og oppdateres, eller at man tester ideer som ikke helt fungerer som man ønsker. Derfor har det vært viktig for oss å være fleksible og åpne for endringer til enhver tid. 
+- Vi har tatt inspirasjon fra Kanban som prosjektmetodikk, der vi bruker Git Issue board for å visualisere arbeidsflyten. Dette er noe vi synes har fungert veldig fint med tanke på å få visualisert arbeidsflyten. Dette gjør at vi har god oversikt over hvilke oppgaver som må utføres, hva som er under arbeid, hva som må reviews og hvilke oppgaver som er fullført til enhver tid.
+- Vi valgte en prosjektmetodikk som passet godt for oss. Ved å bruke Git Issue Board fikk vi en god oversikt over oppgaver og fremdrift i projsektet, samtidig som vi enkelt kunne justere og oppdatere issues etter hvert som nye behov dukket opp. Iløpet av prosjektet så har vi erfart at det ofte er ting som må endres og oppdateres, eller at man tester ideer som ikke helt fungerer som man ønsker. Derfor har det vært viktig for oss å være fleksible og åpne for endringer til enhver tid. 
 
 *Hva kan vi gjøre annerledes?*
 - For å ytterligere forbedre måten teamet fungerer på så kunne vi vært enda flinkere til å oppdatere Git Issue Board med en gang vi har fullført noe eller kommer på noe nytt som må gjøres. I perioder så har det blitt litt utdatert, dette har ikke vært noe problem siden vi har så jevnlige møter og kommunikasjon.  
@@ -39,6 +39,7 @@ Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt
 Hvordan er gruppedynamikken? Er det uenigheter som bør løses? 
 
 - Gruppedynamikken er veldig fin, det er høyt under taket og rom for diskusjon. Dette gjør at det er enkelt for oss å si hva vi mener og diskutere ideer og løsninger. 
+- Vi har ikke hatt noen uenigheter innad i gruppen. Er det noe vi er uenige i så diskuterer vi det med en gang og kommer frem til en løsning sammen. 
 - Vi tror dette har vært veldig viktig for at gruppen har fungert så bra som den har gjennom hele prosjektperioden, det er mye enklere å diskutere og komme med tilbakemeldinger til hverandre når man føler seg trygg på gruppen.  
 
  
@@ -59,7 +60,7 @@ Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva
 - Vi har klart å opprettholde faste møtetidspunkter, hvor alle har møtt opp gjennom hele prosjektperioden. Har feks noen vært bortreist så har de vært med på møte via telefon om det har passet slik. 
 - Vi har klart å opprettholde en jevn progresjon, dette gjør at vi er godt i rute for siste innlevering og slipper å stresse inn mot siste innleveringsfrist.  
 - Vi har klart å opprettholde motivasjonen og hatt det gøy gjennom hele prosjektet, noe vi tror er viktig for å få til et bra sluttprodukt.  
-- Vi har klart å holdt oss til den prosjektmetodikken vi valgte, KanBan. Vi har oppdatert og brukt Git Issue Board jevnt og kontinuerlig gjennom hele prosjektet, dette har vært viktig for gruppen slik at alle har god oversikt over arbeidsflyten. 
+- Vi har klart å holdt oss til den prosjektmetodikken vi valgte. Vi har oppdatert og brukt Git Issue Board jevnt og kontinuerlig gjennom hele prosjektet, dette har vært viktig for gruppen slik at alle har god oversikt over arbeidsflyten. 
 
 *Forbedringer:*
 - Vi kunne vært enda flinkere til å dele opp noen større arbeidsoppgaver i enda mindre issues tidligere i prosjektet. Noen ganger ble store oppgaver ventende litt lenge før de ble delt opp i mindre deler.
@@ -79,10 +80,9 @@ Referat fra møter siden forrige leveranse skal legges ved (mange av punktene ov
 
 
 Bli enige om maks tre forbedringspunkter fra retrospektivet, som skal følges opp under neste sprint. 
--Hvis vi skulle fortsatt prosjektet og hatt flere sprinter, ville dette blitt fulgt opp under neste sprint:
-1. Enda grundigere Merge Request reviews. 
-2. Dele opp store oppgaver i mindre tasks. 
-3. Lage Merge Requester oftere, for jevnere tilbakemelding fra de andre teammedlemmene.
+- Hvis vi skulle fortsatt prosjektet og hatt flere sprinter, ville dette blitt fulgt opp under neste sprint:
+1. Dele opp store oppgaver i mindre tasks. 
+2. Lage Merge Requester oftere, for jevnere tilbakemelding fra de andre teammedlemmene.
 
  
 
@@ -100,6 +100,7 @@ For siste innlevering (Oblig 4): Gjør et retrospektiv hvor dere vurderer hvorda
 - Vi endret fra Trello til GitLab Issue Board. Etterhvert så synes vi det ble mange plattformer å holde styr på, så vi valgte å bruke GitLab Issue Board istedenfor. Dette synes vi har fungert veldig fint, det hjelper å ha mindre plattformer å forholde seg til og oppdatere.
 - Vi har hatt faste møter 2 ganger i uken, med noen unntak i ferier. 
 - Vi har brukt Discord jevnt gjennom hele prosjektet. Strategien med å sende link til Merge Request i Discord slik at alle får varsel om det og kan reviwe har fungert veldig bra. Har man noen spørsmål så reagerer man med en tankeboble i Discord og kommenterer på Merge Requesten på Git. Approver man så reagerer man med en checkmark på Discord og approver på Git. 
+- Prosedyren vår for å gå gjennom en MR har vært først å dele den på Discord, så se gjennom den på Git og legge igjen kommentarer/tilbakemelding, så har MR blitt forbedret før en ny vurdering gjøres og den evt blir merged. 
 - Vi har brukt parprogrammering når vi har hatt behov for det, det har vært en fin måte å jobbe sammen på. 
 - Mot slutten ble discord brukt mer til å fordele arbeidsoppgaver og ha oversikt over hva som må gjøres. Vi synes dette funket veldig bra mot slutten da det var mange små ting som måtte gjøres og oppdateres jevnt. Alle har tilgang til discord på mobil, og det var derfor veldig tilgjengelig for alle å ha en oversikt der.
 - Vi stresset litt i starten med clean Git historikk, men iløpet av prosjektet så har vi fått intrykk av at det ikke er det viktigste. Vi har derfor ikke stresset like mye med det mot slutten. Prøver fortsatt å ha fokus på gode commitmeldinger osv, men bruker ikke alt for mye tid på å rydde i Git historikk. 
@@ -109,22 +110,22 @@ For siste innlevering (Oblig 4): Gjør et retrospektiv hvor dere vurderer hvorda
 - Noe som har vært veldig bra under hele prosjektet er at vi har opprettholdt kontinuitet i arbeidet. Vi har møttes 2 ganger hver uke (bortsett fra ferie etc).  
 - Vi har klart å opprettholde en jevn progresjon, dette gjør at vi er godt i rute for siste innlevering og slipper å stresse inn mot siste innleveringsfrist.  
 - Vi har klart å opprettholde motivasjonen og hatt det gøy gjennom hele prosjektet, noe vi tror er viktig for å få til et bra sluttprodukt.  
-- Vi har klart å holdt oss til den prosjektmetodikken vi valgte, KanBan. Vi har oppdatert og brukt Git Issue Board gjennom hele prosjektet, dette har vært viktig for gruppen slik at alle har god oversikt over arbeidsflyten. 
+- Vi har klart å holdt oss til den prosjektmetodikken vi valgte. Vi har oppdatert og brukt Git Issue Board gjennom hele prosjektet, dette har vært viktig for gruppen slik at alle har god oversikt over arbeidsflyten. 
 - Vi har hatt en veldig god teamdynamikk, hvor alle har kommet med innspill, diskutert løsninger, og hjulpet hverandre. 
 - Kommunikasjonen har vært tydelig og strukturert, både i møter og på Discord mellom møtene.
 - Vi har dokumentert arbeidet vårt godt, både i kodebasen og i referater.
 - Vi har hatt fokus på kodekvalitet, har fulgt SOLID-prinsipper og opprettholdt MVC på en bra måte.
-- Vi har hatt stort fokus på å skrive modulær kode. Vi ventet en stund med å legge til acid, men det tok bare to linjer med kode å kegge til det, noe som viser at vi har skrevet veldig modulær kode, i både Entity-klassene, model og map-klassene. 
+- Vi har hatt stort fokus på å skrive modulær kode. Vi ventet en stund med å legge til acid, selv om det var planlagt fra start at vi skulle legge den til. Det tok bare to linjer med kode å legge til det, noe som viser at vi har skrevet veldig modulær kode, i både Entity-klassene, model og map-klassene. 
 - Vi valgte bevisst å ikke fokusere på grafikk før mot slutten av prosjektet, og prioriterte i stedet spilllogikk frem til siste sprint. Dette synes vi var en bra strategi, da det gjorde at vi hadde et fungerende spill før vi brukte mye tid på det visuelle.
 - Vi klarte å unngå mye scope creep ved å sørge for at hver branch kun inneholdt det den skulle, uten å gjøre unødvendige endringer eller tillegg.
 
 *Vi har hatt fokus på å følge SOLID-prinsippene og opprettholde god kodekvalitet:*
-- Single Responsibility Principle: Alle klasser har ett ansvarsområde og gjør kun én ting.
+- Single Responsibility Principle: Alle klasser har ett ansvarsområde og gjør kun én ting. Som for eksempel individuelle klasser for alle ulike entity typer i spiller, men som alle felles implementerer IEntity interfacet. 
 - Open/Closed Principle: Vi har brukt arv og interfaces for å legge til ny funksjonalitet uten å endre eksisterende kode. For eksempel la vi til fienden Acid, som skader begge spillere, uten at det var behov for å endre noe i eksisterende logikk. 
 - Liskov Substitution Principle: Subklasser kan brukes på samme måte som sine superklasser. Et eksempel er PlayerSet, som utvider EntitySet og arver samme logikk, men utvider funksjonaliteten med noe ekstra. 
-- Interface Segregation Principle: Vi har delt opp funksjonalitet i flere mindre og spesifikke interfaces, slik at klassene kun implementerer det de faktisk trenger. For eksempel brukes IEntity sammen med mer spesifikke interfaces for de ulike objekttypene.
-- Dependency Inversion Principle: Bruker interface som type istedenfor konkrete klasser. Vi har dokumentasjon på alle public metoder.
-- Dont repeat yourself: Vi har laget egne hjelpeklasser for å unngå mye duplikat kode, feks bruker vi MapUtils med statiske metoder for å hente og sette verdier i kartet.
+- Interface Segregation Principle: Vi har delt opp funksjonalitet i flere mindre og spesifikke interfaces, slik at klassene kun implementerer det de faktisk trenger. For eksempel iControllable model og IViewable model, som skille model funksjonaliteten for å både opprettholde MVC når modellen blir brukt i view og controlleren og for å dele interfacene på en hensiktsmessig måte. 
+- Dependency Inversion Principle: Bruker interface som type istedenfor konkrete klasser. Vi har dokumentasjon på alle public metoder. Vi har laget interface for factory og soundManager. 
+- Dont repeat yourself: Vi har laget egne hjelpeklasser for å unngå mye duplikat kode, feks bruker vi MapUtils med statiske metoder for å hente verdier i kartet.
 
  
 ***Hva hadde vi gjort annerledes:***
@@ -132,7 +133,7 @@ For siste innlevering (Oblig 4): Gjør et retrospektiv hvor dere vurderer hvorda
 - Det hadde kanskje vært lurt å lage en overordnet tidslinje tidlig i prosjektet, med tentative deadlines, slik at vi hadde hatt bedre oversikt over fremdrift. 
 - Vi kunne prøvd å komme i mål med MVP enda tidligere.
 - Det hadde vært en fordel å dele opp store oppgaver i mindre issues enda tidligere, slik at det var lettere å komme i gang med dem og fordele arbeidet.
-- Vi ser også at det kunne vært lurt å sette os et mål for sluttproduktet allerede fra start. Selv om fleksibilitet underveis er viktig, tror vi at et felles mål fra starten av kunne gjort det lettere å vite hvor vi lå an og hva vi skulle prioritere når. 
+- Vi ser også at det kunne vært lurt å sette oss et mål for sluttproduktet allerede fra start. Selv om fleksibilitet underveis er viktig, tror vi at et mål fra starten av kunne gjort det lettere å vite hvor vi lå an og hva vi skulle prioritere når. 
 
 
 *Oppsummering:*
@@ -192,17 +193,19 @@ Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere
 
 
 Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs). 
+- Vi har ikke oppdaget noen bugs. 
 
 
 Kravlista er lang, men det er ikke nødvendig å levere på alle kravene hvis det ikke er realistisk. Det er viktigere at de oppgavene som er utført holder høy kvalitet. Utførte oppgaver skal være ferdige. 
 
 # Produkt og kode
+(Evt. tekst / kommentarer til koden kan dere putte i en egen ## Kode-seksjon i doc/obligX.md.)
 
 Utbedring av feil: hvis dere har rettet / forbedret noe som er påpekt tidligere, lag en liste med «Dette har vi fikset siden sist», så det er lett for gruppelederne å få oversikt. 
 
 *Dette har vi fikset siden sist:*
 - Oppdatert url- feltet i pom.xml filen. 
-- Alle har skrevet tester og testscoren er over 75%. 
+- Alle har skrevet tester og testscoren er over 75% (utenom view). 
 
 
 
