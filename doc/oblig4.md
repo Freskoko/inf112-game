@@ -50,7 +50,7 @@ Hvordan fungerer kommunikasjonen for dere?
 - Vi bruker Discord som hovedkanal for kommunikasjon. 
 - Der har vi en egen channel for ulike temaer, Feks: MeetingPlans, MergeRequests, General, Deadlines, Graphics. 
 - Vi synes dette er veldig oversiktlig og samler all kommunikasjon på ett sted. Vi har også brukt Discord aktivt til korte oppdateringer mellom møtene. 
-- Hver gang vi lager en merge request så sender vi den i Discord, så reagerer vi med en tankeboble om vi har noen spørsmål. Da legger vi inn en kommentar på MR på Git. Hvis vi approver MR så reagerer vi med en grønn checkmark. 
+- Hver gang vi lager en merge request så sender vi den i Discord, så reagerer vi med en tankeboble om vi har noen spørsmål. Da legger vi inn en kommentar på MR på Git. Hvis vi approver MR så reagerer vi med en grønn checkmark.
 - Vi har også vært flinke til å informere hverandre om praktiske ting som kunne påvirket arbeidet, som for eksempel hvis noen skulle være bortreist eller bli syke eller. På den måten har vi unngått overraskelser, og vi har kunnet justere planene våre.
 
 Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva som kan forbedres. Dette skal handle om prosjektstruktur, ikke kode. Dere kan selvsagt diskutere kode, men dette handler ikke om feilretting, men om hvordan man jobber og kommuniserer. 
@@ -70,10 +70,40 @@ Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva
 
 Under vurdering vil det vektlegges at alle bidrar til kodebasen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også designfiler) 
 
-- Vi har parprogrammert litt underveis, samt at noen av oss ofte committer mindre endringer enn andre, men alle har bidratt til kodebasen.  
-- Det kan være variasjon i antall commits per person, noe som i stor grad skyldes at vi har hatt ulike ansvarsområder og roller. For eksempel har noen jobbet mer med design og dokumentasjon, mens andre har hatt hovedansvar for testing eller backend.
-- Denne skjevheten er noe som vi har forventet med tanke på at alle har ulike ansvarsområder og roller. 
- 
+- Her er `git shortlog` og en kombinert oppsummering av total mengde commits per bruker:
+
+git shortlog:
+```
+   197  Gedvyde Petkeviciute
+   162  gufla5085
+   146  Ingvild Hope
+    91  henrik
+    47  Gedvyde.Petkeviciute
+    34  henrikpopos
+    29  Anya Helene Bagge
+    23  Ingvild.H.Hope
+    12  guro.flatas
+    11  henrik.brogger
+...andre små commits fra admins
+```
+dvs, total commits per bruker:
+```
+244 Gedvyde
+174 Guro
+169 Ingvild
+136 Henrik
+```
+
+Det er litt skjeivhet i commit-fordelingen, men dette er naturlig, grunnet flere årsaker:
+
+- Hovedgrunnen er at vi har hatt ulike ansvarsområder og roller. Eksempelvis, så har noen jobbet mer med design og dokumentasjon, noen har hjulpet andre med git, mens andre har hatt hovedansvar for testing eller backend.
+- Denne skjevheten er noe som vi har forventet med tanke på at alle har ulike ansvarsområder og roller. Det blir ikke like mange linjer kode å skrive når man bruker tid på spill-design, grafikk, eller å skrive obliger.
+
+Ellers kan skjevhet forklares utifra:
+
+- Vi har parprogrammert litt underveis, sånn at selv om navnet til en person står på commiten, er det flere som har vært med å lage den.
+- Innad i gruppen har "commit-stilen" variert fra person til person, dvs at noen commiter ofte og smått, og andre committer stort og sjeldnere.
+
 Referat fra møter siden forrige leveranse skal legges ved (mange av punktene over er typisk ting som havner i referat). 
 - Referat fra alle møter ligger under “doc/meeting reports”. 
 - [Her er link til mappe med møtereferater:](MeetingReports)
@@ -103,6 +133,12 @@ For siste innlevering (Oblig 4): Gjør et retrospektiv hvor dere vurderer hvorda
 - Prosedyren vår for å gå gjennom en MR har vært først å dele den på Discord, så se gjennom den på Git og legge igjen kommentarer/tilbakemelding, så har MR blitt forbedret før en ny vurdering gjøres og den evt blir merged. 
 - Vi har brukt parprogrammering når vi har hatt behov for det, det har vært en fin måte å jobbe sammen på. 
 - Mot slutten ble discord brukt mer til å fordele arbeidsoppgaver og ha oversikt over hva som må gjøres. Vi synes dette funket veldig bra mot slutten da det var mange små ting som måtte gjøres og oppdateres jevnt. Alle har tilgang til discord på mobil, og det var derfor veldig tilgjengelig for alle å ha en oversikt der.
+- Hvis de som retter dette ønsker å ta en titt på discorden våres, bruk [denne linken til å joine serveren](https://discord.gg/kdueKxNTJ3)
+- Her er bilde av alle kanalene vi har laget på discord: 
+  
+    <img src="images/discord_channels.png" alt="alt text" height="300">
+
+
 - Vi stresset litt i starten med clean Git historikk, men iløpet av prosjektet så har vi fått intrykk av at det ikke er det viktigste. Vi har derfor ikke stresset like mye med det mot slutten. Prøver fortsatt å ha fokus på gode commitmeldinger osv, men bruker ikke alt for mye tid på å rydde i Git historikk. 
 
 
