@@ -22,14 +22,14 @@ public interface IPlayer {
   /**
    * Sets whether the player has finished the map.
    *
-   * @param finished true if the player has finished; false otherwise.
+   * @param finished True if the player has finished; false otherwise.
    */
   void setFinished(boolean finished);
 
   /**
    * Checks if the player has finished the map.
    *
-   * @return true if the player has finished; false otherwise.
+   * @return True if the player has finished; false otherwise.
    */
   boolean isFinished();
 
@@ -37,8 +37,7 @@ public interface IPlayer {
    * Moves the player in the specified direction by modifying its body's linear
    * velocity.
    *
-   * @param dir The direction in which the player should move (UP, LEFT, RIGHT,
-   *            STOP).
+   * @param dir The direction in which the player should move (UP, LEFT, RIGHT, STOP).
    * @throws IllegalArgumentException if an unexpected MovementType is provided.
    */
   void move(MovementType dir);
@@ -53,13 +52,15 @@ public interface IPlayer {
   void spawn(World world, Vector2 pos);
 
   /**
-   *
+   * Returns the number of collected items by the player.
+   * 
    * @return The number of items collected by the player.
    */
   int getCollectedCount();
 
   /**
-   *
+   * Checks if the player is alive.
+   * 
    * @return true if the player is alive; false otherwise.
    */
   boolean isAlive();

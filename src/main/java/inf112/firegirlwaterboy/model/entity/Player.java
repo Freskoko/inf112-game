@@ -17,10 +17,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import inf112.firegirlwaterboy.controller.MovementType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 import inf112.firegirlwaterboy.model.maps.LayerType;
-import inf112.firegirlwaterboy.model.types.PlayerType;
-import inf112.firegirlwaterboy.sound.IPlayerSoundManager;
-import inf112.firegirlwaterboy.sound.PlayerSoundManager;
+import inf112.firegirlwaterboy.model.sound.IPlayerSoundManager;
+import inf112.firegirlwaterboy.model.sound.PlayerSoundManager;
 
 /**
  * Player class represents a player character in the game.
@@ -208,14 +208,17 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
   }
 
   /**
-   * @return The current frame of the player based on their state (running or
-   *         standing).
+   * Returns the current frame of the player based on their state (running or standing).
+   * 
+   * @return The current frame of the player based on their state (running or standing).
    */
   private TextureRegion getFrame() {
     return isMoving() ? runningAnimation.getKeyFrame(stateTime, true) : standingTexture;
   }
 
   /**
+   * Checks if the player is moving by checking the linear velocity of the body.
+   * 
    * @return true if the player is moving, false otherwise.
    */
   private boolean isMoving() {
@@ -239,6 +242,7 @@ public class Player extends Sprite implements IEntity<PlayerType>, IPlayer {
       Fixture other = aIsMe ? b : a;
       if ((other.getFilterData().categoryBits & groundBits) != 0) {
         body.applyLinearImpulse(new Vector2(0, jumpSpeed), body.getWorldCenter(), true);
+        break;
       }
     }
   }

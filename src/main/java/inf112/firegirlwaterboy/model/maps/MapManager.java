@@ -9,7 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 
 /**
  * Manages loading and interacting with tiled maps in the game.
@@ -24,8 +24,7 @@ public class MapManager implements IMapManager {
   /**
    * Loads all Tiled maps (*.tmx) from the resources folder into a HashMap.
    *
-   * @return A {@link HashMap} mapping map names (file names without ".tmx") to
-   *         {@link TiledMap} objects.
+   * @return A HashMap mapping map names (file names without ".tmx") to TiledMap objects.
    */
   private HashMap<String, TiledMap> loadAllMaps() {
     HashMap<String, TiledMap> maps = new HashMap<>();

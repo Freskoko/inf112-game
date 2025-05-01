@@ -11,8 +11,10 @@ public enum MovementType {
   DOWN();
 
   /**
-   * @param movementType  the movement type to get the opposite of
-   * @return the opposite movement type
+   * Get the opposite direction of the given movement type.
+   * 
+   * @param movementType  The movement type to get the opposite of
+   * @return The opposite movement type
    */
   static public MovementType getOppositeDir(MovementType movementType) {
     switch (movementType) {

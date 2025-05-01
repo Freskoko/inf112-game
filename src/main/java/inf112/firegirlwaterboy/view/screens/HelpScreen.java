@@ -19,103 +19,99 @@ import inf112.firegirlwaterboy.view.ButtonDesigner;
  */
 public class HelpScreen implements Screen {
 
-    private final Stage stage;
-    private final Viewport viewport;
-    private final Button backButton;
-    private final Texture backgroundTexture;
-    private Texture boxTexture;
+  private final Stage stage;
+  private final Viewport viewport;
+  private final Button backButton;
+  private final Texture backgroundTexture;
+  private Texture boxTexture;
 
-    public HelpScreen(Controller controller) {
-        viewport = new ExtendViewport(960, 960);
+  public HelpScreen(Controller controller) {
+    viewport = new ExtendViewport(960, 960);
+    stage = new Stage(viewport);
+    Gdx.input.setInputProcessor(stage);
 
-        stage = new Stage(viewport);
-        Gdx.input.setInputProcessor(stage);
+    backgroundTexture = new Texture("assets/pages/screens/BackgroundScreen.png");
+    backButton = ButtonDesigner.createButton("Back", Color.valueOf("#607d4d"));
 
-        backgroundTexture = new Texture("assets/pages/background.png");
+    setupUI();
+    controller.attachToWelcomeListeners(backButton);
+  }
 
-        backButton = ButtonDesigner.createButton("Back", Color.valueOf("#607d4d"));
+  private void setupUI() {
+    Image backgroundImage = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
+    backgroundImage.setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
+    stage.addActor(backgroundImage);
 
-        setupUI();
-        controller.attachToWelcomeListeners(backButton);
-    }
+    Pixmap whitePixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+    whitePixmap.setColor(Color.valueOf("#607d4d"));
+    whitePixmap.fill();
+    boxTexture = new Texture(whitePixmap);
+    whitePixmap.dispose();
+    TextureRegionDrawable whiteBackground = new TextureRegionDrawable(new TextureRegion(boxTexture));
 
-    private void setupUI() {
-        Image backgroundImage = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
-        backgroundImage.setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
-        stage.addActor(backgroundImage);
+    String instructionsText = "How to Play:\n\n" +
+        "Choose character for player 1 and player 2. Player 1 uses arrow keys and player 2 uses WASD.\n\n" +
+        "Work together to collect all the diamonds and lead both characters to the exit door.\n\n" +
+        "White diamonds grant an extra life - grab them when you can!\n\n" +
+        "Avoid hazards: FireGirl can't touch water, WaterBoy can't touch fire, and no one can touch acid!";
 
-        Pixmap whitePixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        whitePixmap.setColor(Color.valueOf("#607d4d"));
-        whitePixmap.fill();
-        boxTexture = new Texture(whitePixmap);
-        whitePixmap.dispose();
-        TextureRegionDrawable whiteBackground = new TextureRegionDrawable(new TextureRegion(boxTexture));
+    Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.BLACK);
+    Label instructionsLabel = new Label(instructionsText, labelStyle);
+    instructionsLabel.setWrap(true);
 
-        String instructionsText = "How to Play:\n\n" +
-                "Choose character for player 1 and player 2. Player 1 uses arrow keys and player 2 uses WASD.\n\n" +
-                "Work together to collect all the diamonds and lead both characters to the exit door.\n\n" +
-                "White diamonds grant an extra life - grab them when you can!\n\n" +
-                "Avoid hazards: FireGirl can't touch water, WaterBoy can't touch fire, and no one can touch acid!";
+    Table instructionTable = new Table();
+    instructionTable.setFillParent(true);
+    instructionTable.center();
 
-        Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.BLACK);
-        Label instructionsLabel = new Label(instructionsText, labelStyle);
-        instructionsLabel.setWrap(true);
+    Table innerTable = new Table();
+    innerTable.background(whiteBackground);
+    innerTable.add(instructionsLabel).width(600).pad(30);
 
-        Table instructionTable = new Table();
-        instructionTable.setFillParent(true);
-        instructionTable.center();
+    instructionTable.add(innerTable);
 
-        Table innerTable = new Table();
-        innerTable.background(whiteBackground);
-        innerTable.add(instructionsLabel).width(600).pad(30);
+    stage.addActor(instructionTable);
 
-        instructionTable.add(innerTable);
+    Table backTable = new Table();
+    backTable.setFillParent(true);
+    backTable.top().right().pad(20);
+    backTable.add(backButton).size(100, 50);
+    stage.addActor(backTable);
+  }
 
-        stage.addActor(instructionTable);
+  @Override
+  public void show() {
+    Gdx.input.setInputProcessor(stage);
+  }
 
-        Table backTable = new Table();
-        backTable.setFillParent(true);
-        backTable.top().right().pad(20);
-        backTable.add(backButton).size(100, 50);
-        stage.addActor(backTable);
-    }
+  @Override
+  public void render(float delta) {
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    stage.act(delta);
+    stage.draw();
+  }
 
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
-    }
+  @Override
+  public void resize(int width, int height) {
+    viewport.update(width, height, true);
+  }
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(delta);
-        stage.draw();
-    }
+  @Override
+  public void hide() {
+    Gdx.input.setInputProcessor(null);
+  }
 
-    @Override
-    public void resize(int width, int height) {
-        viewport.update(width, height, true);
-    }
+  @Override
+  public void dispose() {
+    stage.dispose();
+    backgroundTexture.dispose();
+    boxTexture.dispose();
+  }
+  
+  @Override
+  @Generated("interface-stub")
+  public void pause() {}
 
-    @Override
-    @Generated("interface-stub")
-    public void pause() {
-    }
-
-    @Override
-    @Generated("interface-stub")
-    public void resume() {
-    }
-
-    @Override
-    public void hide() {
-        Gdx.input.setInputProcessor(null);
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
-        backgroundTexture.dispose();
-        boxTexture.dispose();
-    }
+  @Override
+  @Generated("interface-stub")
+  public void resume() {}
 }

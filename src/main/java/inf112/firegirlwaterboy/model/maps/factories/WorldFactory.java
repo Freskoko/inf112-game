@@ -15,12 +15,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.model.GameContactListener;
 import inf112.firegirlwaterboy.model.entity.Element;
-import inf112.firegirlwaterboy.model.managers.CollectableSet;
-import inf112.firegirlwaterboy.model.managers.EntitySet;
 import inf112.firegirlwaterboy.model.maps.IMapManager;
 import inf112.firegirlwaterboy.model.maps.LayerType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
 import inf112.firegirlwaterboy.model.entity.Platform;
+import inf112.firegirlwaterboy.model.entity.managers.CollectableSet;
+import inf112.firegirlwaterboy.model.entity.managers.EntitySet;
 
 /**
  * Manages loading and interacting with tiled maps in the game.
@@ -77,6 +77,12 @@ public class WorldFactory implements IWorldFactory {
     return collectables;
   }
 
+  /**
+   * Creates objects in the world based on the map layers.
+   * 
+   * @param world The Box2D world where objects should be created.
+   * @param map  The TiledMap used to generate world objects.
+   */
   private void createObjectsInWorld(World world, TiledMap map) {
     for (MapLayer layer : map.getLayers()) {
       switch (LayerType.valueOf(layer.getName())) {
@@ -145,8 +151,7 @@ public class WorldFactory implements IWorldFactory {
     bdef.type = BodyDef.BodyType.StaticBody;
 
     Body body = world.createBody(bdef);
-
-     float[] vertices = polygon.getPolygon().getTransformedVertices();
+    float[] vertices = polygon.getPolygon().getTransformedVertices();
     Vector2[] worldVertices = new Vector2[vertices.length / 2];
 
     for (int i = 0; i < worldVertices.length; i++) {

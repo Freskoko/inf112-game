@@ -21,116 +21,115 @@ import static org.mockito.Mockito.*;
 
 public class FireGirlWaterBoyTest {
 
-    private FireGirlWaterBoy game;
-    private Model mockModel;
-    private Controller mockController;
+  private FireGirlWaterBoy game;
+  private Model mockModel;
+  private Controller mockController;
 
-    @BeforeEach
-    void setUp() {
-        Gdx.graphics = mock(Graphics.class);
-        Gdx.input = mock(com.badlogic.gdx.Input.class);
+  @BeforeEach
+  void setUp() {
+    Gdx.graphics = mock(Graphics.class);
+    Gdx.input = mock(com.badlogic.gdx.Input.class);
 
-        GL20 mockGL = mock(GL20.class);
-        Gdx.gl20 = mockGL;
-        Gdx.gl = mockGL;
+    GL20 mockGL = mock(GL20.class);
+    Gdx.gl20 = mockGL;
+    Gdx.gl = mockGL;
 
-        com.badlogic.gdx.Files mockFiles = mock(com.badlogic.gdx.Files.class);
-        Gdx.files = mockFiles;
+    com.badlogic.gdx.Files mockFiles = mock(com.badlogic.gdx.Files.class);
+    Gdx.files = mockFiles;
 
-        FileHandle mockFileHandle = mock(FileHandle.class);
-        when(mockFiles.internal(anyString())).thenReturn(mockFileHandle);
-        when(mockFiles.classpath(anyString())).thenReturn(mockFileHandle);
+    FileHandle mockFileHandle = mock(FileHandle.class);
+    when(mockFiles.internal(anyString())).thenReturn(mockFileHandle);
+    when(mockFiles.classpath(anyString())).thenReturn(mockFileHandle);
 
-        mockModel = mock(Model.class);
-        mockController = mock(Controller.class);
+    mockModel = mock(Model.class);
+    mockController = mock(Controller.class);
 
-        game = new FireGirlWaterBoy() {
-            @Override
-            public void create() {
-                // prevent actual init
-            }
+    game = new FireGirlWaterBoy() {
+      @Override
+      public void create() {
+        // prevent actual init
+      }
 
-            @Override
-            public void setScreen(Screen screen) {
-                super.setScreen(screen);
-            }
-        };
+      @Override
+      public void setScreen(Screen screen) {
+        super.setScreen(screen);
+      }
+    };
 
-        try {
-            var modelField = FireGirlWaterBoy.class.getDeclaredField("model");
-            modelField.setAccessible(true);
-            modelField.set(game, mockModel);
+    try {
+      var modelField = FireGirlWaterBoy.class.getDeclaredField("model");
+      modelField.setAccessible(true);
+      modelField.set(game, mockModel);
 
-            var controllerField = FireGirlWaterBoy.class.getDeclaredField("controller");
-            controllerField.setAccessible(true);
-            controllerField.set(game, mockController);
+      var controllerField = FireGirlWaterBoy.class.getDeclaredField("controller");
+      controllerField.setAccessible(true);
+      controllerField.set(game, mockController);
 
-            var currentGameStateField = FireGirlWaterBoy.class.getDeclaredField("currentGameState");
-            currentGameStateField.setAccessible(true);
-            currentGameStateField.set(game, GameState.WELCOME);
-        } catch (Exception e) {
-            fail("Failed to set up test: " + e.getMessage());
-        }
+      var currentGameStateField = FireGirlWaterBoy.class.getDeclaredField("currentGameState");
+      currentGameStateField.setAccessible(true);
+      currentGameStateField.set(game, GameState.WELCOME);
+    } catch (Exception e) {
+      fail("Failed to set up test: " + e.getMessage());
+    }
+  }
+
+  @Test
+  void testConstructor() {
+    FireGirlWaterBoy realGame = new FireGirlWaterBoy();
+
+    try {
+      var modelField = FireGirlWaterBoy.class.getDeclaredField("model");
+      modelField.setAccessible(true);
+      assertNotNull(modelField.get(realGame));
+
+      var controllerField = FireGirlWaterBoy.class.getDeclaredField("controller");
+      controllerField.setAccessible(true);
+      assertNotNull(controllerField.get(realGame));
+
+      var currentGameStateField = FireGirlWaterBoy.class.getDeclaredField("currentGameState");
+      currentGameStateField.setAccessible(true);
+      assertEquals(GameState.WELCOME, currentGameStateField.get(realGame));
+    } catch (Exception e) {
+      fail("Test failed: " + e.getMessage());
+    }
+  }
+
+  @Test
+  void testRenderWithNoStateChange() {
+    when(mockModel.getGameState()).thenReturn(GameState.WELCOME);
+    try {
+      var currentGameStateField = FireGirlWaterBoy.class.getDeclaredField("currentGameState");
+      currentGameStateField.setAccessible(true);
+      currentGameStateField.set(game, GameState.WELCOME);
+    } catch (Exception e) {
+      fail("Test setup failed: " + e.getMessage());
     }
 
-    @Test
-    void testConstructor() {
-        FireGirlWaterBoy realGame = new FireGirlWaterBoy();
+    FireGirlWaterBoy gameSpy = spy(game);
 
-        try {
-            var modelField = FireGirlWaterBoy.class.getDeclaredField("model");
-            modelField.setAccessible(true);
-            assertNotNull(modelField.get(realGame));
+    gameSpy.render();
 
-            var controllerField = FireGirlWaterBoy.class.getDeclaredField("controller");
-            controllerField.setAccessible(true);
-            assertNotNull(controllerField.get(realGame));
+    verify(gameSpy, never()).setScreen(any(Screen.class));
+    verify(gameSpy).render();
+  }
 
-            var currentGameStateField = FireGirlWaterBoy.class.getDeclaredField("currentGameState");
-            currentGameStateField.setAccessible(true);
-            assertEquals(GameState.WELCOME, currentGameStateField.get(realGame));
-        } catch (Exception e) {
-            fail("Test failed: " + e.getMessage());
-        }
+  @Test
+  void testGetScreenByGameStateActiveGame() {
+    Screen screen = invokeGetScreen(game, GameState.ACTIVE_GAME);
+
+    assertTrue(screen instanceof GameScreen);
+
+    verify(mockModel).restartGame();
+  }
+
+  private Screen invokeGetScreen(FireGirlWaterBoy game, GameState state) {
+    try {
+      var method = FireGirlWaterBoy.class.getDeclaredMethod("getScreen", GameState.class);
+      method.setAccessible(true);
+      return (Screen) method.invoke(game, state);
+    } catch (Exception e) {
+      fail("Exception inside getScreenByGameState: " + e);
+      return null;
     }
-
-    @Test
-    void testRenderWithNoStateChange() {
-        when(mockModel.getGameState()).thenReturn(GameState.WELCOME);
-        try {
-            var currentGameStateField = FireGirlWaterBoy.class.getDeclaredField("currentGameState");
-            currentGameStateField.setAccessible(true);
-            currentGameStateField.set(game, GameState.WELCOME);
-        } catch (Exception e) {
-            fail("Test setup failed: " + e.getMessage());
-        }
-
-        FireGirlWaterBoy gameSpy = spy(game);
-
-        gameSpy.render();
-
-        verify(gameSpy, never()).setScreen(any(Screen.class));
-        verify(gameSpy).render();
-    }
-
-    @Test
-    void testGetScreenByGameStateActiveGame() {
-        Screen screen = invokeGetScreen(game, GameState.ACTIVE_GAME);
-
-        assertTrue(screen instanceof GameScreen);
-
-        verify(mockModel).restartGame();
-    }
-
-
-    private Screen invokeGetScreen(FireGirlWaterBoy game, GameState state) {
-        try {
-            var method = FireGirlWaterBoy.class.getDeclaredMethod("getScreen", GameState.class);
-            method.setAccessible(true);
-            return (Screen) method.invoke(game, state);
-        } catch (Exception e) {
-            fail("Exception inside getScreenByGameState: " + e);
-            return null;
-        }
-    }
+  }
 }

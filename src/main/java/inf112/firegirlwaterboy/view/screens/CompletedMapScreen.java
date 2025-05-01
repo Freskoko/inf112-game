@@ -37,12 +37,11 @@ public class CompletedMapScreen implements Screen {
     stage = new Stage(viewport);
     Gdx.input.setInputProcessor(stage);
     batch = new SpriteBatch();
-    backgroundTexture = new Texture(Gdx.files.internal("assets/pages/LevelCompletedScreen.png"));
+    backgroundTexture = new Texture(Gdx.files.internal("assets/pages/screens/LevelCompletedScreen.png"));
 
     setupUI();
   }
 
-  // Set up the UI for the completed map screen
   private void setupUI() {
     Table table = new Table();
     table.setFillParent(true);
@@ -55,7 +54,6 @@ public class CompletedMapScreen implements Screen {
         .center();
     ;
     stage.addActor(table);
-
   }
 
   @Override
@@ -83,16 +81,6 @@ public class CompletedMapScreen implements Screen {
   }
 
   @Override
-  @Generated("interface-stub")
-  public void pause() {
-  }
-
-  @Override
-  @Generated("interface-stub")
-  public void resume() {
-  }
-
-  @Override
   public void hide() {
     Gdx.input.setInputProcessor(null);
   }
@@ -103,4 +91,12 @@ public class CompletedMapScreen implements Screen {
     stage.dispose();
     backgroundTexture.dispose();
   }
+  
+  @Override
+  @Generated("interface-stub")
+  public void pause() {}
+
+  @Override
+  @Generated("interface-stub")
+  public void resume() {}
 }

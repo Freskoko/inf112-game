@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
  * Interface that represents an entity in the game.
- *
  * Defines the basic methods that an entity must have, including updating,
  * rendering and getting the texture of the entity.
  */
@@ -28,7 +27,9 @@ public interface IEntity<T> {
   void dispose();
 
   /**
-   * @return the type of the entity
+   * Returns the type of the entity.
+   * 
+   * @return The type of the entity
    */
   T getType();
 }

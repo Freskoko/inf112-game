@@ -7,19 +7,19 @@ import com.badlogic.gdx.utils.Timer;
 
 import inf112.firegirlwaterboy.controller.IControllableModel;
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.managers.CollectableSet;
-import inf112.firegirlwaterboy.model.managers.EntitySet;
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.Platform;
 import inf112.firegirlwaterboy.model.entity.Player;
-import inf112.firegirlwaterboy.model.managers.PlayerSet;
+import inf112.firegirlwaterboy.model.entity.managers.CollectableSet;
+import inf112.firegirlwaterboy.model.entity.managers.EntitySet;
+import inf112.firegirlwaterboy.model.entity.managers.PlayerSet;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 import inf112.firegirlwaterboy.model.maps.IMapManager;
 import inf112.firegirlwaterboy.model.maps.MapManager;
 import inf112.firegirlwaterboy.model.maps.factories.WorldFactory;
+import inf112.firegirlwaterboy.model.sound.ISoundManager;
 import inf112.firegirlwaterboy.model.maps.factories.IWorldFactory;
 import inf112.firegirlwaterboy.model.maps.factories.StandardGameObjectsFactory;
-import inf112.firegirlwaterboy.model.types.PlayerType;
-import inf112.firegirlwaterboy.sound.ISoundManager;
 import inf112.firegirlwaterboy.view.IViewModel;
 
 /**

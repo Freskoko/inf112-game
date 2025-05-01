@@ -2,10 +2,10 @@ package inf112.firegirlwaterboy.controller;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 
 /**
- * IController interface defines the methods for handling game logic and button
+ * IController interface defines the methods for handling keyboard and button
  * interactions.
  */
 public interface IController {
@@ -19,8 +19,7 @@ public interface IController {
    * @param playerType  The type of player to assign.
    * @param isPlayerOne A boolean indicating whether the player is Player One
    *                    (true) or Player Two (false).
-   * @return {@code true} if the player type was successfully assigned;
-   *         {@code false} otherwise.
+   * @return true if the player type was successfully assigned, false otherwise.
    */
   boolean selectPlayer(PlayerType playerType, boolean isPlayerOne);
 
@@ -46,43 +45,39 @@ public interface IController {
 
   /**
    * Attaches listeners to the buttons that returns to WelcomeScreen.
-   *
-   * @param back Button used to go back to the
-   *             WelcomeScreen.
+   * 
+   * @param back Button used to go back to the WelcomeScreen.
    */
   void attachToWelcomeListeners(Button back);
 
   /**
    * Attaches a listener to buttons that returns to the ChooseMapScreen.
-   *
-   * @param back The button uesd to go to the
-   *             ChooseMapScreen.
+   * 
+   * @param back The button uesd to go to the ChooseMapScreen.
    */
   void attachReturnToChooseMapsListener(Button back);
 
   /**
-   * Attaches listeners to the buttons on the WelcomeScreen where you can choose
-   * playerType.
-   *
+   * Attaches listeners to the buttons on the WelcomeScreen where you can choose playerType.
+   * 
    * @param button      The button for choosing PlayerType
-   * @param isPlayerOne Boolean that is true for player one and false for player
-   *                    two.
-   * @param type        the PlayerType to be assigned to the player.
+   * @param isPlayerOne Boolean that is true for player one and false for player two.
+   * @param type        The PlayerType to be assigned to the player.
    */
   void attachSelectPlayerListener(Button button, boolean isPlayerOne, PlayerType type);
 
   /**
-   * Attaches listeners to the button that returns to helpScreen
-   *
+   * Attaches listeners to the button that returns to helpScreen.
+   * 
    * @param help The button used to go to the help screen.
    */
   void attachToHelpListener(Button help);
 
   /**
-   *
+   * Checks if the map is complete.
+   * 
    * @param mapName The name of the map to check.
    * @return Boolean if the map is complete or not.
    */
   boolean isMapComplete(String mapName);
-
 }

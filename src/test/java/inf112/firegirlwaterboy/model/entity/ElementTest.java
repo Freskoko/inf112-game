@@ -23,7 +23,8 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.physics.box2d.*;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
-import inf112.firegirlwaterboy.model.types.ElementType;
+import inf112.firegirlwaterboy.model.entity.types.ElementType;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
