@@ -25,7 +25,6 @@ import inf112.firegirlwaterboy.view.ButtonDesigner;
 public class GameOverScreen implements Screen {
 
   private Controller controller;
-
   private SpriteBatch batch;
   private Texture backgroundTexture;
   private Stage stage;
@@ -38,7 +37,7 @@ public class GameOverScreen implements Screen {
     stage = new Stage(viewport);
     Gdx.input.setInputProcessor(stage);
     batch = new SpriteBatch();
-    backgroundTexture = new Texture(Gdx.files.internal("assets/pages/GameOverScreen.png"));
+    backgroundTexture = new Texture(Gdx.files.internal("assets/pages/screens/GameOverScreen.png"));
 
     setupUI();
   }
@@ -50,14 +49,12 @@ public class GameOverScreen implements Screen {
 
     controller.attachReturnToChooseMapsListener(chooseMapScreenButton);
     table.add(chooseMapScreenButton).center();
-
     stage.addActor(table);
   }
 
   @Override
   public void show() {
     Gdx.input.setInputProcessor(stage);
-
   }
 
   @Override
@@ -80,16 +77,6 @@ public class GameOverScreen implements Screen {
   }
 
   @Override
-  @Generated("interface-stub")
-  public void pause() {
-  }
-
-  @Override
-  @Generated("interface-stub")
-  public void resume() {
-  }
-
-  @Override
   public void hide() {
     Gdx.input.setInputProcessor(null);
   }
@@ -99,7 +86,13 @@ public class GameOverScreen implements Screen {
     batch.dispose();
     stage.dispose();
     backgroundTexture.dispose();
-
   }
 
+  @Override
+  @Generated("interface-stub")
+  public void pause() {}
+
+  @Override
+  @Generated("interface-stub")
+  public void resume() {}
 }

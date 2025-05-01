@@ -23,6 +23,7 @@ import inf112.firegirlwaterboy.view.IViewModel;
  * The game screen is responsible for rendering the game.
  */
 public class GameScreen implements Screen {
+  
   private OrthographicCamera camera;
   private OrthogonalTiledMapRenderer renderer;
   private Box2DDebugRenderer debugRenderer;
@@ -67,7 +68,6 @@ public class GameScreen implements Screen {
 
     batch = new SpriteBatch();
     hud = new Hud(batch, model);
-
     map = model.getMap();
     renderer = new OrthogonalTiledMapRenderer(map, 1 / MapUtils.PPM);
     debugRenderer = new Box2DDebugRenderer();
@@ -97,6 +97,15 @@ public class GameScreen implements Screen {
   }
 
   @Override
+  public void dispose() {
+    map.dispose();
+    renderer.dispose();
+    debugRenderer.dispose();
+    model.dispose();
+    batch.dispose();
+  }
+
+  @Override
   @Generated("interface-stub")
   public void resume() {
   }
@@ -108,15 +117,5 @@ public class GameScreen implements Screen {
 
   @Override
   @Generated("interface-stub")
-  public void hide() {
-  }
-
-  @Override
-  public void dispose() {
-    map.dispose();
-    renderer.dispose();
-    debugRenderer.dispose();
-    model.dispose();
-    batch.dispose();
-  }
+  public void hide() {}
 }
