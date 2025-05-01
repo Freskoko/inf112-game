@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.model.types;
+package inf112.firegirlwaterboy.model.entity.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

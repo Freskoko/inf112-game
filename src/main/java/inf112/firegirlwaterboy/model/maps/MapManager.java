@@ -9,7 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 
 /**
  * Manages loading and interacting with tiled maps in the game.

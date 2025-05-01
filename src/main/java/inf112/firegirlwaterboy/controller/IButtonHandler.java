@@ -3,7 +3,7 @@ package inf112.firegirlwaterboy.controller;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 
 /**
  * IButtonHandler interface defines the methods for handling buttons in the

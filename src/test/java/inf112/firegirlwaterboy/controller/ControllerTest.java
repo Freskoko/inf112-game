@@ -19,7 +19,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.model.GameState;
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 
 public class ControllerTest {
     private IControllableModel model;

@@ -17,8 +17,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import inf112.firegirlwaterboy.controller.MovementType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 import inf112.firegirlwaterboy.model.maps.LayerType;
-import inf112.firegirlwaterboy.model.types.PlayerType;
 import inf112.firegirlwaterboy.sound.IPlayerSoundManager;
 import inf112.firegirlwaterboy.sound.PlayerSoundManager;
 

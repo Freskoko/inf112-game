@@ -3,7 +3,8 @@ package inf112.firegirlwaterboy.model.maps;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
-import inf112.firegirlwaterboy.model.types.PlayerType;
+
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 
 /**
  * Interface for managing tiled maps in the game.

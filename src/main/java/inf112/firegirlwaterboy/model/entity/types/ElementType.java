@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.model.types;
+package inf112.firegirlwaterboy.model.entity.types;
 
 /**
  * Enum for the different element types in the game.
@@ -23,5 +23,4 @@ public enum ElementType {
   public String[] getTexturePaths() {
     return texturePaths;
   }
-
 }

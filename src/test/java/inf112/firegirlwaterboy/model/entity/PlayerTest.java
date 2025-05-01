@@ -25,9 +25,10 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.controller.MovementType;
-import inf112.firegirlwaterboy.model.types.CollectableType;
-import inf112.firegirlwaterboy.model.types.ElementType;
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.types.CollectableType;
+import inf112.firegirlwaterboy.model.entity.types.ElementType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -8,8 +8,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import inf112.firegirlwaterboy.controller.MovementType;
+import inf112.firegirlwaterboy.model.entity.types.ElementType;
 import inf112.firegirlwaterboy.model.maps.MapUtils;
-import inf112.firegirlwaterboy.model.types.ElementType;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

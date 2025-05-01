@@ -2,7 +2,7 @@ package inf112.firegirlwaterboy.model.entity;
 
 import java.util.Set;
 
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 
 /**
  * Interface for collectable items in the game.

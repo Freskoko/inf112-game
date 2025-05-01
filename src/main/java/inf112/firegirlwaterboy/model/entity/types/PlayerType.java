@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.model.types;
+package inf112.firegirlwaterboy.model.entity.types;
 
 /**
  * Enum for the two different player types in the game.

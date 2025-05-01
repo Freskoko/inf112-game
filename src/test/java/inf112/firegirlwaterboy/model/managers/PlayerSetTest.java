@@ -17,7 +17,8 @@ import com.badlogic.gdx.graphics.GL20;
 
 import inf112.firegirlwaterboy.app.FireGirlWaterBoy;
 import inf112.firegirlwaterboy.model.entity.Player;
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.managers.PlayerSet;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 
 public class PlayerSetTest {
 

@@ -1,4 +1,4 @@
-package inf112.firegirlwaterboy.model.types;
+package inf112.firegirlwaterboy.model.entity.types;
 
 import java.util.Set;
 

@@ -10,7 +10,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 import inf112.firegirlwaterboy.model.entity.Element;
 import inf112.firegirlwaterboy.model.entity.IEntity;
-import inf112.firegirlwaterboy.model.types.ElementType;
+import inf112.firegirlwaterboy.model.entity.managers.EntitySet;
+import inf112.firegirlwaterboy.model.entity.types.ElementType;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

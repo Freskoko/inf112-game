@@ -2,7 +2,7 @@ package inf112.firegirlwaterboy.controller;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
-import inf112.firegirlwaterboy.model.types.PlayerType;
+import inf112.firegirlwaterboy.model.entity.types.PlayerType;
 
 /**
  * IController interface defines the methods for handling game logic and button
